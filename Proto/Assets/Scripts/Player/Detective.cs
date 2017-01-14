@@ -7,7 +7,7 @@ public class Detective : MonoBehaviour
 
     CamerasController m_CamerasController;
 
-    int[] m_TargetCharacteristics = new int[6];
+    int[][] m_TargetCharacteristics;
 
     int m_CurrentCamera = 0;
 
@@ -17,23 +17,14 @@ public class Detective : MonoBehaviour
 
         m_CamerasController = GetComponent<CamerasController>();
 
-        RefreshCamera();       
+        RefreshCamera();
 
         GiveSuspectCharacteristics();
     }
 
     void GiveSuspectCharacteristics()
     {
-        Characteristics[] targets = FindObjectsOfType<Characteristics>();
-
-        if (targets.Length > 0)
-        {
-            Characteristics target = targets[Random.Range(0, targets.Length)];
-            if (target)
-            {
-                m_TargetCharacteristics = target.GetCharacteristics();
-            }
-        }
+        m_TargetCharacteristics = FindObjectOfType<GameManager>().GetTargets();
     }
 	
 	void Update ()
@@ -91,17 +82,19 @@ public class Detective : MonoBehaviour
             {
                 int[] characteristics = target.GetCharacteristics();
 
-                for(int i = 0; i < characteristics.Length; ++i)
+                for (int j = 0; j < m_TargetCharacteristics.Length; ++j)
                 {
-                    if(characteristics[i] != m_TargetCharacteristics[i])
+                    for (int i = 0; i < characteristics.Length; ++i)//logic error for multiples targets
                     {
-                        Debug.Log("Not the Target");
-                        return;
+                        if (characteristics[i] != m_TargetCharacteristics[j][i])
+                        {
+                            Debug.Log("Target: " + target.name + " is not valide the part " + i + " differ!");
+                            return;
+                        }
                     }
-                }
 
-                Debug.Log("Target Found: " + target.gameObject.name);
-                return;
+                    Debug.Log("Target Found: " + target.name + ".");
+                }
             }
         }
     }
