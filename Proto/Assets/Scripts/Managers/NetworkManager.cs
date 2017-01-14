@@ -5,11 +5,6 @@ public class NetworkManager : MonoBehaviour
 {
     [SerializeField]Transform[] m_SpawnPoint;
 
-    void Start ()
-    {
-		
-	}
-
     void OnJoinedRoom()
     {
         GameObject myPlayer = PhotonNetwork.Instantiate("Player", m_SpawnPoint[PhotonNetwork.playerList.Length-1].position, m_SpawnPoint[PhotonNetwork.playerList.Length-1].rotation, 0);

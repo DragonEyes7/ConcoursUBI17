@@ -16,7 +16,6 @@ public class ServerUI : MonoBehaviour
 
     public void CreateServer()
     {
-        //PhotonNetwork.ConnectUsingSettings(m_ServerNameField.text);
         PhotonNetwork.CreateRoom(m_ServerNameField.text, null, null);
         SceneManager.LoadScene("Level1");
     }
@@ -29,7 +28,6 @@ public class ServerUI : MonoBehaviour
             serverbutton.GetComponentInChildren<Text>().text = roomInfo.Name + " " + roomInfo.PlayerCount + "/" + roomInfo.MaxPlayers;
 
             serverbutton.GetComponent<Button>().onClick.AddListener(() => JoinServer(roomInfo.Name));
-            //PhotonNetwork.JoinRoom(roomInfo.Name);
         }
     }
 
