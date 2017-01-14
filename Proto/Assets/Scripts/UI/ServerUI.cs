@@ -13,16 +13,6 @@ public class ServerUI : MonoBehaviour
         PhotonNetwork.ConnectUsingSettings("Proto v0.1");
         StartCoroutine(WaitForConnection());
     }
-	
-	void Update ()
-    {
-		
-	}
-
-    void OnGUI()
-    {
-        GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
-    }
 
     public void CreateServer()
     {
