@@ -7,16 +7,17 @@ public class NetworkManager : MonoBehaviour
 
     void OnJoinedRoom()
     {
-        if(PhotonNetwork.playerList.Length - 1 == 1)//Agent
+        if(PhotonNetwork.playerList.Length - 1 == 0)
         {
             GameObject myPlayer = PhotonNetwork.Instantiate("Player", m_SpawnPoint[PhotonNetwork.playerList.Length - 1].position, m_SpawnPoint[PhotonNetwork.playerList.Length - 1].rotation, 0);
             myPlayer.name = "My Player";
             myPlayer.GetComponentInChildren<Renderer>().material.color = Color.blue;
         }
-        else //Detective
+        else
         {
             FindObjectOfType<Detective>().enabled = true;
         }
+
         LoadingCompleted();
     }
 
