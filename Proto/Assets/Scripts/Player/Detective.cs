@@ -94,6 +94,7 @@ public class Detective : MonoBehaviour
                     }
 
                     Debug.Log("Target Found: " + target.name + ".");
+                    target.TargetIdentified();
                 }
             }
         }
