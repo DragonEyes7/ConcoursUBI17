@@ -19,4 +19,13 @@ public class Characteristics : MonoBehaviour
     {
         GetComponentInChildren<Renderer>().material.color = Color.red;
     }
+
+    void OnDestroy()
+    {
+        GameManager GM = FindObjectOfType<GameManager>();
+        if(GM)
+        {
+            GM.ValidateTarget(m_Characteristics);
+        }        
+    }
 }

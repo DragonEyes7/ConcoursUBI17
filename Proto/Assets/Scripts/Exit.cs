@@ -2,15 +2,11 @@
 
 public class Exit : Interactive
 {
+    GameManager m_GameManager;
 
-	void Start ()
+    void Start ()
     {
-		
-	}
-	
-	void Update ()
-    {
-		
+        m_GameManager = FindObjectOfType<GameManager>();
 	}
 
     void OnTriggerEnter(Collider other)
@@ -36,14 +32,18 @@ public class Exit : Interactive
 
     public override void Interact()
     {
-        Debug.Log("Level left");
-        /*if(GameManager.ObjectifCompleted())
+        if (m_GameManager.ObjectivesCompleted())
         {
-            //Mission Completed
+            Debug.Log("Mission Successfull");
+            if(m_GameManager.GetInnocentTargetKilled() > 0)
+            {
+                Debug.Log("You killed " + m_GameManager.GetInnocentTargetKilled() + " innocents.");
+            }
         }
         else
         {
-            //Mission failed
-        }*/
+            Debug.Log("Mission failed");
+            Debug.Log("You didn't complete your objectives.");
+        }
     }
 }

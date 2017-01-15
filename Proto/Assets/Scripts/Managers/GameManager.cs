@@ -5,12 +5,20 @@ public class GameManager : MonoBehaviour
     [SerializeField]Transform[] m_DoorsSpawn;
     [SerializeField]int m_NumberOfTargets = 1;
     int[][] m_TargetsCharacteristics;
+    bool[] m_ObjectivesCompleted;
+    int m_InnocentTargetsKilled;
 
     public void Setup()
     {
+        SetupObjectives();
         ValideNumberOfTargets();
         FindRandomTargets();
         SetupRandomExit();
+    }
+
+    void SetupObjectives()
+    {
+        m_ObjectivesCompleted = new bool[m_NumberOfTargets];
     }
 
     void ValideNumberOfTargets()
@@ -100,5 +108,43 @@ public class GameManager : MonoBehaviour
     public int[][] GetTargets()
     {
         return m_TargetsCharacteristics;
+    }
+
+    public void ValidateTarget(int[] characteristics)
+    {
+        bool found = true;
+        int i = 0;
+        for (int j = 0; j < characteristics.Length; ++j)
+        {
+            if (characteristics[j] != m_TargetsCharacteristics[i][j])
+            {
+                found = false;
+                ++m_InnocentTargetsKilled;
+                break;
+            }
+        }
+
+        if (found)
+        {
+            m_ObjectivesCompleted[i] = true;
+        }
+    }
+
+    public bool ObjectivesCompleted()
+    {
+        for(int i = 0; i < m_ObjectivesCompleted.Length; ++i)
+        {
+            if(!m_ObjectivesCompleted[i])
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int GetInnocentTargetKilled()
+    {
+        return m_InnocentTargetsKilled;
     }
 }
