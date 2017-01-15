@@ -13,6 +13,7 @@ public class NetworkManager : MonoBehaviour
             myPlayer.name = "My Player";
             myPlayer.GetComponentInChildren<Renderer>().material.color = Color.blue;
             myPlayer.GetComponent<Movement>().enabled = true;
+            FindObjectOfType<GameManager>().Setup();
         }
         else
         {
