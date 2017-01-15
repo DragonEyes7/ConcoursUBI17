@@ -66,5 +66,17 @@ public class Exit : Interactive
     void RPCInteract(string msg, float duration)
     {
         m_HUD.ShowMessages(msg,duration);
+
+        if (m_GameManager.isMaster)
+        {
+            duration += 1f;
+        }
+
+        Invoke("Disconnect", duration + 1f);
+    }
+
+    void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
     }
 }
