@@ -14,6 +14,7 @@ public class NetworkManager : MonoBehaviour
             myPlayer.GetComponentInChildren<Renderer>().material.color = Color.blue;
             myPlayer.GetComponent<Movement>().enabled = true;
             FindObjectOfType<GameManager>().Setup();
+            SetupHUD(myPlayer);
         }
         else
         {
@@ -21,6 +22,15 @@ public class NetworkManager : MonoBehaviour
         }
 
         LoadingCompleted();
+    }
+
+    void SetupHUD(GameObject myPlayer)
+    {
+        HUD hud = FindObjectOfType<HUD>();
+        if (hud)
+        {
+            hud.SetPlayer(myPlayer);
+        }
     }
 
     void OnDisconnectedFromPhoton()

@@ -3,9 +3,12 @@
 public class Exit : Interactive
 {
     GameManager m_GameManager;
+    GameObject m_Player;
 
-    void Start ()
+    protected new void Start ()
     {
+        base.Start();
+
         m_GameManager = FindObjectOfType<GameManager>();
 	}
 
@@ -14,7 +17,8 @@ public class Exit : Interactive
         Action act = other.GetComponent<Action>();
         if (act)
         {
-            Debug.Log("Player is leaving...");
+            m_Player = other.gameObject;
+            m_HUD.ShowActionPrompt("Exit mission");
             act.SetInteract(true);
             act.SetInteractionObject(this);
         }
@@ -25,25 +29,29 @@ public class Exit : Interactive
         Action act = other.GetComponent<Action>();
         if (act)
         {
-            Debug.Log("EliminateTarget not Possible");
+            m_HUD.HideActionPrompt();
             act.SetInteract(false);            
         }
     }
 
     public override void Interact()
     {
+        m_Player.SetActive(false);
         if (m_GameManager.ObjectivesCompleted())
         {
-            Debug.Log("Mission Successfull");
+            string msg = "Mission Successfull";
             if(m_GameManager.GetInnocentTargetKilled() > 0)
             {
-                Debug.Log("You killed " + m_GameManager.GetInnocentTargetKilled() + " innocents.");
+                msg += "\nYou killed " + m_GameManager.GetInnocentTargetKilled() + " innocents.";
             }
+
+            m_HUD.ShowMessages(msg, 5f);
         }
         else
         {
-            Debug.Log("Mission failed");
-            Debug.Log("You didn't complete your objectives.");
+            string msg = "Mission Failed";
+            msg += "\nYou didn't complete your objectives.";
+            m_HUD.ShowMessages(msg, 5f);
         }
     }
 }

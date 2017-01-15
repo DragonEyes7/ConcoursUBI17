@@ -5,6 +5,11 @@ public class Action : MonoBehaviour
     Interactive m_Interactive;
     bool m_Interact;
 
+    public bool isInteracting
+    {
+        get { return m_Interact; }
+    }
+
 	void Start ()
     {
 		
