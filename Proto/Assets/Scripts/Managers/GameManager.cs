@@ -8,8 +8,17 @@ public class GameManager : MonoBehaviour
     bool[] m_ObjectivesCompleted;
     int m_InnocentTargetsKilled;
 
+    bool m_IsMaster;
+
+    public bool isMaster
+    {
+        get { return m_IsMaster; }
+        set { m_IsMaster = value; }
+    }
+
     public void Setup()
     {
+        m_IsMaster = true;
         SetupObjectives();
         ValideNumberOfTargets();
         FindRandomTargets();
@@ -18,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     void SetupObjectives()
     {
-        m_ObjectivesCompleted = new bool[m_NumberOfTargets];
+        UpdateObjectivesCompleted(new bool[m_NumberOfTargets]);
     }
 
     void ValideNumberOfTargets()
@@ -72,6 +81,10 @@ public class GameManager : MonoBehaviour
         {
             m_TargetsCharacteristics = (int[][])propertiesThatChanged["Targets"];
             //DebugShowTarget();
+        }
+        else if(propertiesThatChanged.ContainsKey("Objectives"))
+        {
+            m_ObjectivesCompleted = (bool[])propertiesThatChanged["Objectives"];
         }
     }
 
@@ -127,6 +140,7 @@ public class GameManager : MonoBehaviour
         if (found)
         {
             m_ObjectivesCompleted[i] = true;
+            UpdateObjectivesCompleted();
         }
     }
 
@@ -146,5 +160,39 @@ public class GameManager : MonoBehaviour
     public int GetInnocentTargetKilled()
     {
         return m_InnocentTargetsKilled;
+    }
+
+    void UpdateObjectivesCompleted(bool[] array)
+    {
+        m_ObjectivesCompleted = array;
+
+        if (PhotonNetwork.room.CustomProperties.ContainsKey("Objectives"))
+        {
+            ExitGames.Client.Photon.Hashtable prop = PhotonNetwork.room.CustomProperties;
+            prop["Objectives"] = m_ObjectivesCompleted;
+            PhotonNetwork.room.SetCustomProperties(prop);
+        }
+        else
+        {
+            ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();
+            prop.Add("Objectives", m_ObjectivesCompleted);
+            PhotonNetwork.room.SetCustomProperties(prop);
+        }
+    }
+
+    void UpdateObjectivesCompleted()
+    {
+        if (PhotonNetwork.room.CustomProperties.ContainsKey("Objectives"))
+        {
+            ExitGames.Client.Photon.Hashtable prop = PhotonNetwork.room.CustomProperties;
+            prop["Objectives"] = m_ObjectivesCompleted;
+            PhotonNetwork.room.SetCustomProperties(prop);
+        }
+        else
+        {
+            ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();
+            prop.Add("Objectives", m_ObjectivesCompleted);
+            PhotonNetwork.room.SetCustomProperties(prop);
+        }
     }
 }

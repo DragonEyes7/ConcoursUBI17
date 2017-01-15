@@ -42,9 +42,12 @@ public class HUD : MonoBehaviour
 
     public void SetPlayer(GameObject player)
     {
-        m_Player = player;
+        if(player)
+        {
+            m_Player = player;
 
-        SetupAction();
+            SetupAction();
+        }
     }
 
     void SetupAction()

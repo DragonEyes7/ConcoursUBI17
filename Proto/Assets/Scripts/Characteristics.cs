@@ -25,7 +25,10 @@ public class Characteristics : MonoBehaviour
         GameManager GM = FindObjectOfType<GameManager>();
         if(GM)
         {
-            GM.ValidateTarget(m_Characteristics);
+            if(GM.isMaster)
+            {
+                GM.ValidateTarget(m_Characteristics);
+            }            
         }        
     }
 }

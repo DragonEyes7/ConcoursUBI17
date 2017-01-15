@@ -4,11 +4,12 @@ public class Exit : Interactive
 {
     GameManager m_GameManager;
     GameObject m_Player;
+    PhotonView m_PhotonView;
 
     protected new void Start ()
     {
         base.Start();
-
+        m_PhotonView = GetComponent<PhotonView>();
         m_GameManager = FindObjectOfType<GameManager>();
 	}
 
@@ -17,10 +18,13 @@ public class Exit : Interactive
         Action act = other.GetComponent<Action>();
         if (act)
         {
-            m_Player = other.gameObject;
-            m_HUD.ShowActionPrompt("Exit mission");
-            act.SetInteract(true);
-            act.SetInteractionObject(this);
+            if(act.enabled)
+            {
+                m_Player = other.gameObject;
+                m_HUD.ShowActionPrompt("Exit mission");
+                act.SetInteract(true);
+                act.SetInteractionObject(this);
+            }
         }
     }
 
@@ -29,29 +33,38 @@ public class Exit : Interactive
         Action act = other.GetComponent<Action>();
         if (act)
         {
-            m_HUD.HideActionPrompt();
-            act.SetInteract(false);            
+            if(act.enabled)
+            {
+                m_HUD.HideActionPrompt();
+                act.SetInteract(false);
+            }        
         }
     }
 
     public override void Interact()
     {
         m_Player.SetActive(false);
+        string msg = "";
         if (m_GameManager.ObjectivesCompleted())
         {
-            string msg = "Mission Successfull";
+            msg = "Mission Successfull";
             if(m_GameManager.GetInnocentTargetKilled() > 0)
             {
                 msg += "\nYou killed " + m_GameManager.GetInnocentTargetKilled() + " innocents.";
-            }
-
-            m_HUD.ShowMessages(msg, 5f);
+            }            
         }
         else
         {
-            string msg = "Mission Failed";
+            msg = "Mission Failed";
             msg += "\nYou didn't complete your objectives.";
-            m_HUD.ShowMessages(msg, 5f);
         }
+
+        m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
+    }
+
+    [PunRPC]
+    void RPCInteract(string msg, float duration)
+    {
+        m_HUD.ShowMessages(msg,duration);
     }
 }

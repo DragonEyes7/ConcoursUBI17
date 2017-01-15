@@ -7,9 +7,12 @@ public class EliminateTarget : Interactive
         Action act = other.GetComponent<Action>();
         if(act)
         {
-            m_HUD.ShowActionPrompt("Eliminate");
-            act.SetInteract(true);
-            act.SetInteractionObject(this);
+            if(act.enabled)
+            {
+                m_HUD.ShowActionPrompt("Eliminate");
+                act.SetInteract(true);
+                act.SetInteractionObject(this);
+            }
         }
     }
 
@@ -18,8 +21,11 @@ public class EliminateTarget : Interactive
         Action act = other.GetComponent<Action>();
         if (act)
         {
-            m_HUD.HideActionPrompt();
-            act.SetInteract(false);
+            if(act.enabled)
+            {
+                m_HUD.HideActionPrompt();
+                act.SetInteract(false);
+            }
         }
     }
 
