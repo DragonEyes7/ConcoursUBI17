@@ -2,7 +2,7 @@
 
 public class Detective : MonoBehaviour
 {
-    [SerializeField]Camera[] m_Cameras;
+    Camera[] m_Cameras;
     [SerializeField]Camera m_SceneCamera;
 
     CamerasController m_CamerasController;
@@ -17,9 +17,20 @@ public class Detective : MonoBehaviour
 
         m_CamerasController = GetComponent<CamerasController>();
 
+        DetectiveCamStart[] camFs = FindObjectsOfType<DetectiveCamStart>();
+        Debug.Log(camFs[0]);
+
+        m_Cameras = new Camera[camFs.Length];
+
+        for(int i = 0; i < camFs.Length; ++i)
+        {
+            m_Cameras[i] = camFs[i].GetComponent<Camera>();
+            m_Cameras[i].enabled = true;
+        }
+
         RefreshCamera();
 
-        GiveSuspectCharacteristics();
+        //GiveSuspectCharacteristics();
     }
 
     void GiveSuspectCharacteristics()
@@ -61,7 +72,7 @@ public class Detective : MonoBehaviour
         {
             m_Cameras[i].gameObject.SetActive(false);
         }
-        m_Cameras[m_CurrentCamera].gameObject.SetActive(true);
+        m_Cameras[m_CurrentCamera].enabled = true;
         m_CamerasController.SetActiveCamera(m_CurrentCamera);
     }
 

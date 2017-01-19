@@ -16,6 +16,8 @@ public class NetworkManager : MonoBehaviour
             myPlayer.GetComponentInChildren<Renderer>().material.color = Color.blue;
             myPlayer.GetComponent<Movement>().enabled = true;
             myPlayer.GetComponent<Action>().enabled = true;
+            myPlayer.GetComponent<PlayerSetup>().enabled = true;
+            myPlayer.GetComponent<PlayerSetup>().SetupCamera();
 
             TutoManager TM = FindObjectOfType<TutoManager>();
             if (TM)
