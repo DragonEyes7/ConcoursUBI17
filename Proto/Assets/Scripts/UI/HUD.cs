@@ -6,6 +6,8 @@ public class HUD : MonoBehaviour
     [SerializeField]RectTransform m_ActionPrompt;
     [SerializeField]Slider m_ActionSlider;
     [SerializeField]Text m_Messages;
+    [SerializeField]Text m_Objectives;
+    [SerializeField]Text m_Timer;
     Text m_ActionSliderTimer;
     GameObject m_Player;
 
@@ -13,7 +15,8 @@ public class HUD : MonoBehaviour
 
     float m_CurrentActionDuration;
 
-	void Start ()
+    #region private
+    void Start ()
     {
         m_Messages.gameObject.SetActive(false);
         m_ActionPrompt.gameObject.SetActive(false);
@@ -40,23 +43,13 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void SetPlayer(GameObject player)
-    {
-        if(player)
-        {
-            m_Player = player;
-
-            SetupAction();
-        }
-    }
-
     void SetupAction()
     {
         m_Action = m_Player.GetComponent<Action>();
         //m_Action.EventActionStartTimer += SetTimer;
     }
 
-    void SetTimer(float duration)
+    void SetActionDuration(float duration)
     {
         m_CurrentActionDuration = duration + Time.time;
         m_ActionPrompt.gameObject.SetActive(false);
@@ -66,28 +59,6 @@ public class HUD : MonoBehaviour
 
         HideActionMeter();
         m_ActionSlider.gameObject.SetActive(true);
-    }
-
-    public void ShowActionPrompt(string message)
-    {
-        m_ActionSlider.gameObject.SetActive(false);
-        m_ActionPrompt.GetComponentInChildren<Text>().text = message;
-        //m_ActionPrompt.GetComponentInChildren<Image>() = sprite;
-        m_ActionPrompt.gameObject.SetActive(true);        
-    }
-
-    public void HideActionPrompt()
-    {
-        if(m_ActionPrompt.gameObject.activeSelf)
-        {
-            m_ActionPrompt.gameObject.SetActive(false);
-        }
-        else
-        {
-            m_ActionSliderTimer.text = "Cancelled";
-            m_Action.SetInteract(false);
-            InvokeRepeating("FadeActionMeter", 0f, 0.15f);
-        }
     }
 
     void FadeActionMeter()
@@ -115,13 +86,6 @@ public class HUD : MonoBehaviour
         CancelInvoke("FadeActionMeter");
     }
 
-    public void ShowMessages(string msg, float duration)
-    {
-        m_Messages.text = msg;
-        m_Messages.gameObject.SetActive(true);
-        InvokeRepeating("FadeMessage", duration, 0.15f);
-    }
-
     void FadeMessage()
     {
         CanvasRenderer canva = m_Messages.GetComponent<CanvasRenderer>();
@@ -140,4 +104,57 @@ public class HUD : MonoBehaviour
         canva.SetAlpha(1f);
         CancelInvoke("FadeMessage");
     }
+    #endregion
+
+    #region public
+    public void SetPlayer(GameObject player)
+    {
+        if (player)
+        {
+            m_Player = player;
+
+            SetupAction();
+        }
+    }
+
+    public void SetObjectives(string obj)
+    {
+        m_Objectives.text = obj;
+    }
+
+    public void SetLevelTimer(float timer)
+    {
+        string minSec = string.Format("{0}:{1:00}", (int)timer / 60, (int)timer % 60);
+        m_Timer.text = minSec;
+    }
+
+    public void ShowMessages(string msg, float duration)
+    {
+        m_Messages.text = msg;
+        m_Messages.gameObject.SetActive(true);
+        InvokeRepeating("FadeMessage", duration, 0.15f);
+    }
+
+    public void ShowActionPrompt(string message)
+    {
+        m_ActionSlider.gameObject.SetActive(false);
+        m_ActionPrompt.GetComponentInChildren<Text>().text = message;
+        //m_ActionPrompt.GetComponentInChildren<Image>() = sprite;
+        m_ActionPrompt.gameObject.SetActive(true);
+    }
+
+    public void HideActionPrompt()
+    {
+        if (m_ActionPrompt.gameObject.activeSelf)
+        {
+            m_ActionPrompt.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_ActionSliderTimer.text = "Cancelled";
+            m_Action.SetInteract(false);
+            InvokeRepeating("FadeActionMeter", 0f, 0.15f);
+        }
+    }
+    #endregion
 }

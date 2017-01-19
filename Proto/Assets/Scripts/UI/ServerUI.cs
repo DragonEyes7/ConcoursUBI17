@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class ServerUI : MonoBehaviour
 {
+    [SerializeField]string m_LevelToTest;
     [SerializeField]InputField m_ServerNameField;
     [SerializeField]RectTransform m_ServerList;
     List<GameObject> m_ServerButtons = new List<GameObject>();
@@ -19,7 +20,7 @@ public class ServerUI : MonoBehaviour
     {
         PhotonNetwork.CreateRoom(m_ServerNameField.text, null, null);
         //SceneManager.LoadScene("Level1");
-        PhotonNetwork.LoadLevel("Level1");
+        PhotonNetwork.LoadLevel(m_LevelToTest);
     }
 
     public void GetServerList()
@@ -46,7 +47,7 @@ public class ServerUI : MonoBehaviour
     {
         PhotonNetwork.JoinRoom(serverName);
         //SceneManager.LoadScene("Level1");
-        PhotonNetwork.LoadLevel("Level1");
+        PhotonNetwork.LoadLevel(m_LevelToTest);
     }
 
     IEnumerator WaitForConnection()
