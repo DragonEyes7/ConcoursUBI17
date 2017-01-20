@@ -2,21 +2,15 @@
 
 public class Movement : MonoBehaviour
 {
-    protected bool m_Control = true;
+    protected Recorder m_Recorder;
 	
 	void Start ()
     {
-		
-	}
-	
+        m_Recorder = GetComponent<Recorder>();
+	}	
 	
 	void Update ()
     {
 		
 	}
-
-    public void SetControl(bool value)
-    {
-        m_Control = value;
-    }
 }

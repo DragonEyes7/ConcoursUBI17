@@ -18,7 +18,6 @@ public class Detective : MonoBehaviour
         m_CamerasController = GetComponent<CamerasController>();
 
         DetectiveCamStart[] camFs = FindObjectsOfType<DetectiveCamStart>();
-        Debug.Log(camFs[0]);
 
         m_Cameras = new Camera[camFs.Length];
 
@@ -72,7 +71,7 @@ public class Detective : MonoBehaviour
         {
             m_Cameras[i].gameObject.SetActive(false);
         }
-        m_Cameras[m_CurrentCamera].enabled = true;
+        m_Cameras[m_CurrentCamera].gameObject.SetActive(true);
         m_CamerasController.SetActiveCamera(m_CurrentCamera);
     }
 

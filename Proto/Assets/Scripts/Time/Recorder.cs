@@ -51,16 +51,19 @@ public class Recorder : MonoBehaviour
 
 	//Animator m_Animator;
 	Rigidbody m_Rigidbody;
-	Movement m_Movement;
 
-	bool isPlaying = false;
-	bool isRecording = true;
+	bool m_IsPlaying = false;
+	bool m_IsRecording = true;
+
+    public bool isRecording
+    {
+        get { return m_IsRecording; }
+    }
 
 	void Start()
 	{
 		//m_Animator = GetComponent<Animator>();
 		m_Rigidbody = GetComponent<Rigidbody>();
-        m_Movement = GetComponent<Movement>();
         m_TimeController = FindObjectOfType<TimeController>();
 	}
 
@@ -68,7 +71,7 @@ public class Recorder : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.P))
 		{
-			isRecording = false;
+			m_IsRecording = false;
 			SetRecording(m_States);
 			m_TimeController.time = 0;
 			//m_Animator.SetBool("Transition", false);
@@ -77,12 +80,9 @@ public class Recorder : MonoBehaviour
 		if(Input.GetButtonDown("TimeRewind"))
 		{
 			SetRecording(m_States);
-			if(m_Movement)
-			{
-				m_Movement.SetControl(false);
-			}
-			isRecording = false;
-			isPlaying = true;
+
+			m_IsRecording = false;
+			m_IsPlaying = true;
 			//m_Animator.SetBool("Transition", false);
 			//m_Animator.SetFloat("GlobalSpeed", m_Animator.GetFloat("GlobalSpeed") * -1f);
 		}
@@ -95,13 +95,9 @@ public class Recorder : MonoBehaviour
 		if(Input.GetButtonUp("TimeRewind"))
 		{
 			m_TimeController.isFoward = true;
-			isRecording = true;
-			isPlaying = false;
+			m_IsRecording = true;
+			m_IsPlaying = false;
 
-            if (m_Movement)
-            {
-                m_Movement.SetControl(true);
-            }
             //m_Animator.SetBool("Transition", true);
 			if(m_Rigidbody)
 			{
@@ -113,7 +109,7 @@ public class Recorder : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (isRecording)
+		if (m_IsRecording)
 		{
 			m_States[m_TimeController.time] =  new RecordState(transform.position, transform.rotation);
             //m_Animator.GetCurrentAnimatorStateInfo(0).shortNameHash,
@@ -121,7 +117,7 @@ public class Recorder : MonoBehaviour
             //m_Animator.GetFloat("Speed"));
         }
 
-		if (isPlaying)
+		if (m_IsPlaying)
 		{
 			if (m_Recording.ContainsKey(m_TimeController.time))
 			{
@@ -146,7 +142,7 @@ public class Recorder : MonoBehaviour
 	void SetRecording(Dictionary<int, RecordState> recording)
 	{
 		m_Recording = new Dictionary<int, RecordState>(recording);
-		isPlaying = true;
+		m_IsPlaying = true;
 		if(m_Rigidbody)
 		{
 			m_Rigidbody.isKinematic = true;

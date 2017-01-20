@@ -2,6 +2,7 @@
 
 public class Action : MonoBehaviour
 {
+    Recorder m_Recorder;
     Interactive m_Interactive;
     bool m_Interact;
 
@@ -12,12 +13,12 @@ public class Action : MonoBehaviour
 
 	void Start ()
     {
-		
+        m_Recorder = GetComponent<Recorder>();
 	}
 	
 	void Update ()
     {
-		if(m_Interact && Input.GetButtonDown("Action"))
+		if(m_Interact && Input.GetButtonDown("Action") && m_Recorder.isRecording)
         {
             m_Interactive.Interact();
             m_Interact = false;

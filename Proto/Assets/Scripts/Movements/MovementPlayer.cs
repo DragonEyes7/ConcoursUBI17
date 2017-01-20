@@ -18,10 +18,13 @@ public class MovementPlayer : Movement
 	
 	void FixedUpdate()
     {
-        m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (m_Input.magnitude > 0)
+        if(m_Recorder.isRecording)
         {
-            Move();
+            m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (m_Input.magnitude > 0)
+            {
+                Move();
+            }
         }
     }
 
