@@ -19,20 +19,15 @@ public class NetworkManager : MonoBehaviour
             myPlayer.GetComponent<PlayerSetup>().enabled = true;
             myPlayer.GetComponent<PlayerSetup>().SetupCamera();
 
-            TutoManager TM = FindObjectOfType<TutoManager>();
-            if (TM)
+            GameManager GM = FindObjectOfType<GameManager>();
+            if (GM)
             {
                 HUD hud = FindObjectOfType<HUD>();
                 if (hud)
                 {
                     hud.SetPlayer(myPlayer);
-                    obj = TM.CurrentObjectiveDefuser();
-                    timerInSeconds = TM.CurrentTimer();
+                    timerInSeconds = GM.CurrentTimer();
                 }
-            }
-            else
-            {
-                FindObjectOfType<GameManager>().Setup();
             }
 
             SetupHUD(myPlayer, obj, timerInSeconds);
@@ -41,11 +36,10 @@ public class NetworkManager : MonoBehaviour
         {
             FindObjectOfType<Detective>().enabled = true;
 
-            TutoManager TM = FindObjectOfType<TutoManager>();
-            if(TM)
+            GameManager GM = FindObjectOfType<GameManager>();
+            if(GM)
             {
-                obj = TM.CurrentObjectiveDetective();
-                timerInSeconds = TM.CurrentTimer();
+                timerInSeconds = GM.CurrentTimer();
             }
 
             SetupHUD(null, obj, timerInSeconds);

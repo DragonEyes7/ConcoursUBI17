@@ -10,6 +10,13 @@ public class GameManager : MonoBehaviour
 
     bool m_IsMaster;
 
+    [SerializeField]int _levelTimer = 30;
+
+    public int CurrentTimer()
+    {
+        return _levelTimer;
+    }
+
     public bool isMaster
     {
         get { return m_IsMaster; }

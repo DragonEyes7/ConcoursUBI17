@@ -30,10 +30,5 @@ public class TimeController : MonoBehaviour
             m_Time++;
             EventTick(m_Time);
         }
-        /*else if(!isForward)
-        {
-            m_Time--;
-            m_Time = m_Time < 0 ? 0 : m_Time;
-        }*/
     }
 }
