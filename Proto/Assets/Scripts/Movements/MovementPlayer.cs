@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class MovementPlayer : Movement
 {
     [SerializeField]float m_TurnSpeed = 6f;
     [SerializeField]float m_SpeedWalking = 3f;
