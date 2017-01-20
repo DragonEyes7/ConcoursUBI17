@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public struct RecordState
 {
@@ -83,14 +82,20 @@ public class Recorder : MonoBehaviour
 
 			m_IsRecording = false;
 			m_IsPlaying = true;
-			//m_Animator.SetBool("Transition", false);
-			//m_Animator.SetFloat("GlobalSpeed", m_Animator.GetFloat("GlobalSpeed") * -1f);
-		}
+            //m_Animator.SetBool("Transition", false);
+            //m_Animator.SetFloat("GlobalSpeed", m_Animator.GetFloat("GlobalSpeed") * -1f);
 
-		if(Input.GetButton("TimeRewind"))
+            m_TimeController.isFoward = false;
+            int timeToRewind = 3;
+            m_TimeController.time -= timeToRewind;
+        }
+
+		/*if(Input.GetButton("TimeRewind"))
 		{
-			m_TimeController.isFoward = false;	
-		}
+			m_TimeController.isFoward = false;
+            int timeToRewind = 3;
+            m_TimeController.time -= timeToRewind;
+		}*/
 
 		if(Input.GetButtonUp("TimeRewind"))
 		{

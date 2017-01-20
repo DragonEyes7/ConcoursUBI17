@@ -4,7 +4,7 @@ public class Movement : MonoBehaviour
 {
     protected Recorder m_Recorder;
 	
-	void Start ()
+	protected void Start ()
     {
         m_Recorder = GetComponent<Recorder>();
 	}	

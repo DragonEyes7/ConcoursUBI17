@@ -2,8 +2,12 @@
 
 public class TimeController : MonoBehaviour
 {
+    public delegate void Tick(int tick);
+    public event Tick EventTick;
+
 	int m_Time;
 	bool isForward = true;
+    float timer = 0;
 
 	public int time
 	{
@@ -19,14 +23,17 @@ public class TimeController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (isForward)
-		{
-			m_Time++;
-		}
-		else
-		{
-			m_Time--;
-			m_Time = m_Time < 0 ? 0 : m_Time;
-		}
-	}
+        timer += Time.deltaTime;
+        if(timer >= 1f && isForward)
+        {
+            timer = 0;
+            m_Time++;
+            EventTick(m_Time);
+        }
+        /*else if(!isForward)
+        {
+            m_Time--;
+            m_Time = m_Time < 0 ? 0 : m_Time;
+        }*/
+    }
 }

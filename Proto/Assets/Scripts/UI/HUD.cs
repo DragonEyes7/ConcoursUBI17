@@ -13,6 +13,8 @@ public class HUD : MonoBehaviour
 
     Action m_Action;
 
+    TimeController m_TimeController;
+    int m_LevelTime;
     float m_CurrentActionDuration;
 
     #region private
@@ -24,7 +26,10 @@ public class HUD : MonoBehaviour
         m_ActionSliderTimer = m_ActionSlider.GetComponentInChildren<Text>();
 
         m_ActionSlider.gameObject.SetActive(false);
-	}
+
+        m_TimeController = FindObjectOfType<TimeController>();
+        m_TimeController.EventTick += ShowTimer;
+    }
 
     void Update()
     {
@@ -104,6 +109,12 @@ public class HUD : MonoBehaviour
         canva.SetAlpha(1f);
         CancelInvoke("FadeMessage");
     }
+
+    void ShowTimer(int time)
+    {
+        string minSec = string.Format("{0}:{1:00}", (m_LevelTime- time) / 60, (m_LevelTime - time) % 60);
+        m_Timer.text = minSec;
+    }
     #endregion
 
     #region public
@@ -122,10 +133,9 @@ public class HUD : MonoBehaviour
         m_Objectives.text = obj;
     }
 
-    public void SetLevelTimer(float timer)
+    public void SetLevelTimer(int timer)
     {
-        string minSec = string.Format("{0}:{1:00}", (int)timer / 60, (int)timer % 60);
-        m_Timer.text = minSec;
+        m_LevelTime = timer;
     }
 
     public void ShowMessages(string msg, float duration)

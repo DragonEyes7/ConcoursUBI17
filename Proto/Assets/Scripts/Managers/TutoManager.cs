@@ -4,7 +4,7 @@ public class TutoManager : MonoBehaviour
 {
     [SerializeField]string[] m_ObjectivesMessagesDefuser;
     [SerializeField]string[] m_ObjectivesMessagesDetective;
-    float m_TimerInSeconds = 30f;
+    int m_TimerInSeconds = 30;
     int[] m_CurrentObjective = new int[2];
 
 	void Start ()
@@ -17,7 +17,7 @@ public class TutoManager : MonoBehaviour
 		
 	}
 
-    public float CurrentTimer()
+    public int CurrentTimer()
     {
         return m_TimerInSeconds;
     }

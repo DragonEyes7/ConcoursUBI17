@@ -10,8 +10,10 @@ public class MovementPlayer : Movement
     Vector3 m_MoveVector;
     float m_SpeedCurrent;
 
-    void Start ()
+    new void Start ()
     {
+        base.Start();
+
         m_Rigidbody = GetComponent<Rigidbody>();
         m_SpeedCurrent = m_SpeedWalking;
     }
