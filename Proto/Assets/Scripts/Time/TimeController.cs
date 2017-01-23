@@ -33,9 +33,8 @@ public class TimeController : MonoBehaviour
         }
     }
 
-    public bool SetTime(int newTime)
+    public int GetMaxTime(int newTime)
     {
-        if (newTime >= 0) time = newTime;
-        return newTime >= 0;
+        return newTime >= 0 ? newTime : time;
     }
 }

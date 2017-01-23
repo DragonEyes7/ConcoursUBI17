@@ -110,12 +110,12 @@ public class Recorder : MonoBehaviour
 
     private void SetTimeRewinding()
     {
-        const int timeToRewind = 3;
-        if (!m_TimeController.SetTime(m_TimeController.time - timeToRewind)) return;
         SetRecording(m_States);
         m_IsRecording = false;
         m_IsPlaying = true;
         m_TimeController.isFoward = false;
+        var timeToRewind = 3;
+        m_TimeController.time -= m_TimeController.GetMaxTime(m_TimeController.time - timeToRewind);
     }
 
     void FixedUpdate()
@@ -123,6 +123,7 @@ public class Recorder : MonoBehaviour
 		if (m_IsRecording)
 		{
 			m_States[m_TimeController.time] =  new RecordState(transform.position, transform.rotation);
+            Debug.LogWarning("New record State at time " + m_TimeController.time);
             //m_Animator.GetCurrentAnimatorStateInfo(0).shortNameHash,
 
             //m_Animator.GetFloat("Speed"));
@@ -130,7 +131,8 @@ public class Recorder : MonoBehaviour
 
 		if (m_IsPlaying)
 		{
-			if (m_Recording.ContainsKey(m_TimeController.time))
+            Debug.LogWarning("Back in time at time " + m_TimeController.time);
+            if (m_Recording.ContainsKey(m_TimeController.time))
 			{
 				PlayState(m_Recording[m_TimeController.time]);
 			}
