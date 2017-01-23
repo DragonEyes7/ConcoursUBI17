@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class CamerasController : MonoBehaviour
 {
     [SerializeField]GameObject[] m_CameraObjects;
+    [SerializeField]int m_NumberOfStartingCamera = 1;
+    [SerializeField]Camera m_SceneCamera;
     PhotonView m_PhotonView;
+    bool m_IsIntelligence = false;
 
     void Start ()
     {
@@ -14,6 +18,18 @@ public class CamerasController : MonoBehaviour
     {
 		
 	}
+
+    public void SetIntelligence(bool value)
+    {
+        if(value)
+        {
+            m_SceneCamera.gameObject.SetActive(false);
+            SetActiveCamera(0);
+            m_CameraObjects[0].GetComponent<PhotonView>().RequestOwnership();
+            m_CameraObjects[0].GetComponentInChildren<Camera>().enabled = true;
+            m_CameraObjects[0].GetComponent<CameraMovement>().enabled = true;
+        }
+    }
 
     public void SetActiveCamera(int noCamera)
     {

@@ -34,7 +34,7 @@ public class NetworkManager : MonoBehaviour
         }
         else
         {
-            FindObjectOfType<Detective>().enabled = true;
+            FindObjectOfType<CamerasController>().SetIntelligence(true);
 
             GameManager GM = FindObjectOfType<GameManager>();
             if(GM)
