@@ -136,6 +136,7 @@ public class HUD : MonoBehaviour
     public void SetLevelTimer(int timer)
     {
         m_LevelTime = timer;
+        m_TimeController.SetMaxTime(timer);
     }
 
     public void ShowMessages(string msg, float duration)

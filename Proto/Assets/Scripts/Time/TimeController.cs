@@ -29,8 +29,17 @@ public class TimeController : MonoBehaviour
         {
             timer = 0;
             m_Time++;
-            EventTick(m_Time);
+            if(EventTick != null)EventTick(m_Time);
+            if (m_Time == _maxTime)
+            {
+                //Game has ended stop countdown and show the players they f*cked up
+            }
         }
+    }
+
+    public void SetMaxTime(int maxTime)
+    {
+        _maxTime = maxTime;
     }
 
     public int GetMaxTime(int newTime)
