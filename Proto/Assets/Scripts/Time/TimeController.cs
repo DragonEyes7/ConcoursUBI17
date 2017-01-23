@@ -32,4 +32,10 @@ public class TimeController : MonoBehaviour
             EventTick(m_Time);
         }
     }
+
+    public bool SetTime(int newTime)
+    {
+        if (newTime >= 0) time = newTime;
+        return newTime >= 0;
+    }
 }
