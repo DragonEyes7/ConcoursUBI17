@@ -78,17 +78,8 @@ public class Recorder : MonoBehaviour
 
 		if(Input.GetButtonDown("TimeRewind"))
 		{
-			SetRecording(m_States);
-
-			m_IsRecording = false;
-			m_IsPlaying = true;
-            //m_Animator.SetBool("Transition", false);
-            //m_Animator.SetFloat("GlobalSpeed", m_Animator.GetFloat("GlobalSpeed") * -1f);
-
-            m_TimeController.isFoward = false;
-            int timeToRewind = 3;
-            m_TimeController.time -= timeToRewind;
-        }
+		    SetTimeRewinding();
+		}
 
 		/*if(Input.GetButton("TimeRewind"))
 		{
@@ -99,20 +90,35 @@ public class Recorder : MonoBehaviour
 
 		if(Input.GetButtonUp("TimeRewind"))
 		{
-			m_TimeController.isFoward = true;
-			m_IsRecording = true;
-			m_IsPlaying = false;
-
-            //m_Animator.SetBool("Transition", true);
-			if(m_Rigidbody)
-			{
-				m_Rigidbody.isKinematic = false;
-			}
-			//m_Animator.SetFloat("GlobalSpeed", m_Animator.GetFloat("GlobalSpeed") * -1f);
+		    SetTimeForward();
 		}
 	}
 
-	void FixedUpdate()
+    private void SetTimeForward()
+    {
+        m_TimeController.isFoward = true;
+        m_IsRecording = true;
+        m_IsPlaying = false;
+
+        //m_Animator.SetBool("Transition", true);
+        if (m_Rigidbody)
+        {
+            m_Rigidbody.isKinematic = false;
+        }
+        //m_Animator.SetFloat("GlobalSpeed", m_Animator.GetFloat("GlobalSpeed") * -1f);
+    }
+
+    private void SetTimeRewinding()
+    {
+        const int timeToRewind = 3;
+        if (!m_TimeController.SetTime(m_TimeController.time - timeToRewind)) return;
+        SetRecording(m_States);
+        m_IsRecording = false;
+        m_IsPlaying = true;
+        m_TimeController.isFoward = false;
+    }
+
+    void FixedUpdate()
 	{
 		if (m_IsRecording)
 		{
