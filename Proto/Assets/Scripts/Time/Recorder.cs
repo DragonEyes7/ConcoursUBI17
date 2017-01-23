@@ -123,7 +123,6 @@ public class Recorder : MonoBehaviour
 		if (m_IsRecording)
 		{
 			m_States[m_TimeController.time] =  new RecordState(transform.position, transform.rotation);
-            Debug.LogWarning("New record State at time " + m_TimeController.time);
             //m_Animator.GetCurrentAnimatorStateInfo(0).shortNameHash,
 
             //m_Animator.GetFloat("Speed"));
@@ -131,7 +130,6 @@ public class Recorder : MonoBehaviour
 
 		if (m_IsPlaying)
 		{
-            Debug.LogWarning("Back in time at time " + m_TimeController.time);
             if (m_Recording.ContainsKey(m_TimeController.time))
 			{
 				PlayState(m_Recording[m_TimeController.time]);
