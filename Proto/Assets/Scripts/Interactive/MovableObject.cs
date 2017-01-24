@@ -110,6 +110,12 @@ public class MovableObject : Interactive
 
     public override void Interact()
     {
+        GetComponent<PhotonView>().RPC("RPCInteract", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    void RPCInteract()
+    {
         m_Move = true;
     }
 }
