@@ -5,10 +5,20 @@ public class TimeController : MonoBehaviour
     public delegate void Tick(int tick);
     public event Tick EventTick;
 
+    public delegate void End();
+    public event End EventEnd;
+
     int m_Time, _maxTime;
     bool isForward = true;
     float timer = 0;
 
+    delegate void OnThick();
+    event OnThick EventOnThick;
+
+    TimeController()
+    {
+        EventOnThick += DoThick;
+    }
     public int time
     {
         get { return m_Time; }
@@ -24,6 +34,11 @@ public class TimeController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(EventOnThick != null) EventOnThick();
+    }
+
+    void DoThick()
+    {
         timer += Time.deltaTime;
         if (timer >= 1f && isForward)
         {
@@ -33,6 +48,8 @@ public class TimeController : MonoBehaviour
             if (m_Time == _maxTime)
             {
                 //Game has ended stop countdown and show the players they f*cked up
+                if (EventEnd != null) EventEnd();
+                EventOnThick -= DoThick;
             }
         }
     }
