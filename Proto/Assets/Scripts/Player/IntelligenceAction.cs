@@ -62,7 +62,6 @@ public class IntelligenceAction : MonoBehaviour
     void SetupHighlight(Interactive objectToHightlight)
     {
         m_FocusInteractive = objectToHightlight;
-        Debug.Log(m_FocusInteractive);
         m_Renderers = objectToHightlight.gameObject.GetComponents<Renderer>();
 
         m_TargetMaterials = new Material[2];
