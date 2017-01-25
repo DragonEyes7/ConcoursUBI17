@@ -1,0 +1,43 @@
+1- NPC Manager
+Object with the NPCManager script attached. Parent to all the point of interest markers.
+
+The NPCManager script is responsible for the creation of NPCs and their schedule, as well as keeping track of time and sending reminders to NPCs concerning their schedules.
+Variables in the script:
+	- NPCCount: number of NPCs to generate.
+	- MapLenght: Duration of the current map, in seconds. This indicates to the manager how  long the schedule for each NPC must be.
+	- NPC_Prefab: Object to instanciate as NPC.
+	- TimeSpent: Time spent on the current map, in seconds.
+	- SchedulerTickRate: Time interval between the scheduler actions, in seconds. NPCs are reminded to verify their schedules every X seconds, as determined by this variable.
+	- ScheduleTimer: Timer that indicates time until the next scheduler tick.
+	- ScheduleGap: Minimum time that passes inbetween NPC actions (Change of location)
+	
+2- Markers
+2.1 - InterestPoints
+Objects used to indicate the presence of a point of interest (location) where NPCs can gather.
+All points of interest must be properly tagged as InterestPoint for the NPCManager object to be able to find them.
+The object must posess a collider. It is used in the detection of NPCs entering the location.
+This object needs to be placed as a child of the NPCManager object.
+
+The LocationInteraction script is used to keep track of all the objects tagged as valid position in the location.
+Variables in the script:
+	- Tag: The tag used to find all the child that are a valid position.
+
+2.2 - Interctible Objects
+Any object that is a child of an InterestPoint object tagged with the appropriate tag.
+The transform is used to move an NPC to a position within an interest point. 
+
+3- NPC
+Object that represent a generic NPC in the environnement. Built using a prefab containing all the necessary properties.
+The NavMesh Agent allows the NPC to find a path in the environement.
+The rigidbody allows the NPC to detct when it enters an InterestPoint. It must be set on Kinematic (IsKinematic = true) otherwise physics take over and things go wrong.
+
+The NPCWalk script is in charge of managing the NPC destination, detect the entrance into an InterestPoint and modifying the destination based on the NPC schedule.
+Variables in the script:
+	- Destination: Current destination of the NPC in the environnement. Used by the NavMesh Agent.
+	- Location: Current location/interest point the NPC is at. Used for scheduling verification.
+	- NPCID: Id given to the NPC on creation (Debugging purpose)
+	
+4- NavMesh
+The NavMesh must be baked into the scene for the NPC t be able to move.
+Any questions on the NavMesh (Creation, Functionning, ...) is probably answered in this tutoria:
+https://www.binpress.com/tutorial/unity3d-ai-navmesh-navigation/119
