@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TimeController : MonoBehaviour
 {
@@ -61,6 +62,7 @@ public class TimeController : MonoBehaviour
 
     public int GetMaxTime(int newTime)
     {
-        return newTime >= 0 ? newTime : time;
+        Debug.Log("What the hell : " + (time - newTime >= 0 ? newTime : time));
+        return time - newTime >= 0 ? newTime : time;
     }
 }

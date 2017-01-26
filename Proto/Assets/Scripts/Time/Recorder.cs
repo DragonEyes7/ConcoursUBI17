@@ -64,6 +64,8 @@ public class Recorder : MonoBehaviour
 		//m_Animator = GetComponent<Animator>();
 		m_Rigidbody = GetComponent<Rigidbody>();
         m_TimeController = FindObjectOfType<TimeController>();
+	    m_TimeController.EventTick += DoOnThick;
+	    DoOnThick(0);
 	}
 
 	void Update()
@@ -78,13 +80,12 @@ public class Recorder : MonoBehaviour
 
 	    if (Input.GetButtonDown("TimeRewind"))
 	    {
-	        //clockUI.SetActive(true);
-	        //SetTimeRewinding();
-	    }else if (Input.GetButtonUp("TimeRewind"))
+	        SetTimeRewinding();
+	        SetTimeForward();
+	    }/*else if (Input.GetButtonUp("TimeRewind"))
 	    {
-	        //clockUI.SetActive(false);
-	        //SetTimeForward();
-	    }
+	        SetTimeForward();
+	    }*/
 	}
 
     private void SetTimeForward()
@@ -107,11 +108,20 @@ public class Recorder : MonoBehaviour
         m_IsRecording = false;
         m_IsPlaying = true;
         m_TimeController.isFoward = false;
-        var timeToRewind = 3;
-        m_TimeController.time -= m_TimeController.GetMaxTime(m_TimeController.time - timeToRewind);
+        var timeToRewind = m_TimeController.GetMaxTime(3);
+        m_TimeController.time -= timeToRewind;
+        DoRewind();
     }
 
-    void FixedUpdate()
+    void DoRewind()
+    {
+        if (m_Recording.ContainsKey(m_TimeController.time))
+        {
+            PlayState(m_Recording[m_TimeController.time]);
+        }
+    }
+
+    void DoOnThick(int time)
 	{
 		if (m_IsRecording)
 		{
@@ -120,15 +130,6 @@ public class Recorder : MonoBehaviour
 
             //m_Animator.GetFloat("Speed"));
         }
-
-		if (m_IsPlaying)
-		{
-            if (m_Recording.ContainsKey(m_TimeController.time))
-			{
-				PlayState(m_Recording[m_TimeController.time]);
-			}
-		}
-
 		/*if(m_TimeDebug)
 		{
 			m_TimeDebug.text = m_TimeController.time.ToString();
