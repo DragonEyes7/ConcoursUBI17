@@ -8,6 +8,7 @@ public class HUD : MonoBehaviour
     [SerializeField]Text m_Messages;
     [SerializeField]Text m_Objectives;
     [SerializeField]Text m_Timer;
+    [SerializeField]GameObject _clockUI;
     Text m_ActionSliderTimer;
     GameObject m_Player;
 
@@ -22,6 +23,7 @@ public class HUD : MonoBehaviour
     {
         m_Messages.gameObject.SetActive(false);
         m_ActionPrompt.gameObject.SetActive(false);
+        _clockUI.SetActive(false);
 
         m_ActionSliderTimer = m_ActionSlider.GetComponentInChildren<Text>();
 
@@ -33,7 +35,7 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        if(m_Action)
+        if (m_Action)
         {
             if (m_Action.isInteracting)
             {
@@ -45,6 +47,14 @@ public class HUD : MonoBehaviour
                     m_ActionSlider.gameObject.SetActive(false);
                 }
             }
+        }
+        if (Input.GetButtonDown("TimeRewind"))
+        {
+            _clockUI.SetActive(true);
+        }
+        else if (Input.GetButtonUp("TimeRewind"))
+        {
+            _clockUI.SetActive(false);
         }
     }
 

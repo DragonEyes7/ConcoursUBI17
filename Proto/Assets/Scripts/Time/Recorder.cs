@@ -76,22 +76,15 @@ public class Recorder : MonoBehaviour
 			//m_Animator.SetBool("Transition", false);
 		}
 
-		if(Input.GetButtonDown("TimeRewind"))
-		{
-		    SetTimeRewinding();
-		}
-
-		/*if(Input.GetButton("TimeRewind"))
-		{
-			m_TimeController.isFoward = false;
-            int timeToRewind = 3;
-            m_TimeController.time -= timeToRewind;
-		}*/
-
-		if(Input.GetButtonUp("TimeRewind"))
-		{
-		    SetTimeForward();
-		}
+	    if (Input.GetButtonDown("TimeRewind"))
+	    {
+	        //clockUI.SetActive(true);
+	        //SetTimeRewinding();
+	    }else if (Input.GetButtonUp("TimeRewind"))
+	    {
+	        //clockUI.SetActive(false);
+	        //SetTimeForward();
+	    }
 	}
 
     private void SetTimeForward()

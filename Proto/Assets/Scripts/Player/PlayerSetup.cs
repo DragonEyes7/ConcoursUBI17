@@ -12,7 +12,6 @@ public class PlayerSetup : MonoBehaviour
     {
         m_SceneCamera = GameObject.FindGameObjectWithTag("MainCamera");
         m_SceneCamera.SetActive(false);
-
         GameObject camera = (GameObject)Instantiate(Resources.Load("3rd Person Camera"));
         m_CameraTransform = camera.transform;
 
