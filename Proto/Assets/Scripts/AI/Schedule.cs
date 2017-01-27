@@ -27,7 +27,7 @@ namespace Assets
             {
                 //(NPCSchedule[i].ScheduledTime < Time) ? i++ : smaller = false;
 
-                if ( i < NPCSchedule.Count && NPCSchedule[i].ScheduledTime < Time)
+                if ( i < NPCSchedule.Count() && NPCSchedule[i].ScheduledTime < Time)
                 {
                     i++;
                 }
@@ -38,6 +38,7 @@ namespace Assets
                 }
             }
             if (i < 0) i = 0;
+            if (1 > NPCSchedule.Count()) i = NPCSchedule.Count();
             return NPCSchedule[i].ScheduledLocation;
         }
 
