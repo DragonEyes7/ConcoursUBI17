@@ -30,7 +30,7 @@ public class HUD : MonoBehaviour
         m_ActionSlider.gameObject.SetActive(false);
 
         m_TimeController = FindObjectOfType<TimeController>();
-        m_TimeController.EventTick += ShowTimer;
+        m_TimeController.Tick.Add(ShowTimer);
     }
 
     void Update()
@@ -120,10 +120,11 @@ public class HUD : MonoBehaviour
         CancelInvoke("FadeMessage");
     }
 
-    void ShowTimer(int time)
+    int ShowTimer(int time)
     {
         string minSec = string.Format("{0}:{1:00}", (m_LevelTime- time) / 60, (m_LevelTime - time) % 60);
         m_Timer.text = minSec;
+        return 0;
     }
     #endregion
 

@@ -64,8 +64,8 @@ public class Recorder : MonoBehaviour
 		//m_Animator = GetComponent<Animator>();
 		m_Rigidbody = GetComponent<Rigidbody>();
         m_TimeController = FindObjectOfType<TimeController>();
-	    m_TimeController.EventTick += DoOnThick;
-	    DoOnThick(0);
+	    m_TimeController.Tick.Add(DoOnTick);
+	    DoOnTick(0);
 	}
 
 	void Update()
@@ -121,7 +121,7 @@ public class Recorder : MonoBehaviour
         }
     }
 
-    void DoOnThick(int time)
+    int DoOnTick(int time)
 	{
 		if (m_IsRecording)
 		{
@@ -130,10 +130,11 @@ public class Recorder : MonoBehaviour
 
             //m_Animator.GetFloat("Speed"));
         }
-		/*if(m_TimeDebug)
+        return 0;
+        /*if(m_TimeDebug)
 		{
 			m_TimeDebug.text = m_TimeController.time.ToString();
-		}*/		
+		}*/
 	}
 
 	void PlayState(RecordState recordState)
