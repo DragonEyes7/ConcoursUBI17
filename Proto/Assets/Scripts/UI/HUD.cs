@@ -170,7 +170,7 @@ public class HUD : MonoBehaviour
         {
             m_ActionPrompt.gameObject.SetActive(false);
         }
-        else
+        else if(m_Action)
         {
             m_ActionSliderTimer.text = "Cancelled";
             m_Action.SetInteract(false);

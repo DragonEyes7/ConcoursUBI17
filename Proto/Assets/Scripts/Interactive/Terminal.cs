@@ -4,6 +4,13 @@ public class Terminal : Interactive
 {
     [SerializeField]Door[] m_Doors;
 
+    IntelligenceAction m_Action;
+
+    new void Start()
+    {
+        base.Start();
+    }
+
     public override void Interact()
     {
         foreach (Door door in m_Doors)
@@ -12,5 +19,58 @@ public class Terminal : Interactive
         }
 
         m_IsActivated = true;
+
+        if(m_Action)
+        {
+            UnSelect();
+            m_HUD.HideActionPrompt();
+            m_Action.SetInteract(false);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (!m_IsActivated)
+        {
+            m_Action = other.GetComponent<IntelligenceAction>();
+            if (m_Action)
+            {
+                if (m_Action.enabled)
+                {
+                    RaycastHit hit;
+                    
+                    Vector3 direction = m_Action.GetCenterCam().position - transform.position;
+
+                    if (Physics.Raycast(transform.position, direction, out hit, 10f))
+                    {
+                        if(hit.transform == m_Action.GetCenterCam().transform)
+                        {
+                            m_HUD.ShowActionPrompt("Hack Terminal");
+                            m_Action.SetInteract(true);
+                            m_Action.SetInteractionObject(this);
+                            Select();
+                        }
+                    }                  
+                }
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (!m_IsActivated && m_IsSelected)
+        {
+            m_Action = other.GetComponent<IntelligenceAction>();
+            if (m_Action)
+            {
+                if (m_Action.enabled)
+                {
+                    UnSelect();
+                    m_HUD.HideActionPrompt();
+                    m_Action.SetInteract(false);
+                    m_Action = null;
+                }
+            }
+        }
     }
 }

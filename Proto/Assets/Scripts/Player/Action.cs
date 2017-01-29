@@ -3,8 +3,8 @@
 public class Action : MonoBehaviour
 {
     Recorder m_Recorder;
-    Interactive m_Interactive;
-    bool m_Interact;
+    protected Interactive m_Interactive;
+    protected bool m_Interact;
 
     public bool isInteracting
     {
@@ -16,7 +16,7 @@ public class Action : MonoBehaviour
         m_Recorder = GetComponent<Recorder>();
 	}
 	
-	void Update ()
+	protected void Update ()
     {
 		if(m_Interact && Input.GetButtonDown("Action") && m_Recorder.isRecording)
         {

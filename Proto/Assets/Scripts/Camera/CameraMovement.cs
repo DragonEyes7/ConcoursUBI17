@@ -41,6 +41,7 @@ public class CameraMovement : MonoBehaviour
         m_CurrentY += m_Input.y * -1;
 
         m_CurrentY = Mathf.Clamp(m_CurrentY, m_YMin, m_YMax);
+        m_CurrentX = Mathf.Clamp(m_CurrentX, m_XMin, m_XMax);
     }
 
     void UpdatePosition()

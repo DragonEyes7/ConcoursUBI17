@@ -28,7 +28,7 @@ public class CamerasController : MonoBehaviour
             m_CameraObjects[0].GetComponent<PhotonView>().RequestOwnership();
             m_CameraObjects[0].GetComponentInChildren<Camera>().enabled = true;
             m_CameraObjects[0].GetComponent<CameraMovement>().enabled = true;
-            m_CameraObjects[0].GetComponentInChildren<IntelligenceAction>().SetActive(true);
+            m_CameraObjects[0].GetComponentInChildren<IntelligenceAction>().enabled = true;
         }
     }
 
