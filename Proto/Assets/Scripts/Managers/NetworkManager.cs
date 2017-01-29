@@ -7,8 +7,6 @@ public class NetworkManager : MonoBehaviour
 
     void OnJoinedRoom()
     {
-        string obj = "";
-        int timerInSeconds = 30;
         if(PhotonNetwork.playerList.Length - 1 == 0)
         {
             GameObject myPlayer = PhotonNetwork.Instantiate("Player", m_SpawnPoint[PhotonNetwork.playerList.Length - 1].position, m_SpawnPoint[PhotonNetwork.playerList.Length - 1].rotation, 0);
@@ -22,15 +20,8 @@ public class NetworkManager : MonoBehaviour
             GameManager GM = FindObjectOfType<GameManager>();
             if (GM)
             {
-                HUD hud = FindObjectOfType<HUD>();
-                if (hud)
-                {
-                    hud.SetPlayer(myPlayer);
-                    timerInSeconds = GM.CurrentTimer();
-                }
-            }
-
-            SetupHUD(myPlayer, obj, timerInSeconds);
+                SetupHUD(myPlayer, GM.CurrentTimer());
+            }            
         }
         else
         {
@@ -39,22 +30,19 @@ public class NetworkManager : MonoBehaviour
             GameManager GM = FindObjectOfType<GameManager>();
             if(GM)
             {
-                timerInSeconds = GM.CurrentTimer();
-            }
-
-            SetupHUD(null, obj, timerInSeconds);
+                SetupHUD(null, GM.CurrentTimer());
+            }            
         }
 
         LoadingCompleted();
     }
 
-    void SetupHUD(GameObject myPlayer, string objectives, int timer)
+    void SetupHUD(GameObject myPlayer, int timer)
     {
         HUD hud = FindObjectOfType<HUD>();
         if (hud)
         {
             hud.SetPlayer(myPlayer);
-            hud.SetObjectives(objectives);
             hud.SetLevelTimer(timer);
         }
     }

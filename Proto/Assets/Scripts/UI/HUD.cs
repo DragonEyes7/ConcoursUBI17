@@ -6,9 +6,9 @@ public class HUD : MonoBehaviour
     [SerializeField]RectTransform m_ActionPrompt;
     [SerializeField]Slider m_ActionSlider;
     [SerializeField]Text m_Messages;
-    [SerializeField]Text m_Objectives;
     [SerializeField]Text m_Timer;
     [SerializeField]GameObject _clockUI;
+    [SerializeField]RectTransform m_CenterCam;
     Text m_ActionSliderTimer;
     GameObject m_Player;
 
@@ -132,15 +132,11 @@ public class HUD : MonoBehaviour
     {
         if (player)
         {
+            m_CenterCam.gameObject.SetActive(false);
             m_Player = player;
 
             SetupAction();
         }
-    }
-
-    public void SetObjectives(string obj)
-    {
-        m_Objectives.text = obj;
     }
 
     public void SetLevelTimer(int timer)

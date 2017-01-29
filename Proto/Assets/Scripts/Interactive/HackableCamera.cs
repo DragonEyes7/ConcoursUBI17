@@ -1,16 +1,9 @@
 ﻿using UnityEngine;
 
-public class Terminal : Interactive
+public class HackableCamera : Interactive
 {
     [SerializeField]LayerMask m_Layer;
-    [SerializeField]Door[] m_Doors;
-
     IntelligenceAction m_Action;
-
-    new void Start()
-    {
-        base.Start();
-    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -22,19 +15,19 @@ public class Terminal : Interactive
                 if (m_Action.enabled)
                 {
                     RaycastHit hit;
-                    
+
                     Vector3 direction = m_Action.GetCenterCam().position - transform.position;
 
                     if (Physics.Raycast(transform.position, direction, out hit, 10f, m_Layer))
                     {
-                        if(hit.transform == m_Action.GetCenterCam().transform)
+                        if (hit.transform == m_Action.GetCenterCam().transform)
                         {
-                            m_HUD.ShowActionPrompt("Hack Terminal");
+                            m_HUD.ShowActionPrompt("Hack Camera");
                             m_Action.SetInteract(true);
                             m_Action.SetInteractionObject(this);
                             Select();
                         }
-                    }                  
+                    }
                 }
             }
         }
@@ -60,11 +53,6 @@ public class Terminal : Interactive
 
     public override void Interact()
     {
-        foreach (Door door in m_Doors)
-        {
-            door.Interact();
-        }
-
         m_IsActivated = true;
 
         if (m_Action)
