@@ -13,7 +13,9 @@ public class Action : MonoBehaviour
 
 	void Start ()
     {
+        Debug.Log(m_Interactive);
         m_Recorder = GetComponent<Recorder>();
+        m_Interact = false;
 	}
 	
 	protected void Update ()

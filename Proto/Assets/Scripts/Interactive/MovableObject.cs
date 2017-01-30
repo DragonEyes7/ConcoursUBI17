@@ -6,8 +6,6 @@ public class MovableObject : Interactive
 
     int m_CurrentPosition = 0;
 
-    bool m_Move;
-
     new void Start()
     {
         base.Start();
@@ -16,7 +14,7 @@ public class MovableObject : Interactive
 
     void Update()
     {
-        if(m_Move && m_CurrentPosition < m_PathToFollow.Length)
+        if(m_IsActivated && m_CurrentPosition < m_PathToFollow.Length)
         {
             Move();
         }
@@ -39,7 +37,7 @@ public class MovableObject : Interactive
 
     void OnTriggerEnter(Collider other)
     {
-        if(!m_Move)
+        if(!m_IsActivated)
         {
             Action act = other.GetComponent<Action>();
             if (act)
@@ -77,6 +75,6 @@ public class MovableObject : Interactive
     [PunRPC]
     void RPCInteract()
     {
-        m_Move = true;
+        m_IsActivated = true;
     }
 }

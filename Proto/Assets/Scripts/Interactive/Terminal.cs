@@ -27,8 +27,9 @@ public class Terminal : Interactive
                     
                     Vector3 direction = m_Action.GetCenterCam().position - transform.position;
 
-                    if (Physics.Raycast(transform.position, direction, out hit, 10f, m_Layer))
+                    if (Physics.Raycast(transform.position, direction, out hit, 25f, m_Layer))
                     {
+                        Debug.DrawRay(transform.position, direction, Color.red, 5f);
                         if(hit.transform == m_Action.GetCenterCam().transform)
                         {
                             m_HUD.ShowActionPrompt("Hack Terminal");
@@ -54,6 +55,7 @@ public class Terminal : Interactive
                     UnSelect();
                     m_HUD.HideActionPrompt();
                     m_Action.SetInteract(false);
+                    m_Action.SetInteractionObject(null);
                     m_Action = null;
                 }
             }
