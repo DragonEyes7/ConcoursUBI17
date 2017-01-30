@@ -51,6 +51,8 @@ public class Recorder : MonoBehaviour
 	//Animator m_Animator;
 	Rigidbody m_Rigidbody;
 
+    private int _time;
+
 	bool m_IsPlaying = false;
 	bool m_IsRecording = true;
 
@@ -59,33 +61,26 @@ public class Recorder : MonoBehaviour
         get { return m_IsRecording; }
     }
 
+    public void SetTimeController(TimeController timecontroller)
+    {
+        m_TimeController = timecontroller;
+    }
+
 	void Start()
 	{
-		//m_Animator = GetComponent<Animator>();
 		m_Rigidbody = GetComponent<Rigidbody>();
-        m_TimeController = FindObjectOfType<TimeController>();
-	    m_TimeController.Tick.Add(DoOnTick);
+        m_TimeController = m_TimeController == null ? FindObjectOfType<TimeController>() : m_TimeController;
+	    m_TimeController.Tick.Suscribe(DoOnTick);
 	    DoOnTick(0);
 	}
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			m_IsRecording = false;
-			SetRecording(m_States);
-			m_TimeController.time = 0;
-			//m_Animator.SetBool("Transition", false);
-		}
-
-	    if (Input.GetButtonDown("TimeRewind"))
+		if (Input.GetButtonDown("TimeRewind"))
 	    {
 	        SetTimeRewinding();
 	        SetTimeForward();
-	    }/*else if (Input.GetButtonUp("TimeRewind"))
-	    {
-	        SetTimeForward();
-	    }*/
+	    }
 	}
 
     private void SetTimeForward()
@@ -94,12 +89,10 @@ public class Recorder : MonoBehaviour
         m_IsRecording = true;
         m_IsPlaying = false;
 
-        //m_Animator.SetBool("Transition", true);
         if (m_Rigidbody)
         {
             m_Rigidbody.isKinematic = false;
         }
-        //m_Animator.SetFloat("GlobalSpeed", m_Animator.GetFloat("GlobalSpeed") * -1f);
     }
 
     private void SetTimeRewinding()
@@ -108,16 +101,19 @@ public class Recorder : MonoBehaviour
         m_IsRecording = false;
         m_IsPlaying = true;
         m_TimeController.isFoward = false;
-        var timeToRewind = m_TimeController.GetMaxTime(3);
-        m_TimeController.time -= timeToRewind;
+        Debug.Log("Object reading of time : " + _time);
+        var timeToRewind = GetMaxTime(3);
+        _time -= timeToRewind;
+        m_TimeController.time = _time;
+
         DoRewind();
     }
 
     void DoRewind()
     {
-        if (m_Recording.ContainsKey(m_TimeController.time))
+        if (m_Recording.ContainsKey(_time))
         {
-            PlayState(m_Recording[m_TimeController.time]);
+            PlayState(m_Recording[_time]);
         }
     }
 
@@ -125,24 +121,16 @@ public class Recorder : MonoBehaviour
 	{
 		if (m_IsRecording)
 		{
-			m_States[m_TimeController.time] =  new RecordState(transform.position, transform.rotation);
-            //m_Animator.GetCurrentAnimatorStateInfo(0).shortNameHash,
-
-            //m_Animator.GetFloat("Speed"));
+			m_States[time] =  new RecordState(transform.position, transform.rotation);
         }
+	    _time = time;
         return 0;
-        /*if(m_TimeDebug)
-		{
-			m_TimeDebug.text = m_TimeController.time.ToString();
-		}*/
 	}
 
 	void PlayState(RecordState recordState)
 	{
 		transform.position = recordState.position;
-		//m_Animator.Play(recordState.animState);
 		transform.rotation = recordState.rotation;
-		//m_Animator.SetFloat("Speed", recordState.speed);
 	}
 
 	void SetRecording(Dictionary<int, RecordState> recording)
@@ -154,4 +142,9 @@ public class Recorder : MonoBehaviour
 			m_Rigidbody.isKinematic = true;
 		}		
 	}
+
+    int GetMaxTime(int newTime)
+    {
+        return _time - newTime >= 0 ? newTime : _time;
+    }
 }

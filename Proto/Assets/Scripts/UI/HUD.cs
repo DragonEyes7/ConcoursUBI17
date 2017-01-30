@@ -30,7 +30,7 @@ public class HUD : MonoBehaviour
         m_ActionSlider.gameObject.SetActive(false);
 
         m_TimeController = FindObjectOfType<TimeController>();
-        m_TimeController.Tick.Add(ShowTimer);
+        m_TimeController.Tick.Suscribe(ShowTimer);
     }
 
     void Update()

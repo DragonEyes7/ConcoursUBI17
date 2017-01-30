@@ -7,13 +7,13 @@ public class MultipleDelegate
     private Type _typeOf;
     private int _pos = 0;
 
-    public int Add(Func<int, int> item)
+    public int Suscribe(Func<int, int> item)
     {
         _delegates.Add(_pos, item);
         return _pos++;
     }
 
-    public void Remove(int key)
+    public void Unsuscribe(int key)
     {
         _delegates.Remove(key);
     }
