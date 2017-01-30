@@ -15,9 +15,13 @@ public class NPCManager : MonoBehaviour {
     public float scheduleTimer;
     public int ScheduleGap;
 
-	// Use this for initialization
-	void Start () {
+    private TimeController _timeController;
 
+	// Use this for initialization
+	void Start ()
+	{
+	    _timeController = FindObjectOfType<TimeController>();
+	    _timeController.Tick.Suscribe(DoOnTick);
         //Iniate the variables and lists
         NPCs = new List<GameObject>();
         InterestPoints = new List<GameObject>();
@@ -34,6 +38,7 @@ public class NPCManager : MonoBehaviour {
             GameObject npc = Instantiate(NPC_Prefab);
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
+            npc.GetComponent<Recorder>().SetTimeController(_timeController);
             NPCs.Add(npc);
         }
         
@@ -67,7 +72,7 @@ public class NPCManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
         scheduleTimer -= Time.deltaTime;
         if (scheduleTimer <= 0 )
         {
@@ -75,11 +80,17 @@ public class NPCManager : MonoBehaviour {
             timeSpent += schedulerTickRate;
             scheduleTimer = schedulerTickRate;
             //Send new time to the NPCs
-            for (int i = 0; i < NPCs.Count; i++)
-            {
-                NPCs[i].GetComponent<NPCWalkScript>().OnTimeChange(timeSpent);
-            }
+
         }
+    }*/
+
+    private int DoOnTick(int time)
+    {
+        foreach (var npc in NPCs)
+        {
+            npc.GetComponent<NPCWalkScript>().OnTimeChange(time);
+        }
+        return 0;
     }
 
     void TimeTravel(float seconds)

@@ -1,25 +1,13 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TimeController : MonoBehaviour
 {
-    public delegate void Tick(int tick);
-    public event Tick EventTick;
-
-    public delegate void End();
-    public event End EventEnd;
+    public MultipleDelegate Tick = new MultipleDelegate();
+    public MultipleDelegate End = new MultipleDelegate();
 
     int m_Time, _maxTime;
     bool isForward = true;
-    float timer = 0;
-
-    delegate void OnThick();
-    event OnThick EventOnThick;
-
-    TimeController()
-    {
-        EventOnThick += DoThick;
-    }
+    float timer;
     public int time
     {
         get { return m_Time; }
@@ -35,23 +23,20 @@ public class TimeController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(EventOnThick != null) EventOnThick();
+        timer += Time.deltaTime;
+        if (timer >= 1f && isForward) DoTick();
     }
 
-    void DoThick()
+    void DoTick()
     {
-        timer += Time.deltaTime;
-        if (timer >= 1f && isForward)
+        timer = 0;
+        m_Time++;
+        Tick.Execute(m_Time);
+        if (m_Time == _maxTime)
         {
-            timer = 0;
-            m_Time++;
-            if(EventTick != null)EventTick(m_Time);
-            if (m_Time == _maxTime)
-            {
-                //Game has ended stop countdown and show the players they f*cked up
-                if (EventEnd != null) EventEnd();
-                EventOnThick -= DoThick;
-            }
+            //Game has ended stop countdown and show the players they f*cked up
+            End.Execute(m_Time);
+            End.Empty();
         }
     }
 
@@ -60,9 +45,5 @@ public class TimeController : MonoBehaviour
         _maxTime = maxTime;
     }
 
-    public int GetMaxTime(int newTime)
-    {
-        Debug.Log("What the hell : " + (time - newTime >= 0 ? newTime : time));
-        return time - newTime >= 0 ? newTime : time;
-    }
+
 }
