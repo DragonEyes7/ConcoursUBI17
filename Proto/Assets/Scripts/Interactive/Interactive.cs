@@ -16,8 +16,6 @@ abstract public class Interactive : MonoBehaviour
     {
         m_HUD = FindObjectOfType<HUD>();
 
-        m_SelectMat = Resources.Load<Material>("MAT_OutlineOrange");
-
         m_Renderers = GetComponentsInChildren<Renderer>();
 
         m_TargetMaterials = new Material[2];

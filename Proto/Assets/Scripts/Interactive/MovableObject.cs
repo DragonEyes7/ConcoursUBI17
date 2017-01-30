@@ -11,6 +11,7 @@ public class MovableObject : Interactive
     new void Start()
     {
         base.Start();
+        m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
     }
 
     void Update()

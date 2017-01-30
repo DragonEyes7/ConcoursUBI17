@@ -5,6 +5,13 @@ public class HackableCamera : Interactive
     [SerializeField]LayerMask m_Layer;
     IntelligenceAction m_Action;
 
+    new void Start()
+    {
+        base.Start();
+
+        m_SelectMat = Resources.Load<Material>("MAT_OutlineIntelligence");
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (!m_IsActivated)

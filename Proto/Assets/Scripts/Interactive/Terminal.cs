@@ -10,6 +10,8 @@ public class Terminal : Interactive
     new void Start()
     {
         base.Start();
+
+        m_SelectMat = Resources.Load<Material>("MAT_OutlineIntelligence");
     }
 
     void OnTriggerEnter(Collider other)
