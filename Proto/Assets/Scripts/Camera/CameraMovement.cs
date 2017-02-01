@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour
     void Move()
     {
         m_CurrentX += m_Input.x;
-        m_CurrentY += m_Input.y * -1;
+        m_CurrentY += m_Input.y;
 
         m_CurrentY = Mathf.Clamp(m_CurrentY, m_YMin, m_YMax);
         m_CurrentX = Mathf.Clamp(m_CurrentX, m_XMin, m_XMax);

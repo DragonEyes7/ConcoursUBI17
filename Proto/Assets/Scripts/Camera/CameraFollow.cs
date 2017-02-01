@@ -8,10 +8,10 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float m_LimitBottomRayLength = 0.3f;
 	[SerializeField] float m_LimitSidesRayLength = 0.3f;
 	[SerializeField] float m_MinAngleY = -50f;
-    [SerializeField] float m_MaxAngleY = 75f;
+    [SerializeField] float m_MaxAngleY = 35f;
 	//[SerializeField] float m_ResetDelay = 0.25f;
     [SerializeField] float m_MinDistance = 2f;
-    [SerializeField] float m_MaxDistance = 7f;
+    [SerializeField] float m_MaxDistance = 3f;
     [SerializeField] float m_ZoomSpeed = 0.01f;
     [SerializeField] float m_SmoothZoomSpeed = 0.03f;
 
@@ -37,6 +37,11 @@ public class CameraFollow : MonoBehaviour
 
 	void Start()
 	{
+        if(PlayerSettings.CameraDistance > m_MaxDistance)
+        {
+            PlayerSettings.CameraDistance = m_MaxDistance;
+        }
+
 		m_Distance = new Vector3();
 		m_LookAt = new Vector3();
 
@@ -103,6 +108,8 @@ public class CameraFollow : MonoBehaviour
                     m_LastDistance = 0;
                 }
             }
+
+            Zoom(Input.GetAxis("Mouse ScrollWheel") * -1f);
 
 			if (Input.GetKey(KeyCode.Z))
 			{
@@ -188,8 +195,7 @@ public class CameraFollow : MonoBehaviour
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, Vector3.down, out hit, m_LimitBottomRayLength, m_LimitLayer))
 		{
-			//m_ResetTimer = Time.time + m_ResetDelay;
-            m_CurrentYMin = m_CurrentY;// + m_LimitBottomRayLength - 0.1f;
+            m_CurrentYMin = m_CurrentY;
 		}
         else
         {
@@ -260,6 +266,19 @@ public class CameraFollow : MonoBehaviour
 
             m_LookAt.Set(m_Player.position.x, m_Player.position.y, m_Player.position.z);
             transform.LookAt(m_LookAt);
+        }
+    }
+
+    void Zoom(float zooming)
+    {
+        PlayerSettings.CameraDistance += zooming;
+        if(PlayerSettings.CameraDistance > m_MaxDistance)
+        {
+            PlayerSettings.CameraDistance = m_MaxDistance;
+        }
+        else if(PlayerSettings.CameraDistance < m_MinDistance)
+        {
+            PlayerSettings.CameraDistance = m_MinDistance;
         }
     }
 

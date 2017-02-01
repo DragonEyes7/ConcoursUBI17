@@ -80,6 +80,7 @@ public class Recorder : MonoBehaviour
 	    {
 	        SetTimeRewinding();
 	        SetTimeForward();
+            FindObjectOfType<GameManager>().ClearAgentClues();
 	    }
 	}
 

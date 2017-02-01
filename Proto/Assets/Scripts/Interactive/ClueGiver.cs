@@ -4,6 +4,15 @@ using UnityEngine;
 public class ClueGiver : Interactive
 {
     [SerializeField]Door[] m_Doors;
+    GameManager m_GameManager;
+    PhotonView m_PhotonView;
+
+    new void Start()
+    {
+        base.Start();
+        m_GameManager = FindObjectOfType<GameManager>();
+        m_PhotonView = GetComponent<PhotonView>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -43,6 +52,14 @@ public class ClueGiver : Interactive
 
         m_IsActivated = true;
 
-        Debug.Log("The target is the only person exept you in the level!");
+        m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Nose");
+        m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Hair");
+        m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Backpack");
+    }
+
+    [PunRPC]
+    void SendClueToAgent(int targetID, string part)
+    {
+        m_GameManager.AddToAgentClues(part, m_GameManager.GetTargetClue(targetID, part));
     }
 }

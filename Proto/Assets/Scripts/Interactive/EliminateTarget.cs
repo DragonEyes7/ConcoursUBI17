@@ -2,11 +2,11 @@
 
 public class EliminateTarget : Interactive
 {
-    Action m_Action;
+    AgentActions m_Action;
 
     void OnTriggerEnter(Collider other)
     {
-        m_Action = other.GetComponent<Action>();
+        m_Action = other.GetComponent<AgentActions>();
         if(m_Action)
         {
             if(m_Action.enabled)
@@ -20,7 +20,7 @@ public class EliminateTarget : Interactive
 
     void OnTriggerExit(Collider other)
     {
-        m_Action = other.GetComponent<Action>();
+        m_Action = other.GetComponent<AgentActions>();
         if (m_Action)
         {
             if(m_Action.enabled)

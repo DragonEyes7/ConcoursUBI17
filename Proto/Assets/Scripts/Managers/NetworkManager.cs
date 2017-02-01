@@ -21,6 +21,7 @@ public class NetworkManager : MonoBehaviour
             if (GM)
             {
                 SetupHUD(myPlayer, GM.CurrentTimer());
+                GM.Setup();
             }            
         }
         else

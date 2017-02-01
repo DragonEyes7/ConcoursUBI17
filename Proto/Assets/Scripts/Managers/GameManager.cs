@@ -1,16 +1,23 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]Transform[] m_DoorsSpawn;
     [SerializeField]int m_NumberOfTargets = 1;
+    [SerializeField]int _levelTimer = 30;
+    [SerializeField]Material[] m_Hairs;
+    [SerializeField]Material[] m_Noses;
+    [SerializeField]Material[] m_Backpacks;
+
+    Dictionary<string, int> m_AgentClues = new Dictionary<string, int>();
+    Dictionary<string, int> m_IntelligenceClues = new Dictionary<string, int>();
+
     int[][] m_TargetsCharacteristics;
-    bool[] m_ObjectivesCompleted;
-    int m_InnocentTargetsKilled;
+    bool m_ObjectivesCompleted = false;
+    int m_InnocentTargetsIntercepted;
 
     bool m_IsMaster;
-
-    [SerializeField]int _levelTimer = 30;
 
     public int CurrentTimer()
     {
@@ -29,12 +36,11 @@ public class GameManager : MonoBehaviour
         SetupObjectives();
         ValideNumberOfTargets();
         FindRandomTargets();
-        SetupRandomExit();
+        //SetupRandomExit();
     }
 
     void SetupObjectives()
     {
-        UpdateObjectivesCompleted(new bool[m_NumberOfTargets]);
     }
 
     void ValideNumberOfTargets()
@@ -91,7 +97,7 @@ public class GameManager : MonoBehaviour
         }
         else if(propertiesThatChanged.ContainsKey("Objectives"))
         {
-            m_ObjectivesCompleted = (bool[])propertiesThatChanged["Objectives"];
+            m_ObjectivesCompleted = (bool)propertiesThatChanged["Objectives"];
         }
     }
 
@@ -139,67 +145,83 @@ public class GameManager : MonoBehaviour
             if (characteristics[j] != m_TargetsCharacteristics[i][j])
             {
                 found = false;
-                ++m_InnocentTargetsKilled;
+                ++m_InnocentTargetsIntercepted;
                 break;
             }
         }
 
         if (found)
         {
-            m_ObjectivesCompleted[i] = true;
-            UpdateObjectivesCompleted();
+            m_ObjectivesCompleted = true;
         }
     }
 
     public bool ObjectivesCompleted()
     {
-        for(int i = 0; i < m_ObjectivesCompleted.Length; ++i)
-        {
-            if(!m_ObjectivesCompleted[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return m_ObjectivesCompleted;
     }
 
-    public int GetInnocentTargetKilled()
+    public int GetInnocentTargetIntercepted()
     {
-        return m_InnocentTargetsKilled;
+        return m_InnocentTargetsIntercepted;
     }
 
-    void UpdateObjectivesCompleted(bool[] array)
+    public Material GetPartMaterial(int part, int index)
     {
-        m_ObjectivesCompleted = array;
+        switch(part)
+        {
+            case 0:
+                return m_Hairs[index];
+            case 1:
+                return m_Noses[index];
+            case 2:
+                return m_Backpacks[index];
+            default:
+                Debug.LogError("Wront part!");
+                break;
+        }
 
-        if (PhotonNetwork.room.CustomProperties.ContainsKey("Objectives"))
-        {
-            ExitGames.Client.Photon.Hashtable prop = PhotonNetwork.room.CustomProperties;
-            prop["Objectives"] = m_ObjectivesCompleted;
-            PhotonNetwork.room.SetCustomProperties(prop);
-        }
-        else
-        {
-            ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();
-            prop.Add("Objectives", m_ObjectivesCompleted);
-            PhotonNetwork.room.SetCustomProperties(prop);
-        }
+        return null;
     }
 
-    void UpdateObjectivesCompleted()
+    public int GetTargetClue(int targetID, string part)
     {
-        if (PhotonNetwork.room.CustomProperties.ContainsKey("Objectives"))
+        int x = 0;
+        if(part == "Nose")
         {
-            ExitGames.Client.Photon.Hashtable prop = PhotonNetwork.room.CustomProperties;
-            prop["Objectives"] = m_ObjectivesCompleted;
-            PhotonNetwork.room.SetCustomProperties(prop);
+            x = 1;
         }
-        else
+        else if(part == "Backpack")
         {
-            ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();
-            prop.Add("Objectives", m_ObjectivesCompleted);
-            PhotonNetwork.room.SetCustomProperties(prop);
+            x = 2;
         }
+
+        return m_TargetsCharacteristics[targetID][x];
+    }
+
+    public void AddToAgentClues(string part, int clue)
+    {
+        m_AgentClues.Add(part, clue);
+    }
+
+    public void SendCluesToIntelligence()
+    {
+        foreach(string clue in m_AgentClues.Keys)
+        {
+            m_IntelligenceClues.Add(clue, m_AgentClues[clue]);
+            Debug.Log(m_AgentClues[clue]);
+        }
+
+        ClearAgentClues();
+    }
+
+    public Dictionary<string, int> GetIntelligenceClues()
+    {
+        return m_IntelligenceClues;
+    }
+
+    public void ClearAgentClues()
+    {
+        m_AgentClues.Clear();
     }
 }

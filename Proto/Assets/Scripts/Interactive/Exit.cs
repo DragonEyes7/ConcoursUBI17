@@ -48,9 +48,9 @@ public class Exit : Interactive
         if (m_GameManager.ObjectivesCompleted())
         {
             msg = "Mission Successfull";
-            if(m_GameManager.GetInnocentTargetKilled() > 0)
+            if(m_GameManager.GetInnocentTargetIntercepted() > 0)
             {
-                msg += "\nYou killed " + m_GameManager.GetInnocentTargetKilled() + " innocents.";
+                msg += "\nYou killed " + m_GameManager.GetInnocentTargetIntercepted() + " innocents.";
             }            
         }
         else
