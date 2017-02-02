@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = targets.Length - 1; i > 0; --i)
         {
-            int r = Random.Range(0, i = 1);
+            int r = Random.Range(0, i);
             Characteristics tmp = targets[i];
             targets[i] = targets[r];
             targets[r] = tmp;
