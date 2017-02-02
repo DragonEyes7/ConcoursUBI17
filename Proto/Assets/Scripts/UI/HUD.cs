@@ -9,6 +9,7 @@ public class HUD : MonoBehaviour
     [SerializeField]Text m_Timer;
     [SerializeField]GameObject _clockUI;
     [SerializeField]RectTransform m_CenterCam;
+    [SerializeField]RectTransform m_Uplink;
     Text m_ActionSliderTimer;
     GameObject m_Player;
 
