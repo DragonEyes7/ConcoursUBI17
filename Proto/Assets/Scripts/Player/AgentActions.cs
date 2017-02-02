@@ -24,6 +24,7 @@ public class AgentActions : Action
         {
             Debug.Log("Send clues to intelligence");
             m_PhotonView.RPC("Uplink", PhotonTargets.All);
+            FindObjectOfType<HUD>().ShowUplink(false);
         }
     }
 

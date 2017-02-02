@@ -55,6 +55,8 @@ public class ClueGiver : Interactive
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Nose");
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Hair");
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Backpack");
+
+        m_HUD.ShowUplink(true);
     }
 
     [PunRPC]

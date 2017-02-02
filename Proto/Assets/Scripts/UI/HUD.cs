@@ -26,6 +26,7 @@ public class HUD : MonoBehaviour
         m_ActionPrompt.gameObject.SetActive(false);
         _clockUI.SetActive(false);
         m_Timer.enabled = false;
+        m_Uplink.gameObject.SetActive(false);
 
         m_ActionSliderTimer = m_ActionSlider.GetComponentInChildren<Text>();
 
@@ -185,6 +186,11 @@ public class HUD : MonoBehaviour
     public void ShowTimer()
     {
         m_Timer.enabled = true;
+    }
+
+    public void ShowUplink(bool value)
+    {
+        m_Uplink.gameObject.SetActive(value);
     }
     #endregion
 }
