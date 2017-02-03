@@ -6,6 +6,7 @@ public class ClueGiver : Interactive
     [SerializeField]Door[] m_Doors;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
+    AgentActions m_Action;
 
     new void Start()
     {
@@ -16,14 +17,14 @@ public class ClueGiver : Interactive
 
     void OnTriggerEnter(Collider other)
     {
-        Action act = other.GetComponent<Action>();
-        if (act)
+        m_Action = other.GetComponent<AgentActions>();
+        if (m_Action && !m_IsActivated)
         {
-            if (act.enabled)
+            if (m_Action.enabled)
             {
                 m_HUD.ShowActionPrompt("Search for clues");
-                act.SetInteract(true);
-                act.SetInteractionObject(this);
+                m_Action.SetInteract(true);
+                m_Action.SetInteractionObject(this);
                 Select();
             }
         }
@@ -31,13 +32,13 @@ public class ClueGiver : Interactive
 
     void OnTriggerExit(Collider other)
     {
-        Action act = other.GetComponent<Action>();
-        if (act)
+        m_Action = other.GetComponent<AgentActions>();
+        if (m_Action)
         {
-            if (act.enabled)
+            if (m_Action.enabled)
             {
                 m_HUD.HideActionPrompt();
-                act.SetInteract(false);
+                m_Action.SetInteract(false);
                 UnSelect();
             }
         }
@@ -55,6 +56,10 @@ public class ClueGiver : Interactive
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Nose");
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Hair");
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Backpack");
+
+        m_HUD.HideActionPrompt();
+        m_Action.SetInteract(false);
+        UnSelect();
 
         m_HUD.ShowUplink(true);
     }

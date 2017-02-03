@@ -209,10 +209,14 @@ public class GameManager : MonoBehaviour
         foreach(string clue in m_AgentClues.Keys)
         {
             m_IntelligenceClues.Add(clue, m_AgentClues[clue]);
-            Debug.Log(m_AgentClues[clue]);
         }
 
         ClearAgentClues();
+    }
+
+    public bool AgentHasClues()
+    {
+        return m_AgentClues.Count > 0;
     }
 
     public Dictionary<string, int> GetIntelligenceClues()

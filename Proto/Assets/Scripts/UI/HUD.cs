@@ -10,6 +10,7 @@ public class HUD : MonoBehaviour
     [SerializeField]GameObject _clockUI;
     [SerializeField]RectTransform m_CenterCam;
     [SerializeField]RectTransform m_Uplink;
+    [SerializeField]RectTransform m_UplinkIncoming;
     Text m_ActionSliderTimer;
     GameObject m_Player;
 
@@ -27,6 +28,7 @@ public class HUD : MonoBehaviour
         _clockUI.SetActive(false);
         m_Timer.enabled = false;
         m_Uplink.gameObject.SetActive(false);
+        m_UplinkIncoming.gameObject.SetActive(false);
 
         m_ActionSliderTimer = m_ActionSlider.GetComponentInChildren<Text>();
 
@@ -128,6 +130,38 @@ public class HUD : MonoBehaviour
         CancelInvoke("FadeMessage");
     }
 
+    void FadeInUplink()
+    {
+        CanvasRenderer canva = m_UplinkIncoming.GetComponent<CanvasRenderer>();
+        canva.SetAlpha(canva.GetAlpha() + 0.05f);
+
+        if (canva.GetAlpha() >= 1)
+        {
+            CancelInvoke("FadeInUplink");
+            InvokeRepeating("FadeOutUplink", 0f, 0.01f);            
+        }
+    }
+
+    void FadeOutUplink()
+    {
+        CanvasRenderer canva = m_UplinkIncoming.GetComponent<CanvasRenderer>();
+        canva.SetAlpha(canva.GetAlpha() - 0.05f);
+
+        if (canva.GetAlpha() <= 0)
+        {
+            CancelInvoke("FadeOutUplink");
+            InvokeRepeating("FadeInUplink", 0f, 0.01f);
+        }
+    }
+    
+    void HideUplink()
+    {
+        CancelInvoke("FadeInUplink");
+        CancelInvoke("FadeOutUplink");
+
+        m_UplinkIncoming.gameObject.SetActive(false);
+    }
+
     int ShowTimer(int time)
     {
         string minSec = string.Format("{0}:{1:00}", (m_LevelTime- time) / 60, (m_LevelTime - time) % 60);
@@ -191,6 +225,16 @@ public class HUD : MonoBehaviour
     public void ShowUplink(bool value)
     {
         m_Uplink.gameObject.SetActive(value);
+    }
+
+    public void BlinkUplink()
+    {
+        CanvasRenderer canva = m_UplinkIncoming.GetComponent<CanvasRenderer>();
+        canva.SetAlpha(0f);
+        m_UplinkIncoming.gameObject.SetActive(true);
+
+        InvokeRepeating("FadeInUplink", 0f, 0.01f);
+        Invoke("HideUplink", 5f);
     }
     #endregion
 }

@@ -4,12 +4,16 @@ public class AgentActions : Action
 {
     Recorder m_Recorder;
     PhotonView m_PhotonView;
+    GameManager m_GameManager;
+    HUD m_Hud;
 
     new void Start()
     {
         base.Start();
         m_Recorder = GetComponent<Recorder>();
         m_PhotonView = GetComponent<PhotonView>();
+        m_GameManager = FindObjectOfType<GameManager>();
+        m_Hud = FindObjectOfType<HUD>();
     }
 
     void Update()
@@ -20,11 +24,10 @@ public class AgentActions : Action
             m_Interact = false;
         }
 
-        if (Input.GetButtonDown("Uplink"))
+        if (m_GameManager.AgentHasClues() && Input.GetButtonDown("Uplink"))
         {
-            Debug.Log("Send clues to intelligence");
             m_PhotonView.RPC("Uplink", PhotonTargets.All);
-            FindObjectOfType<HUD>().ShowUplink(false);
+            m_Hud.ShowUplink(false);
         }
     }
 
@@ -32,5 +35,10 @@ public class AgentActions : Action
     void Uplink()
     {
         FindObjectOfType<GameManager>().SendCluesToIntelligence();
+
+        if(PhotonNetwork.isNonMasterClientInRoom)
+        {
+            FindObjectOfType<HUD>().BlinkUplink();
+        }
     }
 }
