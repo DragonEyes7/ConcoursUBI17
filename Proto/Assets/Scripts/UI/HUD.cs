@@ -253,6 +253,12 @@ public class HUD : MonoBehaviour
         canva.SetAlpha(0f);
         m_UplinkIncoming.gameObject.SetActive(true);
 
+        if(!m_Uplink.gameObject.activeSelf)
+        {
+            m_Uplink.GetComponentInChildren<Text>().text = "Analyse clues";
+            m_Uplink.gameObject.SetActive(true);
+        }
+
         InvokeRepeating("FadeInUplink", 0f, 0.01f);
         Invoke("HideUplink", 3f);
     }
