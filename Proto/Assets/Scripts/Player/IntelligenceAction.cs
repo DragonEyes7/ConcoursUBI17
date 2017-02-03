@@ -1,9 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class IntelligenceAction : Action
 {
     [SerializeField]Transform m_CenterCam;
+
+    HUD m_Hud;
+
+    new void Start()
+    {
+        base.Start();
+
+        m_Hud = FindObjectOfType<HUD>();
+    }
 
     void Update()
     {
@@ -22,44 +30,7 @@ public class IntelligenceAction : Action
 
     void LookAtClues()
     {
-        Dictionary<string, int> clues = FindObjectOfType<GameManager>().GetIntelligenceClues();
-        Debug.Log("Looking at clues...");
-
-        if(clues.ContainsKey("Hair"))
-        {
-            Debug.Log("The target has " + GetColorName(clues["Hair"]) + " hairs.");
-        }
-
-        if (clues.ContainsKey("Nose"))
-        {
-            Debug.Log("The target has " + GetColorName(clues["Nose"]) + " Nose.");
-        }
-
-        if (clues.ContainsKey("Backpack"))
-        {
-            Debug.Log("The target has " + GetColorName(clues["Backpack"]) + " backpack.");
-        }
-
-        Debug.Log("Looking at clues done.");
-    }
-
-    string GetColorName(int colorID)
-    {
-        switch(colorID)
-        {
-            case 0:
-                return "Blue";
-            case 1:
-                return "Green";
-            case 2:
-                return "Pink";
-            case 3:
-                return "Red";
-            case 4:
-                return "Yellow";
-        }
-
-        return null;
+        m_Hud.LookAtClues();
     }
 
     public Transform GetCenterCam()

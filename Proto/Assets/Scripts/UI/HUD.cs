@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class HUD : MonoBehaviour
 {
@@ -168,6 +169,25 @@ public class HUD : MonoBehaviour
         m_Timer.text = minSec;
         return 0;
     }
+
+    string GetColorName(int colorID)
+    {
+        switch (colorID)
+        {
+            case 0:
+                return "Blue";
+            case 1:
+                return "Green";
+            case 2:
+                return "Pink";
+            case 3:
+                return "Red";
+            case 4:
+                return "Yellow";
+        }
+
+        return null;
+    }
     #endregion
 
     #region public
@@ -235,6 +255,54 @@ public class HUD : MonoBehaviour
 
         InvokeRepeating("FadeInUplink", 0f, 0.01f);
         Invoke("HideUplink", 3f);
+    }
+
+    public void LookAtClues()
+    {
+        if(m_Messages.gameObject.activeSelf)
+        {
+            m_Messages.gameObject.SetActive(false);
+        }
+        else
+        {
+            Dictionary<string, int> clues = FindObjectOfType<GameManager>().GetIntelligenceClues();
+            string message = "";
+
+            if (clues.ContainsKey("Hair"))
+            {
+                message += "The target has " + GetColorName(clues["Hair"]) + " hairs";
+            }
+
+            if (clues.ContainsKey("Nose"))
+            {
+                if (message == "")
+                {
+                    message += "\nThe target has a " + GetColorName(clues["Nose"]) + " Nose";
+                }
+                else
+                {
+                    message += ", a " + GetColorName(clues["Nose"]) + " Nose";
+                }
+            }
+
+            if (clues.ContainsKey("Backpack"))
+            {
+                if(message == "")
+                {
+                    message += "\nThe target has a " + GetColorName(clues["Backpack"]) + " backpack";
+                }
+                else
+                {
+                    message += " and a " + GetColorName(clues["Backpack"]) + " backpack";
+                }
+            }
+
+            if(message != "")
+            {
+                m_Messages.text = message + ".";
+                m_Messages.gameObject.SetActive(true);
+            }            
+        }
     }
     #endregion
 }
