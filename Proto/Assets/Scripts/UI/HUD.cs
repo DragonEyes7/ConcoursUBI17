@@ -234,7 +234,7 @@ public class HUD : MonoBehaviour
         m_UplinkIncoming.gameObject.SetActive(true);
 
         InvokeRepeating("FadeInUplink", 0f, 0.01f);
-        Invoke("HideUplink", 5f);
+        Invoke("HideUplink", 3f);
     }
     #endregion
 }
