@@ -18,7 +18,7 @@ public class AgentActions : Action
 
     void Update()
     {
-        if (m_Interact && Input.GetButtonDown("Action") && m_Recorder.isRecording)
+        if (m_Interact && Input.GetButtonDown("Action") && m_Recorder.IsRecording)
         {
             m_Interactive.Interact();
             m_Interact = false;

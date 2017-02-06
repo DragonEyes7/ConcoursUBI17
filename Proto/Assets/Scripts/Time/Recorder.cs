@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public struct RecordState
 {
@@ -47,6 +48,7 @@ public class Recorder : MonoBehaviour
 
 	Dictionary<int, RecordState> m_States = new Dictionary<int, RecordState>();
 	Dictionary<int, RecordState> m_Recording;
+    private RecordState previousState;
 
 	//Animator m_Animator;
 	Rigidbody m_Rigidbody;
@@ -56,7 +58,7 @@ public class Recorder : MonoBehaviour
 	bool m_IsPlaying = false;
 	bool m_IsRecording = true;
 
-    public bool isRecording
+    public bool IsRecording
     {
         get { return m_IsRecording; }
     }
@@ -112,17 +114,38 @@ public class Recorder : MonoBehaviour
 
     void DoRewind()
     {
-        if (m_Recording.ContainsKey(_time))
+        var key = _time;
+        if (m_Recording.ContainsKey(key))
         {
-            PlayState(m_Recording[_time]);
+            PlayState(m_Recording[key]);
+        }
+        else
+        {
+            PlayState(m_Recording.Last().Key < key ? previousState : FindClosestState(key));
         }
     }
 
-    int DoOnTick(int time)
+    private RecordState FindClosestState(int key)
+    {
+        var keys = new List<int>(m_Recording.Keys);
+        var index = keys.BinarySearch(key);
+        //~ = Bitwise NOT
+        index = ~index - 1;
+        if (index < 0) index = 0;
+        if(!m_Recording.ContainsKey(index))Debug.Log("Using previous state, Dictionnary did not contain proper key : " + index + " Dictionnary count : " + m_Recording.Count);
+        return !m_Recording.ContainsKey(index) ? previousState : m_Recording[index];
+    }
+
+    private int DoOnTick(int time)
 	{
 		if (m_IsRecording)
 		{
-			m_States[time] =  new RecordState(transform.position, transform.rotation);
+		    var curState = new RecordState(transform.position, transform.rotation);
+		    if (!curState.Equals(previousState))
+		    {
+		        previousState = curState;
+		        m_States[time] =  new RecordState(transform.position, transform.rotation);
+		    }
         }
 	    _time = time;
         return 0;
@@ -134,7 +157,7 @@ public class Recorder : MonoBehaviour
 		transform.rotation = recordState.rotation;
 	}
 
-	void SetRecording(Dictionary<int, RecordState> recording)
+    private void SetRecording(IDictionary<int, RecordState> recording)
 	{
 		m_Recording = new Dictionary<int, RecordState>(recording);
 		m_IsPlaying = true;
@@ -144,7 +167,7 @@ public class Recorder : MonoBehaviour
 		}		
 	}
 
-    int GetMaxTime(int newTime)
+    private int GetMaxTime(int newTime)
     {
         return _time - newTime >= 0 ? newTime : _time;
     }
