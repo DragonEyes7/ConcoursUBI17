@@ -14,7 +14,6 @@ public class TimeController : MonoBehaviour
         set { m_Time = value; }
     }
 
-
     public bool isFoward
     {
         get { return isForward; }
@@ -44,6 +43,4 @@ public class TimeController : MonoBehaviour
     {
         _maxTime = maxTime;
     }
-
-
 }

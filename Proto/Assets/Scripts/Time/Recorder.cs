@@ -50,6 +50,8 @@ public class Recorder : MonoBehaviour
 	Dictionary<int, RecordState> m_Recording;
     private RecordState previousState;
 
+    PhotonView m_PhotonView;
+
 	//Animator m_Animator;
 	Rigidbody m_Rigidbody;
 
@@ -74,6 +76,7 @@ public class Recorder : MonoBehaviour
         m_TimeController = m_TimeController == null ? FindObjectOfType<TimeController>() : m_TimeController;
 	    m_TimeController.Tick.Suscribe(DoOnTick);
 	    DoOnTick(0);
+        m_PhotonView = GetComponent<PhotonView>();
 	}
 
 	void Update()
@@ -107,14 +110,13 @@ public class Recorder : MonoBehaviour
         Debug.Log("Object reading of time : " + _time);
         var timeToRewind = GetMaxTime(3);
         _time -= timeToRewind;
-        m_TimeController.time = _time;
-
-        DoRewind();
+        m_PhotonView.RPC("DoRewind", PhotonTargets.All, _time);
     }
 
-    void DoRewind()
+    [PunRPC]
+    void DoRewind(int key)
     {
-        var key = _time;
+        m_TimeController.time = key;
         if (m_Recording.ContainsKey(key))
         {
             PlayState(m_Recording[key]);
