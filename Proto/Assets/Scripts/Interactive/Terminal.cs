@@ -66,6 +66,7 @@ public class Terminal : Interactive
     {
         foreach (Door door in m_Doors)
         {
+            door.Unlock();
             door.Interact();
         }
 
