@@ -43,6 +43,7 @@ public class DoorRecorder : Recorder
         return _isOpen;
     }
 
+    [PunRPC]
     internal override void DoRewind(int time)
     {
         if (this == null) return;
@@ -65,10 +66,7 @@ public class DoorRecorder : Recorder
 
     private void OpenDoor()
     {
-        var param = new object[2];
-        param[0] = DoorStatus();
-        param[1] = gameObject;
-        GetComponent<PhotonView>().RPC("RPCDoorInteract", PhotonTargets.All, param);
+        GetComponent<PhotonView>().RPC("RPCDoorInteract", PhotonTargets.All, DoorStatus());
     }
 
     [PunRPC]
