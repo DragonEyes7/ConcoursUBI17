@@ -28,22 +28,23 @@ public class Recorder : MonoBehaviour
 {
     private readonly Dictionary<int, RecordState> _states = new Dictionary<int, RecordState>();
     private RecordState _previousState;
-    private readonly PhotonView _photonView;
+    private PhotonView _photonView;
 
     //Animator m_Animator;
-    private readonly Rigidbody _rigidbody;
+    private Rigidbody _rigidbody;
 
 
-    public Recorder()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _photonView = GetComponent<PhotonView>();
         Register();
+        DoOnTick(0);
     }
 
     private void Register()
     {
-        var mainRecorder = GetComponent<MainRecorder>();
+        var mainRecorder = FindObjectOfType<MainRecorder>();
         if (!mainRecorder) return;
         mainRecorder.OnTick.Suscribe(DoOnTick);
         mainRecorder.OnRewind.Suscribe(DoOnRewind);

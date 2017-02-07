@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 	
 	protected void Start ()
     {
-        m_Recorder = GetComponent<MainRecorder>();
+        m_Recorder = FindObjectOfType<MainRecorder>();
 	}	
 	
 	void Update ()

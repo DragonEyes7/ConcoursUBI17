@@ -10,7 +10,7 @@ public class AgentActions : Action
     new void Start()
     {
         base.Start();
-        m_Recorder = GetComponent<MainRecorder>();
+        m_Recorder = FindObjectOfType<MainRecorder>();
         m_PhotonView = GetComponent<PhotonView>();
         m_GameManager = FindObjectOfType<GameManager>();
         m_Hud = FindObjectOfType<HUD>();

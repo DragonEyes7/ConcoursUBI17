@@ -56,7 +56,6 @@ public class MainRecorder : MonoBehaviour
     {
         _isRecording = false;
         _timeController.isFoward = false;
-        Debug.Log("Object reading of time : " + _time);
         var timeToRewind = GetMaxTime(3);
         _time -= timeToRewind;
         _photonView.RPC("SetTime", PhotonTargets.All, _time);
