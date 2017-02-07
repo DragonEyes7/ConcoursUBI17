@@ -1,34 +1,20 @@
 ﻿public class Door : Interactive
 {
-    bool m_IsOpen = false;
+    private DoorRecorder _doorRecorder;
 
-    new void Start()
+    private new void Start()
     {
         base.Start();
-
+        _doorRecorder = GetComponent<DoorRecorder>();
         m_IsActivated = true;
     }
 
     public override void Interact()
     {
-        if(!m_IsOpen)
-        {
-            m_IsOpen = true;
-            OpenDoor();
-        }
+        if (!_doorRecorder) return;
+        if (_doorRecorder.DoorStatus()) return;
+        _doorRecorder.DoorInteraction(true);
     }
 
-    void OpenDoor()
-    {
-        GetComponent<PhotonView>().RPC("RPCOpenDoor", PhotonTargets.All);
-    }
 
-    [PunRPC]
-    void RPCOpenDoor()
-    {
-        if(PhotonNetwork.isMasterClient)
-        {
-            PhotonNetwork.Destroy(gameObject);
-        }        
-    }
 }
