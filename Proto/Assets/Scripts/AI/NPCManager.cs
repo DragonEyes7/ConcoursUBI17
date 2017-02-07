@@ -1,5 +1,4 @@
 ﻿using Assets;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +37,7 @@ public class NPCManager : MonoBehaviour {
             GameObject npc = Instantiate(NPC_Prefab);
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
-            npc.GetComponent<Recorder>().SetTimeController(_timeController);
+            npc.GetComponent<MainRecorder>().SetTimeController(_timeController);
             NPCs.Add(npc);
         }
         

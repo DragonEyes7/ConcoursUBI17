@@ -2,7 +2,7 @@
 
 public class AgentActions : Action
 {
-    Recorder m_Recorder;
+    MainRecorder m_Recorder;
     PhotonView m_PhotonView;
     GameManager m_GameManager;
     HUD m_Hud;
@@ -10,7 +10,7 @@ public class AgentActions : Action
     new void Start()
     {
         base.Start();
-        m_Recorder = GetComponent<Recorder>();
+        m_Recorder = GetComponent<MainRecorder>();
         m_PhotonView = GetComponent<PhotonView>();
         m_GameManager = FindObjectOfType<GameManager>();
         m_Hud = FindObjectOfType<HUD>();
