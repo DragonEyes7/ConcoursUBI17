@@ -75,6 +75,6 @@ public class DoorRecorder : Recorder
         //if (!PhotonNetwork.isMasterClient) return;
         //if (isOpen) PhotonNetwork.Destroy(gameObject);
         //else
-        GetComponent<Renderer>().enabled = isOpen;
+        GetComponent<Renderer>().enabled = !isOpen;
     }
 }
