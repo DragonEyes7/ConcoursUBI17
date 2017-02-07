@@ -2,11 +2,11 @@
 
 public class Movement : MonoBehaviour
 {
-    protected Recorder m_Recorder;
+    protected MainRecorder m_Recorder;
 	
 	protected void Start ()
     {
-        m_Recorder = GetComponent<Recorder>();
+        m_Recorder = FindObjectOfType<MainRecorder>();
 	}	
 	
 	void Update ()
