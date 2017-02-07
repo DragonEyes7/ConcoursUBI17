@@ -1,33 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class CharacterRecorder : Recorder
 {
-    private struct RecordState
-    {
-        private readonly Vector3 _position;
-        private readonly Quaternion _rotation;
-
-        public RecordState(Vector3 position, Quaternion rotation)
-        {
-            _position = position;
-            _rotation = rotation;
-        }
-
-        public Vector3 Position
-        {
-            get { return _position; }
-        }
-
-        public Quaternion Rotation
-        {
-            get { return _rotation; }
-        }
-    }
     private RecordState _previousState;
-    private readonly Dictionary<int, RecordState> _states = new Dictionary<int, RecordState>();
+    private readonly Dictionary<int, CharacterRecordState> _states = new Dictionary<int, CharacterRecordState>();
 
     protected override void Register(Func<int, int> doOnTick, Func<int, int> doOnRewind)
     {
@@ -36,10 +14,16 @@ public class CharacterRecorder : Recorder
         _mainRecorder.OnRewind.Suscribe(doOnRewind);
     }
 
+    internal override RecordState FindClosestState(int key)
+    {
+        var index = FindClosestKey(key, new List<int>(_states.Keys));
+        return !_states.ContainsKey(index) ? _previousState : _states[index];
+    }
+
     protected override int DoOnTick(int time)
     {
         if (this == null) return 0;
-        var curState = new RecordState(transform.position, transform.rotation);
+        var curState = new CharacterRecordState(transform.position, transform.rotation);
         if (curState.Equals(_previousState)) return 0;
         _previousState = curState;
         _states[time] = curState;
@@ -71,8 +55,10 @@ public class CharacterRecorder : Recorder
         }
     }
 
-    private void PlayState(RecordState state)
+    internal override void PlayState<T>(T recordState)
     {
+        if (!(recordState is CharacterRecordState)) return;
+        var state = recordState as CharacterRecordState;
         transform.position = state.Position;
         transform.rotation = state.Rotation;
     }

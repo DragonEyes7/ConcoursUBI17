@@ -5,15 +5,12 @@ using System.Linq;
 
 public abstract class Recorder : MonoBehaviour
 {
-    internal struct RecordState{}
-
-    private readonly Dictionary<int, RecordState> _states = new Dictionary<int, RecordState>();
     private RecordState _previousState;
     internal PhotonView _photonView;
     internal MainRecorder _mainRecorder;
 
     //Animator m_Animator;
-    private Rigidbody _rigidbody;
+    internal Rigidbody _rigidbody;
 
 
     internal void Start()
@@ -27,28 +24,20 @@ public abstract class Recorder : MonoBehaviour
 
     protected abstract void Register(Func<int, int> doOnTick, Func<int, int> doOnRewind);
 
-    internal virtual RecordState FindClosestState(int key)
+    internal virtual int FindClosestKey(int key, List<int> keys)
     {
-        var keys = new List<int>(_states.Keys);
         var index = keys.BinarySearch(key);
         //~ = Bitwise NOT
         index = ~index - 1;
         if (index < 0) index = 0;
-        if (!_states.ContainsKey(index))
-            Debug.Log("Using previous state, Dictionnary did not contain proper key : " + index +
-                      " Dictionnary count : " + _states.Count);
-        return !_states.ContainsKey(index) ? _previousState : _states[index];
+        if (!keys.Contains(index))
+            Debug.Log("Using previous state, Dictionnary did not contain proper key : " + index + " Dictionnary count : " + keys.Count);
+        return index;
     }
 
-    protected virtual int DoOnTick(int time)
-    {
-        if (this == null) return 0;
-        var curState = new RecordState();
-        if (curState.Equals(_previousState)) return 0;
-        _previousState = curState;
-        _states[time] = curState;
-        return 0;
-    }
+    internal abstract RecordState FindClosestState(int key);
+
+    protected abstract int DoOnTick(int time);
 
     protected virtual int DoOnRewind(int time)
     {
@@ -59,5 +48,5 @@ public abstract class Recorder : MonoBehaviour
     [PunRPC]
     internal abstract void DoRewind(int time);
 
-    internal abstract void PlayState(RecordState recordState);
+    internal abstract void PlayState<T>(T recordState) where T : RecordState;
 }
