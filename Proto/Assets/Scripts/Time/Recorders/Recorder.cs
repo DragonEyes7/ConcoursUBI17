@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public abstract class Recorder : MonoBehaviour
 {
     private RecordState _previousState;
-    private PhotonView _photonView;
+    internal PhotonView _photonView;
     private MainRecorder _mainRecorder;
 
     //Animator m_Animator;

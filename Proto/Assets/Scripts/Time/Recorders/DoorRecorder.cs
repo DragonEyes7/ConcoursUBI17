@@ -7,12 +7,14 @@ public class DoorRecorder : Recorder
     private RecordState _previousState;
     private bool _isOpen;
     private readonly Dictionary<int, DoorRecordState> _states = new Dictionary<int, DoorRecordState>();
+    private Renderer _renderer;
 
     [SerializeField]
 
     private new void Start()
     {
         _isOpen = false;
+        _renderer = GetComponent<Renderer>();
         base.Start();
     }
 
@@ -66,15 +68,12 @@ public class DoorRecorder : Recorder
 
     private void OpenDoor()
     {
-        GetComponent<PhotonView>().RPC("RPCDoorInteract", PhotonTargets.All, DoorStatus());
+        _photonView.RPC("RPCDoorInteract", PhotonTargets.All, DoorStatus());
     }
 
     [PunRPC]
     void RPCDoorInteract(bool isOpen)
     {
-        //if (!PhotonNetwork.isMasterClient) return;
-        //if (isOpen) PhotonNetwork.Destroy(gameObject);
-        //else
-        GetComponent<Renderer>().enabled = !isOpen;
+        _renderer.enabled = !isOpen;
     }
 }
