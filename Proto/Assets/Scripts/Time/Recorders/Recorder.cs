@@ -1,13 +1,12 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 
 public abstract class Recorder : MonoBehaviour
 {
     private RecordState _previousState;
-    internal PhotonView _photonView;
-    internal MainRecorder _mainRecorder;
+    private PhotonView _photonView;
+    private MainRecorder _mainRecorder;
 
     //Animator m_Animator;
     internal Rigidbody _rigidbody;
@@ -22,7 +21,12 @@ public abstract class Recorder : MonoBehaviour
         DoOnTick(0);
     }
 
-    protected abstract void Register(Func<int, int> doOnTick, Func<int, int> doOnRewind);
+    protected virtual void Register(Func<int, int> doOnTick, Func<int, int> doOnRewind)
+    {
+        if (!_mainRecorder) return;
+        _mainRecorder.OnTick.Suscribe(doOnTick);
+        _mainRecorder.OnRewind.Suscribe(doOnRewind);
+    }
 
     internal virtual int FindClosestKey(int key, List<int> keys)
     {

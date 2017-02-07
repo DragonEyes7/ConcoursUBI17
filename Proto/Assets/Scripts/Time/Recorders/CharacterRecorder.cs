@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Debug = UnityEngine.Debug;
 
 public class CharacterRecorder : Recorder
 {
     private RecordState _previousState;
     private readonly Dictionary<int, CharacterRecordState> _states = new Dictionary<int, CharacterRecordState>();
-
-    protected override void Register(Func<int, int> doOnTick, Func<int, int> doOnRewind)
-    {
-        if (!_mainRecorder) return;
-        _mainRecorder.OnTick.Suscribe(doOnTick);
-        _mainRecorder.OnRewind.Suscribe(doOnRewind);
-    }
 
     internal override RecordState FindClosestState(int key)
     {

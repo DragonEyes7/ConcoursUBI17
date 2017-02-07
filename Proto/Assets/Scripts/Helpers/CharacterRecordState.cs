@@ -20,4 +20,15 @@ public class CharacterRecordState : RecordState
     {
         get { return _rotation; }
     }
+
+    public override bool Equals(object obj)
+    {
+        if (!(obj is CharacterRecordState)) return false;
+        return Equals((CharacterRecordState) obj);
+    }
+
+    private bool Equals(CharacterRecordState obj)
+    {
+        return obj.Position.Equals(Position) && obj.Rotation.Equals(Rotation);
+    }
 }
