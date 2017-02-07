@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Debug = UnityEngine.Debug;
 
 public class CharacterRecorder : Recorder
 {
@@ -27,12 +28,6 @@ public class CharacterRecorder : Recorder
         if (curState.Equals(_previousState)) return 0;
         _previousState = curState;
         _states[time] = curState;
-        return 0;
-    }
-
-    protected override int DoOnRewind(int time)
-    {
-        _photonView.RPC("DoRewind", PhotonTargets.All, time);
         return 0;
     }
 
