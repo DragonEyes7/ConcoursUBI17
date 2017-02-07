@@ -65,6 +65,7 @@ public class Recorder : MonoBehaviour
 
     private int DoOnTick(int time)
     {
+        if (this == null) return 0;
         var curState = new RecordState(transform.position, transform.rotation);
         if (curState.Equals(_previousState)) return 0;
         _previousState = curState;
@@ -81,6 +82,7 @@ public class Recorder : MonoBehaviour
     [PunRPC]
     private void DoRewind(int time)
     {
+        if (this == null) return;
         if (_states.ContainsKey(time))
         {
             PlayState(_states[time]);
