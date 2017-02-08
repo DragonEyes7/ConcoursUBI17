@@ -27,7 +27,7 @@ public class HUD : MonoBehaviour
         m_Messages.gameObject.SetActive(false);
         m_ActionPrompt.gameObject.SetActive(false);
         _clockUI.SetActive(false);
-        m_Timer.enabled = false;
+
         m_Uplink.gameObject.SetActive(false);
         m_UplinkIncoming.gameObject.SetActive(false);
 
@@ -235,11 +235,6 @@ public class HUD : MonoBehaviour
             m_Action.SetInteract(false);
             InvokeRepeating("FadeActionMeter", 0f, 0.15f);
         }
-    }
-
-    public void ShowTimer()
-    {
-        m_Timer.enabled = true;
     }
 
     public void ShowUplink(bool value)

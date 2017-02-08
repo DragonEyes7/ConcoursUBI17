@@ -64,12 +64,6 @@ public class Bomb : Interactive
         Invoke("Disconnect", duration + 1f);
     }
 
-    [PunRPC]
-    void RPCShowTimer()
-    {
-        m_HUD.ShowTimer();
-    }
-
     void Disconnect()
     {
         PhotonNetwork.Disconnect();
@@ -87,7 +81,7 @@ public class Bomb : Interactive
         }
         else
         {
-            m_PhotonView.RPC("RPCShowTimer", PhotonTargets.All);
+
         }
     }
 }
