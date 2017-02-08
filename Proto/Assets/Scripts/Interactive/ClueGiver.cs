@@ -1,9 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ClueGiver : Interactive
 {
-    [SerializeField]Door[] m_Doors;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
     AgentActions m_Action;
@@ -46,11 +44,6 @@ public class ClueGiver : Interactive
 
     public override void Interact()
     {
-        foreach (Door door in m_Doors)
-        {
-            door.Interact();
-        }
-
         m_IsActivated = true;
 
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Nose");

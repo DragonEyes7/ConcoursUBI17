@@ -2,7 +2,17 @@
 
 public class EliminateTarget : Interactive
 {
+    GameManager m_GameManager;
+    PhotonView m_PhotonView;
     AgentActions m_Action;
+
+    new void Start()
+    {
+        base.Start();
+        m_GameManager = FindObjectOfType<GameManager>();
+        m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
+        m_PhotonView = GetComponent<PhotonView>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -33,12 +43,36 @@ public class EliminateTarget : Interactive
 
     public override void Interact()
     {
-        if(m_Action)
+        m_GameManager.ValidateTarget(GetComponent<Characteristics>().GetCharacteristics());
+        if (m_GameManager.ObjectivesCompleted())
         {
+            string msg = "Mission Successfull";
+            m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
             m_Action.SetInteract(false);
+            UnSelect();
+        }
+        else
+        {
+            Debug.Log("Wrong Target!");
+        }
+    }
+
+    [PunRPC]
+    void RPCInteract(string msg, float duration)
+    {
+        m_HUD.ShowMessages(msg, duration);
+
+        if (m_GameManager.isMaster)
+        {
+            duration += 1f;
         }
 
-        PhotonNetwork.Destroy(gameObject);
+        Invoke("Disconnect", duration + 1f);
+    }
+
+    void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
     }
 }
