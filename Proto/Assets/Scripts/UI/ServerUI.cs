@@ -12,6 +12,8 @@ public class ServerUI : MonoBehaviour
 
 	void Start ()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         PhotonNetwork.ConnectUsingSettings("Proto v0.1");
         StartCoroutine(WaitForConnection());
     }
