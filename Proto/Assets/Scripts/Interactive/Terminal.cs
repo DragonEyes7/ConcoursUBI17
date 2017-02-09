@@ -19,25 +19,22 @@ public class Terminal : Interactive
         if (!m_IsActivated)
         {
             m_Action = other.GetComponent<IntelligenceAction>();
-            if (m_Action)
+            if (m_Action && m_Action.enabled)
             {
-                if (m_Action.enabled)
-                {
-                    RaycastHit hit;
+                RaycastHit hit;
                     
-                    Vector3 direction = m_Action.GetCenterCam().position - transform.position;
+                Vector3 direction = m_Action.GetCenterCam().position - transform.position;
 
-                    if (Physics.Raycast(transform.position, direction, out hit, 25f, m_Layer))
+                if (Physics.Raycast(transform.position, direction, out hit, 25f, m_Layer))
+                {
+                    Debug.DrawRay(transform.position, direction, Color.red, 5f);
+                    if(hit.transform == m_Action.GetCenterCam().transform)
                     {
-                        Debug.DrawRay(transform.position, direction, Color.red, 5f);
-                        if(hit.transform == m_Action.GetCenterCam().transform)
-                        {
-                            m_HUD.ShowActionPrompt("Hack Terminal");
-                            m_Action.SetInteract(true);
-                            m_Action.SetInteractionObject(this);
-                            Select();
-                        }
-                    }                  
+                        m_HUD.ShowActionPrompt("Hack Terminal");
+                        m_Action.SetInteract(true);
+                        m_Action.SetInteractionObject(this);
+                        Select();
+                    }
                 }
             }
         }

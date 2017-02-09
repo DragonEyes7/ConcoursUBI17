@@ -18,10 +18,12 @@ public class Door : Interactive
     private void OnTriggerEnter(Collider other)
     {
         _action = other.GetComponent<AgentActions>();
-        if (!_action && !_action.enabled) return;
-        m_HUD.ShowActionPrompt("Open door.");
-        _action.SetInteract(true);
-        _action.SetInteractionObject(this);
+        if (_action && _action.enabled)
+        {
+            m_HUD.ShowActionPrompt(_isOpen ? "Close door." : "Open door.");
+            _action.SetInteract(true);
+            _action.SetInteractionObject(this);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -34,7 +36,7 @@ public class Door : Interactive
 
     public override void Interact()
     {
-        if(_isLock)
+        if(!_isLock)
         {
             _doorRecorder.DoorInteraction(!_doorRecorder.GetDoorStatus());
         }
