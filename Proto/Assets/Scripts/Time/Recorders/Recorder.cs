@@ -30,13 +30,13 @@ public abstract class Recorder : MonoBehaviour
 
     internal virtual int FindClosestKey(int key, List<int> keys)
     {
-        var index = keys.BinarySearch(key);
-        //~ = Bitwise NOT
-        index = ~index - 1;
-        if (index < 0) index = 0;
-        if (!keys.Contains(index))
-            Debug.Log("Using previous state, Dictionnary did not contain proper key : " + index + " Dictionnary count : " + keys.Count);
-        return index;
+        var val = 0;
+        for (var i = 0; i < keys.Count-1; ++i)
+        {
+            val = keys[i];
+            if (val < key && keys[i + 1] > key) break;
+        }
+        return val;
     }
 
     internal abstract RecordState FindClosestState(int key);
