@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Recorder : MonoBehaviour
 {
@@ -51,6 +52,12 @@ public abstract class Recorder : MonoBehaviour
 
     [PunRPC]
     internal abstract void DoRewind(int time);
+
+    internal virtual Dictionary<int, T> WipeRemainingRecordedStates<T>(int key, Dictionary<int, T> states)
+        where T : RecordState
+    {
+        return states.Where(state => state.Key <= key).ToDictionary(state => state.Key, state => state.Value);
+    }
 
     internal abstract void PlayState<T>(T recordState) where T : RecordState;
 }

@@ -6,7 +6,7 @@ public class DoorRecorder : Recorder
 {
     private RecordState _previousState;
     private bool _isOpen;
-    private readonly Dictionary<int, DoorRecordState> _states = new Dictionary<int, DoorRecordState>();
+    private Dictionary<int, DoorRecordState> _states = new Dictionary<int, DoorRecordState>();
 
     [SerializeField]
 
@@ -64,14 +64,12 @@ public class DoorRecorder : Recorder
     internal override void DoRewind(int time)
     {
         if (this == null) return;
-        if (_states.ContainsKey(time))
+        if (!_states.ContainsKey(time))
         {
-            PlayState(_states[time]);
+            time = FindClosestKey(time, new List<int>(_states.Keys));
         }
-        else
-        {
-            PlayState(_states.Last().Key < time ? _previousState : FindClosestState(time));
-        }
+        PlayState(_states[time]);
+        _states = WipeRemainingRecordedStates(time, _states);
     }
 
     internal override void PlayState<T>(T recordState)

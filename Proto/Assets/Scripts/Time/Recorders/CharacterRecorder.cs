@@ -4,7 +4,7 @@ using System.Linq;
 public class CharacterRecorder : Recorder
 {
     private RecordState _previousState;
-    private readonly Dictionary<int, CharacterRecordState> _states = new Dictionary<int, CharacterRecordState>();
+    private Dictionary<int, CharacterRecordState> _states = new Dictionary<int, CharacterRecordState>();
 
     internal override RecordState FindClosestState(int key)
     {
@@ -26,14 +26,12 @@ public class CharacterRecorder : Recorder
     internal override void DoRewind(int time)
     {
         if (this == null) return;
-        if (_states.ContainsKey(time))
+        if (!_states.ContainsKey(time))
         {
-            PlayState(_states[time]);
+            time = FindClosestKey(time, new List<int>(_states.Keys));
         }
-        else
-        {
-            PlayState(_states.Last().Key < time ? _previousState : FindClosestState(time));
-        }
+        PlayState(_states[time]);
+        _states = WipeRemainingRecordedStates(time, _states);
 
         if (_rigidbody)
         {
