@@ -8,10 +8,15 @@ public class NPCWalkScript : MonoBehaviour {
 
     public Transform Destination;
     public Transform Location;
-    public Schedule NPCSchedule;
-    public int NPCID;
+    private ScheduleNPC NPCSchedule;
+    public int NPCID = 0;
 
     private NavMeshAgent agent;
+    
+    public virtual void setSchedule(ScheduleNPC Schedule)
+    {
+        NPCSchedule = Schedule;
+    }
 
     void Start()
     {
@@ -25,13 +30,14 @@ public class NPCWalkScript : MonoBehaviour {
         agent.SetDestination(Destination.position);
     }
 
-    public void OnTimeChange(int Time)
+    public virtual void OnTimeChange(int Time)
     {
-        Transform NextPosition = NPCSchedule.NextDestination(Time);
+        Transform NextPosition = NPCSchedule.NextDestination(Time, this.gameObject.transform);
         if (NextPosition != Location)
         {
             Destination = NextPosition;
             Location = Destination;
+            //NPCSchedule.RemoveLocation(NextPosition);
             OnDestinationChange();
         }
     }
