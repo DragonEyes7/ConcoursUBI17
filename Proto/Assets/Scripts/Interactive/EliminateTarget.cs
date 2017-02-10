@@ -44,9 +44,10 @@ public class EliminateTarget : Interactive
     public override void Interact()
     {
         m_GameManager.ValidateTarget(GetComponent<Characteristics>().GetCharacteristics());
+        string msg;
         if (m_GameManager.ObjectivesCompleted())
         {
-            string msg = "Mission Successfull";
+            msg = "Mission Successfull";
             m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
             m_Action.SetInteract(false);
@@ -54,8 +55,15 @@ public class EliminateTarget : Interactive
         }
         else
         {
-            Debug.Log("Wrong Target!");
+            msg = "Wrong Target";
+            m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
         }
+    }
+
+    [PunRPC]
+    void RPCMessage(string msg, float duration)
+    {
+        m_HUD.ShowMessages(msg, duration);
     }
 
     [PunRPC]

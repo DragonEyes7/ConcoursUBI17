@@ -228,4 +228,16 @@ public class GameManager : MonoBehaviour
     {
         m_AgentClues.Clear();
     }
+
+    public void Defeat()
+    {
+        float duration = 3f;
+        FindObjectOfType<HUD>().ShowMessages("Game Over", duration);
+        Invoke("Disconnect", duration);
+    }
+
+    void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
+    }
 }

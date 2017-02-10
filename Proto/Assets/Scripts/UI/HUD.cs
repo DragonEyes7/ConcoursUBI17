@@ -165,7 +165,15 @@ public class HUD : MonoBehaviour
 
     int ShowTimer(int time)
     {
-        string minSec = string.Format("{0}:{1:00}", (m_LevelTime- time) / 60, (m_LevelTime - time) % 60);
+        time = (m_LevelTime - time);
+
+        if (time < 0)
+        {
+            time = 0;
+        }
+
+        string minSec = string.Format("{0}:{1:00}", time / 60, time % 60);
+
         m_Timer.text = minSec;
         return 0;
     }

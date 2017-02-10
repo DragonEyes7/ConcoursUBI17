@@ -34,6 +34,8 @@ public class TimeController : MonoBehaviour
         if (m_Time == _maxTime)
         {
             //Game has ended stop countdown and show the players they f*cked up
+            FindObjectOfType<GameManager>().Defeat();
+
             End.Execute(m_Time);
             End.Empty();
         }
