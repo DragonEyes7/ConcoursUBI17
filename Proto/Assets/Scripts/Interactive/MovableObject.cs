@@ -4,12 +4,16 @@ public class MovableObject : Interactive
 {
     [SerializeField]Transform[] m_PathToFollow;
 
+    private InteractiveObjectRecorder _interactiveObjectRecorder;
+
+
     int m_CurrentPosition = 0;
 
     new void Start()
     {
         base.Start();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
+        _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
     }
 
     void Update()
@@ -69,12 +73,17 @@ public class MovableObject : Interactive
 
     public override void Interact()
     {
-        GetComponent<PhotonView>().RPC("RPCInteract", PhotonTargets.All);
+        _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus());
     }
 
-    [PunRPC]
-    void RPCInteract()
+    public override void MoveObject()
     {
         m_IsActivated = true;
+    }
+
+    public override void ResetObject()
+    {
+        //TODO Write code to reset to original position
+        Debug.LogError("MovableObject should have been reset to its original position, no code written for that yet");
     }
 }

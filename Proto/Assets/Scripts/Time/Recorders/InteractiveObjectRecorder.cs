@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class DoorRecorder : Recorder
+public class InteractiveObjectRecorder : Recorder
 {
     private RecordState _previousState;
-    private bool _isOpen;
-    private Dictionary<int, DoorRecordState> _states = new Dictionary<int, DoorRecordState>();
+    private bool _isMoved;
+    private Dictionary<int, InteractiveObjectRecordState> _states = new Dictionary<int, InteractiveObjectRecordState>();
+    private Interactive _interactiveObject;
 
     [SerializeField]
 
     private new void Start()
     {
-        _isOpen = false;
+        _isMoved = false;
+        _interactiveObject = GetComponent<Interactive>();
         base.Start();
     }
 
@@ -25,39 +26,39 @@ public class DoorRecorder : Recorder
     protected override int DoOnTick(int time)
     {
         if (this == null) return 0;
-        var curState = new DoorRecordState(_isOpen);
+        var curState = new InteractiveObjectRecordState(_isMoved);
         if (curState.Equals(_previousState)) return 0;
         _previousState = curState;
         _states[time] = curState;
         return 0;
     }
 
-    public bool GetDoorStatus()
+    public bool GetStatus()
     {
-        return _isOpen;
+        return _isMoved;
     }
 
-    public void DoorInteraction(bool isOpen)
+    public void ObjectInteraction(bool isMoved)
     {
-        _photonView.RPC("RPCDoorInteraction", PhotonTargets.All, isOpen);
+        _photonView.RPC("RPCObjectInteraction", PhotonTargets.All, isMoved);
     }
     [PunRPC]
-    public void RPCDoorInteraction(bool isOpen)
+    public void RPCObjectInteraction(bool isOpen)
     {
-        SetDoorStatus(isOpen);
-        if(!_isOpen)
+        SetStatus(isOpen);
+        if(!_isMoved)
         {
-            CloseDoor();
+            ResetObject();
         }
         else
         {
-            OpenDoor();
+            MoveObject();
         }
     }
 
-    public void SetDoorStatus(bool isOpen)
+    public void SetStatus(bool isOpen)
     {
-        _isOpen = isOpen;
+        _isMoved = isOpen;
     }
 
     [PunRPC]
@@ -74,18 +75,18 @@ public class DoorRecorder : Recorder
 
     internal override void PlayState<T>(T recordState)
     {
-        if (!(recordState is DoorRecordState)) return;
-        var state = recordState as DoorRecordState;
-        DoorInteraction(state.IsOpen);
+        if (!(recordState is InteractiveObjectRecordState)) return;
+        var state = recordState as InteractiveObjectRecordState;
+        ObjectInteraction(state.IsMoved);
     }
 
-    private void OpenDoor()
+    private void MoveObject()
     {
-        transform.rotation = Quaternion.Euler(0,90,0);
+        _interactiveObject.MoveObject();
     }
 
-    private void CloseDoor()
+    private void ResetObject()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        _interactiveObject.ResetObject();
     }
 }

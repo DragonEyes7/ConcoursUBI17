@@ -2,7 +2,7 @@
 
 public class Door : Interactive
 {
-    private DoorRecorder _doorRecorder;
+    private InteractiveObjectRecorder _interactiveObjectRecorder;
     [SerializeField] private bool _isOpen;
     [SerializeField] private bool _isLock = true;
     private AgentActions _action;
@@ -10,8 +10,8 @@ public class Door : Interactive
     private new void Start()
     {
         base.Start();
-        _doorRecorder = GetComponent<DoorRecorder>();
-        _doorRecorder.SetDoorStatus(_isOpen);
+        _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
+        _interactiveObjectRecorder.SetStatus(_isOpen);
         m_IsActivated = true;
     }
 
@@ -20,7 +20,7 @@ public class Door : Interactive
         _action = other.GetComponent<AgentActions>();
         if (_action && _action.enabled)
         {
-            m_HUD.ShowActionPrompt(_isOpen ? "Close door." : "Open door.");
+            m_HUD.ShowActionPrompt(_interactiveObjectRecorder.GetStatus() ? "Close door." : "Open door.");
             _action.SetInteract(true);
             _action.SetInteractionObject(this);
         }
@@ -38,12 +38,22 @@ public class Door : Interactive
     {
         if(!_isLock)
         {
-            _doorRecorder.DoorInteraction(!_doorRecorder.GetDoorStatus());
+            _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus());
         }
         else
         {
             FindObjectOfType<HUD>().ShowMessages("Door is locked", 3f);
         }
+    }
+
+    public override void MoveObject()
+    {
+        transform.rotation = Quaternion.Euler(0,90,0);
+    }
+
+    public override void ResetObject()
+    {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void Unlock()

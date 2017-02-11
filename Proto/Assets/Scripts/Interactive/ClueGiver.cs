@@ -5,12 +5,14 @@ public class ClueGiver : Interactive
     GameManager m_GameManager;
     PhotonView m_PhotonView;
     AgentActions m_Action;
+    private InteractiveObjectRecorder _interactiveObjectRecorder;
 
     new void Start()
     {
         base.Start();
         m_GameManager = FindObjectOfType<GameManager>();
         m_PhotonView = GetComponent<PhotonView>();
+        _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -44,6 +46,11 @@ public class ClueGiver : Interactive
 
     public override void Interact()
     {
+        _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus());
+    }
+
+    public override void MoveObject()
+    {
         m_IsActivated = true;
 
         m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Nose");
@@ -55,6 +62,14 @@ public class ClueGiver : Interactive
         UnSelect();
 
         m_HUD.ShowUplink(true);
+    }
+
+    public override void ResetObject()
+    {
+        m_IsActivated = false;
+        if(m_Action)
+            m_Action.SetInteract(true);
+        m_GameManager.ClearAgentClues();
     }
 
     [PunRPC]

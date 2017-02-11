@@ -84,4 +84,16 @@ public class Bomb : Interactive
 
         }
     }
+
+    public override void MoveObject()
+    {
+        //TODO This here should never be called, as of now at least, probably better to leave it as is, if we ever need it
+        throw new System.NotImplementedException();
+    }
+
+    public override void ResetObject()
+    {
+        //TODO This here should never be called, as of now at least, probably better to leave it as is, if we ever need it
+        throw new System.NotImplementedException();
+    }
 }
