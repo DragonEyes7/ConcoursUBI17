@@ -29,6 +29,9 @@ abstract public class Interactive : MonoBehaviour
 
     abstract public void Interact();
 
+    public abstract void MoveObject();
+    public abstract void ResetObject();
+
     public bool isActivated
     {
         get { return m_IsActivated; }

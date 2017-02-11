@@ -4,12 +4,19 @@ public class MovableObject : Interactive
 {
     [SerializeField]Transform[] m_PathToFollow;
 
+    private InteractiveObjectRecorder _interactiveObjectRecorder;
+    private Vector3 _startPosition;
+    private Action _previousAction;
+
+
     int m_CurrentPosition = 0;
 
     new void Start()
     {
         base.Start();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
+        _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
+        _startPosition = transform.position;
     }
 
     void Update()
@@ -39,14 +46,14 @@ public class MovableObject : Interactive
     {
         if(!m_IsActivated)
         {
-            Action act = other.GetComponent<Action>();
-            if (act)
+            _previousAction = other.GetComponent<Action>();
+            if (_previousAction)
             {
-                if (act.enabled)
+                if (_previousAction.enabled)
                 {
                     m_HUD.ShowActionPrompt("Move Chair");
-                    act.SetInteract(true);
-                    act.SetInteractionObject(this);
+                    _previousAction.SetInteract(true);
+                    _previousAction.SetInteractionObject(this);
                     Select();
                 }
             }
@@ -55,13 +62,13 @@ public class MovableObject : Interactive
 
     void OnTriggerExit(Collider other)
     {
-        Action act = other.GetComponent<Action>();
-        if (act)
+        _previousAction = other.GetComponent<Action>();
+        if (_previousAction)
         {
-            if (act.enabled)
+            if (_previousAction.enabled)
             {
                 m_HUD.HideActionPrompt();
-                act.SetInteract(false);
+                _previousAction.SetInteract(false);
                 UnSelect();
             }
         }
@@ -69,12 +76,19 @@ public class MovableObject : Interactive
 
     public override void Interact()
     {
-        GetComponent<PhotonView>().RPC("RPCInteract", PhotonTargets.All);
+        _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus());
     }
 
-    [PunRPC]
-    void RPCInteract()
+    public override void MoveObject()
     {
         m_IsActivated = true;
+    }
+
+    public override void ResetObject()
+    {
+        transform.position = _startPosition;
+        m_IsActivated = false;
+        m_CurrentPosition = 0
+        if(_previousAction)_previousAction.SetInteract(true);
     }
 }

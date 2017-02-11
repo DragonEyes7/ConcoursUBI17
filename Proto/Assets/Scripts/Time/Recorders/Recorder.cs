@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public abstract class Recorder : MonoBehaviour
 {
@@ -30,13 +31,13 @@ public abstract class Recorder : MonoBehaviour
 
     internal virtual int FindClosestKey(int key, List<int> keys)
     {
-        var index = keys.BinarySearch(key);
-        //~ = Bitwise NOT
-        index = ~index - 1;
-        if (index < 0) index = 0;
-        if (!keys.Contains(index))
-            Debug.Log("Using previous state, Dictionnary did not contain proper key : " + index + " Dictionnary count : " + keys.Count);
-        return index;
+        var val = 0;
+        for (var i = 0; i < keys.Count-1; ++i)
+        {
+            val = keys[i];
+            if (val < key && keys[i + 1] > key) break;
+        }
+        return val;
     }
 
     internal abstract RecordState FindClosestState(int key);
@@ -51,6 +52,12 @@ public abstract class Recorder : MonoBehaviour
 
     [PunRPC]
     internal abstract void DoRewind(int time);
+
+    internal virtual Dictionary<int, T> WipeRemainingRecordedStates<T>(int key, Dictionary<int, T> states)
+        where T : RecordState
+    {
+        return states.Where(state => state.Key <= key).ToDictionary(state => state.Key, state => state.Value);
+    }
 
     internal abstract void PlayState<T>(T recordState) where T : RecordState;
 }
