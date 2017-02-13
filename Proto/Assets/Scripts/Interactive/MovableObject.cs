@@ -88,7 +88,11 @@ public class MovableObject : Interactive
     {
         transform.position = _startPosition;
         m_IsActivated = false;
-        m_CurrentPosition = 0
-        if(_previousAction)_previousAction.SetInteract(true);
+        m_CurrentPosition = 0;
+
+        if (_previousAction)
+        {
+            _previousAction.SetInteract(true);
+        }
     }
 }
