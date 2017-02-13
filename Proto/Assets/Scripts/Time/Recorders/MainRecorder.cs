@@ -30,10 +30,10 @@ public class MainRecorder : MonoBehaviour
 
     void Update()
     {
-        if (!Input.GetButtonDown("TimeRewind")) return;
+        /*if (!Input.GetButtonDown("TimeRewind")) return;
         SetTimeRewinding();
         SetTimeForward();
-        FindObjectOfType<GameManager>().ClearAgentClues();
+        FindObjectOfType<GameManager>().ClearAgentClues();*/
     }
 
     private int DoOnTick(int time)
