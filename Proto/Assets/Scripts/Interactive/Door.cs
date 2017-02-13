@@ -34,6 +34,18 @@ public class Door : Interactive
         _action.SetInteract(false);
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        m_HUD.HideActionPrompt();
+        _action = other.GetComponent<AgentActions>();
+        if (_action && _action.enabled)
+        {
+            m_HUD.ShowActionPrompt(_interactiveObjectRecorder.GetStatus() ? "Close door." : "Open door.");
+            _action.SetInteract(true);
+            _action.SetInteractionObject(this);
+        }
+    }
+
     public override void Interact()
     {
         if(!_isLock)
