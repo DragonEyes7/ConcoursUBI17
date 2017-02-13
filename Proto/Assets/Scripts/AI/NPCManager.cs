@@ -32,6 +32,22 @@ public class NPCManager : MonoBehaviour {
         //Get the list of all Interest Points in the scene
         InterestPoints.AddRange(GameObject.FindGameObjectsWithTag("InterestPoint"));
 
+        //Get the Materials list
+        Material[] HairList = Resources.LoadAll<Material>("Materials/Hair");
+        Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
+
+        //Get all possible combinations
+        foreach (Material h in HairList)
+        {
+            foreach (Material p in ClothList)
+            {
+                foreach (Material s in ClothList)
+                {
+
+                }
+            }
+        }
+
         //Generate NPCs
         for (int i = 0; i < NPCCount + 1; i++)
         {
@@ -54,7 +70,7 @@ public class NPCManager : MonoBehaviour {
         }
         
         //Set the schedule for each NPC
-        for (int i = 0; i < NPCs.Count; i++)
+        for (int i = 1; i < NPCs.Count; i++)
         {
 
             int StartPosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
@@ -86,7 +102,7 @@ public class NPCManager : MonoBehaviour {
 
 
     }
-	
+
     private ScheduleTarget CreateTargetSchedule(Transform StartingLocation)
     {
         ScheduleTarget Target = new ScheduleTarget();
