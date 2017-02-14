@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour
     Dictionary<string, int> m_IntelligenceClues = new Dictionary<string, int>();
 
     int[][] m_TargetsCharacteristics;
-    bool m_ObjectivesCompleted = false;
     int m_InnocentTargetsIntercepted;
 
+    bool m_ObjectivesCompleted = false;
+    bool m_Ready = false;
     bool m_IsMaster;
 
     public int CurrentTimer()
@@ -30,17 +31,31 @@ public class GameManager : MonoBehaviour
         set { m_IsMaster = value; }
     }
 
-    public void Setup()
+    public void Setup(bool isMaster)
     {
-        m_IsMaster = true;
-        SetupObjectives();
-        ValideNumberOfTargets();
-        FindRandomTargets();
-        //SetupRandomExit();
-    }
+        m_IsMaster = isMaster;
+        if(m_IsMaster)
+        {
+            ValideNumberOfTargets();
+            FindRandomTargets();
+        }
+        else
+        {
+            m_Ready = true;
 
-    void SetupObjectives()
-    {
+            if (PhotonNetwork.room.CustomProperties.ContainsKey("PlayerReady"))
+            {
+                ExitGames.Client.Photon.Hashtable prop = PhotonNetwork.room.CustomProperties;
+                prop["PlayerReady"] = m_Ready;
+                PhotonNetwork.room.SetCustomProperties(prop);
+            }
+            else
+            {
+                ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();
+                prop.Add("PlayerReady", m_Ready);
+                PhotonNetwork.room.SetCustomProperties(prop);
+            }
+        }
     }
 
     void ValideNumberOfTargets()
@@ -99,12 +114,17 @@ public class GameManager : MonoBehaviour
         {
             m_ObjectivesCompleted = (bool)propertiesThatChanged["Objectives"];
         }
-    }
+        else if(propertiesThatChanged.ContainsKey("PlayerReady"))
+        {
+            m_Ready = (bool)propertiesThatChanged["PlayerReady"];
 
-    void SetupRandomExit()
-    {
-        int random = Random.Range(0, m_DoorsSpawn.Length);
-        PhotonNetwork.Instantiate("Door", m_DoorsSpawn[random].position, m_DoorsSpawn[random].rotation, 0);
+            Debug.LogError("We will need to make the game beginning sync here!!!");
+
+            if(m_Ready)
+            {
+                LoadingCompleted();
+            }
+        }        
     }
 
     void DebugShowTarget()
@@ -239,5 +259,14 @@ public class GameManager : MonoBehaviour
     void Disconnect()
     {
         PhotonNetwork.Disconnect();
+    }
+
+    public void LoadingCompleted()
+    {
+        LoadingManager LM = FindObjectOfType<LoadingManager>();
+        if (LM)
+        {
+            LM.ConnectionCompleted();
+        }
     }
 }
