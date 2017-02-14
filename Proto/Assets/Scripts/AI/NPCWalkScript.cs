@@ -32,7 +32,7 @@ public class NPCWalkScript : MonoBehaviour {
 
     public virtual void OnTimeChange(int Time)
     {
-        Transform NextPosition = NPCSchedule.NextDestination(Time, this.gameObject.transform);
+        Transform NextPosition = NPCSchedule.NextDestination(Time, transform);
         if (NextPosition != Location)
         {
             Destination = NextPosition;
@@ -44,13 +44,18 @@ public class NPCWalkScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider location)
     {
-        int i = NPCID;
         //Verify the NPC as reqached the correct location
         if (location.transform == Destination)
         {
-            Destination = location.GetComponentInParent<LocationInteraction>().GetLocation();
+            Destination = location.GetComponentInParent<LocationInteraction>().GetLocation(NPCID);
+            location.GetComponentInParent<LocationInteraction>().Occupy(NPCID, Destination);
             OnDestinationChange();
         }
+    }
+
+    void OnTriggerExit(Collider location)
+    {
+        location.GetComponentInParent<LocationInteraction>().Free(NPCID);
     }
 }
 

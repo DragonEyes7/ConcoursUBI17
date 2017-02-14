@@ -19,6 +19,19 @@ public class NPCManager : MonoBehaviour {
 
     private TimeController _timeController;
 
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.P))
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
+    }
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -36,6 +49,7 @@ public class NPCManager : MonoBehaviour {
         Material[] HairList = Resources.LoadAll<Material>("Materials/Hair");
         Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
 
+        List<List<Material>> Possibilities = new List<List<Material>>();
         //Get all possible combinations
         foreach (Material h in HairList)
         {
@@ -43,13 +57,20 @@ public class NPCManager : MonoBehaviour {
             {
                 foreach (Material s in ClothList)
                 {
-
+                    List<Material> possibility = new List<Material>();
+                    possibility.Add(h);
+                    possibility.Add(p);
+                    possibility.Add(s);
+                    Possibilities.Add(possibility);
                 }
             }
         }
 
+        int startIndex = (int)(Random.Range(0, (Possibilities.Count - NPCCount + 1) / 100.0f) * 100);
+        List<List<Material>> NPCMats = Possibilities.GetRange(startIndex, NPCCount);
+
         //Generate NPCs
-        for (int i = 0; i < NPCCount + 1; i++)
+        for (int i = 0; i < NPCCount; i++)
         {
 
             int StartPosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
@@ -65,6 +86,9 @@ public class NPCManager : MonoBehaviour {
             }
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
+            npc.GetComponent<NPCCharacteristics>().HairMaterial = NPCMats[i][0];
+            npc.GetComponent<NPCCharacteristics>().PantMaterial = NPCMats[i][1];
+            npc.GetComponent<NPCCharacteristics>().ShirtMaterial = NPCMats[i][2];
             npc.GetComponent<Recorder>().SetTimeController(_timeController);
             NPCs.Add(npc);
         }
@@ -106,7 +130,7 @@ public class NPCManager : MonoBehaviour {
     private ScheduleTarget CreateTargetSchedule(Transform StartingLocation)
     {
         ScheduleTarget Target = new ScheduleTarget();
-        Target.AddItem(0, StartingLocation);
+        //Target.AddItem(0, StartingLocation);
         for (int j = 1; j < MapLength; j += schedulerTickRate)
         {
             if ((int)(Random.Range(0.0f, 1.0f) * 100) >= 90)
