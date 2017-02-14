@@ -53,12 +53,8 @@ public class NetworkManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void LoadingCompleted()
+    void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
-        LoadingManager LM = FindObjectOfType<LoadingManager>();
-        if (LM)
-        {
-            LM.ConnectionCompleted();
-        }
+        PhotonNetwork.Disconnect();
     }
 }
