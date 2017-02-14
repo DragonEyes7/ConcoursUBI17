@@ -118,11 +118,9 @@ public class GameManager : MonoBehaviour
         {
             m_Ready = (bool)propertiesThatChanged["PlayerReady"];
 
-            Debug.LogError("We will need to make the game beginning sync here!!!");
-
             if(m_Ready)
             {
-                LoadingCompleted();
+                FindObjectOfType<SyncPlayersUI>().PlayerReady();
             }
         }        
     }
@@ -259,14 +257,5 @@ public class GameManager : MonoBehaviour
     void Disconnect()
     {
         PhotonNetwork.Disconnect();
-    }
-
-    public void LoadingCompleted()
-    {
-        LoadingManager LM = FindObjectOfType<LoadingManager>();
-        if (LM)
-        {
-            LM.ConnectionCompleted();
-        }
     }
 }

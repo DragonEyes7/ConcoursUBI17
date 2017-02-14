@@ -7,6 +7,7 @@ public class NetworkManager : MonoBehaviour
 
     void OnJoinedRoom()
     {
+        Time.timeScale = 0f;
         GameManager GM = FindObjectOfType<GameManager>();
 
         if (PhotonNetwork.playerList.Length - 1 == 0)
@@ -36,6 +37,8 @@ public class NetworkManager : MonoBehaviour
                 GM.Setup(false);
             }            
         }
+
+        LoadingCompleted();
     }
 
     void SetupHUD(GameObject myPlayer, int timer)
@@ -56,5 +59,14 @@ public class NetworkManager : MonoBehaviour
     void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
         PhotonNetwork.Disconnect();
+    }
+
+    public void LoadingCompleted()
+    {
+        LoadingManager LM = FindObjectOfType<LoadingManager>();
+        if (LM)
+        {
+            LM.ConnectionCompleted();
+        }
     }
 }

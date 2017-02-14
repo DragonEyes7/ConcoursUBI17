@@ -10,6 +10,14 @@ public class MovementPlayer : Movement
     Vector3 m_MoveVector;
     float m_SpeedCurrent;
 
+    bool _IsPaused = true;
+
+    public bool isPaused
+    {
+        get { return _IsPaused; }
+        set { _IsPaused = value; }
+    }
+
     new void Start ()
     {
         base.Start();
@@ -20,7 +28,7 @@ public class MovementPlayer : Movement
 	
 	void FixedUpdate()
     {
-        if(m_Recorder.IsRecording)
+        if(m_Recorder.IsRecording && !_IsPaused)
         {
             m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (m_Input.magnitude > 0)

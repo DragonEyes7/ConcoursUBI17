@@ -5,38 +5,39 @@ public class TimeController : MonoBehaviour
     public MultipleDelegate Tick = new MultipleDelegate();
     public MultipleDelegate End = new MultipleDelegate();
 
-    int m_Time, _maxTime;
-    bool isForward = true;
-    float timer;
+    int _Time, _maxTime;
+    float _Timer;
+    bool _IsPlaying = false;
+
     public int time
     {
-        get { return m_Time; }
-        set { m_Time = value; }
+        get { return _Time; }
+        set { _Time = value; }
     }
 
-    public bool isFoward
+    public bool isPlaying
     {
-        get { return isForward; }
-        set { isForward = value; }
+        get { return _IsPlaying; }
+        set { _IsPlaying = value; }
     }
 
     void FixedUpdate()
     {
-        timer += Time.deltaTime;
-        if (timer >= 1f && isForward) DoTick();
+        _Timer += Time.deltaTime;
+        if (_Timer >= 1f && _IsPlaying) DoTick();
     }
 
     void DoTick()
     {
-        timer = 0;
-        m_Time++;
-        Tick.Execute(m_Time);
-        if (m_Time == _maxTime)
+        _Timer = 0;
+        _Time++;
+        Tick.Execute(_Time);
+        if (_Time == _maxTime)
         {
             //Game has ended stop countdown and show the players they f*cked up
             FindObjectOfType<GameManager>().Defeat();
 
-            End.Execute(m_Time);
+            End.Execute(_Time);
             End.Empty();
         }
     }
