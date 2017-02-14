@@ -3,16 +3,32 @@ using UnityEngine;
 
 public class ClockUI : MonoBehaviour
 {
-    private Transform minutes;
-    private Transform hours;
+    private Transform _seconds;
+    private Transform _minutes;
+    private Transform _arrow;
+    [SerializeField] private int _speed = 10;
 
     private void Start()
     {
         foreach (Transform child in transform)
         {
-            if (minutes != null && hours != null) break;
-            if (child.name.IndexOf("minutes", StringComparison.InvariantCultureIgnoreCase) > -1) minutes = child;
-            else if (child.name.IndexOf("hours", StringComparison.InvariantCultureIgnoreCase) > -1) hours = child;
+            if (_seconds != null && _minutes != null) break;
+            if (child.name.IndexOf("pivotSeconds", StringComparison.InvariantCultureIgnoreCase) > -1) _seconds = child;
+            else if (child.name.IndexOf("pivotMinutes", StringComparison.InvariantCultureIgnoreCase) > -1) _minutes = child;
+            else if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
         }
+    }
+
+    private void Update()
+    {
+        RotateLikeAClock();
+    }
+
+    private void RotateLikeAClock()
+    {
+
+        _seconds.Rotate(Vector3.forward * Time.deltaTime * (_speed * 12));
+        _arrow.Rotate(Vector3.forward * Time.deltaTime * (_speed * 12));
+        _minutes.Rotate(Vector3.forward * Time.deltaTime * _speed);
     }
 }
