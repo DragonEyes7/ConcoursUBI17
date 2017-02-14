@@ -24,10 +24,16 @@ public class ClockUI : MonoBehaviour
         RotateLikeAClock();
     }
 
+    private bool a = true;
     private void RotateLikeAClock()
     {
+        var seconds = 15;
+        if(a)
+        _seconds.Rotate(0f, 0f, -(360 / 60 * seconds + 2));
 
-        _seconds.Rotate(Vector3.forward * Time.deltaTime * (_speed * 12));
+        a = false;
+
+        //_seconds.Rotate(Vector3.forward * Time.deltaTime * (_speed * 12));
         _arrow.Rotate(Vector3.forward * Time.deltaTime * (_speed * 12));
         _minutes.Rotate(Vector3.forward * Time.deltaTime * _speed);
     }
