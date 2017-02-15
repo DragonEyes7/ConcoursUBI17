@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class SyncPlayersUI : MonoBehaviour
 {
     [SerializeField]Text m_ReadyText;
     [SerializeField]Text m_TimerText;
-    [SerializeField]float m_WaitTime = 5f;
+    [SerializeField]int m_WaitTime = 5;
 
-    float m_Timer;
-    float m_DeltaPaused;
+    int m_Timer;
     bool m_IsReady = false;
 
 	void Start ()
@@ -21,6 +21,7 @@ public class SyncPlayersUI : MonoBehaviour
     {
         FindObjectOfType<TimeController>().isPlaying = true;
         Time.timeScale = 1f;
+        CancelInvoke("Timer");
         Destroy(gameObject);
     }
 
@@ -30,16 +31,19 @@ public class SyncPlayersUI : MonoBehaviour
         m_TimerText.gameObject.SetActive(true);
         m_ReadyText.gameObject.SetActive(false);
 
-        InvokeRepeating("Timer", 0, 1f);
+        StartCoroutine(Timer());
     }
 
-    void Timer()
+    IEnumerator Timer()
     {
-        m_Timer -= Time.realtimeSinceStartup - m_DeltaPaused;
-        m_TimerText.text = m_Timer.ToString("F0");
+        --m_Timer;
+        m_TimerText.text = m_Timer.ToString();
         if (m_Timer <= 0)
         {
             StartGame();
+            yield break;
         }
+        yield return new WaitForSecondsRealtime(1f);
+        StartCoroutine(Timer());
     }
 }
