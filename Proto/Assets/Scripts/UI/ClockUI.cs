@@ -21,20 +21,26 @@ public class ClockUI : MonoBehaviour
 
     private void Update()
     {
-        RotateLikeAClock();
+        RotateLikeAClock(15);
     }
 
     private bool a = true;
-    private void RotateLikeAClock()
+    private void RotateLikeAClock(int time)
     {
-        var seconds = 15;
-        if(a)
-        _seconds.Rotate(0f, 0f, -(360 / 60 * seconds + 2));
-
+        if(a)_seconds.Rotate(0f, 0f, GetSecondClockPosition(time));
+        if(a)_minutes.Rotate(0f, 0f, GetMinuteClockPosition(time));
         a = false;
+    }
 
-        //_seconds.Rotate(Vector3.forward * Time.deltaTime * (_speed * 12));
-        _arrow.Rotate(Vector3.forward * Time.deltaTime * (_speed * 12));
-        _minutes.Rotate(Vector3.forward * Time.deltaTime * _speed);
+    private float GetSecondClockPosition(int time)
+    {
+        var seconds = time % 60;
+        return -(360 / 60 * seconds + 2);
+    }
+
+    private float GetMinuteClockPosition(int time)
+    {
+        var seconds = time / 60;
+        return -(360 / 12 * seconds + 2);
     }
 }
