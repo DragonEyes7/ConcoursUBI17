@@ -48,14 +48,14 @@ public class MainRecorder : MonoBehaviour
 
     private void SetTimeForward()
     {
-        _timeController.isFoward = true;
+        _timeController.isPlaying = true;
         _isRecording = true;
     }
 
     private void SetTimeRewinding()
     {
         _isRecording = false;
-        _timeController.isFoward = false;
+        _timeController.isPlaying = false;
         var timeToRewind = GetMaxTime(3);
         _time -= timeToRewind;
         _photonView.RPC("SetTime", PhotonTargets.All, _time);

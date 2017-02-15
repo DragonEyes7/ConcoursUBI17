@@ -38,7 +38,7 @@ public class LoadingAnimation : MonoBehaviour
 				m_Text.text = "You broke the Matrix";
 				break;
 		}
-		yield return new WaitForSeconds(delay);
+		yield return new WaitForSecondsRealtime(delay);
 		StartCoroutine(Animation(m_AnimationDelay));
 	}
 }

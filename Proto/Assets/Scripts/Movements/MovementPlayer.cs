@@ -10,6 +10,14 @@ public class MovementPlayer : Movement
     Vector3 m_MoveVector;
     float m_SpeedCurrent;
 
+    bool _IsPaused = true;
+
+    public bool isPaused
+    {
+        get { return _IsPaused; }
+        set { _IsPaused = value; }
+    }
+
     new void Start ()
     {
         base.Start();

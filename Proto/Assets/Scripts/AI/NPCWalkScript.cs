@@ -6,10 +6,15 @@ public class NPCWalkScript : MonoBehaviour {
 
     public Transform Destination;
     public Transform Location;
-    public Schedule NPCSchedule;
-    public int NPCID;
+    private ScheduleNPC NPCSchedule;
+    public int NPCID = 0;
 
     private NavMeshAgent agent;
+    
+    public virtual void setSchedule(ScheduleNPC Schedule)
+    {
+        NPCSchedule = Schedule;
+    }
 
     void Start()
     {
@@ -23,26 +28,32 @@ public class NPCWalkScript : MonoBehaviour {
         agent.SetDestination(Destination.position);
     }
 
-    public void OnTimeChange(int Time)
+    public virtual void OnTimeChange(int Time)
     {
-        Transform NextPosition = NPCSchedule.NextDestination(Time);
+        Transform NextPosition = NPCSchedule.NextDestination(Time, transform);
         if (NextPosition != Location)
         {
             Destination = NextPosition;
             Location = Destination;
+            //NPCSchedule.RemoveLocation(NextPosition);
             OnDestinationChange();
         }
     }
 
     void OnTriggerEnter(Collider location)
     {
-        int i = NPCID;
         //Verify the NPC as reqached the correct location
         if (location.transform == Destination)
         {
-            Destination = location.GetComponentInParent<LocationInteraction>().GetLocation();
+            Destination = location.GetComponentInParent<LocationInteraction>().GetLocation(NPCID);
+            location.GetComponentInParent<LocationInteraction>().Occupy(NPCID, Destination);
             OnDestinationChange();
         }
+    }
+
+    void OnTriggerExit(Collider location)
+    {
+        location.GetComponentInParent<LocationInteraction>().Free(NPCID);
     }
 }
 

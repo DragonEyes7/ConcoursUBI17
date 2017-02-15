@@ -8,6 +8,8 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]float m_YMax = 50f;
     [SerializeField]float m_XMin;
     [SerializeField]float m_XMax;
+    [SerializeField]bool m_YLock = true;
+    [SerializeField]bool m_XLock = true;
     Vector2 m_Input;
 
     float m_CurrentX;
@@ -40,8 +42,15 @@ public class CameraMovement : MonoBehaviour
         m_CurrentX += m_Input.x;
         m_CurrentY += m_Input.y;
 
-        m_CurrentY = Mathf.Clamp(m_CurrentY, m_YMin, m_YMax);
-        m_CurrentX = Mathf.Clamp(m_CurrentX, m_XMin, m_XMax);
+        if (m_YLock)
+        {
+            m_CurrentY = Mathf.Clamp(m_CurrentY, m_YMin, m_YMax);
+        }
+
+        if(m_XLock)
+        {
+            m_CurrentX = Mathf.Clamp(m_CurrentX, m_XMin, m_XMax);
+        }       
     }
 
     void UpdatePosition()

@@ -7,7 +7,10 @@ public class NetworkManager : MonoBehaviour
 
     void OnJoinedRoom()
     {
-        if(PhotonNetwork.playerList.Length - 1 == 0)
+        Time.timeScale = 0f;
+        GameManager GM = FindObjectOfType<GameManager>();
+
+        if (PhotonNetwork.playerList.Length - 1 == 0)
         {
             GameObject myPlayer = PhotonNetwork.Instantiate("Player", m_SpawnPoint[PhotonNetwork.playerList.Length - 1].position, m_SpawnPoint[PhotonNetwork.playerList.Length - 1].rotation, 0);
             myPlayer.name = "My Player";
@@ -17,21 +20,21 @@ public class NetworkManager : MonoBehaviour
             myPlayer.GetComponent<PlayerSetup>().enabled = true;
             myPlayer.GetComponent<PlayerSetup>().SetupCamera();
 
-            GameManager GM = FindObjectOfType<GameManager>();
             if (GM)
             {
                 SetupHUD(myPlayer, GM.CurrentTimer());
-                GM.Setup();
-            }            
+                GM.Setup(true);
+            }
         }
         else
         {
-            FindObjectOfType<CamerasController>().SetIntelligence(true);
+            CamerasController CC = FindObjectOfType<CamerasController>();
+            CC.SetIntelligence(true);
 
-            GameManager GM = FindObjectOfType<GameManager>();
-            if(GM)
+            if (GM)
             {
                 SetupHUD(null, GM.CurrentTimer());
+                GM.Setup(false);
             }            
         }
 
@@ -53,7 +56,12 @@ public class NetworkManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void LoadingCompleted()
+    void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
+    {
+        PhotonNetwork.Disconnect();
+    }
+
+    public void LoadingCompleted()
     {
         LoadingManager LM = FindObjectOfType<LoadingManager>();
         if (LM)

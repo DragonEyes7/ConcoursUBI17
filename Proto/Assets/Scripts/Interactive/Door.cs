@@ -3,6 +3,7 @@
 public class Door : Interactive
 {
     private InteractiveObjectRecorder _interactiveObjectRecorder;
+    [SerializeField] GameObject _DoorLock;
     [SerializeField] private bool _isOpen;
     [SerializeField] private bool _isLock = true;
     private AgentActions _action;
@@ -13,6 +14,7 @@ public class Door : Interactive
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(_isOpen);
         m_IsActivated = true;
+        _DoorLock.GetComponent<Renderer>().material.color = Color.red;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -77,5 +79,6 @@ public class Door : Interactive
     void RPCUnlock()
     {
         _isLock = false;
+        _DoorLock.GetComponent<Renderer>().material.color = Color.green;
     }
 }
