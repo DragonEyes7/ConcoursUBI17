@@ -28,7 +28,7 @@ public class MovementPlayer : Movement
 	
 	void FixedUpdate()
     {
-        if(m_Recorder.IsRecording && !_IsPaused)
+        if(m_Recorder.IsRecording)
         {
             m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (m_Input.magnitude > 0)
