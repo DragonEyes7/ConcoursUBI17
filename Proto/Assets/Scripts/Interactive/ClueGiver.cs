@@ -2,6 +2,8 @@
 
 public class ClueGiver : Interactive
 {
+    [SerializeField]int _TargetID = 0;
+    [SerializeField]string[] _PartsName;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
     AgentActions m_Action;
@@ -53,9 +55,10 @@ public class ClueGiver : Interactive
     {
         m_IsActivated = true;
 
-        m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Nose");
-        m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Hair");
-        m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, 0, "Backpack");
+        for(int i = 0; i < _PartsName.Length; ++i)
+        {
+            m_PhotonView.RPC("SendClueToAgent", PhotonTargets.All, _TargetID, _PartsName[i]);
+        }
 
         m_HUD.HideActionPrompt();
         m_Action.SetInteract(false);
