@@ -21,7 +21,7 @@ public class ClockUI : MonoBehaviour
 
     private void Update()
     {
-        RotateLikeAClock(15);
+        RotateLikeAClock(75);
     }
 
     private bool a = true;
@@ -29,6 +29,7 @@ public class ClockUI : MonoBehaviour
     {
         if(a)_seconds.Rotate(0f, 0f, GetSecondClockPosition(time));
         if(a)_minutes.Rotate(0f, 0f, GetMinuteClockPosition(time));
+        if(a)_arrow.Rotate(0f, 0f, GetSecondClockPosition(time));
         a = false;
     }
 
