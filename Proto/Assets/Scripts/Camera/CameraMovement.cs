@@ -2,8 +2,9 @@
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]Transform m_CameraTransform;
-    [SerializeField]float m_ZoomLimit = 4f;
+    [SerializeField]Camera m_Camera;
+    [SerializeField]float m_ZoomLimit = 30f;
+    [SerializeField]float m_ZoomSpeed = 12f;
     [SerializeField]float m_YMin = -40f;
     [SerializeField]float m_YMax = 50f;
     [SerializeField]float m_XMin;
@@ -14,11 +15,13 @@ public class CameraMovement : MonoBehaviour
 
     float m_CurrentX;
     float m_CurrentY;
+    float m_MaxZoomOut;
 
     void Start ()
     {
         m_CurrentX = transform.localEulerAngles.x;
         m_CurrentY = transform.localEulerAngles.y;
+        m_MaxZoomOut = m_Camera.fieldOfView;
 	}
 	
 	void Update ()
@@ -29,7 +32,7 @@ public class CameraMovement : MonoBehaviour
             Move();
         }
 
-        Zoom(Input.GetAxis("Mouse ScrollWheel") * -1f);
+        Zoom(Input.GetAxis("Mouse ScrollWheel") * -m_ZoomSpeed);
     }
 
     void LateUpdate()
@@ -60,15 +63,15 @@ public class CameraMovement : MonoBehaviour
 
     void Zoom(float zooming)
     {
-        m_CameraTransform.localPosition += new Vector3(0, 0, zooming);
-        if (m_CameraTransform.localPosition.z > 0)
+        m_Camera.fieldOfView += zooming;
+        if (m_Camera.fieldOfView > m_MaxZoomOut)
         {
-            m_CameraTransform.localPosition = Vector3.zero;
+            m_Camera.fieldOfView = m_MaxZoomOut;
         }
 
-        if (m_CameraTransform.localPosition.z < m_ZoomLimit*-1f)
+        if (m_Camera.fieldOfView < m_ZoomLimit)
         {
-            m_CameraTransform.localPosition = new Vector3(0,0,m_ZoomLimit*-1f);
+            m_Camera.fieldOfView = m_ZoomLimit;
         }
     }
 
