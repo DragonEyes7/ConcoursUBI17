@@ -22,11 +22,11 @@ public class ClockUI : MonoBehaviour
             else if (child.name.IndexOf("pivotMinutes", StringComparison.InvariantCultureIgnoreCase) > -1) _minutes = child;
             else if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
         }
-        _timeController.Tick.Suscribe(RotateLikeAClock);
-        RotateLikeAClock(0);
+        _timeController.Tick.Suscribe(UpdateClock);
+        UpdateClock(0);
     }
 
-    private int RotateLikeAClock(int time)
+    private int UpdateClock(int time)
     {
         _textTimeRewind.text = string.Format("{0}:{1:00}", time / 60, time % 60);
         _arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
