@@ -39,7 +39,6 @@ public class MainRecorder : MonoBehaviour
             SetTimeRewinding();
             SetTimeForward();
             _hasRewinded = true;
-            FindObjectOfType<GameManager>().ClearAgentClues();
         }
     }
 
