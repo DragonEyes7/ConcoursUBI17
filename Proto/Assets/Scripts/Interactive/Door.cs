@@ -13,8 +13,26 @@ public class Door : Interactive
         base.Start();
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(_isOpen);
-        m_IsActivated = true;
-        _DoorLock.GetComponent<Renderer>().material.color = Color.red;
+        _DoorLock.GetComponent<Renderer>().material.color = _isLock ? Color.red : Color.green;
+
+        if (_isOpen)
+        {
+            Open();
+        }
+        else
+        {
+            Close();
+        }
+    }
+
+    void Open()
+    {
+        transform.rotation = Quaternion.Euler(0, 90, 0);
+    }
+
+    void Close()
+    {
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -62,12 +80,12 @@ public class Door : Interactive
 
     public override void MoveObject()
     {
-        transform.rotation = Quaternion.Euler(0,90,0);
+        Open();
     }
 
     public override void ResetObject()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        Close();
     }
 
     public void Unlock()
