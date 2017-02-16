@@ -49,7 +49,7 @@ public class MainRecorder : MonoBehaviour
             OnTick.Execute(time);
         }
         _time = time;
-        if (_timeController.maxTime - time <= 10 && !_hasRewinded)
+        if (PhotonNetwork.isMasterClient && _timeController.maxTime - time <= 10 && !_hasRewinded)
         {
             ShowRewindPrompt();
         }
