@@ -3,9 +3,11 @@
 public class MainRecorder : MonoBehaviour
 {
     [SerializeField] private TimeController _timeController;
+    [SerializeField] private GameObject _rewindPrompt;
     private int _time;
     private bool _isRecording = true;
     private PhotonView _photonView;
+    private bool _hasRewinded;
 
     public MultipleDelegate OnTick = new MultipleDelegate();
     public MultipleDelegate OnRewind = new MultipleDelegate();
@@ -25,6 +27,8 @@ public class MainRecorder : MonoBehaviour
         _timeController = _timeController ?? FindObjectOfType<TimeController>();
         _photonView = GetComponent<PhotonView>();
         _timeController.Tick.Suscribe(DoOnTick);
+        _hasRewinded = false;
+        HideRewindPrompt();
         DoOnTick(0);
     }
 
@@ -34,6 +38,7 @@ public class MainRecorder : MonoBehaviour
         {
             SetTimeRewinding();
             SetTimeForward();
+            _hasRewinded = true;
         }
     }
 
@@ -44,7 +49,25 @@ public class MainRecorder : MonoBehaviour
             OnTick.Execute(time);
         }
         _time = time;
+        if (_timeController.maxTime - time <= 10 && !_hasRewinded)
+        {
+            ShowRewindPrompt();
+        }
+        else
+        {
+            HideRewindPrompt();
+        }
         return 0;
+    }
+
+    private void ShowRewindPrompt()
+    {
+        _rewindPrompt.SetActive(true);
+    }
+
+    private void HideRewindPrompt()
+    {
+        _rewindPrompt.SetActive(false);
     }
 
     private void SetTimeForward()

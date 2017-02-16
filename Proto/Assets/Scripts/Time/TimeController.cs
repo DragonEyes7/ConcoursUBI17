@@ -5,7 +5,7 @@ public class TimeController : MonoBehaviour
     public MultipleDelegate Tick = new MultipleDelegate();
     public MultipleDelegate End = new MultipleDelegate();
 
-    int _Time, _maxTime;
+    int _Time, _maxTime = 30;
     float _Timer;
     bool _IsPlaying = false;
 
@@ -13,6 +13,11 @@ public class TimeController : MonoBehaviour
     {
         get { return _Time; }
         set { _Time = value; }
+    }
+
+    public int maxTime
+    {
+        get { return _maxTime; }
     }
 
     public bool isPlaying
