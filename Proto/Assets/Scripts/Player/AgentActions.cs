@@ -23,22 +23,5 @@ public class AgentActions : Action
             m_Interactive.Interact();
             m_Interact = false;
         }
-
-        if (m_GameManager.AgentHasClues() && Input.GetButtonDown("Uplink"))
-        {
-            m_PhotonView.RPC("Uplink", PhotonTargets.All);
-            m_Hud.ShowUplink(false);
-        }
-    }
-
-    [PunRPC]
-    void Uplink()
-    {
-        FindObjectOfType<GameManager>().SendCluesToIntelligence();
-
-        if(PhotonNetwork.isNonMasterClientInRoom)
-        {
-            FindObjectOfType<HUD>().BlinkUplink();
-        }
     }
 }

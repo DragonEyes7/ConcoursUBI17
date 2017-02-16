@@ -1534,7 +1534,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4353624113846224, guid: d2043521887e43c43b06b390e601c271, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.558
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4353624113846224, guid: d2043521887e43c43b06b390e601c271, type: 2}
       propertyPath: m_LocalPosition.z
@@ -6486,6 +6486,11 @@ Prefab:
       propertyPath: instantiationId
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114234191571712950, guid: dad7baa67b1eb694db12cb081601e765,
+        type: 2}
+      propertyPath: _isLock
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dad7baa67b1eb694db12cb081601e765, type: 2}
   m_IsPrefabParent: 0
@@ -7881,7 +7886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_DoorsSpawn: []
   m_NumberOfTargets: 1
-  _levelTimer: 3000
+  _levelTimer: 120
   m_Hairs:
   - {fileID: 2100000, guid: 4027d896e37b47245b2fcbf63bfae936, type: 2}
   - {fileID: 2100000, guid: 0f53f529e2e92db448f0351ba1514508, type: 2}
@@ -9253,6 +9258,11 @@ Prefab:
         type: 2}
       propertyPath: instantiationId
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114234191571712950, guid: dad7baa67b1eb694db12cb081601e765,
+        type: 2}
+      propertyPath: _isLock
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dad7baa67b1eb694db12cb081601e765, type: 2}
