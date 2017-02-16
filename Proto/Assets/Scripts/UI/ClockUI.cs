@@ -26,10 +26,15 @@ public class ClockUI : MonoBehaviour
         UpdateClock(0);
     }
 
+    private void Update()
+    {
+        _arrow.Rotate(0f, 0f, Input.GetAxis("Horizontal") * Input.GetAxis("Vertical") % 360);
+    }
+
     private int UpdateClock(int time)
     {
         _textTimeRewind.text = string.Format("{0}:{1:00}", time / 60, time % 60);
-        _arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
+        //_arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
         _seconds.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
         _minutes.rotation = Quaternion.Euler(0f, 0f, GetMinuteClockPosition(time));
         return 0;
