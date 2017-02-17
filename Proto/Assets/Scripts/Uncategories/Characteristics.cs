@@ -36,7 +36,7 @@ public class Characteristics : MonoBehaviour
         {
             if(GM.isMaster)
             {
-                GM.ValidateTarget(m_Characteristics);
+                GM.ValidateTarget(gameObject.GetComponent<NPCWalkScript>().NPCID);
             }            
         }        
     }

@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]Material[] m_Noses;
     [SerializeField]Material[] m_Backpacks;
 
-    Dictionary<string, int> m_AgentClues = new Dictionary<string, int>();
-    Dictionary<string, int> m_IntelligenceClues = new Dictionary<string, int>();
+    Dictionary<string, string> m_AgentClues = new Dictionary<string, string>();
+    Dictionary<string, string> m_IntelligenceClues = new Dictionary<string, string>();
 
-    int[][] m_TargetsCharacteristics;
+    Dictionary<string, string> m_TargetsCharacteristics;
     int m_InnocentTargetsIntercepted;
 
     bool m_ObjectivesCompleted = false;
@@ -79,15 +79,10 @@ public class GameManager : MonoBehaviour
             targets[r] = tmp;
         }
 
-        m_TargetsCharacteristics = new int[m_NumberOfTargets][];
+        m_TargetsCharacteristics = new Dictionary<string, string>();
 
-        if (targets.Length > 0)
-        {
-            for(int i = 0; i < m_NumberOfTargets; ++i)
-            {
-                m_TargetsCharacteristics[i] = targets[i].GetCharacteristics();
-            }
-        }
+        GameObject NPCManager = GameObject.FindGameObjectWithTag("NPCManager");
+        m_TargetsCharacteristics = NPCManager.GetComponent<NPCManager>().GetTargetCharacteristics();
 
         if (PhotonNetwork.room.CustomProperties.ContainsKey("Targets"))
         {
@@ -107,7 +102,7 @@ public class GameManager : MonoBehaviour
     {
         if (propertiesThatChanged.ContainsKey("Targets"))
         {
-            m_TargetsCharacteristics = (int[][])propertiesThatChanged["Targets"];
+            m_TargetsCharacteristics = (Dictionary<string, string>)propertiesThatChanged["Targets"];
             //DebugShowTarget();
         }
         else if(propertiesThatChanged.ContainsKey("Objectives"))
@@ -125,6 +120,7 @@ public class GameManager : MonoBehaviour
         }        
     }
 
+    /*
     void DebugShowTarget()
     {
         Characteristics[] targets = FindObjectsOfType<Characteristics>();
@@ -148,30 +144,16 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    */
 
-    public int[][] GetTargets()
+    public Dictionary<string, string> GetTargets()
     {
         return m_TargetsCharacteristics;
     }
 
-    public void ValidateTarget(int[] characteristics)
+    public void ValidateTarget(int NPCID)
     {
-        bool found = true;
-        int i = 0;
-        for (int j = 0; j < characteristics.Length; ++j)
-        {
-            if (characteristics[j] != m_TargetsCharacteristics[i][j])
-            {
-                found = false;
-                ++m_InnocentTargetsIntercepted;
-                break;
-            }
-        }
-
-        if (found)
-        {
-            m_ObjectivesCompleted = true;
-        }
+        m_ObjectivesCompleted = (NPCID == 0);
     }
 
     public bool ObjectivesCompleted()
@@ -202,22 +184,19 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    public int GetTargetClue(int targetID, string part)
+    public string GetTargetClue(string part)
     {
-        int x = 0;
-        if(part == "Nose")
+        if (m_TargetsCharacteristics.ContainsKey(part))
         {
-            x = 1;
+            return m_TargetsCharacteristics[part];
         }
-        else if(part == "Backpack")
+        else
         {
-            x = 2;
+            return "";
         }
-
-        return m_TargetsCharacteristics[targetID][x];
     }
 
-    public void AddCluesToIntelligence(string part, int clue)
+    public void AddCluesToIntelligence(string part, string clue)
     {
         if(!m_IntelligenceClues.ContainsKey(part))
         {
@@ -230,7 +209,7 @@ public class GameManager : MonoBehaviour
         return m_AgentClues.Count > 0;
     }
 
-    public Dictionary<string, int> GetIntelligenceClues()
+    public Dictionary<string, string> GetIntelligenceClues()
     {
         return m_IntelligenceClues;
     }

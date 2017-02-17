@@ -146,6 +146,18 @@ public class NPCManager : MonoBehaviour {
         return Target;
     }
 
+    public Dictionary<string, string> GetTargetCharacteristics()
+    {
+        Dictionary<string, string> characteristics = new Dictionary<string, string>();
+        //TODO: Modify this section if the NPCs characteristics change
+        GameObject target = NPCs[0];
+        characteristics.Add("Hair", target.GetComponent<NPCCharacteristics>().HairMaterial.name);
+        characteristics.Add("Shirt", target.GetComponent<NPCCharacteristics>().ShirtMaterial.name);
+        characteristics.Add("Pants", target.GetComponent<NPCCharacteristics>().PantMaterial.name);
+
+        return characteristics;
+    }
+
     private int DoOnTick(int time)
     {
         foreach (var npc in NPCs)

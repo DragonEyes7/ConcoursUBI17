@@ -274,23 +274,23 @@ public class HUD : MonoBehaviour
         }
         else
         {
-            Dictionary<string, int> clues = FindObjectOfType<GameManager>().GetIntelligenceClues();
+            Dictionary<string, string> clues = FindObjectOfType<GameManager>().GetIntelligenceClues();
             string message = "";
 
             if (clues.ContainsKey("Hair"))
             {
-                message += "The target has " + GetColorName(clues["Hair"]) + " hairs";
+                message += "The target has " + clues["Hair"] + " hairs";
             }
 
             if (clues.ContainsKey("Nose"))
             {
                 if (message == "")
                 {
-                    message += "\nThe target has a " + GetColorName(clues["Nose"]) + " Nose";
+                    message += "\nThe target has a " + clues["Nose"] + " Nose";
                 }
                 else
                 {
-                    message += ", a " + GetColorName(clues["Nose"]) + " Nose";
+                    message += ", a " + clues["Nose"] + " Nose";
                 }
             }
 
@@ -298,11 +298,11 @@ public class HUD : MonoBehaviour
             {
                 if(message == "")
                 {
-                    message += "\nThe target has a " + GetColorName(clues["Backpack"]) + " backpack";
+                    message += "\nThe target has a " + clues["Backpack"] + " backpack";
                 }
                 else
                 {
-                    message += " and a " + GetColorName(clues["Backpack"]) + " backpack";
+                    message += " and a " + clues["Backpack"] + " backpack";
                 }
             }
 
