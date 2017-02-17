@@ -6,8 +6,6 @@ public class InputManager : MonoBehaviour
 
     void Awake()
     {
-        //Persistence Singleton exemple
-        //Debug.Log("Singleton reference");
         if(inputManager == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -25,37 +23,16 @@ public class InputManager : MonoBehaviour
     {
         if(InputMode.isKeyboardMode)
         {
-            if (Input.GetKeyDown("joystick button 0"))
+            if (Input.GetKeyDown("joystick button 0")
+                || Input.GetKeyDown("joystick button 1")
+                || Input.GetKeyDown("joystick button 2")
+                || Input.GetKeyDown("joystick button 3")
+                || Input.GetAxisRaw("ControllerHorizontal") != 0
+                || Input.GetAxisRaw("ControllerVertical") != 0
+                || Input.GetAxisRaw("CameraHorizontal") != 0
+                || Input.GetAxisRaw("CameraVertical") != 0)
             {
                 InputMode.isKeyboardMode = false;
-            }
-            else if (Input.GetKeyDown("joystick button 1"))
-            {
-                InputMode.isKeyboardMode = false;
-            }
-            else if (Input.GetKeyDown("joystick button 2"))
-            {
-                InputMode.isKeyboardMode = false;
-            }
-            else if (Input.GetKeyDown("joystick button 3"))
-            {
-                InputMode.isKeyboardMode = false;
-            }
-            else if(Input.GetAxisRaw("ControllerHorizontal") != 0)
-            {
-                InputMode.isKeyboardMode = false;
-            }
-            else if (Input.GetAxisRaw("ControllerVertical") != 0)
-            {
-				InputMode.isKeyboardMode = false;
-            }
-            else if (Input.GetAxisRaw("CameraHorizontal") != 0)
-            {
-				InputMode.isKeyboardMode = false;
-            }
-            else if (Input.GetAxisRaw("CameraVertical") != 0)
-            {
-				InputMode.isKeyboardMode = false;
             }
         }
     }
