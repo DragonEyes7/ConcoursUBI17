@@ -10,6 +10,7 @@ public class ClockUI : MonoBehaviour
     private Text _textTimeRewind;
     [SerializeField] private int _speed = 10;
     private TimeController _timeController;
+    private float curTime;
 
     private void Start()
     {
@@ -22,40 +23,40 @@ public class ClockUI : MonoBehaviour
             else if (child.name.IndexOf("pivotMinutes", StringComparison.InvariantCultureIgnoreCase) > -1) _minutes = child;
             else if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
         }
-        UpdateClock(_timeController.time);
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log(_arrow.rotation);
+        curTime = 20;
+        UpdateClock(curTime);
     }
 
     private void Update()
     {
-        var horizontal = Input.GetAxis("CameraHorizontal") * Time.deltaTime * _speed;
-        var vertical = Input.GetAxis("CameraVertical") * Time.deltaTime * _speed;
-        var angle = -Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
-        _arrow.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        var horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * _speed;
+        var vertical = Input.GetAxis("Vertical") * Time.deltaTime * _speed;
+        var angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
+        curTime = angle / 360 * 60;
+        curTime = curTime < 0 ? 60 + curTime : curTime;
+        Debug.Log("Rotation angle : " + curTime);
+        UpdateClock(curTime);
+        //_arrow.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
     }
 
-    private int UpdateClock(int time)
+    private int UpdateClock(float time)
     {
-        _textTimeRewind.text = string.Format("{0}:{1:00}", time / 60, time % 60);
-        //_arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
+        _textTimeRewind.text = string.Format("{0}:{1:00}", (int)time / 60, (int)time % 60);
+        _arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
         _seconds.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
         _minutes.rotation = Quaternion.Euler(0f, 0f, GetMinuteClockPosition(time));
         return 0;
     }
 
-    private static float GetSecondClockPosition(int time)
+    private static float GetSecondClockPosition(float time)
     {
         var seconds = time % 60;
-        return -(360 / 60 * seconds + 2);
+        return -(6 * seconds + 2);
     }
 
-    private static float GetMinuteClockPosition(int time)
+    private static float GetMinuteClockPosition(float time)
     {
         var seconds = time / 60;
-        return -(360 / 12 * seconds + 2);
+        return -(30 * seconds + 2);
     }
 }
