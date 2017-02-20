@@ -29,6 +29,7 @@ public class ClockUI : MonoBehaviour
 
     private void Update()
     {
+        //This calculates the angle the joystick is in (instead of simple x, y coords)
         var angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg;
         curTime = angle / 360 * 60;
         curTime = curTime < 0 ? 60 + curTime : curTime;
