@@ -22,13 +22,20 @@ public class ClockUI : MonoBehaviour
             else if (child.name.IndexOf("pivotMinutes", StringComparison.InvariantCultureIgnoreCase) > -1) _minutes = child;
             else if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
         }
-        _timeController.Tick.Suscribe(UpdateClock);
-        UpdateClock(0);
+        UpdateClock(_timeController.time);
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log(_arrow.rotation);
     }
 
     private void Update()
     {
-        _arrow.Rotate(0f, 0f, Input.GetAxis("Horizontal") * Input.GetAxis("Vertical") % 360);
+        var horizontal = Input.GetAxis("CameraHorizontal") * Time.deltaTime * _speed;
+        var vertical = Input.GetAxis("CameraVertical") * Time.deltaTime * _speed;
+        var angle = -Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
+        _arrow.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
     }
 
     private int UpdateClock(int time)
