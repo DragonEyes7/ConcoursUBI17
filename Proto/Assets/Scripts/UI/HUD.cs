@@ -59,6 +59,14 @@ public class HUD : MonoBehaviour
         {
             PhotonNetwork.Disconnect();
         }
+        /*if (Input.GetButtonDown("TimeRewind"))
+        {
+            _clockUI.SetActive(true);
+        }
+        else if (Input.GetButtonUp("TimeRewind"))
+        {
+            _clockUI.SetActive(false);
+        }*/
     }
 
     void SetupAction()
