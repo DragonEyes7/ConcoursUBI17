@@ -29,9 +29,7 @@ public class ClockUI : MonoBehaviour
 
     private void Update()
     {
-        var horizontal = Input.GetAxis("Horizontal") * Time.deltaTime * _speed;
-        var vertical = Input.GetAxis("Vertical") * Time.deltaTime * _speed;
-        var angle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg;
+        var angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg;
         curTime = angle / 360 * 60;
         curTime = curTime < 0 ? 60 + curTime : curTime;
         Debug.Log("Rotation angle : " + curTime);
