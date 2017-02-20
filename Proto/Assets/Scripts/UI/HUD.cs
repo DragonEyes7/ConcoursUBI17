@@ -282,27 +282,27 @@ public class HUD : MonoBehaviour
                 message += "The target has " + clues["Hair"] + " hairs";
             }
 
-            if (clues.ContainsKey("Nose"))
+            if (clues.ContainsKey("Pants"))
             {
                 if (message == "")
                 {
-                    message += "\nThe target has a " + clues["Nose"] + " Nose";
+                    message += "\nThe target has a " + clues["Pants"] + " pair of pants";
                 }
                 else
                 {
-                    message += ", a " + clues["Nose"] + " Nose";
+                    message += ", a " + clues["Pants"] + " pair of pants";
                 }
             }
 
-            if (clues.ContainsKey("Backpack"))
+            if (clues.ContainsKey("Shirt"))
             {
                 if(message == "")
                 {
-                    message += "\nThe target has a " + clues["Backpack"] + " backpack";
+                    message += "\nThe target has a " + clues["Shirt"] + " shirt";
                 }
                 else
                 {
-                    message += " and a " + clues["Backpack"] + " backpack";
+                    message += " and a " + clues["Shirt"] + " shirt";
                 }
             }
 

@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]Transform[] m_DoorsSpawn;
     [SerializeField]int m_NumberOfTargets = 1;
     [SerializeField]int _levelTimer = 30;
-    [SerializeField]Material[] m_Hairs;
-    [SerializeField]Material[] m_Noses;
-    [SerializeField]Material[] m_Backpacks;
+    //[SerializeField]Material[] m_Hairs;
+    //[SerializeField]Material[] m_Noses;
+    //[SerializeField]Material[] m_Backpacks;
 
     Dictionary<string, string> m_AgentClues = new Dictionary<string, string>();
     Dictionary<string, string> m_IntelligenceClues = new Dictionary<string, string>();
@@ -166,6 +166,7 @@ public class GameManager : MonoBehaviour
         return m_InnocentTargetsIntercepted;
     }
 
+    /*
     public Material GetPartMaterial(int part, int index)
     {
         switch(part)
@@ -183,6 +184,7 @@ public class GameManager : MonoBehaviour
 
         return null;
     }
+    */
 
     public string GetTargetClue(string part)
     {
