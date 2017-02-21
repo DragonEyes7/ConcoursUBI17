@@ -62,8 +62,7 @@ public class CamerasController : MonoBehaviour
         if(m_IsIntelligence)
         {
             m_CameraObjects.Add(cameraToAdd);
-
-            m_PhotonView.RPC("RPCAddCamera", PhotonTargets.Others, cameraToAdd.GetInstanceID());
+            m_PhotonView.RPC("RPCAddCamera", PhotonTargets.Others, cameraToAdd.GetPhotonView().instantiationId);
 
             m_CameraObjects[m_CameraObjects.Count - 1].GetComponent<PhotonView>().RequestOwnership();
 
@@ -78,7 +77,7 @@ public class CamerasController : MonoBehaviour
 
         foreach (HackableCamera hc in HCs)
         {
-            if(hc.gameObject.GetInstanceID() == id)
+            if(hc.gameObject.GetPhotonView().instantiationId == id)
             {
                 m_CameraObjects.Add(hc.gameObject);
                 return;
