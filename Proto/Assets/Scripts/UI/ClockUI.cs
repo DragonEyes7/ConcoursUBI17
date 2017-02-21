@@ -10,6 +10,7 @@ public class ClockUI : MonoBehaviour
     private Transform _arrow;
     private Text _textTimeRewind;
     private TimeController _timeController;
+    private MainRecorder _mainRecorder;
     private float _curTime, _prevTime;
     private PhotonView _photonView;
     private bool _isFirst = true;
@@ -19,6 +20,7 @@ public class ClockUI : MonoBehaviour
         _photonView = GetComponent<PhotonView>();
         if(!_isFirst)_photonView.RPC("RPCStopTime", PhotonTargets.All);
         _timeController = FindObjectOfType<TimeController>();
+        _mainRecorder = FindObjectOfType<MainRecorder>();
         _textTimeRewind = GetComponentInChildren<Text>();
         foreach (Transform child in transform)
         {
@@ -40,6 +42,10 @@ public class ClockUI : MonoBehaviour
     }
     private IEnumerator ReadInput()
     {
+        if (Input.GetButtonDown("Action"))
+        {
+            ExecuteTimeRewind();
+        }
         _curTime = TuneMinutes(Input.GetAxis("DPadY"), (int)_curTime/60) +
                    TuneSeconds(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), (int)_curTime % 60);
         if (_curTime > _prevTime) _curTime = _prevTime;
@@ -47,6 +53,11 @@ public class ClockUI : MonoBehaviour
         UpdateClock(_curTime);
         yield return new WaitForSecondsRealtime(0.01f);
         StartCoroutine(ReadInput());
+    }
+
+    private void ExecuteTimeRewind()
+    {
+        _mainRecorder.DoRewind((int)_curTime);
     }
 
     private static float TuneMinutes(float y, int currentMinutes)

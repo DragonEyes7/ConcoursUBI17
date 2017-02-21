@@ -76,12 +76,11 @@ public class MainRecorder : MonoBehaviour
         _isRecording = true;
     }
 
-    private void SetTimeRewinding()
+    public void DoRewind(int newTime)
     {
         _isRecording = false;
         _timeController.isPlaying = false;
-        var timeToRewind = GetMaxTime(3);
-        _time -= timeToRewind;
+        _time = newTime;
         _photonView.RPC("SetTime", PhotonTargets.All, _time);
         OnRewind.Execute(_time);
     }
