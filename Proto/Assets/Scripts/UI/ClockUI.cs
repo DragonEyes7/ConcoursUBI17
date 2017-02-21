@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,12 +9,12 @@ public class ClockUI : MonoBehaviour
     private Transform _minutes;
     private Transform _arrow;
     private Text _textTimeRewind;
-    [SerializeField] private int _speed = 10;
     private TimeController _timeController;
-    private float curTime;
+    private float _curTime;
 
-    private void Start()
+    private void OnEnable()
     {
+        TimeStopper.StopTime();
         _timeController = FindObjectOfType<TimeController>();
         _textTimeRewind = GetComponentInChildren<Text>();
         foreach (Transform child in transform)
@@ -23,28 +24,34 @@ public class ClockUI : MonoBehaviour
             else if (child.name.IndexOf("pivotMinutes", StringComparison.InvariantCultureIgnoreCase) > -1) _minutes = child;
             else if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
         }
-        curTime = 20;
-        UpdateClock(curTime);
+        Debug.Log("Time Controller time : " + _timeController.time);
+        UpdateClock(_timeController.time);
+        StartCoroutine(ReadInput());
     }
 
-    private void Update()
+    private void OnDisable()
+    {
+        TimeStopper.StartTime();
+    }
+
+    private IEnumerator ReadInput()
     {
         //This calculates the angle the joystick is in (instead of simple x, y coords)
         var angle = Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg;
-        curTime = angle / 360 * 60;
-        curTime = curTime < 0 ? 60 + curTime : curTime;
-        Debug.Log("Rotation angle : " + curTime);
-        UpdateClock(curTime);
+        _curTime = angle / 360 * 60;
+        _curTime = _curTime < 0 ? 60 + _curTime : _curTime;
+        UpdateClock(_curTime);
         //_arrow.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
+        yield return new WaitForSecondsRealtime(0.01f);
+        StartCoroutine(ReadInput());
     }
 
-    private int UpdateClock(float time)
+    private void UpdateClock(float time)
     {
         _textTimeRewind.text = string.Format("{0}:{1:00}", (int)time / 60, (int)time % 60);
         _arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
         _seconds.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
         _minutes.rotation = Quaternion.Euler(0f, 0f, GetMinuteClockPosition(time));
-        return 0;
     }
 
     private static float GetSecondClockPosition(float time)

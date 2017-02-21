@@ -34,12 +34,12 @@ public class MainRecorder : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("TimeRewind"))
+        /*if (Input.GetButtonDown("TimeRewind"))
         {
             SetTimeRewinding();
             SetTimeForward();
             _hasRewinded = true;
-        }
+        }*/
     }
 
     private int DoOnTick(int time)
