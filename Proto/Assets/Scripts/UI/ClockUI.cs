@@ -43,6 +43,7 @@ public class ClockUI : MonoBehaviour
     {
         if (Input.GetButtonDown("Action"))
         {
+            _prevTime = _curTime;
             ExecuteTimeRewind();
         }
         _curTime = TuneMinutes(Input.GetAxis("DPadY"), (int)_curTime/60) +
