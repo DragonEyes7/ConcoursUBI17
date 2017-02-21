@@ -17,6 +17,11 @@
         return Equals((InteractiveObjectRecordState) obj);
     }
 
+    public override int GetHashCode()
+    {
+        return _isMoved.GetHashCode();
+    }
+
     private bool Equals(InteractiveObjectRecordState obj)
     {
         return obj.IsMoved == IsMoved;
