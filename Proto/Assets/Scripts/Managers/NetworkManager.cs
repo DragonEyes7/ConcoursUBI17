@@ -7,7 +7,7 @@ public class NetworkManager : MonoBehaviour
 
     void OnJoinedRoom()
     {
-        Time.timeScale = 0f;
+        TimeStopper.StopTime();
         GameManager GM = FindObjectOfType<GameManager>();
 
         if (PhotonNetwork.playerList.Length - 1 == 0)
