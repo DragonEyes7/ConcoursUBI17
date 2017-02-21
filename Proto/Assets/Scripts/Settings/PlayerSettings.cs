@@ -11,7 +11,6 @@
     static int m_AccountID;
     static float m_CameraDistance = 3f;
     static float[] m_CameraSpeed = { 5f, 1.5f };
-    static bool m_IsPlayer = false;
     static float m_MasterVolume = 0.5f;
     static float m_MusicVolume = 0.5f;
     static float m_SFXVolume = 0.5f;

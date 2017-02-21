@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class CamerasController : MonoBehaviour
 {
     [SerializeField]List<GameObject> m_CameraObjects = new List<GameObject>();
-    [SerializeField]int m_NumberOfStartingCamera = 1;
     [SerializeField]Camera m_SceneCamera;
     PhotonView m_PhotonView;
 

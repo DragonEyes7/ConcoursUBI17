@@ -11,12 +11,8 @@ public class TargetLock: MonoBehaviour
 	Material[][] m_TargetDefaultMaterial;
 	Material m_SoftLock;
 	Material m_HardLock;
-	Material m_SoftLockFriendly;
-	Material m_HardLockFriendly;
 
 	float m_MaxDistance = 20f;
-
-	bool m_FollowTarget = false;
 	bool m_TargetLock = false;
 	bool m_SwitchTargetActivated = false;
 
@@ -25,8 +21,6 @@ public class TargetLock: MonoBehaviour
 		m_TargetList = new List<Transform>();
 		m_SoftLock = Resources.Load<Material>("MAT_OutlineOrange");
 		m_HardLock = Resources.Load<Material>("MAT_OutlineRed");
-		m_SoftLockFriendly = Resources.Load<Material>("MAT_OutlineBlue");
-		m_HardLockFriendly = Resources.Load<Material>("MAT_OutlineGreen");
 		m_TargetMaterials = new Material[2];
 		m_TargetDefaultMaterial = new Material[10][];
 	}
