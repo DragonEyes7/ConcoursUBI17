@@ -29,7 +29,6 @@ public class ClockUI : MonoBehaviour
             else if (child.name.IndexOf("pivotMinutes", StringComparison.InvariantCultureIgnoreCase) > -1) _minutes = child;
             else if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
         }
-        Debug.Log("Time Controller time : " + _timeController.time);
         _curTime = _prevTime = _timeController.time;
         UpdateClock(_curTime);
         StartCoroutine(ReadInput());
