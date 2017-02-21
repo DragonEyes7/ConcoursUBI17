@@ -59,7 +59,8 @@ abstract public class Interactive : MonoBehaviour
         {
             for (int i = 0; i < m_Renderers.Length; ++i)
             {
-                m_Renderers[i].materials = m_TargetDefaultMaterial[i];
+                if(m_TargetDefaultMaterial[i] != null)
+                    m_Renderers[i].materials = m_TargetDefaultMaterial[i];
             }
         }
     }
