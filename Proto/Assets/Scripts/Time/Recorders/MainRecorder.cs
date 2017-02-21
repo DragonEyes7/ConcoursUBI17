@@ -32,16 +32,6 @@ public class MainRecorder : MonoBehaviour
         DoOnTick(0);
     }
 
-    void Update()
-    {
-        if (Input.GetButtonDown("TimeRewind"))
-        {
-            SetTimeRewinding();
-            SetTimeForward();
-            _hasRewinded = true;
-        }
-    }
-
     private int DoOnTick(int time)
     {
         if (_isRecording)
@@ -76,24 +66,20 @@ public class MainRecorder : MonoBehaviour
         _isRecording = true;
     }
 
-    private void SetTimeRewinding()
+    public void DoRewind(int newTime)
     {
         _isRecording = false;
         _timeController.isPlaying = false;
-        var timeToRewind = GetMaxTime(3);
-        _time -= timeToRewind;
+        _time = newTime;
         _photonView.RPC("SetTime", PhotonTargets.All, _time);
         OnRewind.Execute(_time);
+        SetTimeForward();
+        _hasRewinded = true;
     }
 
     [PunRPC]
     private void SetTime(int time)
     {
         _timeController.time = time;
-    }
-
-    private int GetMaxTime(int newTime)
-    {
-        return _time - newTime >= 0 ? newTime : _time;
     }
 }

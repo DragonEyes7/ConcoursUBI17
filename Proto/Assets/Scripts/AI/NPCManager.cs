@@ -22,11 +22,11 @@ public class NPCManager : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.P))
         {
-            Time.timeScale = 0;
+            TimeStopper.StopTime();
         }
         else
         {
-            Time.timeScale = 1;
+            TimeStopper.StartTime();
         }
 
     }

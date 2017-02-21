@@ -37,6 +37,7 @@ public class HUD : MonoBehaviour
 
         m_TimeController = FindObjectOfType<TimeController>();
         m_TimeController.Tick.Suscribe(ShowTimer);
+        ShowTimer(0);
     }
 
     void Update()
@@ -59,14 +60,14 @@ public class HUD : MonoBehaviour
         {
             PhotonNetwork.Disconnect();
         }
-        /*if (Input.GetButtonDown("TimeRewind"))
+        if (PhotonNetwork.isMasterClient && Input.GetButtonDown("TimeRewind"))
         {
             _clockUI.SetActive(true);
         }
-        else if (Input.GetButtonUp("TimeRewind"))
+        else if (PhotonNetwork.isMasterClient && Input.GetButtonUp("TimeRewind"))
         {
             _clockUI.SetActive(false);
-        }*/
+        }
     }
 
     void SetupAction()

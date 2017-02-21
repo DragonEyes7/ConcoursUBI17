@@ -20,7 +20,7 @@ public class SyncPlayersUI : MonoBehaviour
     void StartGame()
     {
         FindObjectOfType<TimeController>().isPlaying = true;
-        Time.timeScale = 1f;
+        TimeStopper.StartTime();
         CancelInvoke("Timer");
         Destroy(gameObject);
     }
