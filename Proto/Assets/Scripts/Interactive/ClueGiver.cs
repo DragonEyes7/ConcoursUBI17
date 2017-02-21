@@ -84,7 +84,7 @@ public class ClueGiver : Interactive
 
     public override void MoveObject()
     {
-        if(_interactiveObjectRecorder.GetStatus() && m_Action.isInteracting && !PhotonNetwork.isMasterClient)
+        if(_interactiveObjectRecorder.GetStatus() && m_Action != null && m_Action.isInteracting && !PhotonNetwork.isMasterClient)
         {
             foreach (var part in _PartsName)
             {
