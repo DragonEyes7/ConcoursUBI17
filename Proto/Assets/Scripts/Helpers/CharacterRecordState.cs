@@ -27,6 +27,11 @@ public class CharacterRecordState : RecordState
         return Equals((CharacterRecordState) obj);
     }
 
+    public override int GetHashCode()
+    {
+        return _position.GetHashCode() + _rotation.GetHashCode();
+    }
+
     private bool Equals(CharacterRecordState obj)
     {
         return obj.Position.Equals(Position) && obj.Rotation.Equals(Rotation);
