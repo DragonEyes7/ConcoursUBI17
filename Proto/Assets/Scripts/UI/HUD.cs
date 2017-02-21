@@ -37,6 +37,7 @@ public class HUD : MonoBehaviour
 
         m_TimeController = FindObjectOfType<TimeController>();
         m_TimeController.Tick.Suscribe(ShowTimer);
+        ShowTimer(0);
     }
 
     void Update()
