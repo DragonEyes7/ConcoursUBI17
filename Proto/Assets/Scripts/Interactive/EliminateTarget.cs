@@ -56,7 +56,7 @@ public class EliminateTarget : Interactive
         else
         {
             msg = "Wrong Target";
-            m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
+            m_PhotonView.RPC("RPCMessage", PhotonTargets.All, msg, 5f);
         }
     }
 

@@ -3,9 +3,11 @@
 public class MainRecorder : MonoBehaviour
 {
     [SerializeField] private TimeController _timeController;
+    [SerializeField] private GameObject _rewindPrompt;
     private int _time;
     private bool _isRecording = true;
     private PhotonView _photonView;
+    private bool _hasRewinded;
 
     public MultipleDelegate OnTick = new MultipleDelegate();
     public MultipleDelegate OnRewind = new MultipleDelegate();
@@ -25,15 +27,9 @@ public class MainRecorder : MonoBehaviour
         _timeController = _timeController ?? FindObjectOfType<TimeController>();
         _photonView = GetComponent<PhotonView>();
         _timeController.Tick.Suscribe(DoOnTick);
+        _hasRewinded = false;
+        HideRewindPrompt();
         DoOnTick(0);
-    }
-
-    void Update()
-    {
-        if (!Input.GetButtonDown("TimeRewind")) return;
-        SetTimeRewinding();
-        SetTimeForward();
-        FindObjectOfType<GameManager>().ClearAgentClues();
     }
 
     private int DoOnTick(int time)
@@ -43,7 +39,25 @@ public class MainRecorder : MonoBehaviour
             OnTick.Execute(time);
         }
         _time = time;
+        if (PhotonNetwork.isMasterClient && _timeController.maxTime - time <= 10 && !_hasRewinded)
+        {
+            ShowRewindPrompt();
+        }
+        else
+        {
+            HideRewindPrompt();
+        }
         return 0;
+    }
+
+    private void ShowRewindPrompt()
+    {
+        _rewindPrompt.SetActive(true);
+    }
+
+    private void HideRewindPrompt()
+    {
+        _rewindPrompt.SetActive(false);
     }
 
     private void SetTimeForward()
@@ -52,24 +66,20 @@ public class MainRecorder : MonoBehaviour
         _isRecording = true;
     }
 
-    private void SetTimeRewinding()
+    public void DoRewind(int newTime)
     {
         _isRecording = false;
         _timeController.isPlaying = false;
-        var timeToRewind = GetMaxTime(3);
-        _time -= timeToRewind;
+        _time = newTime;
         _photonView.RPC("SetTime", PhotonTargets.All, _time);
         OnRewind.Execute(_time);
+        SetTimeForward();
+        _hasRewinded = true;
     }
 
     [PunRPC]
     private void SetTime(int time)
     {
         _timeController.time = time;
-    }
-
-    private int GetMaxTime(int newTime)
-    {
-        return _time - newTime >= 0 ? newTime : _time;
     }
 }

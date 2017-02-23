@@ -217,19 +217,12 @@ public class GameManager : MonoBehaviour
         return m_TargetsCharacteristics[targetID][x];
     }
 
-    public void AddToAgentClues(string part, int clue)
+    public void AddCluesToIntelligence(string part, int clue)
     {
-        m_AgentClues.Add(part, clue);
-    }
-
-    public void SendCluesToIntelligence()
-    {
-        foreach(string clue in m_AgentClues.Keys)
+        if(!m_IntelligenceClues.ContainsKey(part))
         {
-            m_IntelligenceClues.Add(clue, m_AgentClues[clue]);
-        }
-
-        ClearAgentClues();
+            m_IntelligenceClues.Add(part, clue);
+        }       
     }
 
     public bool AgentHasClues()
@@ -240,11 +233,6 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, int> GetIntelligenceClues()
     {
         return m_IntelligenceClues;
-    }
-
-    public void ClearAgentClues()
-    {
-        m_AgentClues.Clear();
     }
 
     public void Defeat()

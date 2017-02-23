@@ -13,7 +13,6 @@ public class Door : Interactive
         base.Start();
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(_isOpen);
-        m_IsActivated = true;
         _DoorLock.GetComponent<Renderer>().material.color = _isLock ? Color.red : Color.green;
 
         if (_isOpen)

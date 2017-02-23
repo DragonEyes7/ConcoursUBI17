@@ -42,6 +42,7 @@ public class InteractiveObjectRecorder : Recorder
     {
         _photonView.RPC("RPCObjectInteraction", PhotonTargets.All, isMoved);
     }
+
     [PunRPC]
     public void RPCObjectInteraction(bool isOpen)
     {
