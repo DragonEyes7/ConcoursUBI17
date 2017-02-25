@@ -4,7 +4,7 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField]Camera m_Camera;
     [SerializeField]float m_ZoomLimit = 30f;
-    [SerializeField]float m_ZoomSpeed = 12f;
+    [SerializeField]float m_ZoomSpeed = 0.01f;
     [SerializeField]float m_YMin = -40f;
     [SerializeField]float m_YMax = 50f;
     [SerializeField]float m_XMin;
@@ -38,7 +38,7 @@ public class CameraMovement : MonoBehaviour
         }
         else
         {
-            Zoom(Input.GetAxis("Zoom") * -m_ZoomSpeed);
+            Zoom(Input.GetAxis("Zoom") * m_ZoomSpeed);
         }        
     }
 
