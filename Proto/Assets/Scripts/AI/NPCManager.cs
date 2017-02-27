@@ -18,19 +18,6 @@ public class NPCManager : MonoBehaviour {
 
     private TimeController _timeController;
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.P))
-        {
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
-
-    }
-
 	// Use this for initialization
 	void Start ()
 	{
@@ -71,7 +58,6 @@ public class NPCManager : MonoBehaviour {
         //Generate NPCs
         for (int i = 0; i < NPCCount; i++)
         {
-
             int StartPosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
             Vector3 Pos = InterestPoints[StartPosIndex].transform.position;
             GameObject npc = new GameObject();
@@ -81,7 +67,7 @@ public class NPCManager : MonoBehaviour {
             }
             else
             {
-                npc = Instantiate(NPC_Prefab, Pos, new Quaternion());
+                npc = Instantiate(NPC_Prefab, Pos, new Quaternion());                
             }
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
@@ -95,7 +81,6 @@ public class NPCManager : MonoBehaviour {
         //Set the schedule for each NPC
         for (int i = 1; i < NPCs.Count; i++)
         {
-
             int StartPosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
             Transform Pos = InterestPoints[StartPosIndex].transform;
             NPCs[i].GetComponent<NPCWalkScript>().Destination = Pos;
@@ -122,8 +107,6 @@ public class NPCManager : MonoBehaviour {
 
         //Set the Target Schedule
         NPCs[0].GetComponent<TargetWalkScript>().setSchedule(CreateTargetSchedule(NPCs[0].transform));
-
-
     }
 
     private ScheduleTarget CreateTargetSchedule(Transform StartingLocation)
@@ -166,5 +149,4 @@ public class NPCManager : MonoBehaviour {
         }
         return 0;
     }
-
 }

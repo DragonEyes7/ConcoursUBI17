@@ -9,22 +9,22 @@ public class NPCWalkScript : MonoBehaviour {
     private ScheduleNPC NPCSchedule;
     public int NPCID = 0;
 
-    private NavMeshAgent agent;
+    protected NavMeshAgent agent;
     
     public virtual void setSchedule(ScheduleNPC Schedule)
     {
         NPCSchedule = Schedule;
     }
 
-    void Start()
+    protected void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = true;
     }
     
     public void OnDestinationChange()
     {
-        agent = gameObject.GetComponent<NavMeshAgent>();
-
+        agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(Destination.position);
     }
 

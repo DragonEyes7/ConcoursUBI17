@@ -12,16 +12,6 @@ public class TargetWalkScript : NPCWalkScript {
         NPCSchedule = Schedule;
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
     public override void OnTimeChange(int Time)
     {
         Transform NextPosition = NPCSchedule.NextDestination(Time, this.gameObject.transform);
