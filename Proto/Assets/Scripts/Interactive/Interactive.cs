@@ -10,7 +10,7 @@ public abstract class Interactive : MonoBehaviour
     protected HUD m_HUD;
 
     protected bool m_IsActivated = false;
-    protected bool m_IsSelected = false;
+    protected bool m_IsSelected;
 
     protected void Start()
     {
@@ -45,6 +45,10 @@ public abstract class Interactive : MonoBehaviour
                     {
                         UnSelect(action);
                     }
+                    else
+                    {
+                        Select(action);
+                    }
                 }
             }
         }
@@ -72,6 +76,7 @@ public abstract class Interactive : MonoBehaviour
 
     protected void Select()
     {
+        if (m_IsSelected) return;
         m_IsSelected = true;
         if (m_Renderers.Length > 0)
         {
@@ -87,6 +92,7 @@ public abstract class Interactive : MonoBehaviour
 
     protected void UnSelect()
     {
+        if (!m_IsSelected) return;
         m_IsSelected = false;
         if (m_Renderers.Length > 0 && m_TargetDefaultMaterial.Length > 0)
         {
