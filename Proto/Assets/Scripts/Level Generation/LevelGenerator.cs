@@ -10,28 +10,51 @@ public class LevelGenerator : MonoBehaviour {
     public Transform[] large_spawnLocations;
 
     //un peu batard aussi
-    public GameObject[] small_shops;
-    public GameObject[] medium_shops;
-    public GameObject[] large_shops;
+    public List<GameObject> small_shops;
+    public List<GameObject> medium_shops;
+    public List<GameObject> large_shops;
+
+    public int nbr_of_small_shops;
+    public int nbr_of_med_shops;
+    public int nbr_of_large_shops;
 
     // Use this for initialization
     void Start () {
-        instanciateShops(small_spawnLocations, small_shops);
+       /* instanciateShops(small_spawnLocations, small_shops);
         instanciateShops(medium_spawnLocations, medium_shops);
-        instanciateShops(large_spawnLocations, large_shops);
+        instanciateShops(large_spawnLocations, large_shops);*/
+
+        instanciateShops(small_spawnLocations, small_shops,nbr_of_small_shops);
+        instanciateShops(medium_spawnLocations, medium_shops,nbr_of_med_shops);
+        instanciateShops(large_spawnLocations, large_shops, nbr_of_large_shops);
     }
 
-    void instanciateShops( Transform[] ts, GameObject[] s)
+    void instanciateShops( Transform[] ts, List<GameObject> s)
     {
+        int random;
+
         foreach (Transform t in ts)
         {
-            //todo : adder un truc pour empecher de reprendre les memes shops
-            GameObject shop = Instantiate(s[Random.Range(0, s.Length)], t.transform, false);
+            random = Random.Range(0, s.Count);
+            GameObject shop = Instantiate(s[random], t.transform, false);
+            s.RemoveAt(random);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+// Could help with balance 
+    void instanciateShops(Transform[] ts, List<GameObject> s, int NbrOfShop)
+    {
+        int random;
+
+        for(int i =0; i<NbrOfShop;i++)
+        {
+            random = Random.Range(0, s.Count);
+            GameObject shop = Instantiate(s[random], ts[i].transform, false);
+            s.RemoveAt(random);
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }
