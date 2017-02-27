@@ -41,11 +41,7 @@ public abstract class Interactive : MonoBehaviour
                 if (Physics.Raycast(transform.position, direction, out hit, 25f, 1))
                 {
                     Debug.DrawRay(transform.position, direction, Color.red, 5f);
-                    if (hit.transform == action.GetCenterCam().transform)
-                    {
-                        Select(action);
-                    }
-                    else
+                    if (hit.transform != action.GetCenterCam().transform)
                     {
                         UnSelect(action);
                     }
@@ -96,11 +92,9 @@ public abstract class Interactive : MonoBehaviour
         {
             for (int i = 0; i < m_Renderers.Length; ++i)
             {
-                Debug.Log("Unslecting material : " + i + " which is : " + m_TargetDefaultMaterial[i]);
                 if (m_TargetDefaultMaterial[i] != null)
                 {
                     m_Renderers[i].materials = m_TargetDefaultMaterial[i];
-                    Debug.Log("Unselected -partly");
                 }
 
             }
