@@ -9,7 +9,6 @@ public class SyncPlayersUI : MonoBehaviour
     [SerializeField]int m_WaitTime = 5;
 
     int m_Timer;
-    bool m_IsReady = false;
 
 	void Start ()
     {
@@ -20,14 +19,13 @@ public class SyncPlayersUI : MonoBehaviour
     void StartGame()
     {
         FindObjectOfType<TimeController>().isPlaying = true;
-        Time.timeScale = 1f;
+        TimeStopper.StartTime();
         CancelInvoke("Timer");
         Destroy(gameObject);
     }
 
     public void PlayerReady()
     {
-        m_IsReady = true;
         m_TimerText.gameObject.SetActive(true);
         m_ReadyText.gameObject.SetActive(false);
 

@@ -6,6 +6,7 @@ public class ClueGiver : Interactive
     [SerializeField]string[] _PartsName;
     [SerializeField]Transform _USBPort;
     [SerializeField]string _USBObjectName;
+    Material[] _Mats;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
     Action m_Action;
@@ -16,17 +17,22 @@ public class ClueGiver : Interactive
         base.Start();
         m_GameManager = FindObjectOfType<GameManager>();
         m_PhotonView = GetComponent<PhotonView>();
+        _Mats = new Material[2];
+        _Mats[0] = Resources.Load<Material>("MAT_OutlineAgent");
+        _Mats[1] = Resources.Load<Material>("MAT_OutlineIntelligence");
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
+        _interactiveObjectRecorder.SetStatus(false);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (m_IsActivated)
+        if (_interactiveObjectRecorder.GetStatus())
         {
             m_Action = other.GetComponent<IntelligenceAction>();
 
             if (m_Action && m_Action.enabled)
             {
+                m_SelectMat = _Mats[1];
                 m_HUD.ShowActionPrompt("Hack device");
                 m_Action.SetInteract(true);
                 m_Action.SetInteractionObject(this);
@@ -39,6 +45,7 @@ public class ClueGiver : Interactive
 
             if (m_Action && m_Action.enabled)
             {
+                m_SelectMat = _Mats[0];
                 m_HUD.ShowActionPrompt("Install device");
                 m_Action.SetInteract(true);
                 m_Action.SetInteractionObject(this);
@@ -49,7 +56,7 @@ public class ClueGiver : Interactive
 
     void OnTriggerExit(Collider other)
     {
-        if (m_IsActivated)
+        if (_interactiveObjectRecorder.GetStatus())
         {
             m_Action = other.GetComponent<IntelligenceAction>();
 
@@ -75,16 +82,19 @@ public class ClueGiver : Interactive
 
     public override void Interact()
     {
-        _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus());
+        if(PhotonNetwork.isMasterClient)
+            _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus());
+        else
+            MoveObject();
     }
 
     public override void MoveObject()
     {
-        if(m_IsActivated)
+        if(_interactiveObjectRecorder.GetStatus() && m_Action != null && m_Action.isInteracting && !PhotonNetwork.isMasterClient)
         {
-            for (int i = 0; i < _PartsName.Length; ++i)
+            foreach (var part in _PartsName)
             {
-                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, _TargetID, _PartsName[i]);
+                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, _TargetID, part);
             }
             m_HUD.BlinkUplink();
         }
@@ -92,9 +102,8 @@ public class ClueGiver : Interactive
         {
             if (PhotonNetwork.isMasterClient)
             {
-                GameObject USB = PhotonNetwork.Instantiate(_USBObjectName, _USBPort.position, _USBPort.rotation, 0);
+                var USB = PhotonNetwork.Instantiate(_USBObjectName, _USBPort.position, _USBPort.rotation, 0);
                 USB.transform.SetParent(_USBPort);
-                m_PhotonView.RPC("SetUSB", PhotonTargets.All, true);
             }
         }
         
@@ -105,19 +114,12 @@ public class ClueGiver : Interactive
 
     public override void ResetObject()
     {
-        /*
-         * Currently bug for the intelligence action need to not reset the object when the
-         * intelligence interact with this!
-        if(PhotonNetwork.isMasterClient)
+        foreach (Transform usb in _USBPort)
         {
-            PhotonNetwork.Destroy(_USBPort.GetChild(0).gameObject);
-        } */       
-    }
-
-    [PunRPC]
-    void SetUSB(bool value)
-    {
-        m_IsActivated = value;
+            PhotonNetwork.Destroy(usb.gameObject);
+        }
+        if(m_Action)
+            m_Action.SetInteract(true);
     }
 
     [PunRPC]

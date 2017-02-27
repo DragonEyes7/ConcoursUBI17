@@ -53,8 +53,12 @@ public class NPCWalkScript : MonoBehaviour {
 
     void OnTriggerExit(Collider location)
     {
-        if (location.GetComponentInParent<LocationInteraction>() != null)
-            location.GetComponentInParent<LocationInteraction>().Free(NPCID);
+        LocationInteraction LI = location.GetComponentInParent<LocationInteraction>();
+
+        if (LI)
+        {
+            LI.Free(NPCID);
+        }
     }
 }
 

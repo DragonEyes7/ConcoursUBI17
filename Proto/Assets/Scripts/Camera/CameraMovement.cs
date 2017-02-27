@@ -4,7 +4,7 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField]Camera m_Camera;
     [SerializeField]float m_ZoomLimit = 30f;
-    [SerializeField]float m_ZoomSpeed = 12f;
+    [SerializeField]float m_ZoomSpeed = 0.01f;
     [SerializeField]float m_YMin = -40f;
     [SerializeField]float m_YMax = 50f;
     [SerializeField]float m_XMin;
@@ -19,9 +19,7 @@ public class CameraMovement : MonoBehaviour
 
     void Start ()
     {
-        m_CurrentX = transform.localEulerAngles.x;
-        m_CurrentY = transform.localEulerAngles.y;
-        m_MaxZoomOut = m_Camera.fieldOfView;
+        ResetPosition();
 	}
 	
 	void Update ()
@@ -38,7 +36,7 @@ public class CameraMovement : MonoBehaviour
         }
         else
         {
-            Zoom(Input.GetAxis("Zoom") * -m_ZoomSpeed);
+            Zoom(Input.GetAxis("Zoom") * m_ZoomSpeed);
         }        
     }
 
@@ -86,5 +84,13 @@ public class CameraMovement : MonoBehaviour
     {
         m_YMax = YMax;
         m_YMin = YMin;
+    }
+
+    public void ResetPosition()
+    {
+        m_CurrentX = transform.localEulerAngles.y < m_XMin ? m_XMin : transform.localEulerAngles.y;
+        m_CurrentY = transform.localEulerAngles.x < m_YMin ? m_YMin : transform.localEulerAngles.x;
+        m_MaxZoomOut = m_Camera.fieldOfView;
+        UpdatePosition();
     }
 }
