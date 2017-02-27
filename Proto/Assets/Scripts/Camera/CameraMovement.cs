@@ -19,9 +19,7 @@ public class CameraMovement : MonoBehaviour
 
     void Start ()
     {
-        m_CurrentX = transform.localEulerAngles.x;
-        m_CurrentY = transform.localEulerAngles.y;
-        m_MaxZoomOut = m_Camera.fieldOfView;
+        ResetPosition();
 	}
 	
 	void Update ()
@@ -86,5 +84,13 @@ public class CameraMovement : MonoBehaviour
     {
         m_YMax = YMax;
         m_YMin = YMin;
+    }
+
+    public void ResetPosition()
+    {
+        m_CurrentX = transform.localEulerAngles.y < m_XMin ? m_XMin : transform.localEulerAngles.y;
+        m_CurrentY = transform.localEulerAngles.x < m_YMin ? m_YMin : transform.localEulerAngles.x;
+        m_MaxZoomOut = m_Camera.fieldOfView;
+        UpdatePosition();
     }
 }
