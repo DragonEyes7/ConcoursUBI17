@@ -55,7 +55,7 @@ abstract public class Interactive : MonoBehaviour
     protected void UnSelect()
     {
         m_IsSelected = false;
-        if (m_Renderers.Length > 0)
+        if (m_Renderers.Length > 0 && m_TargetDefaultMaterial.Length > 0)
         {
             for (int i = 0; i < m_Renderers.Length; ++i)
             {
