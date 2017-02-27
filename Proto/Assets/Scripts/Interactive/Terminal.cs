@@ -25,7 +25,7 @@ public class Terminal : Interactive
                 RaycastHit hit;
                     
                 Vector3 direction = m_Action.GetCenterCam().position - transform.position;
-                
+
                 if (Physics.Raycast(transform.position, direction, out hit, 25f, m_Layer))
                 {
                     Debug.DrawRay(transform.position, direction, Color.red, 5f);
@@ -89,8 +89,6 @@ public class Terminal : Interactive
         if (m_Action)
         {
             UnSelect();
-            m_HUD.HideActionPrompt();
-            m_Action.SetInteract(false);
         }
     }
 
