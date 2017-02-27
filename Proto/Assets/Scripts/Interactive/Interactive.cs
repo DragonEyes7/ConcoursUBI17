@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-abstract public class Interactive : MonoBehaviour
+public abstract class Interactive : MonoBehaviour
 {
     protected Renderer[] m_Renderers;
     protected Material m_SelectMat;
@@ -27,7 +27,34 @@ abstract public class Interactive : MonoBehaviour
         }
     }
 
-    abstract public void Interact();
+    private void OnTriggerStay(Collider other)
+    {
+        if (!m_IsActivated)
+        {
+            var m_Action = other.GetComponent<IntelligenceAction>();
+            if (m_Action && m_Action.enabled)
+            {
+                RaycastHit hit;
+
+                var direction = m_Action.GetCenterCam().position - transform.position;
+
+                if (Physics.Raycast(transform.position, direction, out hit, 25f, 1))
+                {
+                    Debug.DrawRay(transform.position, direction, Color.red, 5f);
+                    if (hit.transform == m_Action.GetCenterCam().transform)
+                    {
+                        Select();
+                    }
+                    else
+                    {
+                        UnSelect();
+                    }
+                }
+            }
+        }
+    }
+
+    public abstract void Interact();
 
     public abstract void MoveObject();
     public abstract void ResetObject();
@@ -37,7 +64,7 @@ abstract public class Interactive : MonoBehaviour
         get { return m_IsActivated; }
     }
 
-    protected void Select()
+    protected virtual void Select()
     {
         m_IsSelected = true;
         if (m_Renderers.Length > 0)
@@ -52,7 +79,7 @@ abstract public class Interactive : MonoBehaviour
         }
     }
 
-    protected void UnSelect()
+    protected virtual void UnSelect()
     {
         m_IsSelected = false;
         if (m_Renderers.Length > 0 && m_TargetDefaultMaterial.Length > 0)
