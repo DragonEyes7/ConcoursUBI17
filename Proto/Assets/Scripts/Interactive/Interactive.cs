@@ -31,23 +31,23 @@ public abstract class Interactive : MonoBehaviour
     {
         if (!m_IsActivated)
         {
-            var m_Action = other.GetComponent<IntelligenceAction>();
-            if (m_Action && m_Action.enabled)
+            var action = other.GetComponent<IntelligenceAction>();
+            if (action && action.enabled)
             {
                 RaycastHit hit;
 
-                var direction = m_Action.GetCenterCam().position - transform.position;
+                var direction = action.GetCenterCam().position - transform.position;
 
                 if (Physics.Raycast(transform.position, direction, out hit, 25f, 1))
                 {
                     Debug.DrawRay(transform.position, direction, Color.red, 5f);
-                    if (hit.transform == m_Action.GetCenterCam().transform)
+                    if (hit.transform == action.GetCenterCam().transform)
                     {
-                        Select();
+                        Select(action);
                     }
                     else
                     {
-                        UnSelect();
+                        UnSelect(action);
                     }
                 }
             }
@@ -64,7 +64,17 @@ public abstract class Interactive : MonoBehaviour
         get { return m_IsActivated; }
     }
 
-    protected virtual void Select()
+    protected virtual void Select(Action action)
+    {
+        Select();
+    }
+
+    protected virtual void UnSelect(Action action)
+    {
+        UnSelect();
+    }
+
+    protected void Select()
     {
         m_IsSelected = true;
         if (m_Renderers.Length > 0)
@@ -79,15 +89,20 @@ public abstract class Interactive : MonoBehaviour
         }
     }
 
-    protected virtual void UnSelect()
+    protected void UnSelect()
     {
         m_IsSelected = false;
         if (m_Renderers.Length > 0 && m_TargetDefaultMaterial.Length > 0)
         {
             for (int i = 0; i < m_Renderers.Length; ++i)
             {
-                if(m_TargetDefaultMaterial[i] != null)
+                Debug.Log("Unslecting material : " + i + " which is : " + m_TargetDefaultMaterial[i]);
+                if (m_TargetDefaultMaterial[i] != null)
+                {
                     m_Renderers[i].materials = m_TargetDefaultMaterial[i];
+                    Debug.Log("Unselected -partly");
+                }
+
             }
         }
     }
