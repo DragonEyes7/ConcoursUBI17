@@ -93,6 +93,5 @@ public class CamerasController : MonoBehaviour
     public void TakeControl(GameObject camera)
     {
         SetActiveCamera(m_CameraObjects.IndexOf(camera), m_LastCamera);
-        camera.GetComponent<CameraMovement>().ResetPosition();
     }
 }
