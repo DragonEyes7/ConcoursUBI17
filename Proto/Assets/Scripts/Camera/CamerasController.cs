@@ -66,7 +66,7 @@ public class CamerasController : MonoBehaviour
 
             m_CameraObjects[m_CameraObjects.Count - 1].GetComponent<PhotonView>().RequestOwnership();
 
-            SetActiveCamera(m_CameraObjects.Count - 1, m_LastCamera);
+            TakeControl(cameraToAdd);
         }
     }
 
@@ -93,5 +93,6 @@ public class CamerasController : MonoBehaviour
     public void TakeControl(GameObject camera)
     {
         SetActiveCamera(m_CameraObjects.IndexOf(camera), m_LastCamera);
+        camera.GetComponent<CameraMovement>().ResetPosition();
     }
 }
