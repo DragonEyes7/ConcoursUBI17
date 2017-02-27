@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114931825140261194}
   - component: {fileID: 114876731820795682}
   - component: {fileID: 135268555805781488}
+  - component: {fileID: 114894257459581938}
   m_Layer: 0
   m_Name: UTarget
   m_TagString: NPC
@@ -126,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1935951876380954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 0.53, z: 0}
+  m_LocalPosition: {x: 0, y: 0.53, z: -0.02}
   m_LocalScale: {x: 0.98, y: 1, z: 0.98}
   m_Children: []
   m_Father: {fileID: 4076487400593750}
@@ -336,6 +337,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6229d27daaef47748814b2ad3c7aa52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114894257459581938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321279624668896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114931825140261194
 MonoBehaviour:
   m_ObjectHideFlags: 1

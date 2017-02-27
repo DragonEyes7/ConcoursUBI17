@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 114601766377516622}
   - component: {fileID: 114986465329722002}
   - component: {fileID: 135729071352769880}
+  - component: {fileID: 114667524686496272}
   m_Layer: 0
   m_Name: UNPC
   m_TagString: NPC
@@ -97,7 +98,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1852041803379158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02, y: 0.53, z: 0}
+  m_LocalPosition: {x: -0, y: 0.53, z: -0.02}
   m_LocalScale: {x: 0.98, y: 1, z: 0.98}
   m_Children: []
   m_Father: {fileID: 4169664343989210}
@@ -356,6 +357,32 @@ MonoBehaviour:
   HairMaterial: {fileID: 0}
   PantMaterial: {fileID: 0}
   ShirtMaterial: {fileID: 0}
+--- !u!114 &114667524686496272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702083031471912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!114 &114986465329722002
 MonoBehaviour:
   m_ObjectHideFlags: 1
