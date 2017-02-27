@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Terminal : Interactive
 {
@@ -30,14 +31,28 @@ public class Terminal : Interactive
                     Debug.DrawRay(transform.position, direction, Color.red, 5f);
                     if(hit.transform == m_Action.GetCenterCam().transform)
                     {
-                        m_HUD.ShowActionPrompt("Hack Terminal");
-                        m_Action.SetInteract(true);
-                        m_Action.SetInteractionObject(this);
-                        Select();
+                        Select(m_Action);
                     }
                 }
             }
         }
+    }
+
+    protected override void Select(Action action)
+    {
+        m_HUD.ShowActionPrompt("Hack Terminal");
+        action.SetInteract(true);
+        action.SetInteractionObject(this);
+        Select();
+    }
+
+    protected override void UnSelect(Action action)
+    {
+        UnSelect();
+        m_HUD.HideActionPrompt();
+        action.SetInteract(false);
+        action.SetInteractionObject(null);
+        if(m_Action)m_Action = null;
     }
 
     void OnTriggerExit(Collider other)
@@ -49,11 +64,8 @@ public class Terminal : Interactive
             {
                 if (m_Action.enabled)
                 {
-                    UnSelect();
-                    m_HUD.HideActionPrompt();
-                    m_Action.SetInteract(false);
-                    m_Action.SetInteractionObject(null);
-                    m_Action = null;
+                    UnSelect(m_Action);
+
                 }
             }
         }
@@ -67,24 +79,18 @@ public class Terminal : Interactive
         }
 
         m_IsActivated = true;
-
-        if (m_Action)
-        {
-            UnSelect();
-            m_HUD.HideActionPrompt();
-            m_Action.SetInteract(false);
-        }
+        if(m_Action)UnSelect(m_Action);
     }
 
     public override void MoveObject()
     {
         //TODO This here should never be called, as of now at least, probably better to leave it as is, if we ever need it
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public override void ResetObject()
     {
         //TODO This here should never be called, as of now at least, probably better to leave it as is, if we ever need it
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 }

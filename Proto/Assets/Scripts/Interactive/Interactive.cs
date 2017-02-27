@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-abstract public class Interactive : MonoBehaviour
+public abstract class Interactive : MonoBehaviour
 {
     protected Renderer[] m_Renderers;
     protected Material m_SelectMat;
@@ -10,7 +10,7 @@ abstract public class Interactive : MonoBehaviour
     protected HUD m_HUD;
 
     protected bool m_IsActivated = false;
-    protected bool m_IsSelected = false;
+    protected bool m_IsSelected;
 
     protected void Start()
     {
@@ -27,7 +27,34 @@ abstract public class Interactive : MonoBehaviour
         }
     }
 
-    abstract public void Interact();
+    private void OnTriggerStay(Collider other)
+    {
+        if (!m_IsActivated)
+        {
+            var action = other.GetComponent<IntelligenceAction>();
+            if (action && action.enabled)
+            {
+                RaycastHit hit;
+
+                var direction = action.GetCenterCam().position - transform.position;
+
+                if (Physics.Raycast(transform.position, direction, out hit, 25f, 1))
+                {
+                    Debug.DrawRay(transform.position, direction, Color.red, 5f);
+                    if (hit.transform != action.GetCenterCam().transform)
+                    {
+                        UnSelect(action);
+                    }
+                    else
+                    {
+                        Select(action);
+                    }
+                }
+            }
+        }
+    }
+
+    public abstract void Interact();
 
     public abstract void MoveObject();
     public abstract void ResetObject();
@@ -37,8 +64,19 @@ abstract public class Interactive : MonoBehaviour
         get { return m_IsActivated; }
     }
 
+    protected virtual void Select(Action action)
+    {
+        Select();
+    }
+
+    protected virtual void UnSelect(Action action)
+    {
+        UnSelect();
+    }
+
     protected void Select()
     {
+        if (m_IsSelected) return;
         m_IsSelected = true;
         if (m_Renderers.Length > 0)
         {
@@ -54,12 +92,17 @@ abstract public class Interactive : MonoBehaviour
 
     protected void UnSelect()
     {
+        if (!m_IsSelected) return;
         m_IsSelected = false;
-        if (m_Renderers.Length > 0)
+        if (m_Renderers.Length > 0 && m_TargetDefaultMaterial.Length > 0)
         {
             for (int i = 0; i < m_Renderers.Length; ++i)
             {
-                m_Renderers[i].materials = m_TargetDefaultMaterial[i];
+                if (m_TargetDefaultMaterial[i] != null)
+                {
+                    m_Renderers[i].materials = m_TargetDefaultMaterial[i];
+                }
+
             }
         }
     }
