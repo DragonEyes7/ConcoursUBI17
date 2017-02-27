@@ -18,9 +18,9 @@ public class NPCWalkScript : MonoBehaviour {
 
     void Start()
     {
-
+        agent.updateRotation = true;
     }
-
+    
     public void OnDestinationChange()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
@@ -42,7 +42,7 @@ public class NPCWalkScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider location)
     {
-        //Verify the NPC as reqached the correct location
+        //Verify the NPC as reached the correct location
         if (location.transform == Destination)
         {
             Destination = location.GetComponentInParent<LocationInteraction>().GetLocation(NPCID);
@@ -53,7 +53,8 @@ public class NPCWalkScript : MonoBehaviour {
 
     void OnTriggerExit(Collider location)
     {
-        location.GetComponentInParent<LocationInteraction>().Free(NPCID);
+        if (location.GetComponentInParent<LocationInteraction>() != null)
+            location.GetComponentInParent<LocationInteraction>().Free(NPCID);
     }
 }
 
