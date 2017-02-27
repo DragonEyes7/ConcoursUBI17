@@ -17,9 +17,8 @@ public class NPCManager : MonoBehaviour {
     public int ScheduleGap;
 
     private TimeController _timeController;
-
-	// Use this for initialization
-	void Start ()
+    
+	public void Setup()
 	{
 	    _timeController = FindObjectOfType<TimeController>();
 	    _timeController.Tick.Suscribe(DoOnTick);
@@ -63,11 +62,11 @@ public class NPCManager : MonoBehaviour {
             GameObject npc = new GameObject();
             if (i == 0)
             {
-                npc = Instantiate(Target_Prefab, Pos, new Quaternion());
+                npc = PhotonNetwork.Instantiate(Target_Prefab.name, Pos, new Quaternion(), 0);
             }
             else
             {
-                npc = Instantiate(NPC_Prefab, Pos, new Quaternion());                
+                npc = PhotonNetwork.Instantiate(NPC_Prefab.name, Pos, new Quaternion(), 0);             
             }
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
