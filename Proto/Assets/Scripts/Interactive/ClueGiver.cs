@@ -6,6 +6,7 @@ public class ClueGiver : Interactive
     [SerializeField]string[] _PartsName;
     [SerializeField]Transform _USBPort;
     [SerializeField]string _USBObjectName;
+    Material[] _Mats;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
     Action m_Action;
@@ -16,6 +17,9 @@ public class ClueGiver : Interactive
         base.Start();
         m_GameManager = FindObjectOfType<GameManager>();
         m_PhotonView = GetComponent<PhotonView>();
+        _Mats = new Material[2];
+        _Mats[0] = Resources.Load<Material>("MAT_OutlineAgent");
+        _Mats[1] = Resources.Load<Material>("MAT_OutlineIntelligence");
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(false);
     }
@@ -28,6 +32,7 @@ public class ClueGiver : Interactive
 
             if (m_Action && m_Action.enabled)
             {
+                m_SelectMat = _Mats[1];
                 m_HUD.ShowActionPrompt("Hack device");
                 m_Action.SetInteract(true);
                 m_Action.SetInteractionObject(this);
@@ -40,6 +45,7 @@ public class ClueGiver : Interactive
 
             if (m_Action && m_Action.enabled)
             {
+                m_SelectMat = _Mats[0];
                 m_HUD.ShowActionPrompt("Install device");
                 m_Action.SetInteract(true);
                 m_Action.SetInteractionObject(this);

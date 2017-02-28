@@ -66,7 +66,7 @@ public class CamerasController : MonoBehaviour
 
             m_CameraObjects[m_CameraObjects.Count - 1].GetComponent<PhotonView>().RequestOwnership();
 
-            SetActiveCamera(m_CameraObjects.Count - 1, m_LastCamera);
+            TakeControl(cameraToAdd);
         }
     }
 
