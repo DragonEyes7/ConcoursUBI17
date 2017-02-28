@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 54564920294249406}
   - component: {fileID: 114111721896582462}
   - component: {fileID: 114398302655360826}
-  - component: {fileID: 114370514611699798}
+  - component: {fileID: 114466419978406034}
   m_Layer: 0
   m_Name: UNPC
   m_TagString: Untagged
@@ -386,17 +386,6 @@ MonoBehaviour:
   HairMaterial: {fileID: 0}
   PantMaterial: {fileID: 0}
   ShirtMaterial: {fileID: 0}
---- !u!114 &114370514611699798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1070390693172202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce891e54b8412ed4f94a9e5037ef5249, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114398302655360826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,6 +398,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SmoothingDelay: 5
+--- !u!114 &114466419978406034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070390693172202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc50814bb280494a8317d5279399a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114654098568020268
 MonoBehaviour:
   m_ObjectHideFlags: 1
