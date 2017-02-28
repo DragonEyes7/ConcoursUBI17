@@ -44,5 +44,7 @@ public class NPCRecorder : Recorder
         var state = recordState as CharacterRecordState;
         transform.position = state.Position;
         transform.rotation = state.Rotation;
+        //TODO: we have to re-register the NPC at its current location (as if he just moved there)
+        //TODO: We also have to un-register from where he used to be
     }
 }
