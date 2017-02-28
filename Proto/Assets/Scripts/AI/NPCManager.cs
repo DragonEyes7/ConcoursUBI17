@@ -70,6 +70,7 @@ public class NPCManager : MonoBehaviour {
             }
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
+            npc.GetComponent<MainRecorder>().SetTimeController(_timeController);
             npc.GetComponent<NPCCharacteristics>().HairMaterial = NPCMats[i][0];
             npc.GetComponent<NPCCharacteristics>().PantMaterial = NPCMats[i][1];
             npc.GetComponent<NPCCharacteristics>().ShirtMaterial = NPCMats[i][2];
