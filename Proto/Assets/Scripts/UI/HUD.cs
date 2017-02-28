@@ -8,7 +8,7 @@ public class HUD : MonoBehaviour
     [SerializeField]Slider m_ActionSlider;
     [SerializeField]Text m_Messages;
     [SerializeField]Text m_Timer;
-    [SerializeField]GameObject _clockUI;
+    [SerializeField]ClockUI _clockUI;
     [SerializeField]RectTransform m_CenterCam;
     [SerializeField]RectTransform m_Uplink;
     [SerializeField]RectTransform m_UplinkIncoming;
@@ -26,7 +26,7 @@ public class HUD : MonoBehaviour
     {
         m_Messages.gameObject.SetActive(false);
         m_ActionPrompt.gameObject.SetActive(false);
-        _clockUI.SetActive(false);
+        _clockUI.gameObject.SetActive(false);
 
         m_Uplink.gameObject.SetActive(false);
         m_UplinkIncoming.gameObject.SetActive(false);
@@ -37,7 +37,6 @@ public class HUD : MonoBehaviour
 
         m_TimeController = FindObjectOfType<TimeController>();
         m_TimeController.Tick.Suscribe(ShowTimer);
-        ShowTimer(0);
     }
 
     void Update()
@@ -62,11 +61,7 @@ public class HUD : MonoBehaviour
         }
         if (PhotonNetwork.isMasterClient && Input.GetButtonDown("TimeRewind"))
         {
-            _clockUI.SetActive(true);
-        }
-        else if (PhotonNetwork.isMasterClient && Input.GetButtonUp("TimeRewind"))
-        {
-            _clockUI.SetActive(false);
+            _clockUI.Toggle();
         }
     }
 

@@ -29,7 +29,6 @@ public class MainRecorder : MonoBehaviour
         _timeController.Tick.Suscribe(DoOnTick);
         _hasRewinded = false;
         HideRewindPrompt();
-        DoOnTick(0);
     }
 
     private int DoOnTick(int time)

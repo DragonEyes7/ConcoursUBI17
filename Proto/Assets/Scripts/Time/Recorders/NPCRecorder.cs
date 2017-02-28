@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class CharacterRecorder : Recorder
+public class NPCRecorder : Recorder
 {
     private RecordState _previousState;
     private Dictionary<int, CharacterRecordState> _states = new Dictionary<int, CharacterRecordState>();
@@ -31,11 +31,6 @@ public class CharacterRecorder : Recorder
         }
         PlayState(_states[time]);
         _states = WipeRemainingRecordedStates(time, _states);
-
-        if (_rigidbody)
-        {
-            _rigidbody.isKinematic = false;
-        }
     }
 
     internal override void PlayState<T>(T recordState)
