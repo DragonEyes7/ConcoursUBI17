@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
 
     public void ValidateTarget(int NPCID)
     {
-        m_ObjectivesCompleted = (NPCID == 0);
+        m_ObjectivesCompleted = NPCID == 0;
     }
 
     public bool ObjectivesCompleted()
