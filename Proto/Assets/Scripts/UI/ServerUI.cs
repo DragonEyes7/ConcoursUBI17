@@ -39,6 +39,11 @@ public class ServerUI : MonoBehaviour
             GameObject serverbutton = (GameObject)Instantiate(Resources.Load("ServerJoinButton"), m_ServerList);
             serverbutton.GetComponentInChildren<Text>().text = roomInfo.Name + " " + roomInfo.PlayerCount + "/2"; //+ roomInfo.MaxPlayers;
 
+            if (roomInfo.PlayerCount >= 2)
+            {
+                serverbutton.GetComponent<Button>().interactable = false;
+            }
+
             serverbutton.GetComponent<Button>().onClick.AddListener(() => JoinServer(roomInfo.Name));
 
             m_ServerButtons.Add(serverbutton);

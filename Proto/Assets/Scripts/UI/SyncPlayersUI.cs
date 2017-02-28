@@ -18,7 +18,9 @@ public class SyncPlayersUI : MonoBehaviour
 
     void StartGame()
     {
-        FindObjectOfType<TimeController>().isPlaying = true;
+        var timeController = FindObjectOfType<TimeController>();
+        timeController.isPlaying = true;
+        timeController.Tick.Execute(0);
         TimeStopper.StartTime();
         CancelInvoke("Timer");
         Destroy(gameObject);
