@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class NPCCharacteristics : MonoBehaviour {
-
+public class NPCCharacteristics : MonoBehaviour
+{
     public Transform HairPart, PantPart, ShirtPart;
     public Material HairMaterial, PantMaterial, ShirtMaterial;
 
@@ -22,22 +22,18 @@ public class NPCCharacteristics : MonoBehaviour {
 
     void AskForCloth()
     {
-        GetComponent<PhotonView>().RPC("RPCClothAnswer", PhotonTargets.All);
+        GetComponent<PhotonView>().RPC("RPCClothAnswer", PhotonTargets.MasterClient);
     }
 
     [PunRPC]
     void RPCClothAnswer()
     {
-        if(PhotonNetwork.isMasterClient)
-        {
-            GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.All, HairMaterial.name, PantMaterial.name, ShirtMaterial.name);
-        }
+        GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.Others, HairMaterial.name, PantMaterial.name, ShirtMaterial.name);
     }
 
     [PunRPC]
     void RPCClothReceive(string hairName, string pantName, string shirtName)
     {
-        if (PhotonNetwork.isMasterClient) return;
         Material[] HairList = Resources.LoadAll<Material>("Materials/Hair");
         Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
         foreach(Material cloth in ClothList)
