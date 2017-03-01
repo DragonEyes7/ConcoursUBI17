@@ -2,15 +2,16 @@
 
 public class NPCCharacteristics : MonoBehaviour
 {
-    public Transform HairPart, PantPart, ShirtPart;
-    public Material HairMaterial, PantMaterial, ShirtMaterial;
+    public Transform PantPart, ShirtPart;
+    public Material PantMaterial, ShirtMaterial;
+    public GameObject Head;
 
     void Start ()
     {
         if(PhotonNetwork.isMasterClient)
         {
             //Set the Material for various pieces
-            HairPart.GetComponent<Renderer>().material = HairMaterial;
+            Instantiate(Head, transform.position, transform.rotation, transform);
             PantPart.GetComponent<Renderer>().material = PantMaterial;
             ShirtPart.GetComponent<Renderer>().material = ShirtMaterial;
         }
@@ -28,13 +29,13 @@ public class NPCCharacteristics : MonoBehaviour
     [PunRPC]
     void RPCClothAnswer()
     {
-        GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.Others, HairMaterial.name, PantMaterial.name, ShirtMaterial.name);
+        GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.Others, Head.name, PantMaterial.name, ShirtMaterial.name);
     }
 
     [PunRPC]
-    void RPCClothReceive(string hairName, string pantName, string shirtName)
+    void RPCClothReceive(string headName, string pantName, string shirtName)
     {
-        Material[] HairList = Resources.LoadAll<Material>("Materials/Hair");
+        GameObject[] HeadList = Resources.LoadAll<GameObject>("Head");
         Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
         foreach(Material cloth in ClothList)
         {
@@ -49,11 +50,11 @@ public class NPCCharacteristics : MonoBehaviour
             }
         }
 
-        foreach(Material hair in HairList)
+        foreach(GameObject head in HeadList)
         {
-            if (hair.name == hairName)
+            if (head.name == headName)
             {
-                HairPart.GetComponent<Renderer>().material = hair;
+                Instantiate(head, transform.position, transform.rotation, transform.GetChild(0).transform);
             }
         }
     }
