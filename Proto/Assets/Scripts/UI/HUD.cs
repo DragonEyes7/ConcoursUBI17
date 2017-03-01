@@ -273,9 +273,9 @@ public class HUD : MonoBehaviour
             Dictionary<string, string> clues = FindObjectOfType<GameManager>().GetIntelligenceClues();
             string message = "";
 
-            if (clues.ContainsKey("Hair"))
+            if (clues.ContainsKey("Head"))
             {
-                message += "The target has " + clues["Hair"] + " hairs";
+                message += "The target has a" + clues["Head"];
             }
 
             if (clues.ContainsKey("Pants"))

@@ -22,6 +22,7 @@ public class NPCManager : MonoBehaviour {
 	{
 	    _timeController = FindObjectOfType<TimeController>();
 	    _timeController.Tick.Suscribe(DoOnTick);
+
         //Iniate the variables and lists
         NPCs = new List<GameObject>();
         InterestPoints = new List<GameObject>();
@@ -33,11 +34,6 @@ public class NPCManager : MonoBehaviour {
         //Get the Materials list
         GameObject[] HeadList = Resources.LoadAll<GameObject>("Head");
         Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
-
-        foreach(GameObject head in HeadList)
-        {
-            Debug.Log(head.name);
-        }
 
         List<List<Material>> Possibilities = new List<List<Material>>();
 
