@@ -130,21 +130,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013134566404}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3449ef9b5faa0af4386503cc351b6ed6, type: 3}
+  m_Script: {fileID: 11500000, guid: 44c11dd231c00a9418783aa3a8dcc488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_LimitLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 512
   m_LimitUnderGroundRayLength: 3
   m_LimitBottomRayLength: 0.3
   m_LimitSidesRayLength: 0.3
   m_MinAngleY: -50
-  m_MaxAngleY: 35
+  m_MaxAngleY: 75
   m_MinDistance: 1
   m_MaxDistance: 2
-  m_ZoomSpeed: 0.01
+  m_ZoomSpeed: 0.5
+  m_MinZoomFOV: 60
+  m_MaxZoomFOV: 75
   m_SmoothZoomSpeed: 0.03
+  m_CurrentDistance: 0
 --- !u!124 &124000013154684414
 Behaviour:
   m_ObjectHideFlags: 1
