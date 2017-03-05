@@ -17,25 +17,12 @@ public class NPCManager : MonoBehaviour {
     public int ScheduleGap;
 
     private TimeController _timeController;
-
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.P))
-        {
-            TimeStopper.StopTime();
-        }
-        else
-        {
-            TimeStopper.StartTime();
-        }
-
-    }
-
-	// Use this for initialization
-	void Start ()
+    
+	public void Setup()
 	{
 	    _timeController = FindObjectOfType<TimeController>();
 	    _timeController.Tick.Suscribe(DoOnTick);
+
         //Iniate the variables and lists
         NPCs = new List<GameObject>();
         InterestPoints = new List<GameObject>();
@@ -45,58 +32,64 @@ public class NPCManager : MonoBehaviour {
         InterestPoints.AddRange(GameObject.FindGameObjectsWithTag("InterestPoint"));
 
         //Get the Materials list
-        Material[] HairList = Resources.LoadAll<Material>("Materials/Hair");
+        GameObject[] HeadList = Resources.LoadAll<GameObject>("Head");
         Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
 
         List<List<Material>> Possibilities = new List<List<Material>>();
+
         //Get all possible combinations
-        foreach (Material h in HairList)
+        foreach (Material p in ClothList)
         {
-            foreach (Material p in ClothList)
+            foreach (Material s in ClothList)
             {
-                foreach (Material s in ClothList)
-                {
-                    List<Material> possibility = new List<Material>();
-                    possibility.Add(h);
-                    possibility.Add(p);
-                    possibility.Add(s);
-                    Possibilities.Add(possibility);
-                }
+                List<Material> possibility = new List<Material>();
+                possibility.Add(p);
+                possibility.Add(s);
+                Possibilities.Add(possibility);
             }
         }
 
-        int startIndex = (int)(Random.Range(0, (Possibilities.Count - NPCCount + 1) / 100.0f) * 100);
-        List<List<Material>> NPCMats = Possibilities.GetRange(startIndex, NPCCount);
+        for (int i = Possibilities.Count - 1; i > 0; --i)
+        {
+            int r = Random.Range(0, i);
+            List<Material> tmp = Possibilities[i];
+            Possibilities[i] = Possibilities[r];
+            Possibilities[r] = tmp;
+        }
+
+        List<List<Material>> NPCMats = Possibilities.GetRange(0, NPCCount);
 
         //Generate NPCs
         for (int i = 0; i < NPCCount; i++)
         {
+            int StartPosIndex = Random.Range(0, InterestPoints.Count);
+            Vector3 pos = (i < InterestPoints[StartPosIndex].transform.childCount) 
+                ? InterestPoints[StartPosIndex].transform.GetChild(i).transform.position 
+                : InterestPoints[StartPosIndex].transform.GetChild(
+                    Random.Range(0, InterestPoints[StartPosIndex].transform.childCount)).transform.position;
 
-            int StartPosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
-            Vector3 Pos = InterestPoints[StartPosIndex].transform.position;
             GameObject npc = new GameObject();
             if (i == 0)
             {
-                npc = Instantiate(Target_Prefab, Pos, new Quaternion());
+                npc = PhotonNetwork.Instantiate(Target_Prefab.name, pos, new Quaternion(), 0);
             }
             else
             {
-                npc = Instantiate(NPC_Prefab, Pos, new Quaternion());
+                npc = PhotonNetwork.Instantiate(NPC_Prefab.name, pos, new Quaternion(), 0);             
             }
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
             npc.GetComponent<MainRecorder>().SetTimeController(_timeController);
-            npc.GetComponent<NPCCharacteristics>().HairMaterial = NPCMats[i][0];
-            npc.GetComponent<NPCCharacteristics>().PantMaterial = NPCMats[i][1];
-            npc.GetComponent<NPCCharacteristics>().ShirtMaterial = NPCMats[i][2];
+            npc.GetComponent<NPCCharacteristics>().Head = HeadList[Random.Range(0, HeadList.Length)];
+            npc.GetComponent<NPCCharacteristics>().PantMaterial = NPCMats[i][0];
+            npc.GetComponent<NPCCharacteristics>().ShirtMaterial = NPCMats[i][1];
             NPCs.Add(npc);
         }
         
         //Set the schedule for each NPC
         for (int i = 1; i < NPCs.Count; i++)
         {
-
-            int StartPosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
+            int StartPosIndex = Random.Range(0, InterestPoints.Count);
             Transform Pos = InterestPoints[StartPosIndex].transform;
             NPCs[i].GetComponent<NPCWalkScript>().Destination = Pos;
             NPCs[i].GetComponent<NPCWalkScript>().Location = Pos;
@@ -106,9 +99,9 @@ public class NPCManager : MonoBehaviour {
             //NPCSchedule.AddItem(0, NPCs[i].transform);
             for (int j = ScheduleGap; j < MapLength; j += schedulerTickRate)
             {
-                if ((int)(Random.Range(0.0f, 1.0f) * 100) >= 90)
+                if (Random.Range(0, 100) >= 90)
                 {
-                    int PosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
+                    int PosIndex = Random.Range(0, InterestPoints.Count);
                     Transform SchedulePos = InterestPoints[PosIndex].transform;
                     NPCSchedule.AddItem(j, SchedulePos);
 
@@ -122,8 +115,6 @@ public class NPCManager : MonoBehaviour {
 
         //Set the Target Schedule
         NPCs[0].GetComponent<TargetWalkScript>().setSchedule(CreateTargetSchedule(NPCs[0].transform));
-
-
     }
 
     private ScheduleTarget CreateTargetSchedule(Transform StartingLocation)
@@ -132,9 +123,9 @@ public class NPCManager : MonoBehaviour {
         //Target.AddItem(0, StartingLocation);
         for (int j = 1; j < MapLength; j += schedulerTickRate)
         {
-            if ((int)(Random.Range(0.0f, 1.0f) * 100) >= 90)
+            if (Random.Range(0, 100) >= 90)
             {
-                int PosIndex = (int)(Random.Range(0, InterestPoints.Count / 100.0f) * 100);
+                int PosIndex = Random.Range(0, InterestPoints.Count);
                 Transform SchedulePos = InterestPoints[PosIndex].transform;
                 Target.AddItem(j, SchedulePos);
 
@@ -146,6 +137,18 @@ public class NPCManager : MonoBehaviour {
         return Target;
     }
 
+    public Dictionary<string, string> GetTargetCharacteristics()
+    {
+        Dictionary<string, string> characteristics = new Dictionary<string, string>();
+        //TODO: Modify this section if the NPCs characteristics change
+        GameObject target = NPCs[0];
+        characteristics.Add("Head", target.GetComponent<NPCCharacteristics>().Head.name);
+        characteristics.Add("Shirt", target.GetComponent<NPCCharacteristics>().ShirtMaterial.name);
+        characteristics.Add("Pants", target.GetComponent<NPCCharacteristics>().PantMaterial.name);
+
+        return characteristics;
+    }
+
     private int DoOnTick(int time)
     {
         foreach (var npc in NPCs)
@@ -154,5 +157,4 @@ public class NPCManager : MonoBehaviour {
         }
         return 0;
     }
-
 }

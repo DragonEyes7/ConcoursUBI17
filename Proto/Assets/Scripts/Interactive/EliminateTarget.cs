@@ -43,7 +43,7 @@ public class EliminateTarget : Interactive
 
     public override void Interact()
     {
-        m_GameManager.ValidateTarget(GetComponent<Characteristics>().GetCharacteristics());
+        m_GameManager.ValidateTarget(GetComponent<NPCWalkScript>().NPCID);
         string msg;
         if (m_GameManager.ObjectivesCompleted())
         {

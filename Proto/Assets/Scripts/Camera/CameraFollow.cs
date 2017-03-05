@@ -1,77 +1,90 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 public class CameraFollow : MonoBehaviour
 {
-	[SerializeField] LayerMask m_LimitLayer;
-    [SerializeField] float m_LimitUnderGroundRayLength = 3f;
-    [SerializeField] float m_LimitBottomRayLength = 0.3f;
-	[SerializeField] float m_LimitSidesRayLength = 0.3f;
-	[SerializeField] float m_MinAngleY = -50f;
-    [SerializeField] float m_MaxAngleY = 35f;
-	//[SerializeField] float m_ResetDelay = 0.25f;
-    [SerializeField] float m_MinDistance = 2f;
-    [SerializeField] float m_MaxDistance = 3f;
-    [SerializeField] float m_ZoomSpeed = 0.01f;
-    [SerializeField] float m_SmoothZoomSpeed = 0.03f;
+    [SerializeField]LayerMask m_LimitLayer;
+    [SerializeField]float m_LimitUnderGroundRayLength = 3f;
+    [SerializeField]float m_LimitBottomRayLength = 0.3f;
+    [SerializeField]float m_LimitSidesRayLength = 0.3f;
+    [SerializeField]float m_MinAngleY = -50f;
+    [SerializeField]float m_MaxAngleY = 75f;
+    [SerializeField]float m_MinDistance = 2f;
+    [SerializeField]float m_MaxDistance = 7f;
+    [SerializeField]float m_ZoomSpeed = 0.01f;
+    [SerializeField]float m_MinZoomFOV = 60f;
+    [SerializeField]float m_MaxZoomFOV = 90f;
+    [SerializeField]float m_SmoothZoomSpeed = 0.03f;
 
-	Transform m_Player;
-	
+    Transform m_PlayerFollow;
+    Camera m_Camera;
+
     List<Transform> m_Transparent = new List<Transform>();
-	List<Shader> m_Shaders = new List<Shader>();
+    List<Shader> m_Shaders = new List<Shader>();
 
-	float m_CurrentYMin;
-	float m_CurrentYMax;
+    float m_CurrentYMin;
+    float m_CurrentYMax;
 
-	float m_CurrentX;
+    float m_CurrentX;
     float m_CurrentY;
 
-	//float m_ResetTimer = 0;
-
-	Vector3 m_Distance;
-	Vector3 m_LookAt;
+    Vector3 m_Distance;
+    Vector3 m_LookAt;
     float m_LastDistance;
+    public float m_CurrentDistance;
+
+    float m_MinFOV = 60f;
+    float m_MaxFOV = 65f;    
 
     bool m_SmoothZoom;
     bool m_Control = true;
 
-	void Start()
-	{
-        if(PlayerSettings.CameraDistance > m_MaxDistance)
-        {
-            PlayerSettings.CameraDistance = m_MaxDistance;
-        }
+    #region Debug
+    Vector3 m_LastPosition;
+    #endregion
 
-		m_Distance = new Vector3();
-		m_LookAt = new Vector3();
+    void Start()
+    {
+        m_Camera = GetComponent<Camera>();
+        m_Camera.fieldOfView = m_MinFOV;
 
-		m_CurrentYMin = m_MinAngleY;
-		m_CurrentYMax = m_MaxAngleY;
+        m_Distance = new Vector3();
+        m_LookAt = new Vector3();
+
+        m_CurrentYMin = m_MinAngleY;
+        m_CurrentYMax = m_MaxAngleY;
+
+        m_CurrentDistance = PlayerSettings.CameraDistance;
+
+        SetPlayerMaxDistancePref();
+
+        m_LastPosition = transform.position;
     }
 
-	void Update()
+    void Update()
     {
-		if(m_Player)
-		{
-			#region Debug
-			Debug.DrawRay(transform.position, Vector3.down * m_LimitBottomRayLength, Color.green);
+        if (m_PlayerFollow)
+        {
+            #region Debug
+            Debug.DrawRay(transform.position, Vector3.down * m_LimitBottomRayLength, Color.green);
             Debug.DrawRay(transform.position, Vector3.up * m_LimitUnderGroundRayLength, Color.green);
             Debug.DrawRay(transform.position, Vector3.left * m_LimitSidesRayLength, Color.blue);
-			Debug.DrawRay(transform.position, Vector3.right * m_LimitSidesRayLength, Color.blue);
-			#endregion
+            Debug.DrawRay(transform.position, Vector3.right * m_LimitSidesRayLength, Color.blue);
+            if(m_LastPosition != transform.position)
+            {
+                Debug.DrawLine(transform.position, m_LastPosition, Color.red, 10f);
+            }
+            
+            m_LastPosition = transform.position;
+            #endregion
 
-			#region Collision Detection
+            #region Collision Detection
 
-			/*if (Time.time >= m_ResetTimer )
-			{
-				m_CurrentYMin = m_MinAngleY;
-			}*/
+            #endregion
 
-			HitFloor();
-			#endregion
-
-			#region Camera movement
-            if(m_Control)
+            #region Camera movement
+            if (m_Control)
             {
                 if (InputMode.isKeyboardMode)
                 {
@@ -94,114 +107,110 @@ public class CameraFollow : MonoBehaviour
                     Move(Input.GetAxis("CameraHorizontal"), Input.GetAxis("CameraVertical"), 1);
                 }
             }
-			#endregion
+            #endregion
 
-			#region Camera Zooming
-            if(m_SmoothZoom)
+            #region Camera Zooming
+            if (m_SmoothZoom && !isHittingFloor())
             {
-                PlayerSettings.CameraDistance += m_SmoothZoomSpeed;
-
-                if (PlayerSettings.CameraDistance >= m_LastDistance)
+                m_CurrentDistance += m_SmoothZoomSpeed;
+                float currentDistance = ((m_MaxDistance - m_MinDistance) * (m_CurrentY + Math.Abs(m_CurrentYMin)) / (m_CurrentYMax + Math.Abs(m_CurrentYMin))) + m_MinDistance;
+                if (m_CurrentDistance >= currentDistance)
                 {
                     m_SmoothZoom = false;
-                    PlayerSettings.CameraDistance = m_LastDistance;
+                    m_CurrentDistance = currentDistance;
                     m_LastDistance = 0;
                 }
             }
 
-            Zoom(Input.GetAxis("Mouse ScrollWheel") * -1f);
+            if (Input.GetAxisRaw("DPadY") != 0)
+            {
+                m_Camera.fieldOfView -= Input.GetAxisRaw("DPadY") * m_ZoomSpeed;
+                if (m_Camera.fieldOfView < m_MinZoomFOV)
+                {
+                    m_Camera.fieldOfView = m_MinZoomFOV;
+                }
 
-			if (Input.GetKey(KeyCode.Z))
-			{
-				if (PlayerSettings.CameraDistance < m_MaxDistance)
-				{
-					PlayerSettings.CameraDistance += m_ZoomSpeed;
-				}
-			}
+                if (m_Camera.fieldOfView > m_MaxZoomFOV)
+                {
+                    m_Camera.fieldOfView = m_MaxZoomFOV;
+                }
+            }
+            #endregion
 
-			if (Input.GetKey(KeyCode.X))
-			{
-				if (PlayerSettings.CameraDistance > m_MinDistance)
-				{
-					PlayerSettings.CameraDistance -= m_ZoomSpeed;
-				}
-			}
-			#endregion
+            #region Visible obstacle
+            //Set Object visible or not.
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, Vector3.Distance(m_PlayerFollow.transform.position, transform.position));
+            Debug.DrawLine(transform.position, m_PlayerFollow.transform.position, Color.red);
+            bool toDelete = true;
 
-			#region Visible obstacle
-			//Set Object visible or not.
-			RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, Vector3.Distance(m_Player.transform.position, transform.position));
-			Debug.DrawLine(transform.position, m_Player.transform.position, Color.red);
-			bool toDelete = true;
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].transform.GetInstanceID() != m_PlayerFollow.GetInstanceID() && hits[i].transform.tag != "LevelLimit")
+                {
+                    MeshRenderer rend = hits[i].transform.GetComponent<MeshRenderer>();
 
-			for (int i = 0; i < hits.Length; i++)
-			{
-				if (hits[i].transform.GetInstanceID() != m_Player.GetInstanceID() && hits[i].transform.tag != "LevelLimit")
-				{
-					MeshRenderer rend = hits[i].transform.GetComponent<MeshRenderer>();
-
-					if (rend && !m_Transparent.Contains(hits[i].transform))
-					{
-						m_Transparent.Add(hits[i].transform);
-						m_Shaders.Add(rend.material.shader);
-						rend.material.shader = Shader.Find("Custom/TransparentShader");
-					}
-				}
-                else if(hits[i].transform.tag == "LevelLimit")
+                    if (rend && !m_Transparent.Contains(hits[i].transform))
+                    {
+                        m_Transparent.Add(hits[i].transform);
+                        m_Shaders.Add(rend.material.shader);
+                        rend.material.shader = Shader.Find("Custom/TransparentShader");
+                    }
+                }
+                else if (hits[i].transform.tag == "LevelLimit")
                 {
                     UnderGround();
                 }
-			}
+            }
 
-			for (int i = 0; i < m_Transparent.ToArray().Length; ++i)
-			{
-				foreach (RaycastHit hit in hits)
-				{
-					if (m_Transparent[i] == hit.transform)
-					{
-						toDelete = false;
-						break;
-					}
-				}
+            for (int i = 0; i < m_Transparent.ToArray().Length; ++i)
+            {
+                foreach (RaycastHit hit in hits)
+                {
+                    if (m_Transparent[i] == hit.transform)
+                    {
+                        toDelete = false;
+                        break;
+                    }
+                }
 
-				if (toDelete && m_Transparent[i])
-				{
-					Renderer rend = m_Transparent[i].GetComponent<Renderer>();
-					if(rend)
-					{
-						rend.material.shader = m_Shaders[i];
+                if (toDelete && m_Transparent[i])
+                {
+                    Renderer rend = m_Transparent[i].GetComponent<Renderer>();
+                    if (rend)
+                    {
+                        rend.material.shader = m_Shaders[i];
 
-						m_Transparent.Remove(m_Transparent[i]);
-						m_Shaders.Remove(m_Shaders[i]);
-					}
-				}
-			}
-			#endregion
-		}
-	}
+                        m_Transparent.Remove(m_Transparent[i]);
+                        m_Shaders.Remove(m_Shaders[i]);
+                    }
+                }
+            }
+            #endregion
+        }
+    }
 
-	void LateUpdate()
-	{
+    void LateUpdate()
+    {
         UpdatePosition();
     }
 
     public void SetPlayer(Transform player)
     {
-        m_Player = player;
+        m_PlayerFollow = player;
     }
 
-	void HitFloor()
-	{
-		RaycastHit hit;
-		if (Physics.Raycast(transform.position, Vector3.down, out hit, m_LimitBottomRayLength, m_LimitLayer))
-		{
+    void HitFloor()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, m_LimitBottomRayLength, m_LimitLayer))
+        {
             m_CurrentYMin = m_CurrentY;
-		}
+        }
         else
         {
             m_CurrentYMin = m_MinAngleY;
         }
-	}
+    }
 
     bool isHittingFloor()
     {
@@ -219,71 +228,73 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-	bool HitLimitLeft()
-	{
-		return Physics.Raycast(transform.position, Vector3.left, m_LimitSidesRayLength, m_LimitLayer);
-	}
+    bool HitLimitLeft()
+    {
+        return Physics.Raycast(transform.position, Vector3.left, m_LimitSidesRayLength, m_LimitLayer);
+    }
 
-	bool HitLimitRight()
-	{
-		return Physics.Raycast(transform.position, Vector3.right, m_LimitSidesRayLength, m_LimitLayer);
-	}
+    bool HitLimitRight()
+    {
+        return Physics.Raycast(transform.position, Vector3.right, m_LimitSidesRayLength, m_LimitLayer);
+    }
 
-	void Move(float X, float Y, int InputType)
-	{
-		m_CurrentX += X * PlayerSettings.GetCameraSpeed(InputType);
-        m_CurrentY += Y * PlayerSettings.GetCameraSpeed(InputType) * -1;
+    void Move(float X, float Y, int InputType)
+    {
+        m_CurrentX += X * PlayerSettings.GetCameraSpeed(InputType);
+
+        if (!isHittingFloor() || Y < 0)
+        {
+            m_CurrentY += Y * PlayerSettings.GetCameraSpeed(InputType) * -1;
+        }
 
         m_CurrentY = Mathf.Clamp(m_CurrentY, m_CurrentYMin, m_CurrentYMax);
+        
+        m_Camera.fieldOfView = m_MaxFOV - ((m_MaxFOV-m_MinFOV) * (m_CurrentY + Math.Abs(m_CurrentYMin)) / (m_CurrentYMax + Math.Abs(m_CurrentYMin)));
 
-        if (m_CurrentY <= m_CurrentYMin)
+        if(isHittingFloor() && Y > 0 && m_LastDistance == 0)
         {
-            if(m_LastDistance == 0)
-            {
-                m_LastDistance = PlayerSettings.CameraDistance;
-            }
-
-            if (PlayerSettings.CameraDistance > m_MinDistance)
-            {
-                PlayerSettings.CameraDistance -= m_ZoomSpeed * Y;
-            }
+            m_LastDistance = m_CurrentDistance;
         }
-        else if(m_LastDistance > 0 && Y < 0)
+
+        if(m_LastDistance != 0 && Y < 0 && !m_SmoothZoom)
         {
-            m_CurrentYMin = m_MinAngleY;
             m_SmoothZoom = true;
         }
-	}
-
-	void UpdatePosition()
-	{
-        if(m_Player)
+        else if(m_LastDistance != 0 && !m_SmoothZoom)
         {
-            m_Distance.Set(0, 0, -PlayerSettings.CameraDistance);
-            Quaternion rotation = Quaternion.Euler(m_CurrentY, m_CurrentX, 0);
-
-            transform.position = m_Player.position + rotation * m_Distance;
-
-            m_LookAt.Set(m_Player.position.x, m_Player.position.y, m_Player.position.z);
-            transform.LookAt(m_LookAt);
+            m_CurrentDistance -= m_ZoomSpeed * Y;
+            if(m_CurrentDistance < m_MinDistance)
+            {
+                m_CurrentDistance = m_MinDistance;
+            }
+        }
+        else if(m_LastDistance == 0)
+        {
+            m_CurrentDistance = ((m_MaxDistance - m_MinDistance) * (m_CurrentY + Math.Abs(m_CurrentYMin)) / (m_CurrentYMax + Math.Abs(m_CurrentYMin))) + m_MinDistance;
         }
     }
 
-    void Zoom(float zooming)
+    void UpdatePosition()
     {
-        PlayerSettings.CameraDistance += zooming;
-        if(PlayerSettings.CameraDistance > m_MaxDistance)
+        if (m_PlayerFollow)
         {
-            PlayerSettings.CameraDistance = m_MaxDistance;
-        }
-        else if(PlayerSettings.CameraDistance < m_MinDistance)
-        {
-            PlayerSettings.CameraDistance = m_MinDistance;
+            m_Distance.Set(0, 0, -m_CurrentDistance);
+            Quaternion rotation = Quaternion.Euler(m_CurrentY, m_CurrentX, 0);
+
+            transform.position = m_PlayerFollow.position + rotation * m_Distance;
+
+            m_LookAt.Set(m_PlayerFollow.position.x, m_PlayerFollow.position.y, m_PlayerFollow.position.z);
+            transform.LookAt(m_LookAt);
         }
     }
 
     public void ResetPosition()
     {
-        m_CurrentX = m_Player.eulerAngles.y;
+        m_CurrentX = m_PlayerFollow.eulerAngles.y;
+    }
+
+    public void SetPlayerMaxDistancePref()
+    {
+        m_MaxDistance = PlayerSettings.CameraDistance;
     }
 }

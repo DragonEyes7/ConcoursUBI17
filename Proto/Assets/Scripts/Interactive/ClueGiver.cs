@@ -125,6 +125,6 @@ public class ClueGiver : Interactive
     [PunRPC]
     void SendClueToIntelligence(int targetID, string part)
     {
-        m_GameManager.AddCluesToIntelligence(part, m_GameManager.GetTargetClue(targetID, part));
+        m_GameManager.AddCluesToIntelligence(part, m_GameManager.GetTargetClue(part));
     }
 }

@@ -39,15 +39,22 @@ public class ClockUI : MonoBehaviour
         if(!_isFirst)_photonView.RPC("RPCStartTime", PhotonTargets.All);
         _isFirst = false;
     }
+
+    public void Toggle()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
+    }
+
     private IEnumerator ReadInput()
     {
         if (Input.GetButtonDown("Action"))
         {
             _prevTime = _curTime;
             ExecuteTimeRewind();
+            gameObject.SetActive(false);
         }
-        _curTime = TuneMinutes(Input.GetAxis("DPadY"), (int)_curTime/60) +
-                   TuneSeconds(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), (int)_curTime % 60);
+        _curTime = TuneMinutes(Input.GetAxisRaw("DPadY"), (int)_curTime/60) +
+                   TuneSeconds(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), (int)_curTime % 60);
         if (_curTime > _prevTime) _curTime = _prevTime;
         if (_curTime < 0) _curTime = 0;
         UpdateClock(_curTime);

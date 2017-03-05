@@ -32,7 +32,7 @@ public class TimeController : MonoBehaviour
         if (_Timer >= 1f && _IsPlaying) DoTick();
     }
 
-    void DoTick()
+    public void DoTick()
     {
         _Timer = 0;
         _Time++;

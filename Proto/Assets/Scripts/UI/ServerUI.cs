@@ -15,13 +15,12 @@ public class ServerUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         PhotonNetwork.ConnectUsingSettings("Proto v0.1");
-        StartCoroutine(WaitForConnection());
+        StartCoroutine(WaitForConnection());        
     }
 
     public void CreateServer()
     {
-        PhotonNetwork.CreateRoom(m_ServerNameField.text, null, null);
-        //SceneManager.LoadScene("Level1");
+        PhotonNetwork.CreateRoom((m_ServerNameField.text != "") ? m_ServerNameField.text : "Server " + (PhotonNetwork.GetRoomList().Length+1) + ":", null, null);
         PhotonNetwork.LoadLevel(m_LevelToTest);
     }
 
@@ -39,6 +38,11 @@ public class ServerUI : MonoBehaviour
             GameObject serverbutton = (GameObject)Instantiate(Resources.Load("ServerJoinButton"), m_ServerList);
             serverbutton.GetComponentInChildren<Text>().text = roomInfo.Name + " " + roomInfo.PlayerCount + "/2"; //+ roomInfo.MaxPlayers;
 
+            if (roomInfo.PlayerCount >= 2)
+            {
+                serverbutton.GetComponent<Button>().interactable = false;
+            }
+
             serverbutton.GetComponent<Button>().onClick.AddListener(() => JoinServer(roomInfo.Name));
 
             m_ServerButtons.Add(serverbutton);
@@ -48,7 +52,6 @@ public class ServerUI : MonoBehaviour
     void JoinServer(string serverName)
     {
         PhotonNetwork.JoinRoom(serverName);
-        //SceneManager.LoadScene("Level1");
         PhotonNetwork.LoadLevel(m_LevelToTest);
     }
 
@@ -60,6 +63,7 @@ public class ServerUI : MonoBehaviour
 
     void LoadingCompleted()
     {
+        GetServerList();
         LoadingManager LM = FindObjectOfType<LoadingManager>();
         if (LM)
         {
