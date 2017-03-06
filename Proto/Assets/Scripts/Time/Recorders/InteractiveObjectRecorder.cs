@@ -8,8 +8,6 @@ public class InteractiveObjectRecorder : Recorder
     private Dictionary<int, InteractiveObjectRecordState> _states = new Dictionary<int, InteractiveObjectRecordState>();
     private Interactive _interactiveObject;
 
-    [SerializeField]
-
     private new void Start()
     {
         _isMoved = false;
@@ -65,7 +63,9 @@ public class InteractiveObjectRecorder : Recorder
     [PunRPC]
     internal override void DoRewind(int time)
     {
+        Debug.Log("Test1");
         if (this == null) return;
+        Debug.Log("Test2");
         if (!_states.ContainsKey(time))
         {
             time = FindClosestKey(time, new List<int>(_states.Keys));
