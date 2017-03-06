@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class MultipleDelegate
 {
-    private readonly Dictionary<int, Func<int, int>> _delegates = new Dictionary<int, Func<int, int>>();
+    private readonly List<Func<int, int>> _delegates = new List<Func<int, int>>();
     private Type _typeOf;
     private int _pos = 0;
 
     public int Suscribe(Func<int, int> item)
     {
-        _delegates.Add(_pos, item);
-        return _pos++;
-    }
-
-    public void Unsuscribe(int key)
-    {
-        _delegates.Remove(key);
+        _delegates.Add(item);
+        return 0;
     }
 
     public void Empty()
@@ -25,9 +21,8 @@ public class MultipleDelegate
 
     public void Execute(int value)
     {
-        foreach (var item in _delegates)
+        foreach (var func in _delegates)
         {
-            var func = item.Value;
             func(value);
         }
     }
