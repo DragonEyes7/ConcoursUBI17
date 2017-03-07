@@ -314,5 +314,10 @@ public class HUD : MonoBehaviour
     {
         m_TimeController.SaveTime();
     }
+
+    public void WrongTargetIntercepted()
+    {
+        m_TimeController.WrongTargetIntercepted();
+    }
     #endregion
 }

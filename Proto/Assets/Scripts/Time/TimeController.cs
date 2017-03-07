@@ -4,7 +4,8 @@ public class TimeController : MonoBehaviour
 {
     public MultipleDelegate Tick = new MultipleDelegate();
     public MultipleDelegate End = new MultipleDelegate();
-    [SerializeField] private string filePath;
+    [SerializeField] private string _filePath;
+    [SerializeField] private int _penalizePlayerOnWrongTarget = 20;
 
     int _Time, _maxTime = 30, _totalTime;
     float _Timer;
@@ -52,8 +53,13 @@ public class TimeController : MonoBehaviour
     {
         if (PhotonNetwork.isMasterClient)
         {
-            new FileManager(filePath).Write("Game time : " + _totalTime + "\n");
+            new FileManager(_filePath).Write("Game time : " + _totalTime + "\n");
         }
+    }
+
+    public void WrongTargetIntercepted()
+    {
+        _totalTime += _penalizePlayerOnWrongTarget;
     }
 
     public void SetMaxTime(int maxTime)
