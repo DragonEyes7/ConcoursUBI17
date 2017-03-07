@@ -309,5 +309,10 @@ public class HUD : MonoBehaviour
             }            
         }
     }
+
+    public void GameEndedSuccessfully()
+    {
+        m_TimeController.SaveTime();
+    }
     #endregion
 }

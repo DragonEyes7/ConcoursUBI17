@@ -12,6 +12,7 @@ public class FileManager
     {
         var writer = File.AppendText(_file);
         writer.Write(text);
+        writer.Flush();
     }
 
     public string Read()

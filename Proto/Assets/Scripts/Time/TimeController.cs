@@ -43,16 +43,17 @@ public class TimeController : MonoBehaviour
         {
             //Game has ended stop countdown and show the players they f*cked up
             FindObjectOfType<GameManager>().Defeat();
-
             End.Execute(_Time);
             End.Empty();
-            SaveTime();
         }
     }
 
-    private void SaveTime()
+    public void SaveTime()
     {
-        new FileManager(filePath).Write("Game time : " + _totalTime);
+        if (PhotonNetwork.isMasterClient)
+        {
+            new FileManager(filePath).Write("Game time : " + _totalTime + "\n");
+        }
     }
 
     public void SetMaxTime(int maxTime)
