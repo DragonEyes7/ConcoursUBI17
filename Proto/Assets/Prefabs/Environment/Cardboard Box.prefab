@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33459286237758818}
   - component: {fileID: 65513637375770858}
   - component: {fileID: 23274518023670870}
+  - component: {fileID: 208158994259749480}
   m_Layer: 0
   m_Name: Cardboard Box
   m_TagString: Untagged
@@ -92,3 +93,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &208158994259749480
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703711866589552}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
