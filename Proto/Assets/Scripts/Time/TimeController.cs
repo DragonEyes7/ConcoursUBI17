@@ -4,8 +4,9 @@ public class TimeController : MonoBehaviour
 {
     public MultipleDelegate Tick = new MultipleDelegate();
     public MultipleDelegate End = new MultipleDelegate();
+    [SerializeField] private string filePath;
 
-    int _Time, _maxTime = 30;
+    int _Time, _maxTime = 30, _totalTime;
     float _Timer;
     bool _IsPlaying = false;
 
@@ -36,6 +37,7 @@ public class TimeController : MonoBehaviour
     {
         _Timer = 0;
         _Time++;
+        _totalTime++;
         Tick.Execute(_Time);
         if (_Time == _maxTime)
         {
@@ -44,7 +46,13 @@ public class TimeController : MonoBehaviour
 
             End.Execute(_Time);
             End.Empty();
+            SaveTime();
         }
+    }
+
+    private void SaveTime()
+    {
+        new FileManager(filePath).Write("Game time : " + _totalTime);
     }
 
     public void SetMaxTime(int maxTime)
