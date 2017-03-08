@@ -20,7 +20,8 @@ public class ServerUI : MonoBehaviour
 
     public void CreateServer()
     {
-        PhotonNetwork.CreateRoom((m_ServerNameField.text != "") ? m_ServerNameField.text : "Server " + (PhotonNetwork.GetRoomList().Length+1) + ":", null, null);
+        m_ServerNameField.text = m_ServerNameField.text != "" ? m_ServerNameField.text : "Server " + (PhotonNetwork.GetRoomList().Length + 1);
+        PhotonNetwork.CreateRoom(m_ServerNameField.text, null, null);
         PhotonNetwork.LoadLevel(m_LevelToTest);
     }
 
@@ -36,7 +37,7 @@ public class ServerUI : MonoBehaviour
         foreach (RoomInfo roomInfo in PhotonNetwork.GetRoomList())
         {
             GameObject serverbutton = (GameObject)Instantiate(Resources.Load("ServerJoinButton"), m_ServerList);
-            serverbutton.GetComponentInChildren<Text>().text = roomInfo.Name + " " + roomInfo.PlayerCount + "/2"; //+ roomInfo.MaxPlayers;
+            serverbutton.GetComponentInChildren<Text>().text = roomInfo.Name + " : " + roomInfo.PlayerCount + "/2"; //+ roomInfo.MaxPlayers;
 
             if (roomInfo.PlayerCount >= 2)
             {
