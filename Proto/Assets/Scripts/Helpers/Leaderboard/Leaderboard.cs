@@ -29,7 +29,7 @@ public class Leaderboard
         for (var i = 0; i < _scores.Count; i++)
         {
             var score = _scores[i];
-            if (score.Time <= newScore.Time) continue;
+            if (score.Time < newScore.Time) continue;
             _scores.Insert(i, newScore);
             break;
         }
@@ -42,6 +42,6 @@ public class Leaderboard
         {
             _scores.RemoveRange(9, _scores.Count - 10);
         }
-        _fileManager.Write(JsonConvert.SerializeObject(_scores));
+        _fileManager.Write(JsonConvert.SerializeObject(_scores, Formatting.Indented));
     }
 }
