@@ -53,7 +53,9 @@ public class TimeController : MonoBehaviour
     {
         if (PhotonNetwork.isMasterClient)
         {
-            new FileManager(_filePath).Write(PhotonNetwork.room.Name + " : " + _totalTime + "\n");
+            var leaderboard = new Leaderboard(_filePath);
+            leaderboard.AddScore(new Score(PhotonNetwork.room.Name, _totalTime));
+            leaderboard.Save();
         }
     }
 
