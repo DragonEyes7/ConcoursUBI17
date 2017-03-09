@@ -785,7 +785,7 @@ Transform:
   - {fileID: 1685121755}
   - {fileID: 2091563187}
   m_Father: {fileID: 1870487687}
-  m_RootOrder: 10
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &404303475
 Prefab:
@@ -1215,7 +1215,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 586774900}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8857a9e66fceac24696351d7b694d580, type: 3}
   m_Name: 
@@ -1478,7 +1478,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 715321669}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
@@ -3365,6 +3365,8 @@ Transform:
   m_Children:
   - {fileID: 607374631}
   - {fileID: 1075683096}
+  - {fileID: 368777299}
+  - {fileID: 2057595016}
   - {fileID: 1036574573}
   - {fileID: 631028767}
   - {fileID: 168459953}
@@ -3373,8 +3375,6 @@ Transform:
   - {fileID: 220294899}
   - {fileID: 258705649}
   - {fileID: 267799281}
-  - {fileID: 368777299}
-  - {fileID: 2057595016}
   - {fileID: 824656985}
   - {fileID: 2022275940}
   m_Father: {fileID: 0}
@@ -3742,7 +3742,7 @@ Transform:
   - {fileID: 715321670}
   - {fileID: 1015436301}
   m_Father: {fileID: 1870487687}
-  m_RootOrder: 11
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2091563186
 GameObject:
@@ -3859,23 +3859,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   small_spawnLocations:
-  - {fileID: 930295354}
   - {fileID: 1851348608}
   - {fileID: 1948752349}
   medium_spawnLocations:
-  - {fileID: 0}
+  - {fileID: 930295354}
   - {fileID: 0}
   large_spawnLocations:
   - {fileID: 454452221}
   small_shops:
   - {fileID: 1363895548057568, guid: 83686d1014fe239429c2249573776e68, type: 2}
   - {fileID: 1363895548057568, guid: 83686d1014fe239429c2249573776e68, type: 2}
-  - {fileID: 1363895548057568, guid: 83686d1014fe239429c2249573776e68, type: 2}
-  medium_shops: []
+  medium_shops:
+  - {fileID: 1415122521923338, guid: 08dd544bc5906de4ca1f9b4e44c7d92d, type: 2}
   large_shops:
   - {fileID: 1024190506079466, guid: d157dbd247285d84186abb83e7326f96, type: 2}
-  nbr_of_small_shops: 3
-  nbr_of_med_shops: 0
+  nbr_of_small_shops: 2
+  nbr_of_med_shops: 1
   nbr_of_large_shops: 1
 --- !u!4 &2119078910
 Transform:
