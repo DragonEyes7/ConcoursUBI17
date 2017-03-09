@@ -25,6 +25,11 @@ public class ServerUI : MonoBehaviour
         PhotonNetwork.LoadLevel(m_LevelToTest);
     }
 
+    public void LoadLeaderboard()
+    {
+        PhotonNetwork.LoadLevel("Leaderboard");
+    }
+
     public void GetServerList()
     {
         foreach(GameObject serverbutton in m_ServerButtons)
