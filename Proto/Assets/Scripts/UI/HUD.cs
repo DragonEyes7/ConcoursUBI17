@@ -9,6 +9,7 @@ public class HUD : MonoBehaviour
     [SerializeField]Text m_Messages;
     [SerializeField]Text m_Timer;
     [SerializeField]ClockUI _clockUI;
+    [SerializeField]CameraMenuUI _cameraUI;
     [SerializeField]RectTransform m_CenterCam;
     [SerializeField]RectTransform m_Uplink;
     [SerializeField]RectTransform m_UplinkIncoming;
@@ -27,6 +28,7 @@ public class HUD : MonoBehaviour
         m_Messages.gameObject.SetActive(false);
         m_ActionPrompt.gameObject.SetActive(false);
         _clockUI.gameObject.SetActive(false);
+        _cameraUI.gameObject.SetActive(false);
 
         m_Uplink.gameObject.SetActive(false);
         m_UplinkIncoming.gameObject.SetActive(false);
@@ -62,6 +64,10 @@ public class HUD : MonoBehaviour
         if (PhotonNetwork.isMasterClient && Input.GetButtonDown("TimeRewind"))
         {
             _clockUI.Toggle();
+        }
+        if (!PhotonNetwork.isMasterClient && Input.GetButtonDown("TimeRewind"))
+        {
+            _cameraUI.Toggle();
         }
     }
 
