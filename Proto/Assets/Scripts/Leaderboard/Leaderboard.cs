@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public class Leaderboard
 {
-    private List<Score> _scores;
+    private readonly List<Score> _scores;
     private FileManager _fileManager;
     public Leaderboard(string file)
     {
@@ -16,6 +17,15 @@ public class Leaderboard
         var json = _fileManager.Read();
 
         return json == "" ? new List<Score>() : JsonConvert.DeserializeObject<List<Score>>(json);
+    }
+
+    public void Show(RectTransform list)
+    {
+        foreach (var score in _scores)
+        {
+            var leaderboardEntry = (GameObject)Object.Instantiate(Resources.Load("LeaderboardField"), list);
+            leaderboardEntry.GetComponent<LeaderboardEntry>().SetInfo(score);
+        }
     }
 
     public void AddScore(Score newScore)
