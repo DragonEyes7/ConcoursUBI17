@@ -36,7 +36,7 @@ public class LevelGenerator : MonoBehaviour {
         foreach (Transform t in ts)
         {
             random = Random.Range(0, s.Count);
-            GameObject shop = Instantiate(s[random], t.transform, false);
+            Instantiate(s[random], t.transform, false);
             s.RemoveAt(random);
         }
     }
