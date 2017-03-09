@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33712749471001192}
   - component: {fileID: 136294168833774628}
   - component: {fileID: 23986746828573102}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shirt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4775027676909140}
   - component: {fileID: 33469982700326562}
   - component: {fileID: 23001495286311464}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 33935447697841300}
   - component: {fileID: 135181204837812592}
   - component: {fileID: 23536338962435260}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 4232788743322484}
   - component: {fileID: 136553809570613410}
   - component: {fileID: 195989919848807460}
-  - component: {fileID: 114012433385989944}
   - component: {fileID: 114563094258353406}
   - component: {fileID: 114113211488719608}
   - component: {fileID: 135923037184079244}
@@ -98,7 +97,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4294821081677938}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NPCBlub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,19 +302,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114012433385989944
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1333600672571158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f2a86ad1c05b63489ace9d664e80ebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _timeController: {fileID: 0}
-  _rewindPrompt: {fileID: 0}
 --- !u!114 &114075913150295424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -364,7 +350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3e88721bbd93b4ab85f8aa9969e34f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HairPart: {fileID: 0}
   PantPart: {fileID: 4892743787017116}
   ShirtPart: {fileID: 4614383273084808}
   PantMaterial: {fileID: 0}
