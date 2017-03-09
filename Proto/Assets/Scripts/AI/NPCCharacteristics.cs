@@ -54,7 +54,7 @@ public class NPCCharacteristics : MonoBehaviour
         {
             if (head.name == headName)
             {
-                Instantiate(head, transform.position, transform.rotation, transform.GetChild(0).transform);
+                Instantiate(head, transform.position, transform.rotation, transform);
             }
         }
     }

@@ -8,8 +8,6 @@ public class InteractiveObjectRecorder : Recorder
     private Dictionary<int, InteractiveObjectRecordState> _states = new Dictionary<int, InteractiveObjectRecordState>();
     private Interactive _interactiveObject;
 
-    [SerializeField]
-
     private new void Start()
     {
         _isMoved = false;

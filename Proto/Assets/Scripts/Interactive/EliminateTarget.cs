@@ -50,6 +50,7 @@ public class EliminateTarget : Interactive
             msg = "Mission Successfull";
             m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
+            m_HUD.GameEndedSuccessfully();
             m_Action.SetInteract(false);
             UnSelect();
         }
@@ -57,6 +58,7 @@ public class EliminateTarget : Interactive
         {
             msg = "Wrong Target";
             m_PhotonView.RPC("RPCMessage", PhotonTargets.All, msg, 5f);
+            m_HUD.WrongTargetIntercepted();
         }
     }
 

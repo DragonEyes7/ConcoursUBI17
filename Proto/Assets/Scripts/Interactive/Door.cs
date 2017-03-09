@@ -56,7 +56,6 @@ public class Door : Interactive
 
     private void OnTriggerStay(Collider other)
     {
-        m_HUD.HideActionPrompt();
         _action = other.GetComponent<AgentActions>();
         if (_action && _action.enabled)
         {

@@ -54,6 +54,36 @@ public class ClueGiver : Interactive
         }
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        if (_interactiveObjectRecorder.GetStatus())
+        {
+            m_Action = other.GetComponent<IntelligenceAction>();
+
+            if (m_Action && m_Action.enabled)
+            {
+                m_SelectMat = _Mats[1];
+                m_HUD.ShowActionPrompt("Hack device");
+                m_Action.SetInteract(true);
+                m_Action.SetInteractionObject(this);
+                Select();
+            }
+        }
+        else
+        {
+            m_Action = other.GetComponent<AgentActions>();
+
+            if (m_Action && m_Action.enabled)
+            {
+                m_SelectMat = _Mats[0];
+                m_HUD.ShowActionPrompt("Install device");
+                m_Action.SetInteract(true);
+                m_Action.SetInteractionObject(this);
+                Select();
+            }
+        }
+    }
+
     void OnTriggerExit(Collider other)
     {
         if (_interactiveObjectRecorder.GetStatus())
