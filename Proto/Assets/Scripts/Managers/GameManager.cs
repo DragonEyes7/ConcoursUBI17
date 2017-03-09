@@ -36,10 +36,9 @@ public class GameManager : MonoBehaviour
         m_IsMaster = isMaster;
         if(m_IsMaster)
         {
-			//FindObjectOfType<NPCManager>().Setup();
-            //ValideNumberOfTargets();
-            //FindRandomTargets();
-            
+			FindObjectOfType<NPCManager>().Setup();
+            ValideNumberOfTargets();
+            FindRandomTargets();
         }
         else
         {
