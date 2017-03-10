@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
+  m_CameraGroup: BallRoom
 --- !u!135 &4517631
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1936,6 +1937,11 @@ Prefab:
       propertyPath: m_SceneCamera
       value: 
       objectReference: {fileID: 102960514}
+    - target: {fileID: 114057506181844482, guid: 2a74233c794c6194f9f364c93cf12fa4,
+        type: 2}
+      propertyPath: m_LastCamera
+      value: 
+      objectReference: {fileID: 1868881067}
     m_RemovedComponents:
     - {fileID: 114133179270117118, guid: 2a74233c794c6194f9f364c93cf12fa4, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2a74233c794c6194f9f364c93cf12fa4, type: 2}
@@ -2121,6 +2127,7 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
+  m_CameraGroup: Hall
 --- !u!135 &463157276
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4742,6 +4749,7 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
+  m_CameraGroup: Hall
 --- !u!135 &1053542559
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6022,6 +6030,7 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
+  m_CameraGroup: BallRoom
 --- !u!135 &1360390992
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8230,6 +8239,7 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
+  m_CameraGroup: 
 --- !u!135 &1868881069
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8722,6 +8732,7 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
+  m_CameraGroup: TerminalRoom
 --- !u!135 &1916774150
 SphereCollider:
   m_ObjectHideFlags: 0
