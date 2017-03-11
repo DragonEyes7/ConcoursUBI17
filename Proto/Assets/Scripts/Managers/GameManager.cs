@@ -30,6 +30,13 @@ public class GameManager : MonoBehaviour
     public void Setup(bool isMaster)
     {
         m_IsMaster = isMaster;
+
+        LevelGenerator LG = FindObjectOfType<LevelGenerator>();
+        if(LG)
+        {
+            LG.Setup();
+        }
+
         if(m_IsMaster)
         {
 			FindObjectOfType<NPCManager>().Setup();

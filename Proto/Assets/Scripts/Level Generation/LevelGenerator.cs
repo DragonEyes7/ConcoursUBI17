@@ -18,38 +18,85 @@ public class LevelGenerator : MonoBehaviour
     public int nbr_of_med_shops;
     public int nbr_of_large_shops;
 
-    void Start ()
+    List<int> _Shops = new List<int>();
+
+    public void Setup ()
     {
-       /* instanciateShops(small_spawnLocations, small_shops);
-        instanciateShops(medium_spawnLocations, medium_shops);
-        instanciateShops(large_spawnLocations, large_shops);*/
-
-        instantiateShops(small_spawnLocations, small_shops,nbr_of_small_shops);
-        instantiateShops(medium_spawnLocations, medium_shops,nbr_of_med_shops);
-        instantiateShops(large_spawnLocations, large_shops, nbr_of_large_shops);
-    }
-
-    void instantiateShops( Transform[] ts, List<GameObject> s)
-    {
-        int random;
-
-        foreach (Transform t in ts)
+        if (PhotonNetwork.isMasterClient)
         {
-            random = Random.Range(0, s.Count);
-            Instantiate(s[random], t.transform, false);
-            s.RemoveAt(random);
+            InstantiateShops(small_spawnLocations, small_shops, nbr_of_small_shops);
+            InstantiateShops(medium_spawnLocations, medium_shops, nbr_of_med_shops);
+            InstantiateShops(large_spawnLocations, large_shops, nbr_of_large_shops);
+
+            string ext = "(";
+
+            foreach (int i in _Shops)
+            {
+                ext += i + ":";
+            }
+
+            ext += ")";
+            Debug.Log(ext);
+
+            FindObjectOfType<HUD>().ShowMessages(ext, 10);
+        }
+        else
+        {
+            AskForShops();
         }
     }
-// Could help with balance 
-    void instantiateShops(Transform[] ts, List<GameObject> s, int NbrOfShop)
+
+    void InstantiateShops(Transform[] spawnSpot, List<GameObject> shop, int NbrOfShop)
     {
         int random;
 
         for(int i =0; i<NbrOfShop;i++)
         {
-            random = Random.Range(0, s.Count);
-            Instantiate(s[random], ts[i].transform, false);
-            s.RemoveAt(random);
+            random = Random.Range(0, shop.Count);
+            Instantiate(shop[random], spawnSpot[i].transform.position, spawnSpot[i].transform.rotation, spawnSpot[i].transform);
+            shop.RemoveAt(random);
+            _Shops.Add(random);
+        }
+    }
+
+    void AskForShops()
+    {
+        GetComponent<PhotonView>().RPC("RPCShopAnswer", PhotonTargets.MasterClient);
+    }
+
+    [PunRPC]
+    void RPCShopAnswer()
+    {
+        GetComponent<PhotonView>().RPC("RPCShopReceive", PhotonTargets.Others, _Shops.ToArray());
+    }
+
+    [PunRPC]
+    void RPCShopReceive(int[] shops)
+    {
+        string ext = "(";
+
+        foreach (int i in shops)
+        {
+            ext += i + ":";
+        }
+
+        ext += ")";
+
+        FindObjectOfType<HUD>().ShowMessages(ext, 10);
+
+        for (int i = 0; i < nbr_of_small_shops; ++i)
+        {
+            Instantiate(small_shops[shops[i]], small_spawnLocations[i].transform.position, small_spawnLocations[i].transform.rotation, small_spawnLocations[i].transform);
+        }
+
+        for (int i = 0; i < nbr_of_med_shops; ++i)
+        {
+            Instantiate(medium_shops[shops[i + nbr_of_small_shops]], medium_spawnLocations[i].transform.position, medium_spawnLocations[i].transform.rotation, medium_spawnLocations[i].transform);
+        }
+
+        for (int i = 0; i < nbr_of_large_shops; ++i)
+        {
+            Instantiate(large_shops[shops[i + nbr_of_small_shops + nbr_of_med_shops]], large_spawnLocations[i].transform.position, large_spawnLocations[i].transform.rotation, large_spawnLocations[i].transform);
         }
     }
 }
