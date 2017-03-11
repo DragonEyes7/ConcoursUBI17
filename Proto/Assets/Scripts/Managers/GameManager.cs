@@ -4,11 +4,7 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]Transform[] m_DoorsSpawn;
-    [SerializeField]int m_NumberOfTargets = 1;
     [SerializeField]int _levelTimer = 30;
-    //[SerializeField]Material[] m_Hairs;
-    //[SerializeField]Material[] m_Noses;
-    //[SerializeField]Material[] m_Backpacks;
 
     Dictionary<string, string> m_AgentClues = new Dictionary<string, string>();
     Dictionary<string, string> m_IntelligenceClues = new Dictionary<string, string>();
@@ -37,8 +33,14 @@ public class GameManager : MonoBehaviour
         if(m_IsMaster)
         {
 			FindObjectOfType<NPCManager>().Setup();
-            ValideNumberOfTargets();
             FindRandomTargets();
+
+            Shop[] shops = FindObjectsOfType<Shop>();
+
+            foreach(Shop shop in shops)
+            {
+                shop.Setup();
+            }
         }
         else
         {
@@ -59,27 +61,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void ValideNumberOfTargets()
-    {
-        Characteristics[] targets = FindObjectsOfType<Characteristics>();
-        if (m_NumberOfTargets > targets.Length)
-        {
-            m_NumberOfTargets = targets.Length;
-        }
-    }
-
     void FindRandomTargets()
     {
-        Characteristics[] targets = FindObjectsOfType<Characteristics>();
-
-        for (int i = targets.Length - 1; i > 0; --i)
-        {
-            int r = Random.Range(0, i);
-            Characteristics tmp = targets[i];
-            targets[i] = targets[r];
-            targets[r] = tmp;
-        }
-
         m_TargetsCharacteristics = new Dictionary<string, string>();
 
         GameObject NPCManager = GameObject.FindGameObjectWithTag("NPCManager");
@@ -104,7 +87,6 @@ public class GameManager : MonoBehaviour
         if (propertiesThatChanged.ContainsKey("Targets"))
         {
             m_TargetsCharacteristics = (Dictionary<string, string>)propertiesThatChanged["Targets"];
-            //DebugShowTarget();
         }
         else if(propertiesThatChanged.ContainsKey("Objectives"))
         {
@@ -120,32 +102,6 @@ public class GameManager : MonoBehaviour
             }
         }        
     }
-
-    /*
-    void DebugShowTarget()
-    {
-        Characteristics[] targets = FindObjectsOfType<Characteristics>();
-
-        for(int i = 0; i < targets.Length; ++i)
-        {
-            int[] characteristics = targets[i].GetCharacteristics();
-            bool found = true;
-            for (int j = 0; j < characteristics.Length; ++j)
-            {                
-                if (characteristics[j] != m_TargetsCharacteristics[0][j])
-                {
-                    found = false;
-                    break;
-                }
-            }
-
-            if(found)
-            {
-                targets[i].TargetIdentified();
-            }
-        }
-    }
-    */
 
     public Dictionary<string, string> GetTargets()
     {
@@ -167,26 +123,6 @@ public class GameManager : MonoBehaviour
     {
         return m_InnocentTargetsIntercepted;
     }
-
-    /*
-    public Material GetPartMaterial(int part, int index)
-    {
-        switch(part)
-        {
-            case 0:
-                return m_Hairs[index];
-            case 1:
-                return m_Noses[index];
-            case 2:
-                return m_Backpacks[index];
-            default:
-                Debug.LogError("Wront part!");
-                break;
-        }
-
-        return null;
-    }
-    */
 
     public string GetTargetClue(string part)
     {

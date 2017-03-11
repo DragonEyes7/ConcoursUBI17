@@ -95,4 +95,9 @@ public class MovableObject : Interactive
             _previousAction.SetInteract(true);
         }
     }
+
+    public void SetPathToFollow(Transform[] path)
+    {
+        m_PathToFollow = path;
+    }
 }
