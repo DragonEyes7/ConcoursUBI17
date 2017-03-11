@@ -116,6 +116,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4917080092130254}
+  - component: {fileID: 114843232999002508}
   m_Layer: 0
   m_Name: ExitEmployeeDoor
   m_TagString: Untagged
@@ -660,6 +661,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4177043395966208}
+  - component: {fileID: 114300004596167214}
   m_Layer: 0
   m_Name: EntranceDoor
   m_TagString: Untagged
@@ -720,6 +722,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4827571598710306}
+  - component: {fileID: 114956474659688038}
   m_Layer: 0
   m_Name: EmployeeDoor
   m_TagString: Untagged
@@ -2500,6 +2503,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114300004596167214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1802932951950808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031169982cd7e0d4a946a3ac2033c637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isOpen: 0
+  _isLock: 0
 --- !u!114 &114371458027315060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2533,10 +2549,37 @@ MonoBehaviour:
   _ClueGivers:
   - {fileID: 4228272712913290}
   _Terminals: []
+  _InteractiveObjects: []
   _DoorsParent: {fileID: 4609353324950272}
   _CamerasParent: {fileID: 4126791655715582}
   _ClueGiversParent: {fileID: 4953128136992142}
   _TerminalsParent: {fileID: 0}
+--- !u!114 &114843232999002508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078769060810020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031169982cd7e0d4a946a3ac2033c637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isOpen: 0
+  _isLock: 1
+--- !u!114 &114956474659688038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883217852740488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031169982cd7e0d4a946a3ac2033c637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isOpen: 0
+  _isLock: 1
 --- !u!136 &136984633536577024
 CapsuleCollider:
   m_ObjectHideFlags: 1

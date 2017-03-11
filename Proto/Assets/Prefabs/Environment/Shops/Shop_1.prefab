@@ -7299,6 +7299,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4729286901362212}
+  - component: {fileID: 114362357140922128}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -75954,10 +75955,24 @@ MonoBehaviour:
   _ClueGivers:
   - {fileID: 4906429994663194}
   _Terminals: []
+  _InteractiveObjects: []
   _DoorsParent: {fileID: 4756236783872968}
   _CamerasParent: {fileID: 4161978835651730}
   _ClueGiversParent: {fileID: 4686500045874806}
   _TerminalsParent: {fileID: 0}
+--- !u!114 &114362357140922128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1356333470302490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031169982cd7e0d4a946a3ac2033c637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isOpen: 1
+  _isLock: 0
 --- !u!114 &114373654079013754
 MonoBehaviour:
   m_ObjectHideFlags: 1

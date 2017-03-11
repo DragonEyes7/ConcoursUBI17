@@ -91,6 +91,18 @@ public class CameraMovement : MonoBehaviour
         m_YMin = YMin;
     }
 
+    public void SetupCam(float ZoomLimit, float ZoomSpeed, float YMin, float YMax, float XMin, float XMax, bool YLock, bool XLock)
+    {
+        m_ZoomLimit = ZoomLimit;
+        m_ZoomSpeed = ZoomSpeed;
+        m_YMin = YMin;
+        m_YMax = YMax;
+        m_XMin = XMin;
+        m_XMax = XMax;
+        m_YLock = YLock;
+        m_XLock = XLock;
+    }
+
     public void ResetPosition()
     {
         m_CurrentX = transform.localEulerAngles.y < m_XMin ? m_XMin : transform.localEulerAngles.y;

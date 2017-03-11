@@ -11,19 +11,38 @@ public class Door : Interactive
     private new void Start()
     {
         base.Start();
+        Setup();
+    }
+
+    public void SetDoor(bool isOpen, bool isLock)
+    {
+        _isOpen = isOpen;
+        _isLock = isLock;
+        Setup();
+    }
+
+    void Setup()
+    {
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(_isOpen);
         _DoorLock.GetComponent<Renderer>().material.color = _isLock ? Color.red : Color.green;
+
+        if(_isOpen)
+        {
+            Open();
+        }
     }
 
     void Open()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y + 90, transform.rotation.z);
+        Debug.Log(transform.rotation.eulerAngles);
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 90, transform.rotation.eulerAngles.z);
+        Debug.Log(transform.rotation.eulerAngles);
     }
 
     void Close()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y - 90, transform.rotation.z);
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - 90, transform.rotation.eulerAngles.z);
     }
 
     private void OnTriggerEnter(Collider other)
