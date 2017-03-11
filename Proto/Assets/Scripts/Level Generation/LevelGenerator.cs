@@ -27,18 +27,6 @@ public class LevelGenerator : MonoBehaviour
             InstantiateShops(small_spawnLocations, small_shops, nbr_of_small_shops);
             InstantiateShops(medium_spawnLocations, medium_shops, nbr_of_med_shops);
             InstantiateShops(large_spawnLocations, large_shops, nbr_of_large_shops);
-
-            string ext = "(";
-
-            foreach (int i in _Shops)
-            {
-                ext += i + ":";
-            }
-
-            ext += ")";
-            Debug.Log(ext);
-
-            FindObjectOfType<HUD>().ShowMessages(ext, 10);
         }
         else
         {
@@ -73,17 +61,6 @@ public class LevelGenerator : MonoBehaviour
     [PunRPC]
     void RPCShopReceive(int[] shops)
     {
-        string ext = "(";
-
-        foreach (int i in shops)
-        {
-            ext += i + ":";
-        }
-
-        ext += ")";
-
-        FindObjectOfType<HUD>().ShowMessages(ext, 10);
-
         for (int i = 0; i < nbr_of_small_shops; ++i)
         {
             Instantiate(small_shops[shops[i]], small_spawnLocations[i].transform.position, small_spawnLocations[i].transform.rotation, small_spawnLocations[i].transform);
