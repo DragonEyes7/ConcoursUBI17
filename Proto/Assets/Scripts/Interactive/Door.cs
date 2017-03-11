@@ -35,9 +35,7 @@ public class Door : Interactive
 
     void Open()
     {
-        Debug.Log(transform.rotation.eulerAngles);
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 90, transform.rotation.eulerAngles.z);
-        Debug.Log(transform.rotation.eulerAngles);
     }
 
     void Close()
