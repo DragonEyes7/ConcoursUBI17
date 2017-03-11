@@ -19,6 +19,11 @@ public class CameraMovement : MonoBehaviour
 
     void Start ()
     {
+        if(!m_Camera)
+        {
+            m_Camera = GetComponentInChildren<Camera>();
+        }
+        
         ResetPosition();
 	}
 	

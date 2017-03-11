@@ -1363,6 +1363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f173ca6cfe5c5d94985dd0eb03ded4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _filePath: 
+  _penalizePlayerOnWrongTarget: 20
 --- !u!4 &535898804
 Transform:
   m_ObjectHideFlags: 0
@@ -1807,7 +1809,7 @@ GameObject:
   - component: {fileID: 715321672}
   - component: {fileID: 715321671}
   m_Layer: 0
-  m_Name: SecurityCam (3)
+  m_Name: SecurityCamPole (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2334,7 +2336,7 @@ GameObject:
   - component: {fileID: 1015436303}
   - component: {fileID: 1015436302}
   m_Layer: 0
-  m_Name: Pole (2)
+  m_Name: Pole (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -2739,6 +2741,14 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1284946372473708, guid: f98e7487c3236dc4cb7eb9e334809579, type: 2}
+      propertyPath: m_Name
+      value: SecurityCamPole
+      objectReference: {fileID: 0}
+    - target: {fileID: 1039885368650152, guid: f98e7487c3236dc4cb7eb9e334809579, type: 2}
+      propertyPath: m_Name
+      value: Pole
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f98e7487c3236dc4cb7eb9e334809579, type: 2}
   m_IsPrefabParent: 0
@@ -2893,7 +2903,7 @@ GameObject:
   - component: {fileID: 1388832348}
   - component: {fileID: 1388832347}
   m_Layer: 0
-  m_Name: SecurityCam (3)
+  m_Name: SecurityCam (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3867,7 +3877,7 @@ GameObject:
   - component: {fileID: 2022275942}
   - component: {fileID: 2022275941}
   m_Layer: 0
-  m_Name: Pole (3)
+  m_Name: Pole (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
