@@ -31,23 +31,16 @@ public class GameManager : MonoBehaviour
     {
         m_IsMaster = isMaster;
 
-        LevelGenerator LG = FindObjectOfType<LevelGenerator>();
-        if(LG)
-        {
-            LG.Setup();
-        }
-
         if(m_IsMaster)
         {
-			FindObjectOfType<NPCManager>().Setup();
-            FindRandomTargets();
-
-            Shop[] shops = FindObjectsOfType<Shop>();
-
-            foreach(Shop shop in shops)
+            LevelGenerator LG = FindObjectOfType<LevelGenerator>();
+            if (LG)
             {
-                shop.Setup();
+                LG.Setup();
             }
+
+            FindObjectOfType<NPCManager>().Setup();
+            FindRandomTargets();
         }
         else
         {

@@ -18,20 +18,11 @@ public class LevelGenerator : MonoBehaviour
     public int nbr_of_med_shops;
     public int nbr_of_large_shops;
 
-    List<int> _Shops = new List<int>();
-
     public void Setup ()
     {
-        if (PhotonNetwork.isMasterClient)
-        {
-            InstantiateShops(small_spawnLocations, small_shops, nbr_of_small_shops);
-            InstantiateShops(medium_spawnLocations, medium_shops, nbr_of_med_shops);
-            InstantiateShops(large_spawnLocations, large_shops, nbr_of_large_shops);
-        }
-        else
-        {
-            AskForShops();
-        }
+        InstantiateShops(small_spawnLocations, small_shops, nbr_of_small_shops);
+        InstantiateShops(medium_spawnLocations, medium_shops, nbr_of_med_shops);
+        InstantiateShops(large_spawnLocations, large_shops, nbr_of_large_shops);
     }
 
     void InstantiateShops(Transform[] spawnSpot, List<GameObject> shop, int NbrOfShop)
@@ -41,39 +32,9 @@ public class LevelGenerator : MonoBehaviour
         for(int i =0; i<NbrOfShop;i++)
         {
             random = Random.Range(0, shop.Count);
-            Instantiate(shop[random], spawnSpot[i].transform.position, spawnSpot[i].transform.rotation, spawnSpot[i].transform);
+            var currentShop = PhotonNetwork.Instantiate(shop[random].name, spawnSpot[i].transform.position, spawnSpot[i].transform.rotation, 0);
+            currentShop.transform.SetParent(spawnSpot[i].transform);
             shop.RemoveAt(random);
-            _Shops.Add(random);
-        }
-    }
-
-    void AskForShops()
-    {
-        GetComponent<PhotonView>().RPC("RPCShopAnswer", PhotonTargets.MasterClient);
-    }
-
-    [PunRPC]
-    void RPCShopAnswer()
-    {
-        GetComponent<PhotonView>().RPC("RPCShopReceive", PhotonTargets.Others, _Shops.ToArray());
-    }
-
-    [PunRPC]
-    void RPCShopReceive(int[] shops)
-    {
-        for (int i = 0; i < nbr_of_small_shops; ++i)
-        {
-            Instantiate(small_shops[shops[i]], small_spawnLocations[i].transform.position, small_spawnLocations[i].transform.rotation, small_spawnLocations[i].transform);
-        }
-
-        for (int i = 0; i < nbr_of_med_shops; ++i)
-        {
-            Instantiate(medium_shops[shops[i + nbr_of_small_shops]], medium_spawnLocations[i].transform.position, medium_spawnLocations[i].transform.rotation, medium_spawnLocations[i].transform);
-        }
-
-        for (int i = 0; i < nbr_of_large_shops; ++i)
-        {
-            Instantiate(large_shops[shops[i + nbr_of_small_shops + nbr_of_med_shops]], large_spawnLocations[i].transform.position, large_spawnLocations[i].transform.rotation, large_spawnLocations[i].transform);
         }
     }
 }

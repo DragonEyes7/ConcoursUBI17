@@ -4,20 +4,16 @@ public class Door : Interactive
 {
     private InteractiveObjectRecorder _interactiveObjectRecorder;
     [SerializeField] GameObject _DoorLock;
+    [SerializeField] Vector3 _OpenPosition = new Vector3(0,90,0);
+    [SerializeField] Vector3 _ClosePosition = new Vector3(0,0,0);
     [SerializeField] private bool _isOpen;
     [SerializeField] private bool _isLock = true;
+    
     private AgentActions _action;
 
     private new void Start()
     {
         base.Start();
-        Setup();
-    }
-
-    public void SetDoor(bool isOpen, bool isLock)
-    {
-        _isOpen = isOpen;
-        _isLock = isLock;
         Setup();
     }
 
@@ -27,7 +23,7 @@ public class Door : Interactive
         _interactiveObjectRecorder.SetStatus(_isOpen);
         _DoorLock.GetComponent<Renderer>().material.color = _isLock ? Color.red : Color.green;
 
-        if(_isOpen)
+        if(_isOpen && transform.localEulerAngles != _OpenPosition)
         {
             Open();
         }
@@ -35,12 +31,12 @@ public class Door : Interactive
 
     void Open()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + 90, transform.rotation.eulerAngles.z);
+        transform.localEulerAngles = _OpenPosition;
     }
 
     void Close()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - 90, transform.rotation.eulerAngles.z);
+        transform.localEulerAngles = _ClosePosition;
     }
 
     private void OnTriggerEnter(Collider other)
