@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class ServerUI : MonoBehaviour
 {
@@ -22,7 +23,6 @@ public class ServerUI : MonoBehaviour
     {
         m_ServerNameField.text = m_ServerNameField.text != "" ? m_ServerNameField.text : "Server " + (PhotonNetwork.GetRoomList().Length + 1);
         PhotonNetwork.CreateRoom(m_ServerNameField.text, null, null);
-        PhotonNetwork.LoadLevel(m_LevelToLoad.text);
     }
 
     public void LoadLeaderboard()
@@ -58,7 +58,6 @@ public class ServerUI : MonoBehaviour
     void JoinServer(string serverName)
     {
         PhotonNetwork.JoinRoom(serverName);
-        PhotonNetwork.LoadLevel(m_LevelToLoad.text);
     }
 
     IEnumerator WaitForConnection()
@@ -74,6 +73,21 @@ public class ServerUI : MonoBehaviour
         if (LM)
         {
             LM.ConnectionCompleted();
+        }
+    }
+
+    public void OnCreatedRoom()
+    {
+        var hash = new Hashtable {{"levelName", m_LevelToLoad.text}};
+        PhotonNetwork.room.SetCustomProperties(hash);
+    }
+
+    public void OnPhotonCustomRoomPropertiesChanged(Hashtable propertiesThatChanged)
+    {
+        if (propertiesThatChanged.ContainsKey("levelName"))
+        {
+            m_LevelToLoad.text = (string)propertiesThatChanged["levelName"];
+            PhotonNetwork.LoadLevel(m_LevelToLoad.text);
         }
     }
 }
