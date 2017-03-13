@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class ServerUI : MonoBehaviour
 {
-    [SerializeField]string m_LevelToTest;
+    [SerializeField]InputField m_LevelToTest;
     [SerializeField]InputField m_ServerNameField;
     [SerializeField]RectTransform m_ServerList;
     List<GameObject> m_ServerButtons = new List<GameObject>();
@@ -22,7 +22,7 @@ public class ServerUI : MonoBehaviour
     {
         m_ServerNameField.text = m_ServerNameField.text != "" ? m_ServerNameField.text : "Server " + (PhotonNetwork.GetRoomList().Length + 1);
         PhotonNetwork.CreateRoom(m_ServerNameField.text, null, null);
-        PhotonNetwork.LoadLevel(m_LevelToTest);
+        PhotonNetwork.LoadLevel(m_LevelToTest.text);
     }
 
     public void LoadLeaderboard()
@@ -58,7 +58,7 @@ public class ServerUI : MonoBehaviour
     void JoinServer(string serverName)
     {
         PhotonNetwork.JoinRoom(serverName);
-        PhotonNetwork.LoadLevel(m_LevelToTest);
+        PhotonNetwork.LoadLevel(m_LevelToTest.text);
     }
 
     IEnumerator WaitForConnection()

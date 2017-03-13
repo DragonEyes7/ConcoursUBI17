@@ -5,7 +5,8 @@ public class LevelSelector : MonoBehaviour
 {
     [SerializeField] private InputField _levelName;
     [SerializeField] private string[] _levels;
-    [SerializeField] private Button _leftArrow, _rightArrow;
+    [SerializeField] private Button _leftArrow;
+    [SerializeField] private Button _rightArrow;
     private int pos = 0;
 
     private void Start()
