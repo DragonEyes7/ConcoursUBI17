@@ -51,12 +51,9 @@ public class TimeController : MonoBehaviour
 
     public void SaveTime()
     {
-        if (PhotonNetwork.isMasterClient)
-        {
-            var leaderboard = new Leaderboard(_filePath);
-            leaderboard.AddScore(new Score(PhotonNetwork.room.Name, _totalTime, _penalities));
-            leaderboard.Save();
-        }
+        var leaderboard = new Leaderboard(_filePath);
+        leaderboard.AddScore(new Score(PhotonNetwork.room.Name, _totalTime, _penalities));
+        leaderboard.Save();
     }
 
     public void WrongTargetIntercepted()
