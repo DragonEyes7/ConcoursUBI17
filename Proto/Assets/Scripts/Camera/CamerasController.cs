@@ -108,4 +108,14 @@ public class CamerasController : MonoBehaviour
     {
         SetActiveCamera(camera, m_LastCamera);
     }
+
+    public List<string> GetCameraGroupList()
+    {
+        return new List<string>(m_CameraGroups.Keys);
+    }
+
+    public List<GameObject> GetGroupCameras(string group)
+    {
+        return m_CameraGroups[group];
+    }
 }

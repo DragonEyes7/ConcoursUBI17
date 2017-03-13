@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CameraMenuUI : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private CamerasController _cameraController;
+
+    private void OnEnable()
+    {
+        _cameraController = FindObjectOfType<CamerasController>();
+        List<string> groups = _cameraController.GetCameraGroupList();
+        foreach (string s in groups)
+        {
+
+        }
+        
+        //StartCoroutine(ReadInput());
+    }
     
     public void Toggle()
     {
