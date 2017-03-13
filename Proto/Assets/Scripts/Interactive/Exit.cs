@@ -89,6 +89,6 @@ public class Exit : Interactive
 
     void Disconnect()
     {
-        PhotonNetwork.Disconnect();
+        m_GameManager.Disconnect();
     }
 }

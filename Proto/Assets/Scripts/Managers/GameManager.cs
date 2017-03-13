@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
         Invoke("Disconnect", duration);
     }
 
-    void Disconnect()
+    public void Disconnect()
     {
         PhotonNetwork.Disconnect();
     }

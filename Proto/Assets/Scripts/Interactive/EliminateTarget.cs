@@ -95,6 +95,6 @@ public class EliminateTarget : Interactive
 
     void Disconnect()
     {
-        PhotonNetwork.Disconnect();
+        m_GameManager.Disconnect();
     }
 }

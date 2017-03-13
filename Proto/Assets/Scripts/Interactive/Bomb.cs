@@ -66,7 +66,7 @@ public class Bomb : Interactive
 
     void Disconnect()
     {
-        PhotonNetwork.Disconnect();
+        m_GameManager.Disconnect();
     }
 
     public override void Interact()
