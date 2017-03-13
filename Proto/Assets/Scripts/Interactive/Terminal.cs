@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Terminal : Interactive
 {
-    [SerializeField]LayerMask m_Layer;
     [SerializeField]Door[] m_Doors;
 
     IntelligenceAction m_Action;
@@ -26,7 +25,7 @@ public class Terminal : Interactive
                     
                 Vector3 direction = m_Action.GetCenterCam().position - transform.position;
 
-                if (Physics.Raycast(transform.position, direction, out hit, 25f, m_Layer))
+                if (Physics.Raycast(transform.position, direction, out hit, 25f, LayerMask.NameToLayer("Default")))
                 {
                     Debug.DrawRay(transform.position, direction, Color.red, 5f);
                     if(hit.transform == m_Action.GetCenterCam().transform)
@@ -80,6 +79,11 @@ public class Terminal : Interactive
 
         m_IsActivated = true;
         if(m_Action)UnSelect(m_Action);
+    }
+
+    public void SetDoors(Door[] doors)
+    {
+        m_Doors = doors;
     }
 
     public override void MoveObject()

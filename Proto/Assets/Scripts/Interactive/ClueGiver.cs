@@ -2,7 +2,6 @@
 
 public class ClueGiver : Interactive
 {
-    [SerializeField]int _TargetID = 0;
     [SerializeField]string[] _PartsName;
     [SerializeField]Transform _USBPort;
     [SerializeField]string _USBObjectName;
@@ -124,7 +123,7 @@ public class ClueGiver : Interactive
         {
             foreach (var part in _PartsName)
             {
-                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, _TargetID, part);
+                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, part);
             }
             m_HUD.BlinkUplink();
         }
@@ -152,8 +151,13 @@ public class ClueGiver : Interactive
             m_Action.SetInteract(true);
     }
 
+    public void SetPartsName(string[] partsName)
+    {
+        _PartsName = partsName;
+    }
+
     [PunRPC]
-    void SendClueToIntelligence(int targetID, string part)
+    void SendClueToIntelligence(string part)
     {
         m_GameManager.AddCluesToIntelligence(part, m_GameManager.GetTargetClue(part));
     }
