@@ -8,13 +8,6 @@ public class FileManager
         _file = filePath;
     }
 
-    public void Append(string text)
-    {
-        var writer = File.AppendText(_file);
-        writer.Write(text);
-        writer.Flush();
-    }
-
     public void Write(string text)
     {
         File.WriteAllText(_file, text);
