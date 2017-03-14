@@ -102,7 +102,6 @@ public abstract class Interactive : MonoBehaviour
                 {
                     m_Renderers[i].materials = m_TargetDefaultMaterial[i];
                 }
-
             }
         }
     }

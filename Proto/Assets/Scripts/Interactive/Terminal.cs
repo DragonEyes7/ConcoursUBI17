@@ -51,7 +51,6 @@ public class Terminal : Interactive
         m_HUD.HideActionPrompt();
         action.SetInteract(false);
         action.SetInteractionObject(null);
-        if(m_Action)m_Action = null;
     }
 
     void OnTriggerExit(Collider other)

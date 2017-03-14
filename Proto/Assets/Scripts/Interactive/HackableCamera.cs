@@ -81,7 +81,6 @@ public class HackableCamera : Interactive
         if (m_Action)
         {
             m_HUD.HideActionPrompt();
-            m_Action.SetInteract(false);
             m_Action = null;
         }
     }
