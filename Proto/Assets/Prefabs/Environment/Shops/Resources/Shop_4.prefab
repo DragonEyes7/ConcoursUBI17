@@ -281,7 +281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1024614613568340
 GameObject:
   m_ObjectHideFlags: 1
@@ -12196,14 +12196,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1231928318014030}
-  m_LocalRotation: {x: 0.07606167, y: 0.8559462, z: 0.13174269, w: -0.49418074}
+  m_LocalRotation: {x: -0.0053303624, y: -0.99019873, z: -0.03942421, w: 0.13388011}
   m_LocalPosition: {x: -3.642006, y: 2.46, z: 1.2109966}
   m_LocalScale: {x: 0.20000032, y: 0.25, z: 0.6000009}
   m_Children:
   - {fileID: 4709142392427982}
   m_Father: {fileID: 4860600745677704}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.56, y: -164.6, z: 0}
 --- !u!4 &4005467777090502
 Transform:
   m_ObjectHideFlags: 1
@@ -14526,14 +14526,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1636756831617372}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
+  m_LocalRotation: {x: -0.6039038, y: 0, z: 0, w: 0.7970572}
   m_LocalPosition: {x: 19.73, y: 1.8400002, z: 7.5700054}
   m_LocalScale: {x: 0.20000039, y: 0.2500006, z: 0.60000104}
   m_Children:
   - {fileID: 4467274520991748}
   m_Father: {fileID: 4151413556827410}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -74.3, y: 0, z: 0}
 --- !u!4 &4240340135924260
 Transform:
   m_ObjectHideFlags: 1
@@ -16494,14 +16494,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1203308073574400}
-  m_LocalRotation: {x: -0.05612378, y: 0.9186374, z: 0.14139181, w: 0.36464208}
+  m_LocalRotation: {x: 0.019219918, y: 0.971961, z: -0.08563388, w: 0.21814978}
   m_LocalPosition: {x: 3.4226995, y: 12.381653, z: -22.0358}
   m_LocalScale: {x: 0.20000061, y: 0.25, z: 0.60000217}
   m_Children:
   - {fileID: 4763789158513108}
   m_Father: {fileID: 4065175522160116}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.07, y: 154.7, z: 0}
 --- !u!4 &4425316177062100
 Transform:
   m_ObjectHideFlags: 1
@@ -41569,10 +41569,10 @@ MonoBehaviour:
   m_Camera: {fileID: 20461749704060302}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
+  m_YMin: -30
+  m_YMax: 15
+  m_XMin: 90
+  m_XMax: 270
   m_YLock: 1
   m_XLock: 1
 --- !u!114 &114290943475393648
@@ -41615,12 +41615,12 @@ MonoBehaviour:
   m_Camera: {fileID: 20789175629856862}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
+  m_YMin: -60
+  m_YMax: 0
+  m_XMin: -170
+  m_XMax: 10
   m_YLock: 1
-  m_XLock: 1
+  m_XLock: 0
 --- !u!114 &114418706438099826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41833,12 +41833,12 @@ MonoBehaviour:
   m_Camera: {fileID: 20571887192739252}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
+  m_YMin: -60
+  m_YMax: 0
+  m_XMin: -170
+  m_XMax: 10
   m_YLock: 1
-  m_XLock: 1
+  m_XLock: 0
 --- !u!114 &114864818777658620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41893,10 +41893,10 @@ MonoBehaviour:
   m_Camera: {fileID: 20910834449837402}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
+  m_YMin: -30
+  m_YMax: 15
   m_XMin: -90
-  m_XMax: 2
+  m_XMax: 90
   m_YLock: 1
   m_XLock: 1
 --- !u!114 &114940053917422460
@@ -41925,12 +41925,12 @@ MonoBehaviour:
   m_Camera: {fileID: 20373673572671246}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
+  m_YMin: -60
+  m_YMax: 0
+  m_XMin: -170
+  m_XMax: 10
   m_YLock: 1
-  m_XLock: 1
+  m_XLock: 0
 --- !u!114 &114956703110483060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41956,12 +41956,12 @@ MonoBehaviour:
   m_Camera: {fileID: 20902619812287352}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
+  m_YMin: -60
+  m_YMax: 0
+  m_XMin: -170
+  m_XMax: 10
   m_YLock: 1
-  m_XLock: 1
+  m_XLock: 0
 --- !u!114 &114986783394934948
 MonoBehaviour:
   m_ObjectHideFlags: 1
