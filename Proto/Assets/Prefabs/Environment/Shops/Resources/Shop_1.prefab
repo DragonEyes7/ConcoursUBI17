@@ -34004,7 +34004,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1606910528910878}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -17.610443, y: -4.998801, z: 8.371143}
   m_LocalScale: {x: 1.0100014, y: 1.01, z: 1}
   m_Children:
@@ -78108,10 +78108,10 @@ MonoBehaviour:
   m_Camera: {fileID: 20548965456129402}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -90
-  m_YMax: 2
-  m_XMin: -40
-  m_XMax: 90
+  m_YMin: -40
+  m_YMax: 90
+  m_XMin: -90
+  m_XMax: 2
   m_YLock: 1
   m_XLock: 1
 --- !u!114 &114023004594142586
@@ -78302,10 +78302,10 @@ MonoBehaviour:
   m_Camera: {fileID: 20962748653787866}
   m_ZoomLimit: 4
   m_ZoomSpeed: 0.01
-  m_YMin: -90
-  m_YMax: 2
-  m_XMin: -40
-  m_XMax: 90
+  m_YMin: -40
+  m_YMax: 90
+  m_XMin: -90
+  m_XMax: 2
   m_YLock: 1
   m_XLock: 1
 --- !u!114 &114175294533462880
@@ -79168,10 +79168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _DoorLock: {fileID: 1235058006097336}
-  _OpenPosition: {x: 0, y: 90, z: 0}
-  _ClosePosition: {x: 0, y: 0, z: 0}
+  _OpenPosition: {x: 0, y: 30, z: 0}
+  _ClosePosition: {x: 0, y: -90, z: 0}
   _isOpen: 0
-  _isLock: 1
+  _isLock: 0
 --- !u!114 &114874464823772848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82364,7 +82364,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.5, y: 0.5, z: 0.5}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
