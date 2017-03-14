@@ -11,6 +11,8 @@ public class CamerasController : MonoBehaviour
 
     public GameObject m_LastCamera;
 
+    GameObject _CurrentCam;
+
     bool m_IsIntelligence = false;
 
     void Start ()
@@ -50,7 +52,7 @@ public class CamerasController : MonoBehaviour
         lastCam.GetComponentInChildren<Camera>().enabled = false;
         lastCam.GetComponent<CameraMovement>().enabled = false;
         lastCam.GetComponentInChildren<IntelligenceAction>().enabled = false;
-        
+        _CurrentCam = currentCam;
         currentCam.GetComponentInChildren<Camera>().enabled = true;
         currentCam.GetComponent<CameraMovement>().enabled = true;
         currentCam.GetComponentInChildren<IntelligenceAction>().enabled = true;
@@ -117,5 +119,10 @@ public class CamerasController : MonoBehaviour
     public List<GameObject> GetGroupCameras(string group)
     {
         return m_CameraGroups[group];
+    }
+
+    public GameObject GetActiveCamera()
+    {
+        return _CurrentCam;
     }
 }
