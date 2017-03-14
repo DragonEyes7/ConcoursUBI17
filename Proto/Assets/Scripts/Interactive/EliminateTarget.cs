@@ -14,7 +14,7 @@ public class EliminateTarget : Interactive
         m_PhotonView = GetComponent<PhotonView>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         m_Action = other.GetComponent<AgentActions>();
         if(m_Action)
@@ -51,7 +51,6 @@ public class EliminateTarget : Interactive
             m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
             m_HUD.GameEndedSuccessfully();
-            m_Action.SetInteract(false);
             UnSelect();
         }
         else

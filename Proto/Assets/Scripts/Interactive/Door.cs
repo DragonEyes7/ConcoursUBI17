@@ -39,17 +39,6 @@ public class Door : Interactive
         transform.localEulerAngles = _ClosePosition;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        _action = other.GetComponent<AgentActions>();
-        if (_action && _action.enabled)
-        {
-            m_HUD.ShowActionPrompt(_interactiveObjectRecorder.GetStatus() ? "Close door." : "Open door.");
-            _action.SetInteract(true);
-            _action.SetInteractionObject(this);
-        }
-    }
-
     private void OnTriggerExit(Collider other)
     {
         _action = other.GetComponent<AgentActions>();
