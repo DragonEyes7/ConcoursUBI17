@@ -19,6 +19,11 @@ public class CameraMovement : MonoBehaviour
 
     void Start ()
     {
+        if(!m_Camera)
+        {
+            m_Camera = GetComponentInChildren<Camera>();
+        }
+        
         ResetPosition();
 	}
 	
@@ -84,6 +89,18 @@ public class CameraMovement : MonoBehaviour
     {
         m_YMax = YMax;
         m_YMin = YMin;
+    }
+
+    public void SetupCam(float ZoomLimit, float ZoomSpeed, float YMin, float YMax, float XMin, float XMax, bool YLock, bool XLock)
+    {
+        m_ZoomLimit = ZoomLimit;
+        m_ZoomSpeed = ZoomSpeed;
+        m_YMin = YMin;
+        m_YMax = YMax;
+        m_XMin = XMin;
+        m_XMax = XMax;
+        m_YLock = YLock;
+        m_XLock = XLock;
     }
 
     public void ResetPosition()

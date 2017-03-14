@@ -63,9 +63,7 @@ public class InteractiveObjectRecorder : Recorder
     [PunRPC]
     internal override void DoRewind(int time)
     {
-        Debug.Log("Test1");
         if (this == null) return;
-        Debug.Log("Test2");
         if (!_states.ContainsKey(time))
         {
             time = FindClosestKey(time, new List<int>(_states.Keys));

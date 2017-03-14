@@ -11,7 +11,7 @@ public class CamerasController : MonoBehaviour
 
     bool m_IsIntelligence = false;
 
-    void Start ()
+    void Start()
     {
         m_PhotonView = GetComponent<PhotonView>();
     }
@@ -27,7 +27,6 @@ public class CamerasController : MonoBehaviour
         if (m_IsIntelligence)
         {
             m_SceneCamera.gameObject.SetActive(false);
-
             m_CameraObjects[0].GetComponent<PhotonView>().RequestOwnership();
 
             SetActiveCamera(0, m_LastCamera);           

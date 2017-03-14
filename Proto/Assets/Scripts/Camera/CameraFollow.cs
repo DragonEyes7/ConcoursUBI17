@@ -153,7 +153,7 @@ public class CameraFollow : MonoBehaviour
                     {
                         m_Transparent.Add(hits[i].transform);
                         m_Shaders.Add(rend.material.shader);
-                        rend.material.shader = Shader.Find("Custom/TransparentShader");
+                        rend.material.shader = Shader.Find("Custom/ARC");
                     }
                 }
                 else if (hits[i].transform.tag == "LevelLimit")

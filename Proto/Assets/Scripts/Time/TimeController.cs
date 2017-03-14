@@ -4,8 +4,10 @@ public class TimeController : MonoBehaviour
 {
     public MultipleDelegate Tick = new MultipleDelegate();
     public MultipleDelegate End = new MultipleDelegate();
+    [SerializeField] private string _filePath;
+    [SerializeField] private int _penalizePlayerOnWrongTarget = 20;
 
-    int _Time, _maxTime = 30;
+    int _Time, _maxTime = 30, _totalTime, _penalities = 0;
     float _Timer;
     bool _IsPlaying = false;
 
@@ -36,15 +38,28 @@ public class TimeController : MonoBehaviour
     {
         _Timer = 0;
         _Time++;
+        _totalTime++;
         Tick.Execute(_Time);
         if (_Time == _maxTime)
         {
             //Game has ended stop countdown and show the players they f*cked up
             FindObjectOfType<GameManager>().Defeat();
-
             End.Execute(_Time);
             End.Empty();
         }
+    }
+
+    public void SaveTime()
+    {
+        var leaderboard = new Leaderboard(_filePath);
+        leaderboard.AddScore(new Score(PhotonNetwork.room.Name, _totalTime, _penalities));
+        leaderboard.Save();
+    }
+
+    public void WrongTargetIntercepted()
+    {
+        ++_penalities;
+        _totalTime += _penalizePlayerOnWrongTarget;
     }
 
     public void SetMaxTime(int maxTime)

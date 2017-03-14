@@ -2,7 +2,6 @@
 
 public class ClueGiver : Interactive
 {
-    [SerializeField]int _TargetID = 0;
     [SerializeField]string[] _PartsName;
     [SerializeField]Transform _USBPort;
     [SerializeField]string _USBObjectName;
@@ -11,6 +10,7 @@ public class ClueGiver : Interactive
     PhotonView m_PhotonView;
     Action m_Action;
     InteractiveObjectRecorder _interactiveObjectRecorder;
+    bool _hasClue = false, _hasUSB = false;
 
     new void Start()
     {
@@ -24,39 +24,9 @@ public class ClueGiver : Interactive
         _interactiveObjectRecorder.SetStatus(false);
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (_interactiveObjectRecorder.GetStatus())
-        {
-            m_Action = other.GetComponent<IntelligenceAction>();
-
-            if (m_Action && m_Action.enabled)
-            {
-                m_SelectMat = _Mats[1];
-                m_HUD.ShowActionPrompt("Hack device");
-                m_Action.SetInteract(true);
-                m_Action.SetInteractionObject(this);
-                Select();
-            }
-        }
-        else
-        {
-            m_Action = other.GetComponent<AgentActions>();
-
-            if (m_Action && m_Action.enabled)
-            {
-                m_SelectMat = _Mats[0];
-                m_HUD.ShowActionPrompt("Install device");
-                m_Action.SetInteract(true);
-                m_Action.SetInteractionObject(this);
-                Select();
-            }
-        }
-    }
-
     void OnTriggerStay(Collider other)
     {
-        if (_interactiveObjectRecorder.GetStatus())
+        if (_interactiveObjectRecorder.GetStatus() && !_hasClue && !PhotonNetwork.isMasterClient)
         {
             m_Action = other.GetComponent<IntelligenceAction>();
 
@@ -69,7 +39,7 @@ public class ClueGiver : Interactive
                 Select();
             }
         }
-        else
+        else if(PhotonNetwork.isMasterClient && !hasUSB())
         {
             m_Action = other.GetComponent<AgentActions>();
 
@@ -120,26 +90,36 @@ public class ClueGiver : Interactive
 
     public override void MoveObject()
     {
-        if(_interactiveObjectRecorder.GetStatus() && m_Action != null && m_Action.isInteracting && !PhotonNetwork.isMasterClient)
+        Debug.Log("Clue:" + _hasClue + ": USB" + hasUSB());
+        if(!_hasClue && hasUSB())
         {
             foreach (var part in _PartsName)
             {
-                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, _TargetID, part);
+                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, part);
             }
             m_HUD.BlinkUplink();
+            _hasClue = true;
         }
-        else
+        else if (PhotonNetwork.isMasterClient)
         {
-            if (PhotonNetwork.isMasterClient)
-            {
-                var USB = PhotonNetwork.Instantiate(_USBObjectName, _USBPort.position, _USBPort.rotation, 0);
-                USB.transform.SetParent(_USBPort);
-            }
+            var USB = PhotonNetwork.Instantiate(_USBObjectName, _USBPort.position, _USBPort.rotation, 0);
+            USB.transform.SetParent(_USBPort);
+            m_PhotonView.RPC("RPCSetHasUSB", PhotonTargets.All, true);
         }
         
         m_HUD.HideActionPrompt();
-        m_Action.SetInteract(false);
         UnSelect();
+    }
+
+    [PunRPC]
+    void RPCSetHasUSB(bool hasUSB)
+    {
+        _hasUSB = hasUSB;
+    }
+
+    bool hasUSB()
+    {
+        return _hasUSB;
     }
 
     public override void ResetObject()
@@ -148,12 +128,16 @@ public class ClueGiver : Interactive
         {
             PhotonNetwork.Destroy(usb.gameObject);
         }
-        if(m_Action)
-            m_Action.SetInteract(true);
+        m_PhotonView.RPC("RPCSetHasUSB", PhotonTargets.All, false);
+    }
+
+    public void SetPartsName(string[] partsName)
+    {
+        _PartsName = partsName;
     }
 
     [PunRPC]
-    void SendClueToIntelligence(int targetID, string part)
+    void SendClueToIntelligence(string part)
     {
         m_GameManager.AddCluesToIntelligence(part, m_GameManager.GetTargetClue(part));
     }

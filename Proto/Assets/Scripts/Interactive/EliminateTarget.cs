@@ -14,7 +14,7 @@ public class EliminateTarget : Interactive
         m_PhotonView = GetComponent<PhotonView>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         m_Action = other.GetComponent<AgentActions>();
         if(m_Action)
@@ -50,13 +50,14 @@ public class EliminateTarget : Interactive
             msg = "Mission Successfull";
             m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
-            m_Action.SetInteract(false);
+            m_HUD.GameEndedSuccessfully();
             UnSelect();
         }
         else
         {
-            msg = "Wrong Target";
+            msg = "Wrong Target, penality +1";
             m_PhotonView.RPC("RPCMessage", PhotonTargets.All, msg, 5f);
+            m_HUD.WrongTargetIntercepted();
         }
     }
 
@@ -93,6 +94,6 @@ public class EliminateTarget : Interactive
 
     void Disconnect()
     {
-        PhotonNetwork.Disconnect();
+        m_GameManager.Disconnect();
     }
 }

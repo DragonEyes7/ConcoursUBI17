@@ -4,46 +4,39 @@ public class Door : Interactive
 {
     private InteractiveObjectRecorder _interactiveObjectRecorder;
     [SerializeField] GameObject _DoorLock;
+    [SerializeField] Vector3 _OpenPosition = new Vector3(0,90,0);
+    [SerializeField] Vector3 _ClosePosition = new Vector3(0,0,0);
     [SerializeField] private bool _isOpen;
     [SerializeField] private bool _isLock = true;
+    
     private AgentActions _action;
 
     private new void Start()
     {
         base.Start();
+        Setup();
+    }
+
+    void Setup()
+    {
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(_isOpen);
         _DoorLock.GetComponent<Renderer>().material.color = _isLock ? Color.red : Color.green;
 
-        if (_isOpen)
+        if(_isOpen && transform.localEulerAngles != _OpenPosition)
         {
             Open();
-        }
-        else
-        {
-            Close();
         }
     }
 
     void Open()
     {
-        transform.rotation = Quaternion.Euler(0, 90, 0);
+        transform.localEulerAngles = _OpenPosition;
     }
 
     void Close()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        _action = other.GetComponent<AgentActions>();
-        if (_action && _action.enabled)
-        {
-            m_HUD.ShowActionPrompt(_interactiveObjectRecorder.GetStatus() ? "Close door." : "Open door.");
-            _action.SetInteract(true);
-            _action.SetInteractionObject(this);
-        }
+        transform.localEulerAngles = _ClosePosition;
     }
 
     private void OnTriggerExit(Collider other)

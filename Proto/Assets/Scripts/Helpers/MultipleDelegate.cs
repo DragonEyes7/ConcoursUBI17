@@ -5,12 +5,10 @@ public class MultipleDelegate
 {
     private readonly List<Func<int, int>> _delegates = new List<Func<int, int>>();
     private Type _typeOf;
-    private int _pos = 0;
 
-    public int Suscribe(Func<int, int> item)
+    public void Suscribe(Func<int, int> item)
     {
         _delegates.Add(item);
-        return 0;
     }
 
     public void Empty()
