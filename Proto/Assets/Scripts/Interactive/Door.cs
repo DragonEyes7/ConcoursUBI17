@@ -2,14 +2,23 @@
 
 public class Door : Interactive
 {
-    private InteractiveObjectRecorder _interactiveObjectRecorder;
+    enum DoorSound
+    {
+        OPEN,
+        CLOSE,
+        LOCK
+    }
+
+    [SerializeField] AudioClip[] _AudioClip;
     [SerializeField] GameObject _DoorLock;
     [SerializeField] Vector3 _OpenPosition = new Vector3(0,90,0);
     [SerializeField] Vector3 _ClosePosition = new Vector3(0,0,0);
-    [SerializeField] private bool _isOpen;
-    [SerializeField] private bool _isLock = true;
-    
-    private AgentActions _action;
+    [SerializeField] bool _isOpen;
+    [SerializeField] bool _isLock = true;
+
+    InteractiveObjectRecorder _interactiveObjectRecorder;
+    AgentActions _action;
+    AudioSource _AudioSource;
 
     private new void Start()
     {
@@ -19,6 +28,7 @@ public class Door : Interactive
 
     void Setup()
     {
+        _AudioSource = GetComponent<AudioSource>();
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(_isOpen);
         _DoorLock.GetComponent<Renderer>().material.color = _isLock ? Color.red : Color.green;
@@ -32,11 +42,13 @@ public class Door : Interactive
     void Open()
     {
         transform.localEulerAngles = _OpenPosition;
+        PlaySound(DoorSound.OPEN);
     }
 
     void Close()
     {
         transform.localEulerAngles = _ClosePosition;
+        PlaySound(DoorSound.CLOSE);
     }
 
     private void OnTriggerExit(Collider other)
@@ -67,6 +79,7 @@ public class Door : Interactive
         else
         {
             FindObjectOfType<HUD>().ShowMessages("Door is locked", 3f);
+            PlaySound(DoorSound.LOCK);
         }
     }
 
@@ -90,5 +103,11 @@ public class Door : Interactive
     {
         _isLock = false;
         _DoorLock.GetComponent<Renderer>().material.color = Color.green;
+    }
+
+    void PlaySound(DoorSound soundID)
+    {
+        _AudioSource.clip = _AudioClip[(int)soundID];
+        _AudioSource.Play();
     }
 }
