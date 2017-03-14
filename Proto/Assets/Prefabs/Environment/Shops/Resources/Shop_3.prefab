@@ -1607,7 +1607,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1780959736651336}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.3273258, y: -2.1261644, z: -3.6945596}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1635,7 +1635,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1863112999683854}
-  m_LocalRotation: {x: -0, y: 0.5395058, z: -0, w: 0.8419819}
+  m_LocalRotation: {x: 0, y: 0.60876137, z: 0, w: 0.7933534}
   m_LocalPosition: {x: 3.0256758, y: -2.1261644, z: 3.3354425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1643,7 +1643,7 @@ Transform:
   - {fileID: 4211747985201512}
   m_Father: {fileID: 4845897631297740}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 75, z: 0}
 --- !u!4 &4780935256028556
 Transform:
   m_ObjectHideFlags: 1
@@ -3468,8 +3468,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _DoorLock: {fileID: 1483691888421830}
-  _OpenPosition: {x: 0, y: 90, z: 0}
-  _ClosePosition: {x: 0, y: 0, z: 0}
+  _OpenPosition: {x: 0, y: -30, z: 0}
+  _ClosePosition: {x: 0, y: 90, z: 0}
   _isOpen: 0
   _isLock: 1
 --- !u!114 &114453684686156910
@@ -3546,10 +3546,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _DoorLock: {fileID: 1225274473207826}
-  _OpenPosition: {x: 0, y: 90, z: 0}
+  _OpenPosition: {x: 0, y: -120, z: 0}
   _ClosePosition: {x: 0, y: 0, z: 0}
   _isOpen: 0
-  _isLock: 1
+  _isLock: 0
 --- !u!114 &114733371617304262
 MonoBehaviour:
   m_ObjectHideFlags: 1
