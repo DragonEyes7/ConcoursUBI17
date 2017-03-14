@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                ExitGames.Client.Photon.Hashtable prop = new ExitGames.Client.Photon.Hashtable();
+                ExitGames.Client.Photon.Hashtable prop = PhotonNetwork.room.CustomProperties;
                 prop.Add("PlayerReady", m_Ready);
                 PhotonNetwork.room.SetCustomProperties(prop);
             }
@@ -88,11 +88,11 @@ public class GameManager : MonoBehaviour
         {
             m_TargetsCharacteristics = (Dictionary<string, string>)propertiesThatChanged["Targets"];
         }
-        else if(propertiesThatChanged.ContainsKey("Objectives"))
+        if(propertiesThatChanged.ContainsKey("Objectives"))
         {
             m_ObjectivesCompleted = (bool)propertiesThatChanged["Objectives"];
         }
-        else if(propertiesThatChanged.ContainsKey("PlayerReady"))
+        if(propertiesThatChanged.ContainsKey("PlayerReady"))
         {
             m_Ready = (bool)propertiesThatChanged["PlayerReady"];
 
