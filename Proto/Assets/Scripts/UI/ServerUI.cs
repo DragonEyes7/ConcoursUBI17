@@ -42,7 +42,7 @@ public class ServerUI : MonoBehaviour
         foreach (RoomInfo roomInfo in PhotonNetwork.GetRoomList())
         {
             GameObject serverbutton = (GameObject)Instantiate(Resources.Load("ServerJoinButton"), m_ServerList);
-            serverbutton.GetComponentInChildren<Text>().text = roomInfo.Name + " : " + roomInfo.PlayerCount + "/2"; //+ roomInfo.MaxPlayers;
+            serverbutton.GetComponentInChildren<Text>().text = roomInfo.Name + " : " + roomInfo.PlayerCount + "/2";
 
             if (roomInfo.PlayerCount >= 2)
             {
