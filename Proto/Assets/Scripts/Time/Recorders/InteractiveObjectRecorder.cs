@@ -41,11 +41,30 @@ public class InteractiveObjectRecorder : Recorder
         _photonView.RPC("RPCObjectInteraction", PhotonTargets.All, isMoved);
     }
 
+    public void ObjectInteraction(bool isMoved, bool moveMoreThanOnce)
+    {
+        _photonView.RPC("RPCObjectInteraction", PhotonTargets.All, isMoved, moveMoreThanOnce);
+    }
+
     [PunRPC]
     public void RPCObjectInteraction(bool isOpen)
     {
         SetStatus(isOpen);
         if(!_isMoved)
+        {
+            ResetObject();
+        }
+        else
+        {
+            MoveObject();
+        }
+    }
+    
+    [PunRPC]
+    public void RPCObjectInteraction(bool isOpen, bool moveMoreThanOnce)
+    {
+        SetStatus(isOpen);
+        if (!_isMoved && !moveMoreThanOnce)
         {
             ResetObject();
         }
