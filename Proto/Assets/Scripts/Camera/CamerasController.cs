@@ -11,15 +11,13 @@ public class CamerasController : MonoBehaviour
 
     bool m_IsIntelligence = false;
 
+    AudioSource _AudioSource;
+
     void Start()
     {
+        _AudioSource = GetComponent<AudioSource>();
         m_PhotonView = GetComponent<PhotonView>();
     }
-	
-	void Update ()
-    {
-		
-	}
 
     public void SetIntelligence(bool value)
     {
@@ -40,10 +38,12 @@ public class CamerasController : MonoBehaviour
         m_CameraObjects[lastCam].GetComponentInChildren<Camera>().enabled = false;
         m_CameraObjects[lastCam].GetComponent<CameraMovement>().enabled = false;
         m_CameraObjects[lastCam].GetComponentInChildren<IntelligenceAction>().enabled = false;
-        
+        m_CameraObjects[lastCam].GetComponent<AudioListener>().enabled = false;
+
         m_CameraObjects[currentCam].GetComponentInChildren<Camera>().enabled = true;
         m_CameraObjects[currentCam].GetComponent<CameraMovement>().enabled = true;
         m_CameraObjects[currentCam].GetComponentInChildren<IntelligenceAction>().enabled = true;
+        m_CameraObjects[currentCam].GetComponent<AudioListener>().enabled = true;
 
         m_LastCamera = currentCam;
     }
@@ -92,5 +92,6 @@ public class CamerasController : MonoBehaviour
     public void TakeControl(GameObject camera)
     {
         SetActiveCamera(m_CameraObjects.IndexOf(camera), m_LastCamera);
+        _AudioSource.Play();
     }
 }

@@ -4,14 +4,14 @@ public class NPCCharacteristics : MonoBehaviour
 {
     public Transform PantPart, ShirtPart;
     public Material PantMaterial, ShirtMaterial;
-    public GameObject Head;
+    public GameObject Hat;
 
     void Start ()
     {
         if(PhotonNetwork.isMasterClient)
         {
             //Set the Material for various pieces
-            Instantiate(Head, transform.position, transform.rotation, transform);
+            Instantiate(Hat, transform.position, transform.rotation, transform);
             PantPart.GetComponent<Renderer>().material = PantMaterial;
             ShirtPart.GetComponent<Renderer>().material = ShirtMaterial;
         }
@@ -29,13 +29,13 @@ public class NPCCharacteristics : MonoBehaviour
     [PunRPC]
     void RPCClothAnswer()
     {
-        GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.Others, Head.name, PantMaterial.name, ShirtMaterial.name);
+        GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.Others, Hat.name, PantMaterial.name, ShirtMaterial.name);
     }
 
     [PunRPC]
-    void RPCClothReceive(string headName, string pantName, string shirtName)
+    void RPCClothReceive(string hatName, string pantName, string shirtName)
     {
-        GameObject[] HeadList = Resources.LoadAll<GameObject>("Head");
+        GameObject[] HatList = Resources.LoadAll<GameObject>("Hat");
         Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
         foreach(Material cloth in ClothList)
         {
@@ -50,11 +50,11 @@ public class NPCCharacteristics : MonoBehaviour
             }
         }
 
-        foreach(GameObject head in HeadList)
+        foreach(GameObject hat in HatList)
         {
-            if (head.name == headName)
+            if (hat.name == hatName)
             {
-                Instantiate(head, transform.position, transform.rotation, transform);
+                Instantiate(hat, transform.position, transform.rotation, transform);
             }
         }
     }

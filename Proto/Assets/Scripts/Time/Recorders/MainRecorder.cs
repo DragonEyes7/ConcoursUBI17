@@ -12,6 +12,8 @@ public class MainRecorder : MonoBehaviour
     public MultipleDelegate OnTick = new MultipleDelegate();
     public MultipleDelegate OnRewind = new MultipleDelegate();
 
+    AudioSource _AudioSource;
+
     public bool IsRecording
     {
         get { return _isRecording; }
@@ -24,6 +26,7 @@ public class MainRecorder : MonoBehaviour
 
     void Start()
     {
+        _AudioSource = GetComponent<AudioSource>();
         _timeController = _timeController ?? FindObjectOfType<TimeController>();
         _photonView = GetComponent<PhotonView>();
         _timeController.Tick.Suscribe(DoOnTick);
@@ -69,6 +72,7 @@ public class MainRecorder : MonoBehaviour
 
     public void DoRewind(int newTime)
     {
+        _AudioSource.Play();
         _isRecording = false;
         _timeController.isPlaying = false;
         _time = newTime;

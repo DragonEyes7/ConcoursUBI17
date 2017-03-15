@@ -38,8 +38,8 @@ GameObject:
   - component: {fileID: 20000010503438112}
   - component: {fileID: 124000013154684414}
   - component: {fileID: 92000012321969506}
-  - component: {fileID: 81000012703577706}
   - component: {fileID: 114000014115367400}
+  - component: {fileID: 45850597215573770}
   m_Layer: 0
   m_Name: 3rd Person Camera
   m_TagString: 3rdPersonCamera
@@ -108,13 +108,14 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!81 &81000012703577706
-AudioListener:
+--- !u!45 &45850597215573770
+Skybox:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013134566404}
   m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 751da467fb7817948ab1b51df345153b, type: 2}
 --- !u!92 &92000012321969506
 Behaviour:
   m_ObjectHideFlags: 1
