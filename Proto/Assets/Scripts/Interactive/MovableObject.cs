@@ -15,7 +15,7 @@ public class MovableObject : Interactive
     int m_CurrentPosition = 0;
 
     float _StartMovingTime;
-    float _DistanceMovingLength;
+    float _DistanceMovingLength = 1;
     Vector3 _StartMovingPosition;
 
     new void Start()
