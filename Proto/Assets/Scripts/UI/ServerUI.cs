@@ -68,7 +68,6 @@ public class ServerUI : MonoBehaviour
 
     void LoadingCompleted()
     {
-        GetServerList();
         LoadingManager LM = FindObjectOfType<LoadingManager>();
         if (LM)
         {
