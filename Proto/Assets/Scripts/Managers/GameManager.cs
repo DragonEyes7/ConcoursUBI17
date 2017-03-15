@@ -214,7 +214,6 @@ public class GameManager : MonoBehaviour
 
     public void Disconnect()
     {
-        PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("Leaderboard");
     }
 }
