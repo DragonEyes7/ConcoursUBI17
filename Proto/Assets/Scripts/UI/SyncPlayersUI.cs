@@ -7,7 +7,7 @@ public class SyncPlayersUI : MonoBehaviour
     [SerializeField]Text m_ReadyText;
     [SerializeField]Text m_TimerText;
     [SerializeField]int m_WaitTime = 5;
-
+    [SerializeField]AudioSource _BGMAudioSource;
     int m_Timer;
 
 	void Start ()
@@ -18,6 +18,7 @@ public class SyncPlayersUI : MonoBehaviour
 
     void StartGame()
     {
+        _BGMAudioSource.Play();
         var timeController = FindObjectOfType<TimeController>();
         timeController.isPlaying = true;
         timeController.Tick.Execute(0);
@@ -30,7 +31,7 @@ public class SyncPlayersUI : MonoBehaviour
     {
         m_TimerText.gameObject.SetActive(true);
         m_ReadyText.gameObject.SetActive(false);
-
+        FindObjectOfType<MainRecorder>().GetComponent<AudioSource>().Play();
         StartCoroutine(Timer());
     }
 

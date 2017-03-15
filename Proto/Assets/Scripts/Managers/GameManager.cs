@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     Dictionary<string, string> m_TargetsCharacteristics;
     int m_InnocentTargetsIntercepted;
 
+    AudioSource _AudioSource;
+
     bool m_ObjectivesCompleted = false;
     bool m_Ready = false;
     bool m_IsMaster;
@@ -30,8 +32,9 @@ public class GameManager : MonoBehaviour
     public void Setup(bool isMaster)
     {
         m_IsMaster = isMaster;
+        _AudioSource = GetComponent<AudioSource>();
 
-        if(m_IsMaster)
+        if (m_IsMaster)
         {
             LevelGenerator LG = FindObjectOfType<LevelGenerator>();
             if (LG)
@@ -156,6 +159,7 @@ public class GameManager : MonoBehaviour
 
     public void Defeat()
     {
+        _AudioSource.Play();
         float duration = 3f;
         FindObjectOfType<HUD>().ShowMessages("Game Over", duration);
         Invoke("Disconnect", duration);

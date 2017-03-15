@@ -4,16 +4,17 @@ public class MovableObject : Interactive
 {
     [SerializeField]Transform[] m_PathToFollow;
 
-    private InteractiveObjectRecorder _interactiveObjectRecorder;
-    private Vector3 _startPosition;
-    private Action _previousAction;
-
+    InteractiveObjectRecorder _interactiveObjectRecorder;
+    Vector3 _startPosition;
+    Action _previousAction;
+    AudioSource _AudioSource;
 
     int m_CurrentPosition = 0;
 
     new void Start()
     {
         base.Start();
+        _AudioSource = GetComponent<AudioSource>();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _startPosition = transform.position;
@@ -82,6 +83,7 @@ public class MovableObject : Interactive
     public override void MoveObject()
     {
         m_IsActivated = true;
+        _AudioSource.Play();
     }
 
     public override void ResetObject()

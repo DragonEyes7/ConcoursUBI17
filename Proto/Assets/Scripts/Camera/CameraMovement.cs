@@ -17,25 +17,34 @@ public class CameraMovement : MonoBehaviour
     float m_CurrentY;
     float m_MaxZoomOut;
 
+    float _InitialFOV;
+
+    AudioSource AS_Move, AS_Zoom, AS_ServoStop;
+
+    bool _IsMoving = false, _IsZooming = false;
+
     void Start ()
     {
-        if(!m_Camera)
+        AudioSource[] sounds = GetComponents<AudioSource>();
+        AS_Move = sounds[0];
+        AS_Zoom = sounds[1];
+        AS_ServoStop = sounds[2];
+
+        if (!m_Camera)
         {
             m_Camera = GetComponentInChildren<Camera>();
         }
-        
+
+        _InitialFOV = m_Camera.fieldOfView;
         ResetPosition();
 	}
 	
 	void Update ()
     {
         m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if(m_Input.magnitude > 0)
-        {
-            Move();
-        }
+        Move();
 
-        if(InputMode.isKeyboardMode)
+        if (InputMode.isKeyboardMode)
         {
             Zoom(Input.GetAxis("Mouse ScrollWheel") * -m_ZoomSpeed);
         }
@@ -52,8 +61,21 @@ public class CameraMovement : MonoBehaviour
 
     void Move()
     {
-        m_CurrentX += m_Input.x;
-        m_CurrentY += m_Input.y;
+        if (_IsMoving && m_Input.x == 0 && m_Input.y == 0)
+        {
+            AS_ServoStop.Play();
+            AS_Move.Stop();
+            _IsMoving = false;
+        }
+        else if (m_Input.x != 0 || m_Input.y != 0)
+        {
+            AS_Move.Play();
+            AS_ServoStop.Stop();
+            _IsMoving = true;
+        }
+
+        m_CurrentX += m_Input.x * m_Camera.fieldOfView / _InitialFOV;
+        m_CurrentY += m_Input.y * m_Camera.fieldOfView / _InitialFOV;
 
         if (m_YLock)
         {
@@ -63,7 +85,7 @@ public class CameraMovement : MonoBehaviour
         if(m_XLock)
         {
             m_CurrentX = Mathf.Clamp(m_CurrentX, m_XMin, m_XMax);
-        }       
+        }
     }
 
     void UpdatePosition()
@@ -73,15 +95,28 @@ public class CameraMovement : MonoBehaviour
 
     void Zoom(float zooming)
     {
+        if (_IsZooming && zooming == 0.0f)
+        {
+            AS_Zoom.Stop();
+            _IsZooming = false;
+        }
+        else if(zooming != 0.0f)
+        {
+            AS_Zoom.Play();
+            _IsZooming = true;
+        }
+
         m_Camera.fieldOfView += zooming;
         if (m_Camera.fieldOfView > m_MaxZoomOut)
         {
             m_Camera.fieldOfView = m_MaxZoomOut;
+            AS_Zoom.Stop();
         }
 
         if (m_Camera.fieldOfView < m_ZoomLimit)
         {
             m_Camera.fieldOfView = m_ZoomLimit;
+            AS_Zoom.Stop();
         }
     }
 
