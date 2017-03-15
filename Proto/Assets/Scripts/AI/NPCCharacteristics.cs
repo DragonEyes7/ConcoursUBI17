@@ -2,18 +2,20 @@
 
 public class NPCCharacteristics : MonoBehaviour
 {
-    public Transform PantPart, ShirtPart;
-    public Material PantMaterial, ShirtMaterial;
-    public GameObject Hat;
+    public GameObject Hat, Accessory, Facial;
+    public Material HatMaterial, AccessoryMaterial, FacialMaterial;
 
     void Start ()
     {
         if(PhotonNetwork.isMasterClient)
         {
-            //Set the Material for various pieces
-            Instantiate(Hat, transform.position, transform.rotation, transform);
-            PantPart.GetComponent<Renderer>().material = PantMaterial;
-            ShirtPart.GetComponent<Renderer>().material = ShirtMaterial;
+            GameObject hat = Instantiate(Hat, transform.position, transform.rotation, transform);
+            GameObject accessory = Instantiate(Accessory, transform.position, transform.rotation, transform);
+            GameObject facial = Instantiate(Facial, transform.position, transform.rotation, transform);
+
+            hat.GetComponentInChildren<Renderer>().material = HatMaterial;
+            accessory.GetComponentInChildren<Renderer>().material = AccessoryMaterial;
+            facial.GetComponentInChildren<Renderer>().material = FacialMaterial;
         }
         else
         {
@@ -29,32 +31,78 @@ public class NPCCharacteristics : MonoBehaviour
     [PunRPC]
     void RPCClothAnswer()
     {
-        GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.Others, Hat.name, PantMaterial.name, ShirtMaterial.name);
+        GetComponent<PhotonView>().RPC("RPCClothReceive", PhotonTargets.Others
+            , Hat.name
+            , Accessory.name
+            , Facial.name
+            , HatMaterial.name
+            , AccessoryMaterial.name
+            , FacialMaterial.name);
     }
 
     [PunRPC]
-    void RPCClothReceive(string hatName, string pantName, string shirtName)
+    void RPCClothReceive(string hatName, string accessoryName, string facialName, string hatMatName, string accMatName, string facMatName)
     {
-        GameObject[] HatList = Resources.LoadAll<GameObject>("Hat");
-        Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
-        foreach(Material cloth in ClothList)
-        {
-            if(cloth.name == pantName)
-            {
-                PantPart.GetComponent<Renderer>().material = cloth;
-            }
+        GameObject[] HatList = Resources.LoadAll<GameObject>("Hats");
+        GameObject[] AccessoryList = Resources.LoadAll<GameObject>("Accessories");
+        GameObject[] FacialList = Resources.LoadAll<GameObject>("Facials");
 
-            if(cloth.name == shirtName)
+        Material[] HatMatList = Resources.LoadAll<Material>("Materials/Hat");
+        Material[] AccessoryMatList = Resources.LoadAll<Material>("Materials/Accessory");
+        Material[] FacialMatList = Resources.LoadAll<Material>("Materials/Facial");
+
+        foreach(Material hMat in HatMatList)
+        {
+            if(hMat.name == hatMatName)
             {
-                ShirtPart.GetComponent<Renderer>().material = cloth;
+                HatMaterial = hMat;
             }
         }
 
-        foreach(GameObject hat in HatList)
+        foreach (Material aMat in AccessoryMatList)
         {
-            if (hat.name == hatName)
+            if (aMat.name == accMatName)
             {
-                Instantiate(hat, transform.position, transform.rotation, transform);
+                AccessoryMaterial = aMat;
+            }
+        }
+
+        foreach (Material fMat in FacialMatList)
+        {
+            if (fMat.name == facMatName)
+            {
+                FacialMaterial = fMat;
+            }
+        }
+
+        foreach (GameObject h in HatList)
+        {
+            if (h.name == hatName)
+            {
+                GameObject hat = Instantiate(h, transform.position, transform.rotation, transform);
+
+                hat.GetComponentInChildren<Renderer>().material = HatMaterial;
+                break;
+            }
+        }
+
+        foreach (GameObject acc in AccessoryList)
+        {
+            if (acc.name == accessoryName)
+            {
+                GameObject accessory = Instantiate(acc, transform.position, transform.rotation, transform);
+                accessory.GetComponentInChildren<Renderer>().material = AccessoryMaterial;
+                break;
+            }
+        }
+
+        foreach (GameObject fac in FacialList)
+        {
+            if (fac.name == facialName)
+            {
+                GameObject facial = Instantiate(fac, transform.position, transform.rotation, transform);
+                facial.GetComponentInChildren<Renderer>().material = FacialMaterial;
+                break;
             }
         }
     }

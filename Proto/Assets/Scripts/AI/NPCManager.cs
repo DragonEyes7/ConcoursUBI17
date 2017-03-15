@@ -32,32 +32,41 @@ public class NPCManager : MonoBehaviour {
         InterestPoints.AddRange(GameObject.FindGameObjectsWithTag("InterestPoint"));
 
         //Get the Materials list
-        GameObject[] HatList = Resources.LoadAll<GameObject>("Hat");
-        Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
+        GameObject[] HatList = Resources.LoadAll<GameObject>("Hats");
+        GameObject[] AccessoryList = Resources.LoadAll<GameObject>("Accessories");
+        GameObject[] FacialList = Resources.LoadAll<GameObject>("Facials");
 
-        List<List<Material>> Possibilities = new List<List<Material>>();
+        Material[] HatMatList = Resources.LoadAll<Material>("Materials/Hat");
+        Material[] AccessoryMatList = Resources.LoadAll<Material>("Materials/Accessory");
+        Material[] FacialMatList = Resources.LoadAll<Material>("Materials/Facial");
+
+        List<List<GameObject>> Possibilities = new List<List<GameObject>>();
 
         //Get all possible combinations
-        foreach (Material p in ClothList)
+        foreach (GameObject hat in HatList)
         {
-            foreach (Material s in ClothList)
+            foreach (GameObject acc in AccessoryList)
             {
-                List<Material> possibility = new List<Material>();
-                possibility.Add(p);
-                possibility.Add(s);
-                Possibilities.Add(possibility);
+                foreach (GameObject fac in FacialList)
+                {
+                    List<GameObject> possibility = new List<GameObject>();
+                    possibility.Add(hat);
+                    possibility.Add(acc);
+                    possibility.Add(fac);
+                    Possibilities.Add(possibility);
+                }
             }
         }
 
         for (int i = Possibilities.Count - 1; i > 0; --i)
         {
             int r = Random.Range(0, i);
-            List<Material> tmp = Possibilities[i];
+            List<GameObject> tmp = Possibilities[i];
             Possibilities[i] = Possibilities[r];
             Possibilities[r] = tmp;
         }
 
-        List<List<Material>> NPCMats = Possibilities.GetRange(0, NPCCount);
+        List<List<GameObject>> NPCObjects = Possibilities.GetRange(0, NPCCount);
 
         //Generate NPCs
         for (int i = 0; i < NPCCount; i++)
@@ -66,7 +75,7 @@ public class NPCManager : MonoBehaviour {
             Vector3 pos = (i < InterestPoints[StartPosIndex].transform.childCount) 
                 ? InterestPoints[StartPosIndex].transform.GetChild(i).transform.position 
                 : InterestPoints[StartPosIndex].transform.GetChild(
-                    Random.Range(0, InterestPoints[StartPosIndex].transform.childCount)).transform.position;
+                  Random.Range(0, InterestPoints[StartPosIndex].transform.childCount)).transform.position;
 
             GameObject npc = new GameObject();
             if (i == 0)
@@ -79,9 +88,15 @@ public class NPCManager : MonoBehaviour {
             }
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
-            npc.GetComponent<NPCCharacteristics>().Hat = HatList[Random.Range(0, HatList.Length)];
-            npc.GetComponent<NPCCharacteristics>().PantMaterial = NPCMats[i][0];
-            npc.GetComponent<NPCCharacteristics>().ShirtMaterial = NPCMats[i][1];
+
+            NPCCharacteristics NPCC = npc.GetComponent<NPCCharacteristics>();
+
+            NPCC.Hat = NPCObjects[i][0]; ;
+            NPCC.Accessory = NPCObjects[i][1];
+            NPCC.Facial = NPCObjects[i][2];
+            NPCC.HatMaterial = HatMatList[Random.Range(0, HatMatList.Length)];
+            NPCC.AccessoryMaterial = AccessoryMatList[Random.Range(0, AccessoryMatList.Length)];
+            NPCC.FacialMaterial = HatMatList[Random.Range(0, FacialMatList.Length)];
             NPCs.Add(npc);
         }
         
@@ -139,11 +154,14 @@ public class NPCManager : MonoBehaviour {
     public Dictionary<string, string> GetTargetCharacteristics()
     {
         Dictionary<string, string> characteristics = new Dictionary<string, string>();
-        //TODO: Modify this section if the NPCs characteristics change
-        GameObject target = NPCs[0];
-        characteristics.Add("Hat", target.GetComponent<NPCCharacteristics>().Hat.name);
-        characteristics.Add("Shirt", target.GetComponent<NPCCharacteristics>().ShirtMaterial.name);
-        characteristics.Add("Pants", target.GetComponent<NPCCharacteristics>().PantMaterial.name);
+
+        NPCCharacteristics NPCC = NPCs[0].GetComponent<NPCCharacteristics>();
+        characteristics.Add("Hat", NPCC.Hat.name);
+        characteristics.Add("Accessory", NPCC.Accessory.name);
+        characteristics.Add("Facial", NPCC.Facial.name);
+        characteristics.Add("HatMat", NPCC.HatMaterial.name.ToLower());
+        characteristics.Add("AccessoryMat", NPCC.AccessoryMaterial.name.ToLower());
+        characteristics.Add("FacialMat", NPCC.FacialMaterial.name.ToLower());
 
         return characteristics;
     }

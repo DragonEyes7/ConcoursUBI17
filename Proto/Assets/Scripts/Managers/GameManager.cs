@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<NPCManager>().Setup();
             FindRandomTargets();
 
-            GameObject[] HatList = Resources.LoadAll<GameObject>("Hat");
+            GameObject[] HatList = Resources.LoadAll<GameObject>("Hats");
             foreach (GameObject hat in HatList)
             {
                 _HatList.Add(hat.name);

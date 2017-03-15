@@ -1433,7 +1433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64502c0c7762d0540a4997dfde84347f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Text: {fileID: 548293533}
   m_LoadingText: Waiting for other player
   m_AnimationDelay: 0.5
 --- !u!114 &548293533
@@ -2207,6 +2206,7 @@ MonoBehaviour:
   m_ReadyText: {fileID: 548293533}
   m_TimerText: {fileID: 1619503891}
   m_WaitTime: 5
+  _BGMAudioSource: {fileID: 0}
 --- !u!1 &824656984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,7 +2383,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ee69953711e76a74da512535b3db2e03, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2761,6 +2761,11 @@ Prefab:
       propertyPath: m_Name
       value: Pole
       objectReference: {fileID: 0}
+    - target: {fileID: 23420637563754234, guid: f98e7487c3236dc4cb7eb9e334809579,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f98e7487c3236dc4cb7eb9e334809579, type: 2}
   m_IsPrefabParent: 0
@@ -3923,7 +3928,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: ee69953711e76a74da512535b3db2e03, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
