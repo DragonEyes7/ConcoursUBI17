@@ -21,6 +21,7 @@ public class MovableObject : Interactive
     new void Start()
     {
         base.Start();
+        if (PhotonNetwork.isMasterClient) _DistanceMovingLength = 0;
         _AudioSource = GetComponent<AudioSource>();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
