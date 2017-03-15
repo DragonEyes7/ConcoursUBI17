@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     AudioSource _AudioSource;
 
     List<string> _HatList = new List<string>();
+    List<string> _FacialList = new List<string>();
+    List<string> _AccessoryList = new List<string>();
 
     bool m_ObjectivesCompleted = false;
     bool m_Ready = false;
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
             FindObjectOfType<NPCManager>().Setup();
             FindRandomTargets();
 
-            GameObject[] HatList = Resources.LoadAll<GameObject>("Hat");
+            GameObject[] HatList = Resources.LoadAll<GameObject>("Hats");
             foreach (GameObject hat in HatList)
             {
                 _HatList.Add(hat.name);
@@ -140,24 +142,38 @@ public class GameManager : MonoBehaviour
     {
         string result = "";
         Clue clue = new Clue();
-        switch(clueType)
+        string res = "";
+        switch (clueType)
         {
             case Clue.ClueStrengthType.WEAKHAT:
                 if (_HatList.Count == 0)
                     return;
-                string res = _HatList[Random.Range(0, _HatList.Count)];
+                res = _HatList[Random.Range(0, _HatList.Count)];
                 _HatList.Remove(res);
-                result = ("The target doesn't wears a " + res);
+                result = ("The target doesn't wears a " + res + ".");
                 break;
             case Clue.ClueStrengthType.WEAKFACIAL:
+                if (_FacialList.Count == 0)
+                    return;
+                res = _FacialList[Random.Range(0, _FacialList.Count)];
+                _FacialList.Remove(res);
+                result = ("The target doesn't wears " + res + ".");
                 break;
             case Clue.ClueStrengthType.WEAKACCESSORIES:
+                if (_AccessoryList.Count == 0)
+                    return;
+                res = _HatList[Random.Range(0, _AccessoryList.Count)];
+                _AccessoryList.Remove(res);
+                result = ("The target doesn't wears " + res + ".");
                 break;
             case Clue.ClueStrengthType.MEDHAT:
+                result = "The target wears something " + m_TargetsCharacteristics["HatMat"];
                 break;
             case Clue.ClueStrengthType.MEDFACIAL:
+                result = "The target wears something " + m_TargetsCharacteristics["AccessoryMat"];
                 break;
             case Clue.ClueStrengthType.MEDACCESSORIES:
+                result = "The target wears something " + m_TargetsCharacteristics["FacialMat"];
                 break;
             case Clue.ClueStrengthType.STRONGHAT:
                 foreach (Clue sclue in m_IntelligenceClues)
@@ -171,8 +187,26 @@ public class GameManager : MonoBehaviour
                 result = "The target wears a " + m_TargetsCharacteristics["Hat"];
                 break;
             case Clue.ClueStrengthType.STRONGFACIAL:
+                foreach (Clue sclue in m_IntelligenceClues)
+                {
+                    if (sclue.ClueStrength == Clue.ClueStrengthType.WEAKFACIAL)
+                    {
+                        m_IntelligenceClues.Remove(sclue);
+                    }
+                }
+                _FacialList.Clear();
+                result = "The target wears " + m_TargetsCharacteristics["Facial"];
                 break;
             case Clue.ClueStrengthType.STRONGACCESSORIES:
+                foreach (Clue sclue in m_IntelligenceClues)
+                {
+                    if (sclue.ClueStrength == Clue.ClueStrengthType.WEAKACCESSORIES)
+                    {
+                        m_IntelligenceClues.Remove(sclue);
+                    }
+                }
+                _AccessoryList.Clear();
+                result = "The target wears " + m_TargetsCharacteristics["Accessory"];
                 break;
             default:                
                 result = "Something when wrong in the timeline a value was lost. Reboot your router!";
@@ -190,7 +224,7 @@ public class GameManager : MonoBehaviour
     {
         foreach(Clue clue in m_IntelligenceClues)
         {
-            if(clue.ClueGiverID == clueGiverID)
+            if(clue.ClueGiverID == clueGiverID && clue.ClueStrength == clueType)
             {
                 return;
             }
@@ -208,13 +242,12 @@ public class GameManager : MonoBehaviour
     {
         _AudioSource.Play();
         float duration = 3f;
-        FindObjectOfType<HUD>().ShowMessages("Game Over", duration);
+        FindObjectOfType<HUD>().ShowVictoryMessage("Game Over");
         Invoke("Disconnect", duration);
     }
 
     public void Disconnect()
     {
-        PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("Leaderboard");
     }
 }

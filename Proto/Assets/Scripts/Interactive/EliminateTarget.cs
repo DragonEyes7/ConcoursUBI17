@@ -62,14 +62,12 @@ public class EliminateTarget : Interactive
             msg = "Mission Successfull";
             m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
-            m_HUD.GameEndedSuccessfully();
             UnSelect();
         }
         else
         {
             msg = "Wrong Target, penality +1";
-            m_PhotonView.RPC("RPCMessage", PhotonTargets.All, msg, 5f);
-            m_HUD.WrongTargetIntercepted();
+            m_PhotonView.RPC("RPCWrongTargetMessage", PhotonTargets.All, msg, 5f);
         }
     }
 
@@ -86,20 +84,23 @@ public class EliminateTarget : Interactive
     }
 
     [PunRPC]
-    void RPCMessage(string msg, float duration)
+    void RPCWrongTargetMessage(string msg, float duration)
     {
         m_HUD.ShowMessages(msg, duration);
+        m_HUD.WrongTargetIntercepted();
     }
 
     [PunRPC]
     void RPCInteract(string msg, float duration)
     {
-        m_HUD.ShowMessages(msg, duration);
+        m_HUD.ShowVictoryMessage(msg);
 
         if (m_GameManager.isMaster)
         {
             duration += 1f;
         }
+
+        m_HUD.GameEndedSuccessfully();
 
         Invoke("Disconnect", duration + 1f);
     }

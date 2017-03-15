@@ -7,7 +7,7 @@ public class TimeController : MonoBehaviour
     [SerializeField] private string _filePath;
     [SerializeField] private int _penalizePlayerOnWrongTarget = 20;
 
-    int _Time, _maxTime = 30, _totalTime, _penalities = 0;
+    int _Time, _maxTime = 30, _totalTime, _penalties = 0;
     float _Timer;
     bool _IsPlaying = false;
 
@@ -52,13 +52,13 @@ public class TimeController : MonoBehaviour
     public void SaveTime()
     {
         var leaderboard = new Leaderboard(_filePath);
-        leaderboard.AddScore(new Score(PhotonNetwork.room.Name, _totalTime, _penalities));
+        leaderboard.AddScore(new Score(PhotonNetwork.room.Name, _totalTime, _penalties));
         leaderboard.Save();
     }
 
     public void WrongTargetIntercepted()
     {
-        ++_penalities;
+        ++_penalties;
         _totalTime += _penalizePlayerOnWrongTarget;
     }
 
