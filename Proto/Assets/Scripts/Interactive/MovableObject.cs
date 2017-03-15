@@ -50,7 +50,7 @@ public class MovableObject : Interactive
         float fracJourney = distCovered / _DistanceMovingLength;
         transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[m_CurrentPosition], fracJourney);
 
-        if (fracJourney >= 1f)
+        if (fracJourney >= 0.99f)
         {
             ++m_CurrentPosition;
             if(m_CurrentPosition >= _MovePositions.Length)
@@ -67,7 +67,7 @@ public class MovableObject : Interactive
         float fracJourney = distCovered / _DistanceMovingLength;
         transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[m_CurrentPosition], fracJourney);
 
-        if (fracJourney >= 1f)
+        if (fracJourney >= 0.99f)
         {
             --m_CurrentPosition;
             if (m_CurrentPosition < 0)

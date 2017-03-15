@@ -32,7 +32,7 @@ public class NPCManager : MonoBehaviour {
         InterestPoints.AddRange(GameObject.FindGameObjectsWithTag("InterestPoint"));
 
         //Get the Materials list
-        GameObject[] HeadList = Resources.LoadAll<GameObject>("Head");
+        GameObject[] HatList = Resources.LoadAll<GameObject>("Hat");
         Material[] ClothList = Resources.LoadAll<Material>("Materials/Cloth");
 
         List<List<Material>> Possibilities = new List<List<Material>>();
@@ -79,7 +79,7 @@ public class NPCManager : MonoBehaviour {
             }
 
             npc.GetComponent<NPCWalkScript>().NPCID = i;
-            npc.GetComponent<NPCCharacteristics>().Head = HeadList[Random.Range(0, HeadList.Length)];
+            npc.GetComponent<NPCCharacteristics>().Hat = HatList[Random.Range(0, HatList.Length)];
             npc.GetComponent<NPCCharacteristics>().PantMaterial = NPCMats[i][0];
             npc.GetComponent<NPCCharacteristics>().ShirtMaterial = NPCMats[i][1];
             NPCs.Add(npc);
@@ -141,7 +141,7 @@ public class NPCManager : MonoBehaviour {
         Dictionary<string, string> characteristics = new Dictionary<string, string>();
         //TODO: Modify this section if the NPCs characteristics change
         GameObject target = NPCs[0];
-        characteristics.Add("Head", target.GetComponent<NPCCharacteristics>().Head.name);
+        characteristics.Add("Hat", target.GetComponent<NPCCharacteristics>().Hat.name);
         characteristics.Add("Shirt", target.GetComponent<NPCCharacteristics>().ShirtMaterial.name);
         characteristics.Add("Pants", target.GetComponent<NPCCharacteristics>().PantMaterial.name);
 

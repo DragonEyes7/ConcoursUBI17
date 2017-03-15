@@ -12,6 +12,7 @@ public class HUD : MonoBehaviour
     [SerializeField]RectTransform m_CenterCam;
     [SerializeField]RectTransform m_Uplink;
     [SerializeField]RectTransform m_UplinkIncoming;
+    [SerializeField]RectTransform _CluesPrint;
     Text m_ActionSliderTimer;
     GameObject m_Player;
 
@@ -21,12 +22,15 @@ public class HUD : MonoBehaviour
     int m_LevelTime;
     float m_CurrentActionDuration;
 
+    GameManager _GameManager;
+
     #region private
     void Start ()
     {
         m_Messages.gameObject.SetActive(false);
         m_ActionPrompt.gameObject.SetActive(false);
         _clockUI.gameObject.SetActive(false);
+        _CluesPrint.gameObject.SetActive(false);
 
         m_Uplink.gameObject.SetActive(false);
         m_UplinkIncoming.gameObject.SetActive(false);
@@ -37,6 +41,8 @@ public class HUD : MonoBehaviour
 
         m_TimeController = FindObjectOfType<TimeController>();
         m_TimeController.Tick.Suscribe(ShowTimer);
+
+        _GameManager = FindObjectOfType<GameManager>();
     }
 
     void Update()
@@ -264,14 +270,24 @@ public class HUD : MonoBehaviour
 
     public void LookAtClues()
     {
-        if(m_Messages.gameObject.activeSelf)
+        if(_CluesPrint.gameObject.activeSelf)
         {
-            m_Messages.gameObject.SetActive(false);
+            _CluesPrint.gameObject.SetActive(false);
         }
         else
         {
-            Dictionary<string, string> clues = FindObjectOfType<GameManager>().GetIntelligenceClues();
-            string message = "";
+            List<Clue> clues = _GameManager.GetIntelligenceClues();
+            _CluesPrint.gameObject.SetActive(true);
+
+            List<string> messages = new List<string>();
+
+            foreach(Clue clue in clues)
+            {
+                messages.Add(clue.ClueString);
+            }
+
+            _CluesPrint.GetComponent<PrintClues>().Print(messages.ToArray());
+            /*string message = "";
 
             if (clues.ContainsKey("Head"))
             {
@@ -306,7 +322,7 @@ public class HUD : MonoBehaviour
             {
                 m_Messages.text = message + ".";
                 m_Messages.gameObject.SetActive(true);
-            }            
+            }*/
         }
     }
 

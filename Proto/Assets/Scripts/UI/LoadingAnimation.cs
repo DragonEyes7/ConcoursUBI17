@@ -4,13 +4,14 @@ using System.Collections;
 
 public class LoadingAnimation : MonoBehaviour
 {
-	[SerializeField]Text m_Text;
+	Text m_Text;
 	[SerializeField]string m_LoadingText;
 	[SerializeField]float m_AnimationDelay = 0.5f;
 	int m_DotStatus = 0;
 
 	void Start ()
 	{
+        m_Text = GetComponent<Text>();
 		StartCoroutine(Animation(m_AnimationDelay));
 	}
 

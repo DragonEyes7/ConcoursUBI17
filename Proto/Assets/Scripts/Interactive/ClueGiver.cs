@@ -2,7 +2,10 @@
 
 public class ClueGiver : Interactive
 {
-    [SerializeField]string[] _PartsName;
+    
+
+    [SerializeField]int _ClueGiverID;
+    [SerializeField]Clue.ClueStrengthType[] _Clues;
     [SerializeField]Transform _USBPort;
     [SerializeField]string _USBObjectName;
     [SerializeField]AudioClip[] _AudioClips;
@@ -96,9 +99,9 @@ public class ClueGiver : Interactive
     {
         if(!_hasClue && hasUSB())
         {
-            foreach (var part in _PartsName)
+            foreach (var part in _Clues)
             {
-                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, part);
+                m_PhotonView.RPC("SendClueToIntelligence", PhotonTargets.All, (int)part);
             }
             m_HUD.BlinkUplink();
             _hasClue = true;
@@ -137,16 +140,12 @@ public class ClueGiver : Interactive
         m_PhotonView.RPC("RPCSetHasUSB", PhotonTargets.All, false);
     }
 
-    public void SetPartsName(string[] partsName)
-    {
-        _PartsName = partsName;
-    }
-
     [PunRPC]
-    void SendClueToIntelligence(string part)
+    void SendClueToIntelligence(int part)
     {
         _AudioSource.clip = _AudioClips[1];
         _AudioSource.Play();
-        m_GameManager.AddCluesToIntelligence(part, m_GameManager.GetTargetClue(part));
+
+        m_GameManager.AddCluesToIntelligence(_ClueGiverID, (Clue.ClueStrengthType)part);
     }
 }
