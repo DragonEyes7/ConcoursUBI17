@@ -105,9 +105,10 @@ public class NPCManager : MonoBehaviour {
         {
             int StartPosIndex = Random.Range(0, InterestPoints.Count);
             Transform Pos = InterestPoints[StartPosIndex].transform;
-            NPCs[i].GetComponent<NPCWalkScript>().Destination = Pos;
-            NPCs[i].GetComponent<NPCWalkScript>().Location = Pos;
-            NPCs[i].GetComponent<NPCWalkScript>().OnDestinationChange();
+            NPCWalkScript NPCWS = NPCs[i].GetComponent<NPCWalkScript>();
+            NPCWS.Destination = Pos;
+            NPCWS.Location = Pos;
+            NPCWS.OnDestinationChange();
 
             ScheduleNPC NPCSchedule = new ScheduleNPC();
             //NPCSchedule.AddItem(0, NPCs[i].transform);
@@ -124,7 +125,7 @@ public class NPCManager : MonoBehaviour {
                 }
             }
             NPCSchedule.OrderSchedule();
-            NPCs[i].GetComponent<NPCWalkScript>().setSchedule(NPCSchedule);
+            NPCWS.setSchedule(NPCSchedule);
         }
 
         //Set the Target Schedule
@@ -159,9 +160,9 @@ public class NPCManager : MonoBehaviour {
         characteristics.Add("Hat", NPCC.Hat.name);
         characteristics.Add("Accessory", NPCC.Accessory.name);
         characteristics.Add("Facial", NPCC.Facial.name);
-        characteristics.Add("HatMat", NPCC.HatMaterial.name.ToLower());
-        characteristics.Add("AccessoryMat", NPCC.AccessoryMaterial.name.ToLower());
-        characteristics.Add("FacialMat", NPCC.FacialMaterial.name.ToLower());
+        characteristics.Add("HatMat", NPCC.HatMaterial.name);
+        characteristics.Add("AccessoryMat", NPCC.AccessoryMaterial.name);
+        characteristics.Add("FacialMat", NPCC.FacialMaterial.name);
 
         return characteristics;
     }

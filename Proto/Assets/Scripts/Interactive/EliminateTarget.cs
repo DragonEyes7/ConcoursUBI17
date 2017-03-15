@@ -93,7 +93,7 @@ public class EliminateTarget : Interactive
     [PunRPC]
     void RPCInteract(string msg, float duration)
     {
-        m_HUD.ShowMessages(msg, duration);
+        m_HUD.ShowVictoryMessage(msg);
 
         if (m_GameManager.isMaster)
         {

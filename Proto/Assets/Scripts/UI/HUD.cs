@@ -5,18 +5,15 @@ using System.Collections.Generic;
 public class HUD : MonoBehaviour
 {
     [SerializeField]RectTransform m_ActionPrompt;
-    [SerializeField]Slider m_ActionSlider;
     [SerializeField]Text m_Messages;
+    [SerializeField]Text _VictoryMessage;
     [SerializeField]Text m_Timer;
     [SerializeField]ClockUI _clockUI;
     [SerializeField]RectTransform m_CenterCam;
     [SerializeField]RectTransform m_Uplink;
     [SerializeField]RectTransform m_UplinkIncoming;
     [SerializeField]RectTransform _CluesPrint;
-    Text m_ActionSliderTimer;
     GameObject m_Player;
-
-    Action m_Action;
 
     TimeController m_TimeController;
     int m_LevelTime;
@@ -31,13 +28,10 @@ public class HUD : MonoBehaviour
         m_ActionPrompt.gameObject.SetActive(false);
         _clockUI.gameObject.SetActive(false);
         _CluesPrint.gameObject.SetActive(false);
+        _VictoryMessage.gameObject.SetActive(false);
 
         m_Uplink.gameObject.SetActive(false);
         m_UplinkIncoming.gameObject.SetActive(false);
-
-        m_ActionSliderTimer = m_ActionSlider.GetComponentInChildren<Text>();
-
-        m_ActionSlider.gameObject.SetActive(false);
 
         m_TimeController = FindObjectOfType<TimeController>();
         m_TimeController.Tick.Suscribe(ShowTimer);
@@ -47,71 +41,15 @@ public class HUD : MonoBehaviour
 
     void Update()
     {
-        if (m_Action)
-        {
-            if (m_Action.isInteracting)
-            {
-                m_ActionSliderTimer.text = (m_CurrentActionDuration - Time.time).ToString("F2");
-                m_ActionSlider.value += Time.deltaTime;
-
-                if ((m_CurrentActionDuration - Time.time) <= 0)
-                {
-                    m_ActionSlider.gameObject.SetActive(false);
-                }
-            }
-        }
-
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             PhotonNetwork.Disconnect();
         }
+
         if (PhotonNetwork.isMasterClient && Input.GetButtonDown("TimeRewind"))
         {
             _clockUI.Toggle();
         }
-    }
-
-    void SetupAction()
-    {
-        m_Action = m_Player.GetComponent<Action>();
-        //m_Action.EventActionStartTimer += SetTimer;
-    }
-
-    void SetActionDuration(float duration)
-    {
-        m_CurrentActionDuration = duration + Time.time;
-        m_ActionPrompt.gameObject.SetActive(false);
-
-        m_ActionSlider.maxValue = duration;
-        m_ActionSlider.value = 0;
-
-        HideActionMeter();
-        m_ActionSlider.gameObject.SetActive(true);
-    }
-
-    void FadeActionMeter()
-    {
-        CanvasRenderer[] canvas = m_ActionSlider.GetComponentsInChildren<CanvasRenderer>();
-        foreach (CanvasRenderer canva in canvas)
-        {
-            canva.SetAlpha(canva.GetAlpha()-0.05f);
-        }
-
-        if(canvas[0].GetAlpha() <= 0)
-        {
-            HideActionMeter();
-        }
-    }
-
-    void HideActionMeter()
-    {
-        CanvasRenderer[] canvas = m_ActionSlider.GetComponentsInChildren<CanvasRenderer>();
-        m_ActionSlider.gameObject.SetActive(false);
-        foreach (CanvasRenderer canva in canvas)
-        {
-            canva.SetAlpha(1f);
-        }
-        CancelInvoke("FadeActionMeter");
     }
 
     void FadeMessage()
@@ -179,25 +117,6 @@ public class HUD : MonoBehaviour
         m_Timer.text = minSec;
         return 0;
     }
-
-    string GetColorName(int colorID)
-    {
-        switch (colorID)
-        {
-            case 0:
-                return "Blue";
-            case 1:
-                return "Green";
-            case 2:
-                return "Pink";
-            case 3:
-                return "Red";
-            case 4:
-                return "Yellow";
-        }
-
-        return null;
-    }
     #endregion
 
     #region public
@@ -207,8 +126,6 @@ public class HUD : MonoBehaviour
         {
             m_CenterCam.gameObject.SetActive(false);
             m_Player = player;
-
-            SetupAction();
         }
     }
 
@@ -216,6 +133,12 @@ public class HUD : MonoBehaviour
     {
         m_LevelTime = timer;
         m_TimeController.SetMaxTime(timer);
+    }
+
+    public void ShowVictoryMessage(string msg)
+    {
+        _VictoryMessage.text = msg;
+        _VictoryMessage.gameObject.SetActive(true);
     }
 
     public void ShowMessages(string msg, float duration)
@@ -227,9 +150,7 @@ public class HUD : MonoBehaviour
 
     public void ShowActionPrompt(string message)
     {
-        m_ActionSlider.gameObject.SetActive(false);
         m_ActionPrompt.GetComponentInChildren<Text>().text = message;
-        //m_ActionPrompt.GetComponentInChildren<Image>() = sprite;
         m_ActionPrompt.gameObject.SetActive(true);
     }
 
@@ -238,12 +159,6 @@ public class HUD : MonoBehaviour
         if (m_ActionPrompt.gameObject.activeSelf)
         {
             m_ActionPrompt.gameObject.SetActive(false);
-        }
-        else if(m_Action)
-        {
-            m_ActionSliderTimer.text = "Cancelled";
-            m_Action.SetInteract(false);
-            InvokeRepeating("FadeActionMeter", 0f, 0.15f);
         }
     }
 
@@ -273,9 +188,11 @@ public class HUD : MonoBehaviour
         if(_CluesPrint.gameObject.activeSelf)
         {
             _CluesPrint.gameObject.SetActive(false);
+            m_Uplink.GetComponentInChildren<Text>().text = "Analyse clues";
         }
         else
         {
+            m_Uplink.GetComponentInChildren<Text>().text = "Hide clues";
             List<Clue> clues = _GameManager.GetIntelligenceClues();
             _CluesPrint.gameObject.SetActive(true);
 
@@ -287,42 +204,6 @@ public class HUD : MonoBehaviour
             }
 
             _CluesPrint.GetComponent<PrintClues>().Print(messages.ToArray());
-            /*string message = "";
-
-            if (clues.ContainsKey("Head"))
-            {
-                message += "The target has a" + clues["Head"];
-            }
-
-            if (clues.ContainsKey("Pants"))
-            {
-                if (message == "")
-                {
-                    message += "\nThe target has a " + clues["Pants"] + " pair of pants";
-                }
-                else
-                {
-                    message += ", a " + clues["Pants"] + " pair of pants";
-                }
-            }
-
-            if (clues.ContainsKey("Shirt"))
-            {
-                if(message == "")
-                {
-                    message += "\nThe target has a " + clues["Shirt"] + " shirt";
-                }
-                else
-                {
-                    message += " and a " + clues["Shirt"] + " shirt";
-                }
-            }
-
-            if(message != "")
-            {
-                m_Messages.text = message + ".";
-                m_Messages.gameObject.SetActive(true);
-            }*/
         }
     }
 

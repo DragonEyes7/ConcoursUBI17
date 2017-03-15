@@ -13,7 +13,6 @@ public class PrintClues : MonoBehaviour
     public void Print(string[] messages)
     {
         _Messages = messages;
-        Debug.Log("Length: " + _Messages.Length);
         StartPrinting();
     }
 
@@ -55,22 +54,23 @@ public class PrintClues : MonoBehaviour
         }
         else
         {
-            StartCoroutine(AnimationPrinting(0.15f, 60));
+            StartCoroutine(AnimationPrinting(0.15f, 15));
         }
     }
 
     IEnumerator AnimationPrinting(float delay, float up)
     {
-        yield return new WaitForSecondsRealtime(delay);
-        if(_Messages.Length > 0)
+        if (_Messages.Length > 0)
         {
-            _PrintMessage.text += _Messages[_CurrentMessage];
+            _PrintMessage.text += "-" + _Messages[_CurrentMessage] + "\n";
             ++_CurrentMessage;
-            MoveUpward(up);
-            if (_CurrentMessage < _Messages.Length)
-            {
-                StartCoroutine(AnimationStart(0.15f, 60));
-            }
-        }           
+        }
+
+        yield return new WaitForSecondsRealtime(delay);
+        MoveUpward(up);
+        if (_CurrentMessage < _Messages.Length && _Messages.Length > 0)
+        {
+            StartCoroutine(AnimationPrinting(0.15f, 15));
+        }
     }
 }
