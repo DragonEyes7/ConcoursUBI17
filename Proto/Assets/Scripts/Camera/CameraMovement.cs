@@ -17,8 +17,6 @@ public class CameraMovement : MonoBehaviour
     float m_CurrentY;
     float m_MaxZoomOut;
 
-    float _InitialFOV;
-
     AudioSource AS_Move, AS_Zoom, AS_ServoStop;
 
     bool _IsMoving = false, _IsZooming = false;
@@ -35,11 +33,16 @@ public class CameraMovement : MonoBehaviour
             m_Camera = GetComponentInChildren<Camera>();
         }
 
-        _InitialFOV = m_Camera.fieldOfView;
         ResetPosition();
 	}
-	
-	void Update ()
+
+    void OnEnable()
+    {
+        m_MaxZoomOut = m_Camera.fieldOfView;
+        UpdatePosition();
+    }
+
+    void Update ()
     {
         m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Move();
@@ -80,8 +83,8 @@ public class CameraMovement : MonoBehaviour
             }
         }
 
-        m_CurrentX += m_Input.x * m_Camera.fieldOfView / _InitialFOV;
-        m_CurrentY += m_Input.y * m_Camera.fieldOfView / _InitialFOV;
+        m_CurrentX += m_Input.x * m_Camera.fieldOfView / m_MaxZoomOut;
+        m_CurrentY += m_Input.y * m_Camera.fieldOfView / m_MaxZoomOut;
 
         if (m_YLock)
         {
@@ -130,24 +133,6 @@ public class CameraMovement : MonoBehaviour
             m_Camera.fieldOfView = m_ZoomLimit;
             AS_Zoom.Stop();
         }
-    }
-
-    public void SetLimitCam(float YMin, float YMax)
-    {
-        m_YMax = YMax;
-        m_YMin = YMin;
-    }
-
-    public void SetupCam(float ZoomLimit, float ZoomSpeed, float YMin, float YMax, float XMin, float XMax, bool YLock, bool XLock)
-    {
-        m_ZoomLimit = ZoomLimit;
-        m_ZoomSpeed = ZoomSpeed;
-        m_YMin = YMin;
-        m_YMax = YMax;
-        m_XMin = XMin;
-        m_XMax = XMax;
-        m_YLock = YLock;
-        m_XLock = XLock;
     }
 
     public void ResetPosition()
