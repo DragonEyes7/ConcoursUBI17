@@ -6,10 +6,11 @@ public class OnActivateRefresh : MonoBehaviour
     private void Start()
     {
         _serverUi = FindObjectOfType<ServerUI>();
+        _serverUi.GetServerList();
     }
 
     private void OnEnable()
     {
-        _serverUi.GetServerList();
+        if(_serverUi)_serverUi.GetServerList();
     }
 }
