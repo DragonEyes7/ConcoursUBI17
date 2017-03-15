@@ -114,7 +114,7 @@ ModelImporter:
     4300000: Body
     4300002: Cylinder001
     4300004: Cylinder006
-    7400000: Take 001
+    7400000: Walk
     9500000: //RootNode
     13700000: Body
   materials:
@@ -137,7 +137,137 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Bone005
+        weight: 1
+      - path: Bone005/Bone001
+        weight: 1
+      - path: Bone005/Bone001/Bone004
+        weight: 1
+      - path: Bone005/Bone001/Bone004/Bone003
+        weight: 1
+      - path: Bone005/Bone001/Bone004/Bone003/Bone002
+        weight: 1
+      - path: Bone005/Bone001(mirrored)
+        weight: 1
+      - path: Bone005/Bone001(mirrored)/Bone004(mirrored)
+        weight: 1
+      - path: Bone005/Bone001(mirrored)/Bone004(mirrored)/Bone003(mirrored)
+        weight: 1
+      - path: Bone005/Bone001(mirrored)/Bone004(mirrored)/Bone003(mirrored)/Bone002(mirrored)
+        weight: 1
+      - path: Bone005/Bone006
+        weight: 1
+      - path: Bone007
+        weight: 1
+      - path: Bone007/Bone008
+        weight: 1
+      - path: Bone007/Bone008/Bone009
+        weight: 1
+      - path: Bone007/Bone008/Bone009/Bone010
+        weight: 1
+      - path: Bone007/Bone008/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone007/Bone008/Bone009/Bone010/Bone011/Bone012
+        weight: 1
+      - path: Bone007/Bone008/Bone013
+        weight: 1
+      - path: Bone007/Bone008/Bone013/Bone014
+        weight: 1
+      - path: Bone007/Bone008/Bone013/Bone014/Bone015
+        weight: 1
+      - path: Bone007/Bone008/Bone013/Bone014/Bone015/Bone016
+        weight: 1
+      - path: Bone007/Bone008/Bone013/Bone014/Bone015/Bone016/Bone017
+        weight: 1
+      - path: Bone007/Bone008/Bone013(mirrored)
+        weight: 1
+      - path: Bone007/Bone008/Bone013(mirrored)/Bone014(mirrored)
+        weight: 1
+      - path: Bone007/Bone008/Bone013(mirrored)/Bone014(mirrored)/Bone015(mirrored)
+        weight: 1
+      - path: Bone007/Bone008/Bone013(mirrored)/Bone014(mirrored)/Bone015(mirrored)/Bone016(mirrored)
+        weight: 1
+      - path: Bone007/Bone008/Bone013(mirrored)/Bone014(mirrored)/Bone015(mirrored)/Bone016(mirrored)/Bone017(mirrored)
+        weight: 1
+      - path: Circle001
+        weight: 1
+      - path: Circle001/Circle003
+        weight: 1
+      - path: Circle001/hanches
+        weight: 1
+      - path: Circle001/hanches/Circle004
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle006
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle006/Circle007
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle006/Circle007/Circle008
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle006/Circle007/Circle008/Cylinder001
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle006/Circle007/Circle008/Cylinder006
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle009
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle009/Circle011
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle009/Circle011/Circle012
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle009/Circle011/Circle012/Circle013
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle010
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle010/Circle016
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle010/Circle016/Circle015
+        weight: 1
+      - path: Circle001/hanches/Circle004/Circle005/Circle010/Circle016/Circle015/Circle014
+        weight: 1
+      - path: Circle001/hanches/Point001
+        weight: 1
+      - path: Circle001/Point002
+        weight: 1
+      - path: Circle001/RFoot
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

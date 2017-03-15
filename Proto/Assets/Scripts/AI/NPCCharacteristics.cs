@@ -2,6 +2,7 @@
 
 public class NPCCharacteristics : MonoBehaviour
 {
+    [SerializeField]Transform _Parent;
     public GameObject Hat, Accessory, Facial;
     public Material HatMaterial, AccessoryMaterial, FacialMaterial;
 
@@ -9,9 +10,12 @@ public class NPCCharacteristics : MonoBehaviour
     {
         if(PhotonNetwork.isMasterClient)
         {
-            GameObject hat = Instantiate(Hat, transform.position, transform.rotation, transform);
-            GameObject accessory = Instantiate(Accessory, transform.position, transform.rotation, transform);
-            GameObject facial = Instantiate(Facial, transform.position, transform.rotation, transform);
+            GameObject hat = Instantiate(Hat);
+            hat.transform.SetParent(_Parent, false);
+            GameObject accessory = Instantiate(Accessory);
+            accessory.transform.SetParent(_Parent, false);
+            GameObject facial = Instantiate(Facial);
+            facial.transform.SetParent(_Parent, false);
 
             hat.GetComponentInChildren<Renderer>().material = HatMaterial;
             accessory.GetComponentInChildren<Renderer>().material = AccessoryMaterial;
@@ -56,6 +60,7 @@ public class NPCCharacteristics : MonoBehaviour
             if(hMat.name == hatMatName)
             {
                 HatMaterial = hMat;
+                break;
             }
         }
 
@@ -64,6 +69,7 @@ public class NPCCharacteristics : MonoBehaviour
             if (aMat.name == accMatName)
             {
                 AccessoryMaterial = aMat;
+                break;
             }
         }
 
@@ -72,6 +78,7 @@ public class NPCCharacteristics : MonoBehaviour
             if (fMat.name == facMatName)
             {
                 FacialMaterial = fMat;
+                break;
             }
         }
 
@@ -79,8 +86,8 @@ public class NPCCharacteristics : MonoBehaviour
         {
             if (h.name == hatName)
             {
-                GameObject hat = Instantiate(h, transform.position, transform.rotation, transform);
-
+                GameObject hat = Instantiate(h);
+                hat.transform.SetParent(_Parent, false);
                 hat.GetComponentInChildren<Renderer>().material = HatMaterial;
                 break;
             }
@@ -90,7 +97,8 @@ public class NPCCharacteristics : MonoBehaviour
         {
             if (acc.name == accessoryName)
             {
-                GameObject accessory = Instantiate(acc, transform.position, transform.rotation, transform);
+                GameObject accessory = Instantiate(acc);
+                accessory.transform.SetParent(_Parent, false);
                 accessory.GetComponentInChildren<Renderer>().material = AccessoryMaterial;
                 break;
             }
@@ -100,7 +108,8 @@ public class NPCCharacteristics : MonoBehaviour
         {
             if (fac.name == facialName)
             {
-                GameObject facial = Instantiate(fac, transform.position, transform.rotation, transform);
+                GameObject facial = Instantiate(fac);
+                facial.transform.SetParent(_Parent, false);
                 facial.GetComponentInChildren<Renderer>().material = FacialMaterial;
                 break;
             }

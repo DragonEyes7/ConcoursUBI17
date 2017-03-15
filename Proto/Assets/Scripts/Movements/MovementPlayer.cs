@@ -10,7 +10,10 @@ public class MovementPlayer : Movement
     Vector3 m_MoveVector;
     float m_SpeedCurrent;
 
+    Animator _Animator;
+
     bool _IsPaused = true;
+    bool _IdleBreak = false;
 
     public bool isPaused
     {
@@ -21,7 +24,7 @@ public class MovementPlayer : Movement
     new void Start ()
     {
         base.Start();
-
+        _Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_SpeedCurrent = m_SpeedWalking;
     }
@@ -34,6 +37,16 @@ public class MovementPlayer : Movement
             if (m_Input.magnitude > 0)
             {
                 Move();
+            }
+            else
+            {
+                _Animator.SetFloat("Speed", 0);
+
+                if(!_IdleBreak)
+                {
+                    _IdleBreak = true;
+                    Invoke("IdleBreak", Random.Range(2, 5));
+                }
             }
         }
     }
@@ -63,6 +76,8 @@ public class MovementPlayer : Movement
 
         float controllerSpeed = m_Input.magnitude;
         float angle;
+
+        IdleBreakReset();
         if (controllerSpeed > 1f)
         {
             controllerSpeed = 1f;
@@ -79,6 +94,8 @@ public class MovementPlayer : Movement
             return;
         }
 
+        _Animator.SetFloat("Speed", controllerSpeed);
+
         m_MoveVector = transform.forward.normalized * m_SpeedCurrent * controllerSpeed * Time.deltaTime;
 
         m_Rigidbody.MovePosition(transform.position + m_MoveVector);
@@ -89,5 +106,17 @@ public class MovementPlayer : Movement
         {
             m_Rigidbody.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), m_TurnSpeed * Time.deltaTime);
         }
+    }
+
+    void IdleBreak()
+    {
+        _Animator.SetTrigger("IdleBreak");
+        Invoke("IdleBreakReset", Random.Range(10, 15));
+    }
+
+    void IdleBreakReset()
+    {
+        CancelInvoke("IdleBreak");
+        _IdleBreak = false;
     }
 }

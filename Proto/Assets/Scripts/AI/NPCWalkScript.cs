@@ -9,6 +9,9 @@ public class NPCWalkScript : MonoBehaviour {
     private ScheduleNPC NPCSchedule;
     public int NPCID = 0;
 
+    Animator _Animator;
+    bool _IdleBreak = false;
+
     protected NavMeshAgent agent;
     
     public virtual void setSchedule(ScheduleNPC Schedule)
@@ -16,15 +19,33 @@ public class NPCWalkScript : MonoBehaviour {
         NPCSchedule = Schedule;
     }
 
-    protected void Start()
+    void OnEnable()
     {
+        _Animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = true;
     }
-    
+
+    void Update()
+    {
+        if(agent.remainingDistance > 0)
+        {
+            _Animator.SetFloat("Speed", 1);
+            IdleBreakReset();
+        }
+        else
+        {
+            _Animator.SetFloat("Speed", 0);
+            if (!_IdleBreak)
+            {
+                _IdleBreak = true;
+                Invoke("IdleBreak", Random.Range(2, 5));
+            }
+        }
+    }
+
     public void OnDestinationChange()
     {
-        agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(Destination.position);
     }
 
@@ -59,6 +80,18 @@ public class NPCWalkScript : MonoBehaviour {
         {
             LI.Free(NPCID);
         }
+    }
+
+    void IdleBreak()
+    {
+        _Animator.SetTrigger("IdleBreak");
+        Invoke("IdleBreakReset", Random.Range(10, 15));
+    }
+
+    void IdleBreakReset()
+    {
+        CancelInvoke("IdleBreak");
+        _IdleBreak = false;
     }
 }
 
