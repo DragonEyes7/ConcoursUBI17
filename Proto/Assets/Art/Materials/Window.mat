@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Window
-  m_Shader: {fileID: 4800000, guid: b85b6446bad45da4c9f1424214f94fd0, type: 3}
+  m_Shader: {fileID: 4800000, guid: 7f30ec7af6f0df34faa9bb9e25900a4e, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -70,6 +70,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _Refraction
+      second:
+        m_Texture: {fileID: 2800000, guid: 0478fd14aea55474293f09e8f1e93fa4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: __MainTex
       second:
         m_Texture: {fileID: 0}
@@ -112,6 +118,9 @@ Material:
     - first:
         name: _Parallax
       second: 0.02
+    - first:
+        name: _RefractionIntensity
+      second: 0.1
     - first:
         name: _SmoothnessTextureChannel
       second: 0
