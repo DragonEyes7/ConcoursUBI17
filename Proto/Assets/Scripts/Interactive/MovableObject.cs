@@ -15,13 +15,12 @@ public class MovableObject : Interactive
     int m_CurrentPosition = 0;
 
     float _StartMovingTime;
-    float _DistanceMovingLength = 1;
+    float _DistanceMovingLength;
     Vector3 _StartMovingPosition;
 
     new void Start()
     {
         base.Start();
-        if (PhotonNetwork.isMasterClient) _DistanceMovingLength = 0;
         _AudioSource = GetComponent<AudioSource>();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
@@ -39,7 +38,7 @@ public class MovableObject : Interactive
         {
             Move();
         }
-        else if(!m_IsActivated)
+        else if(!m_IsActivated && m_CurrentPosition != 0)
         {
             MoveBack();
         }
@@ -48,7 +47,7 @@ public class MovableObject : Interactive
     void Move()
     {
         float distCovered = (Time.time - _StartMovingTime) * _MovingSpeed;
-        float fracJourney = distCovered / _DistanceMovingLength;
+        float fracJourney = (_DistanceMovingLength != 0) ? distCovered / _DistanceMovingLength : 1;
         transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[m_CurrentPosition], fracJourney);
 
         if (fracJourney >= 0.99f)
@@ -65,7 +64,7 @@ public class MovableObject : Interactive
     void MoveBack()
     {
         float distCovered = (Time.time - _StartMovingTime) * _MovingSpeed;
-        float fracJourney = distCovered / _DistanceMovingLength;
+        float fracJourney = (_DistanceMovingLength != 0) ? distCovered / _DistanceMovingLength : 1;
         transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[m_CurrentPosition], fracJourney);
 
         if (fracJourney >= 0.99f)
@@ -121,10 +120,10 @@ public class MovableObject : Interactive
 
     public override void MoveObject()
     {
+        _StartMovingPosition = transform.position;
+        _DistanceMovingLength = Vector3.Distance(_MovePositions[m_CurrentPosition], _StartMovingPosition);
         m_IsActivated = !m_IsActivated;
         _StartMovingTime = Time.time;
-        _StartMovingPosition = transform.position;
-        _DistanceMovingLength = Vector3.Distance(_MovePositions[m_CurrentPosition], transform.position);
         _AudioSource.Play();
     }
 
