@@ -848,6 +848,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1403653770140532, guid: f0cd70ec11c733444a484314fdb7464b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f0cd70ec11c733444a484314fdb7464b, type: 2}
   m_IsPrefabParent: 0
@@ -3334,6 +3338,7 @@ GameObject:
   - component: {fileID: 1860176332}
   - component: {fileID: 1860176334}
   - component: {fileID: 1860176333}
+  - component: {fileID: 1860176335}
   m_Layer: 5
   m_Name: BrowseGamesPanel
   m_TagString: Untagged
@@ -3389,6 +3394,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1860176331}
+--- !u!114 &1860176335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1860176331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0912958a818ce4f8312138990b8efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1932099346
 GameObject:
   m_ObjectHideFlags: 0
