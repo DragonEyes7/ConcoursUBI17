@@ -46,7 +46,7 @@ public class CameraMovement : MonoBehaviour
 
         if (InputMode.isKeyboardMode)
         {
-            Zoom(Input.GetAxis("Mouse ScrollWheel") * -m_ZoomSpeed);
+            Zoom(Input.GetAxis("Mouse ScrollWheel") * -m_ZoomSpeed * 25);
         }
         else
         {
