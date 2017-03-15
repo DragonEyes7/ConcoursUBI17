@@ -7,10 +7,12 @@ public class Terminal : Interactive
 
     IntelligenceAction m_Action;
 
+    AudioSource _AudioSource;
+
     new void Start()
     {
         base.Start();
-
+        _AudioSource = GetComponent<AudioSource>();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineIntelligence");
     }
 
@@ -63,7 +65,6 @@ public class Terminal : Interactive
                 if (m_Action.enabled)
                 {
                     UnSelect(m_Action);
-
                 }
             }
         }
@@ -77,7 +78,8 @@ public class Terminal : Interactive
         }
 
         m_IsActivated = true;
-        if(m_Action)UnSelect(m_Action);
+        _AudioSource.Play();
+        if (m_Action)UnSelect(m_Action);
     }
 
     public void SetDoors(Door[] doors)

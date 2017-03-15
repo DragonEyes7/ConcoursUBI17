@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 114111721896582462}
   - component: {fileID: 114398302655360826}
   - component: {fileID: 114714002092133562}
+  - component: {fileID: 82271178669773604}
   m_Layer: 8
   m_Name: UNPC
   m_TagString: Untagged
@@ -302,6 +303,86 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!82 &82271178669773604
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070390693172202}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114111721896582462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,6 +473,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6229d27daaef47748814b2ad3c7aa52b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _PushClips:
+  - {fileID: 8300000, guid: 699a44b033a2f8941b161a7d318c9643, type: 3}
+  - {fileID: 8300000, guid: 0a7f8c43a83ad7f4499bd9e0d5480d71, type: 3}
+  - {fileID: 8300000, guid: 0de0c83af095cdd44ba0338b451437c6, type: 3}
+  - {fileID: 8300000, guid: 58e341a3670e37646ba9ff9263a873c5, type: 3}
+  _WinningClip: {fileID: 8300000, guid: e3085bbbe0aab45489ad749dd099392d, type: 3}
 --- !u!135 &135291791678448256
 SphereCollider:
   m_ObjectHideFlags: 1

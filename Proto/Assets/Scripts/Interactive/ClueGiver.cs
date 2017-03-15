@@ -5,6 +5,7 @@ public class ClueGiver : Interactive
     [SerializeField]string[] _PartsName;
     [SerializeField]Transform _USBPort;
     [SerializeField]string _USBObjectName;
+    [SerializeField]AudioClip[] _AudioClips;
     Material[] _Mats;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
@@ -12,9 +13,12 @@ public class ClueGiver : Interactive
     InteractiveObjectRecorder _interactiveObjectRecorder;
     bool _hasClue = false, _hasUSB = false;
 
+    AudioSource _AudioSource;
+
     new void Start()
     {
         base.Start();
+        _AudioSource = GetComponent<AudioSource>();
         m_GameManager = FindObjectOfType<GameManager>();
         m_PhotonView = GetComponent<PhotonView>();
         _Mats = new Material[2];
@@ -106,7 +110,10 @@ public class ClueGiver : Interactive
             USB.transform.SetParent(_USBPort);
             m_PhotonView.RPC("RPCSetHasUSB", PhotonTargets.All, true);
         }
-        
+
+        _AudioSource.clip = _AudioClips[0];
+        _AudioSource.Play();
+
         m_HUD.HideActionPrompt();
         UnSelect();
     }
@@ -139,6 +146,8 @@ public class ClueGiver : Interactive
     [PunRPC]
     void SendClueToIntelligence(string part)
     {
+        _AudioSource.clip = _AudioClips[1];
+        _AudioSource.Play();
         m_GameManager.AddCluesToIntelligence(part, m_GameManager.GetTargetClue(part));
     }
 }
