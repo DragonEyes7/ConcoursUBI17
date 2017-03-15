@@ -61,17 +61,23 @@ public class CameraMovement : MonoBehaviour
 
     void Move()
     {
-        if (_IsMoving && m_Input.x == 0 && m_Input.y == 0)
+        if (_IsMoving)
         {
-            AS_ServoStop.Play();
-            AS_Move.Stop();
-            _IsMoving = false;
+            if (m_Input.x == 0 && m_Input.y == 0)
+            {
+                AS_ServoStop.Play();
+                AS_Move.Stop();
+                _IsMoving = false;
+            }
         }
-        else if (m_Input.x != 0 || m_Input.y != 0)
+        else
         {
-            AS_Move.Play();
-            AS_ServoStop.Stop();
-            _IsMoving = true;
+            if (m_Input.x != 0 || m_Input.y != 0)
+            {
+                AS_Move.Play();
+                AS_ServoStop.Stop();
+                _IsMoving = true;
+            }
         }
 
         m_CurrentX += m_Input.x * m_Camera.fieldOfView / _InitialFOV;
@@ -95,15 +101,21 @@ public class CameraMovement : MonoBehaviour
 
     void Zoom(float zooming)
     {
-        if (_IsZooming && zooming == 0.0f)
+        if (_IsZooming)
         {
-            AS_Zoom.Stop();
-            _IsZooming = false;
+            if (zooming == 0.0f)
+            {
+                AS_Zoom.Stop();
+                _IsZooming = false;
+            }
         }
-        else if(zooming != 0.0f)
+        else
         {
-            AS_Zoom.Play();
-            _IsZooming = true;
+            if (zooming != 0.0f)
+            {
+                AS_Zoom.Play();
+                _IsZooming = true;
+            }
         }
 
         m_Camera.fieldOfView += zooming;

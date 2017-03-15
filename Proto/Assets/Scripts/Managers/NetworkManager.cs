@@ -19,6 +19,7 @@ public class NetworkManager : MonoBehaviour
             myPlayer.GetComponent<Action>().enabled = true;
             myPlayer.GetComponent<PlayerSetup>().enabled = true;
             myPlayer.GetComponent<PlayerSetup>().SetupCamera();
+            myPlayer.GetComponent<AudioListener>().enabled = true;
 
             if (GM)
             {

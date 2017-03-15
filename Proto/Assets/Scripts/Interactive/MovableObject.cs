@@ -3,6 +3,7 @@
 public class MovableObject : Interactive
 {
     [SerializeField]Transform[] m_PathToFollow;
+    [SerializeField]bool _MoveMoreThanOnce;
 
     InteractiveObjectRecorder _interactiveObjectRecorder;
     Vector3 _startPosition;
@@ -26,6 +27,10 @@ public class MovableObject : Interactive
         {
             Move();
         }
+        else
+        {
+            //MoveBack();
+        }
     }
 
     void Move()
@@ -43,11 +48,26 @@ public class MovableObject : Interactive
         transform.position = Vector3.Lerp(transform.position, m_PathToFollow[m_CurrentPosition].position, 0.2f);
     }
 
+    void MoveBack()
+    {
+        if (Vector3.Distance(m_PathToFollow[m_CurrentPosition].position, transform.position) < 0.1f)
+        {
+            --m_CurrentPosition;
+            if (m_CurrentPosition <= 0)
+            {
+                m_CurrentPosition = 0;
+                return;
+            }
+        }
+
+        transform.position = Vector3.Lerp(transform.position, m_PathToFollow[m_CurrentPosition].position, 0.2f);
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if(!m_IsActivated)
+        if(!m_IsActivated || _MoveMoreThanOnce)
         {
-            _previousAction = other.GetComponent<Action>();
+            _previousAction = other.GetComponent<AgentActions>();
             if (_previousAction)
             {
                 if (_previousAction.enabled)
@@ -63,7 +83,7 @@ public class MovableObject : Interactive
 
     void OnTriggerExit(Collider other)
     {
-        _previousAction = other.GetComponent<Action>();
+        _previousAction = other.GetComponent<AgentActions>();
         if (_previousAction)
         {
             if (_previousAction.enabled)

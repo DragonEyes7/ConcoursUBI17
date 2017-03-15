@@ -94,7 +94,6 @@ public class ClueGiver : Interactive
 
     public override void MoveObject()
     {
-        Debug.Log("Clue:" + _hasClue + ": USB" + hasUSB());
         if(!_hasClue && hasUSB())
         {
             foreach (var part in _PartsName)
