@@ -15,15 +15,13 @@ public class CamerasController : MonoBehaviour
 
     bool m_IsIntelligence = false;
 
-    void Start ()
+    AudioSource _AudioSource;
+
+    void Start()
     {
+        _AudioSource = GetComponent<AudioSource>();
         m_PhotonView = GetComponent<PhotonView>();
     }
-	
-	void Update ()
-    {
-		
-	}
 
     public void SetIntelligence(bool value)
     {
@@ -33,7 +31,6 @@ public class CamerasController : MonoBehaviour
             m_SceneCamera.gameObject.SetActive(false);
             string firstCameraGroup = m_LastCamera.GetComponent<HackableCamera>().CameraGroup();
             AddToCameraList(m_LastCamera, firstCameraGroup);
-            //TODO Define a string asd the string to use for the beginning cameras
             m_CameraGroups[firstCameraGroup][0].GetComponent<PhotonView>().RequestOwnership();
 
             SetActiveCamera(m_LastCamera, m_LastCamera);           
@@ -52,10 +49,12 @@ public class CamerasController : MonoBehaviour
         lastCam.GetComponentInChildren<Camera>().enabled = false;
         lastCam.GetComponent<CameraMovement>().enabled = false;
         lastCam.GetComponentInChildren<IntelligenceAction>().enabled = false;
+        lastCam.GetComponent<AudioListener>().enabled = false;
         _CurrentCam = currentCam;
         currentCam.GetComponentInChildren<Camera>().enabled = true;
         currentCam.GetComponent<CameraMovement>().enabled = true;
         currentCam.GetComponentInChildren<IntelligenceAction>().enabled = true;
+        currentCam.GetComponent<AudioListener>().enabled = true;
 
         m_LastCamera = currentCam;
     }
@@ -109,6 +108,7 @@ public class CamerasController : MonoBehaviour
     public void TakeControl(GameObject camera, string cameraGroup)
     {
         SetActiveCamera(camera, m_LastCamera);
+        _AudioSource.Play();
     }
 
     public List<string> GetCameraGroupList()
