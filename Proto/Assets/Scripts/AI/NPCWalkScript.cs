@@ -28,8 +28,8 @@ public class NPCWalkScript : MonoBehaviour {
 
     void Update()
     {
-        /*NEED TO FIX THAT SHIT!
-         * if(agent.remainingDistance > 0)
+        if (!agent) return;
+        if(agent.remainingDistance > 0)
         {
             _Animator.SetFloat("Speed", 1);
             IdleBreakReset();
@@ -42,7 +42,7 @@ public class NPCWalkScript : MonoBehaviour {
                 _IdleBreak = true;
                 Invoke("IdleBreak", Random.Range(2, 5));
             }
-        }*/
+        }
     }
 
     public void OnDestinationChange()
