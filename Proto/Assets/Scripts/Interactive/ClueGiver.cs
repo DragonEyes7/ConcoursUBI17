@@ -7,7 +7,6 @@ public class ClueGiver : Interactive
     [SerializeField]Transform _USBPort;
     [SerializeField]string _USBObjectName;
     [SerializeField]AudioClip[] _AudioClips;
-    [SerializeField]LayerMask m_Layer;
     Material[] _Mats;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
@@ -35,27 +34,17 @@ public class ClueGiver : Interactive
         if (_interactiveObjectRecorder.GetStatus() && !_hasClue && !PhotonNetwork.isMasterClient)
         {
             m_Action = other.GetComponent<IntelligenceAction>();
+
             if (m_Action && m_Action.enabled)
             {
-                var camAction = (IntelligenceAction) m_Action;
-                RaycastHit hit;
-                Vector3 direction = camAction.GetCenterCam().position - _USBPort.position;
-
-                if (Physics.Raycast(_USBPort.position, direction, out hit, 50f, m_Layer))
-                {
-                    Debug.DrawRay(_USBPort.position, direction, Color.magenta, 5f);
-                    if (hit.transform == camAction.GetCenterCam().transform)
-                    {
-                        m_SelectMat = _Mats[1];
-                        m_HUD.ShowActionPrompt("Hack device");
-                        m_Action.SetInteract(true);
-                        m_Action.SetInteractionObject(this);
-                        Select();
-                    }
-                }
+                m_SelectMat = _Mats[1];
+                m_HUD.ShowActionPrompt("Hack device");
+                m_Action.SetInteract(true);
+                m_Action.SetInteractionObject(this);
+                Select();
             }
         }
-        else if (PhotonNetwork.isMasterClient && !hasUSB())
+        else if(PhotonNetwork.isMasterClient && !hasUSB())
         {
             m_Action = other.GetComponent<AgentActions>();
 
