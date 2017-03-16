@@ -17,7 +17,7 @@ public class ServerUI : MonoBehaviour
         Cursor.visible = true;
         if (!PhotonNetwork.connected)
         {
-            PhotonNetwork.ConnectUsingSettings("Proto v0.1");
+            Connect();
             StartCoroutine(WaitForConnection());
         }
         else
@@ -39,7 +39,7 @@ public class ServerUI : MonoBehaviour
 
     public void GetServerList()
     {
-        foreach(GameObject serverbutton in m_ServerButtons)
+        foreach (GameObject serverbutton in m_ServerButtons)
         {
             Destroy(serverbutton);
         }
@@ -95,5 +95,10 @@ public class ServerUI : MonoBehaviour
             m_LevelToLoad.text = (string)propertiesThatChanged["levelName"];
             PhotonNetwork.LoadLevel(m_LevelToLoad.text);
         }
+    }
+
+    void Connect()
+    {
+        PhotonNetwork.ConnectUsingSettings("Proto v0.1");
     }
 }

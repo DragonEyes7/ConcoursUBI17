@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     List<string> _FacialList = new List<string>();
     List<string> _AccessoryList = new List<string>();
 
+    bool _GameCompleted = false;
     bool m_ObjectivesCompleted = false;
     bool m_Ready = false;
     bool m_IsMaster;
@@ -248,6 +250,17 @@ public class GameManager : MonoBehaviour
 
     public void Disconnect()
     {
-        PhotonNetwork.LoadLevel("Leaderboard");
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene("Leaderboard");
+    }
+
+    public void SetGameCompleted(bool value)
+    {
+        _GameCompleted = value;
+    }
+
+    public bool GameCompleted()
+    {
+        return _GameCompleted;
     }
 }

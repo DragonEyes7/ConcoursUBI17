@@ -58,7 +58,10 @@ public class NetworkManager : MonoBehaviour
 
     void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer)
     {
-        PhotonNetwork.Disconnect();
+        if(!FindObjectOfType<GameManager>().GameCompleted())
+        {
+            PhotonNetwork.Disconnect();
+        }        
     }
 
     public void LoadingCompleted()
