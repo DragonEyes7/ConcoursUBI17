@@ -53,12 +53,12 @@ public class ClockUI : MonoBehaviour
             ExecuteTimeRewind();
             gameObject.SetActive(false);
         }
-        _curTime = TuneMinutes(Input.GetAxisRaw("DPadY"), (int)_curTime/60) +
-                   TuneSeconds(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), (int)_curTime % 60);
+        _curTime = TuneMinutes(-Input.GetAxisRaw("DPadY"), (int)_curTime/60) +
+                   TuneSeconds(-Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), (int)_curTime % 60);
         if (_curTime > _prevTime) _curTime = _prevTime;
         if (_curTime < 0) _curTime = 0;
         UpdateClock(_curTime);
-        yield return new WaitForSecondsRealtime(0.01f);
+        yield return new WaitForSecondsRealtime(0.05f);
         StartCoroutine(ReadInput());
     }
 
@@ -82,10 +82,11 @@ public class ClockUI : MonoBehaviour
 
     private void UpdateClock(float time)
     {
-        _textTimeRewind.text = string.Format("{0}:{1:00}", (int)time / 60, (int)time % 60);
-        _arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
-        _seconds.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(time));
-        _minutes.rotation = Quaternion.Euler(0f, 0f, GetMinuteClockPosition(time));
+        var timeRewindedTo = _timeController.maxTime - time;
+        _textTimeRewind.text = string.Format("{0}:{1:00}", (int)timeRewindedTo / 60, (int)timeRewindedTo % 60);
+        _arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(timeRewindedTo));
+        _seconds.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(timeRewindedTo));
+        _minutes.rotation = Quaternion.Euler(0f, 0f, GetMinuteClockPosition(timeRewindedTo));
     }
 
     private static float GetSecondClockPosition(float time)
