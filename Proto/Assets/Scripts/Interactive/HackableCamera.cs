@@ -3,6 +3,7 @@
 public class HackableCamera : Interactive
 {
     [SerializeField]LayerMask m_Layer;
+    [SerializeField]string m_CameraGroup = "";
     IntelligenceAction m_Action;
 
     CamerasController m_CamerasController;
@@ -16,7 +17,12 @@ public class HackableCamera : Interactive
         m_CamerasController = FindObjectOfType<CamerasController>();
     }
 
-    void OnTriggerStay(Collider other)
+    public string CameraGroup()
+    {
+        return m_CameraGroup;
+    }
+
+    void OnTriggerEnter(Collider other)
     {
         if (!m_IsActivated && !m_IsSelected)
         {
@@ -65,13 +71,13 @@ public class HackableCamera : Interactive
 
     public override void Interact()
     {
-        if(!m_CamerasController.ContaintCamera(gameObject))
+        if(!m_CamerasController.ContaintCamera(gameObject, m_CameraGroup))
         {
-            m_CamerasController.AddToCameraList(gameObject);
+            m_CamerasController.AddToCameraList(gameObject, m_CameraGroup);
         }
         else
         {
-            m_CamerasController.TakeControl(gameObject);
+            m_CamerasController.TakeControl(gameObject, m_CameraGroup);
         }
 
         UnSelect();
@@ -81,6 +87,7 @@ public class HackableCamera : Interactive
         if (m_Action)
         {
             m_HUD.HideActionPrompt();
+            m_Action.SetInteract(false);
             m_Action = null;
         }
     }
