@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]Transform[] m_DoorsSpawn;
     [SerializeField]int _levelTimer = 30;
 
     List<Clue> m_IntelligenceClues = new List<Clue>();

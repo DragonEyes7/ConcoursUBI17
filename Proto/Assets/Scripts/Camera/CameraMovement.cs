@@ -137,8 +137,8 @@ public class CameraMovement : MonoBehaviour
 
     public void ResetPosition()
     {
-        m_CurrentX = transform.localEulerAngles.y < m_XMin ? m_XMin : transform.localEulerAngles.y;
-        m_CurrentY = transform.localEulerAngles.x < m_YMin ? m_YMin : transform.localEulerAngles.x;
+        m_CurrentX = transform.eulerAngles.y < m_XMin ? m_XMin : transform.eulerAngles.y;
+        m_CurrentY = transform.eulerAngles.x < m_YMin ? m_YMin : transform.eulerAngles.x;
         m_MaxZoomOut = m_Camera.fieldOfView;
         UpdatePosition();
     }
