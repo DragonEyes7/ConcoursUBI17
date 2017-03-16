@@ -3548,6 +3548,7 @@ GameObject:
   - component: {fileID: 1050937584}
   - component: {fileID: 1050937586}
   - component: {fileID: 1050937585}
+  - component: {fileID: 1050937587}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -3613,6 +3614,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1050937583}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!45 &1050937587
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1050937583}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 751da467fb7817948ab1b51df345153b, type: 2}
 --- !u!1 &1075683095
 GameObject:
   m_ObjectHideFlags: 0
