@@ -101,6 +101,7 @@ public class EliminateTarget : Interactive
         }
 
         m_HUD.GameEndedSuccessfully();
+        m_GameManager.SetGameCompleted(true);
 
         Invoke("Disconnect", duration + 1f);
     }

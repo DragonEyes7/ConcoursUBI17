@@ -16,7 +16,7 @@ public class HackableCamera : Interactive
         m_CamerasController = FindObjectOfType<CamerasController>();
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (!m_IsActivated && !m_IsSelected)
         {

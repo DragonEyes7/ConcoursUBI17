@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LeaderboardUI : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class LeaderboardUI : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        PhotonNetwork.LoadLevel("MainMenu");
+        SceneManager.LoadScene("MainMenu");
     }
-
 }

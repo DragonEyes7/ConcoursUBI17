@@ -11,7 +11,8 @@ public class LeaderboardEntry : MonoBehaviour
     public void SetInfo(Score score)
     {
         _name.text = score.Name;
-        _time.text = score.Time.ToString();
+        var time = score.Time;
+        _time.text = string.Format("{0}:{1:00}", time / 60, time % 60);
         _penality.text = score.Penality.ToString();
     }
 }
