@@ -90,8 +90,8 @@ public class NPCWalkScript : MonoBehaviour {
     }
 }
 
-
-﻿using Assets;
+/*
+as
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -123,4 +123,5 @@ public class NPCWalkScript : MonoBehaviour {
 
         if (!agent) return;
         _Animator.SetFloat("Speed", agent.velocity.magnitude);
-        if(agent.velocity.normalized.magnitude > 0)
+        if(agent.velocity.normalized.magnitude > 0)
+        */
