@@ -8,22 +8,25 @@ public class PrintClues : MonoBehaviour
     string[] _Messages;
     Vector3 _StartingPos;
     int _CurrentMessage;
+    float _Up;
     bool _isPrinting = false;
+
+    void Start()
+    {
+        _PrintMessage = transform.GetChild(0).GetComponent<Text>();
+        _Up = _PrintMessage.fontSize + 5;
+        _StartingPos = transform.position;
+    }
 
     public void Print(string[] messages)
     {
-        _Messages = messages;
+        _Messages = messages;        
         StartPrinting();
     }
 
     void StartPrinting()
     {
         _isPrinting = true;
-        if(!_PrintMessage)
-        {
-            _PrintMessage = transform.GetChild(0).GetComponent<Text>();
-            _StartingPos = transform.position;
-        }
 
         if(_Messages.Length == 0)
         {
@@ -41,6 +44,7 @@ public class PrintClues : MonoBehaviour
 
     void MoveUpward(float y)
     {
+        Debug.Log("Up: " + y);
         transform.position = new Vector3(transform.position.x, transform.position.y + y, transform.position.z);
     }
 
@@ -54,7 +58,7 @@ public class PrintClues : MonoBehaviour
         }
         else
         {
-            StartCoroutine(AnimationPrinting(0.15f, 15));
+            StartCoroutine(AnimationPrinting(0.15f, _Up));
         }
     }
 
@@ -70,7 +74,7 @@ public class PrintClues : MonoBehaviour
         MoveUpward(up);
         if (_CurrentMessage < _Messages.Length && _Messages.Length > 0)
         {
-            StartCoroutine(AnimationPrinting(0.15f, 15));
+            StartCoroutine(AnimationPrinting(0.15f, _Up));
         }
     }
 }
