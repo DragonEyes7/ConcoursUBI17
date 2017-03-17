@@ -44,7 +44,6 @@ public class PrintClues : MonoBehaviour
 
     void MoveUpward(float y)
     {
-        Debug.Log("Up: " + y);
         transform.position = new Vector3(transform.position.x, transform.position.y + y, transform.position.z);
     }
 
