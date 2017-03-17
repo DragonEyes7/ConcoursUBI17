@@ -18,7 +18,7 @@ public class NetworkSyncMovement : Photon.MonoBehaviour
     {
         if (!photonView.isMine)
         {
-            if (transform.position != m_PositionSync)
+            if (Vector3.Distance(transform.position, m_PositionSync) > 0.2f)
             {
                 _Animator.SetFloat("Speed", 1);
                 IdleBreakReset();
@@ -28,7 +28,7 @@ public class NetworkSyncMovement : Photon.MonoBehaviour
                 _IdleBreak = true;
                 Invoke("IdleBreak", Random.Range(2, 5));
             }
-            else if(Vector3.Distance(transform.position, m_PositionSync) < 0.1f)
+            else
             {
                 _Animator.SetFloat("Speed", 0);
             }
