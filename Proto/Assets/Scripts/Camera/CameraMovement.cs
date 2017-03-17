@@ -39,6 +39,8 @@ public class CameraMovement : MonoBehaviour
             AS_ServoStop = sounds[2];
         }
 
+        _Camera.fieldOfView = _MaxZoomOut;
+
         UpdatePosition();
     }
 
@@ -139,7 +141,6 @@ public class CameraMovement : MonoBehaviour
     {
         _CurrentX = transform.localEulerAngles.y < _XMin ? _XMin : transform.localEulerAngles.y;
         _CurrentY = transform.localEulerAngles.x < _YMin ? _YMin : transform.localEulerAngles.x;
-        _Camera.fieldOfView = _MaxZoomOut;
         UpdatePosition();
     }
 }
