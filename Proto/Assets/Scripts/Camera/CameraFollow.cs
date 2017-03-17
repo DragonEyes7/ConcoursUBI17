@@ -240,11 +240,11 @@ public class CameraFollow : MonoBehaviour
 
     void Move(float X, float Y, int InputType)
     {
-        m_CurrentX += X * PlayerSettings.GetCameraSpeed(InputType);
+        m_CurrentX += X * PlayerSettings.GetCameraSpeed(InputType) * Time.deltaTime;
 
         if (!isHittingFloor() || Y < 0)
         {
-            m_CurrentY += Y * PlayerSettings.GetCameraSpeed(InputType) * -1;
+            m_CurrentY += Y * PlayerSettings.GetCameraSpeed(InputType) * -1 * Time.deltaTime;
         }
 
         m_CurrentY = Mathf.Clamp(m_CurrentY, m_CurrentYMin, m_CurrentYMax);

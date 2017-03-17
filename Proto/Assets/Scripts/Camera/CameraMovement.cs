@@ -2,59 +2,59 @@
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]Camera m_Camera;
-    [SerializeField]float m_ZoomLimit = 30f;
-    [SerializeField]float m_ZoomSpeed = 0.01f;
-    [SerializeField]float m_YMin = -40f;
-    [SerializeField]float m_YMax = 50f;
-    [SerializeField]float m_XMin;
-    [SerializeField]float m_XMax;
-    [SerializeField]bool m_YLock = true;
-    [SerializeField]bool m_XLock = true;
-    Vector2 m_Input;
+    [SerializeField]float _CameraSpeed = 50f;
+    [SerializeField]float _ZoomLimit = 30f;
+    [SerializeField]float _ZoomSpeed = 50f;
+    [SerializeField]float _YMin = -40f;
+    [SerializeField]float _YMax = 50f;
+    [SerializeField] float _XMin;
+    [SerializeField]float _XMax;
+    [SerializeField]bool _YLock = true;
+    [SerializeField]bool _XLock = true;
+    Vector2 _Input;
+    Camera _Camera;
 
-    float m_CurrentX;
-    float m_CurrentY;
-    float m_MaxZoomOut;
+    float _CurrentX;
+    float _CurrentY;
+    float _MaxZoomOut;
 
     AudioSource AS_Move, AS_Zoom, AS_ServoStop;
 
     bool _IsMoving = false, _IsZooming = false;
 
-    void Start ()
-    {
-        AudioSource[] sounds = GetComponents<AudioSource>();
-        AS_Move = sounds[0];
-        AS_Zoom = sounds[1];
-        AS_ServoStop = sounds[2];
-
-        if (!m_Camera)
-        {
-            m_Camera = GetComponentInChildren<Camera>();
-        }
-
-        ResetPosition();
-	}
-
     void OnEnable()
     {
-        m_MaxZoomOut = m_Camera.fieldOfView;
+        if (!_Camera)
+        {
+            _Camera = GetComponentInChildren<Camera>();
+            _MaxZoomOut = _Camera.fieldOfView;
+            ResetPosition();
+        }
+
+        if (!AS_Move)
+        {
+            AudioSource[] sounds = GetComponents<AudioSource>();
+            AS_Move = sounds[0];
+            AS_Zoom = sounds[1];
+            AS_ServoStop = sounds[2];
+        }
+
         UpdatePosition();
     }
 
-    void Update ()
+    void Update()
     {
-        m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        _Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Move();
 
         if (InputMode.isKeyboardMode)
         {
-            Zoom(Input.GetAxis("Mouse ScrollWheel") * -m_ZoomSpeed * 25);
+            Zoom(Input.GetAxis("Mouse ScrollWheel") * -_ZoomSpeed * 25);
         }
         else
         {
-            Zoom(Input.GetAxis("Zoom") * m_ZoomSpeed);
-        }        
+            Zoom(Input.GetAxis("Zoom") * _ZoomSpeed);
+        }
     }
 
     void LateUpdate()
@@ -66,7 +66,7 @@ public class CameraMovement : MonoBehaviour
     {
         if (_IsMoving)
         {
-            if (m_Input.x == 0 && m_Input.y == 0)
+            if (_Input.x == 0 && _Input.y == 0)
             {
                 AS_ServoStop.Play();
                 AS_Move.Stop();
@@ -75,7 +75,7 @@ public class CameraMovement : MonoBehaviour
         }
         else
         {
-            if (m_Input.x != 0 || m_Input.y != 0)
+            if (_Input.x != 0 || _Input.y != 0)
             {
                 AS_Move.Play();
                 AS_ServoStop.Stop();
@@ -83,23 +83,23 @@ public class CameraMovement : MonoBehaviour
             }
         }
 
-        m_CurrentX += m_Input.x * m_Camera.fieldOfView / m_MaxZoomOut;
-        m_CurrentY += m_Input.y * m_Camera.fieldOfView / m_MaxZoomOut;
+        _CurrentX += _Input.x * (_Camera.fieldOfView / _MaxZoomOut) * Time.deltaTime * _CameraSpeed;
+        _CurrentY += _Input.y * (_Camera.fieldOfView / _MaxZoomOut) * Time.deltaTime * _CameraSpeed;
 
-        if (m_YLock)
+        if (_YLock)
         {
-            m_CurrentY = Mathf.Clamp(m_CurrentY, m_YMin, m_YMax);
+            _CurrentY = Mathf.Clamp(_CurrentY, _YMin, _YMax);
         }
 
-        if(m_XLock)
+        if (_XLock)
         {
-            m_CurrentX = Mathf.Clamp(m_CurrentX, m_XMin, m_XMax);
+            _CurrentX = Mathf.Clamp(_CurrentX, _XMin, _XMax);
         }
     }
 
     void UpdatePosition()
     {
-        transform.rotation = Quaternion.Euler(m_CurrentY, m_CurrentX, 0);
+        transform.rotation = Quaternion.Euler(_CurrentY, _CurrentX, 0);
     }
 
     void Zoom(float zooming)
@@ -121,25 +121,25 @@ public class CameraMovement : MonoBehaviour
             }
         }
 
-        m_Camera.fieldOfView += zooming;
-        if (m_Camera.fieldOfView > m_MaxZoomOut)
+        _Camera.fieldOfView += zooming * Time.deltaTime;
+        if (_Camera.fieldOfView > _MaxZoomOut)
         {
-            m_Camera.fieldOfView = m_MaxZoomOut;
+            _Camera.fieldOfView = _MaxZoomOut;
             AS_Zoom.Stop();
         }
 
-        if (m_Camera.fieldOfView < m_ZoomLimit)
+        if (_Camera.fieldOfView < _ZoomLimit)
         {
-            m_Camera.fieldOfView = m_ZoomLimit;
+            _Camera.fieldOfView = _ZoomLimit;
             AS_Zoom.Stop();
         }
     }
 
     public void ResetPosition()
     {
-        m_CurrentX = transform.localEulerAngles.y < m_XMin ? m_XMin : transform.localEulerAngles.y;
-        m_CurrentY = transform.localEulerAngles.x < m_YMin ? m_YMin : transform.localEulerAngles.x;
-        m_MaxZoomOut = m_Camera.fieldOfView;
+        _CurrentX = transform.localEulerAngles.y < _XMin ? _XMin : transform.localEulerAngles.y;
+        _CurrentY = transform.localEulerAngles.x < _YMin ? _YMin : transform.localEulerAngles.x;
+        _Camera.fieldOfView = _MaxZoomOut;
         UpdatePosition();
     }
 }
