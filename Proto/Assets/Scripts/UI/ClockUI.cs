@@ -17,6 +17,7 @@ public class ClockUI : MonoBehaviour
 
     private void OnEnable()
     {
+        InputMode.isInMenu = true;
         _photonView = GetComponent<PhotonView>();
         if(!_isFirst)_photonView.RPC("RPCStopTime", PhotonTargets.All);
         _timeController = FindObjectOfType<TimeController>();
@@ -38,6 +39,7 @@ public class ClockUI : MonoBehaviour
     {
         if(!_isFirst)_photonView.RPC("RPCStartTime", PhotonTargets.All);
         _isFirst = false;
+        InputMode.isInMenu = false;
     }
 
     public void Toggle()
@@ -47,7 +49,7 @@ public class ClockUI : MonoBehaviour
 
     private IEnumerator ReadInput()
     {
-        if (Input.GetButtonDown("Action"))
+        if (Input.GetButton("Action"))
         {
             _prevTime = _curTime;
             ExecuteTimeRewind();
@@ -58,7 +60,7 @@ public class ClockUI : MonoBehaviour
         if (_curTime > _prevTime) _curTime = _prevTime;
         if (_curTime < 0) _curTime = 0;
         UpdateClock(_curTime);
-        yield return new WaitForSecondsRealtime(0.05f);
+        yield return new WaitForSecondsRealtime(0.01f);
         StartCoroutine(ReadInput());
     }
 

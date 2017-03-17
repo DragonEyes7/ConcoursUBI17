@@ -122,7 +122,7 @@ public class CameraFollow : MonoBehaviour
                 }
             }
 
-            if (Input.GetAxisRaw("DPadY") != 0)
+            if (Input.GetAxisRaw("DPadY") != 0 && InputMode.isInMenu)
             {
                 m_Camera.fieldOfView -= Input.GetAxisRaw("DPadY") * m_ZoomSpeed;
                 if (m_Camera.fieldOfView < m_MinZoomFOV)
