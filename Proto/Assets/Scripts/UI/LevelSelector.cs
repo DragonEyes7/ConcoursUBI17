@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class LevelSelector : MonoBehaviour
 {
-    [SerializeField] private InputField _levelName;
+    [SerializeField] private Text _levelName;
     [SerializeField] private string[] _levels;
     [SerializeField] private Button _leftArrow;
     [SerializeField] private Button _rightArrow;
