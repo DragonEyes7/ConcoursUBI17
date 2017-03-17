@@ -10,6 +10,7 @@ public class NPCWalkScript : MonoBehaviour {
     public int NPCID = 0;
 
     Animator _Animator;
+    Rigidbody _Rigidbody;
     bool _IdleBreak = false;
 
     protected NavMeshAgent agent;
@@ -22,6 +23,7 @@ public class NPCWalkScript : MonoBehaviour {
     void OnEnable()
     {
         _Animator = GetComponent<Animator>();
+        _Rigidbody = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = true;
     }
@@ -30,7 +32,7 @@ public class NPCWalkScript : MonoBehaviour {
     {
         if (!agent) return;
         _Animator.SetFloat("Speed", agent.velocity.magnitude);
-        if(agent.velocity.magnitude > 0)
+        if(agent.velocity.normalized.magnitude > 0)
         {
             IdleBreakReset();
         }
