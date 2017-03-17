@@ -4,10 +4,14 @@ using System.Collections.Generic;
 public class CamerasController : MonoBehaviour
 {
     [SerializeField]List<GameObject> m_CameraObjects = new List<GameObject>();
+    [SerializeField]
+    Dictionary<string, List<GameObject>> m_CameraGroups = new Dictionary<string, List<GameObject>>();
     [SerializeField]Camera m_SceneCamera;
     PhotonView m_PhotonView;
 
-    int m_LastCamera = 0;
+    public GameObject m_LastCamera;
+
+    GameObject _CurrentCam;
 
     bool m_IsIntelligence = false;
 
@@ -25,47 +29,59 @@ public class CamerasController : MonoBehaviour
         if (m_IsIntelligence)
         {
             m_SceneCamera.gameObject.SetActive(false);
-            m_CameraObjects[0].GetComponent<PhotonView>().RequestOwnership();
+            string firstCameraGroup = m_LastCamera.GetComponent<HackableCamera>().CameraGroup();
+            AddToCameraList(m_LastCamera, firstCameraGroup);
+            m_CameraGroups[firstCameraGroup][0].GetComponent<PhotonView>().RequestOwnership();
 
-            SetActiveCamera(0, m_LastCamera);           
+            SetActiveCamera(m_LastCamera, m_LastCamera);           
         }
     }
 
-    public void SetActiveCamera(int currentCam, int lastCam)
+    public void SetActiveCamera(GameObject currentCam, GameObject lastCam)
     {
-        m_PhotonView.RPC("RPCActiveCamera", PhotonTargets.All, currentCam, lastCam);
+        m_PhotonView.RPC("RPCActiveCamera", 
+            PhotonTargets.All, 
+            m_CameraGroups[currentCam.GetComponent<HackableCamera>().CameraGroup()].IndexOf(currentCam) ,
+            currentCam.GetComponent<HackableCamera>().CameraGroup(),
+            m_CameraGroups[lastCam.GetComponent<HackableCamera>().CameraGroup()].IndexOf(lastCam),
+            lastCam.GetComponent<HackableCamera>().CameraGroup());
 
-        m_CameraObjects[lastCam].GetComponentInChildren<Camera>().enabled = false;
-        m_CameraObjects[lastCam].GetComponent<CameraMovement>().enabled = false;
-        m_CameraObjects[lastCam].GetComponentInChildren<IntelligenceAction>().enabled = false;
-        m_CameraObjects[lastCam].GetComponent<AudioListener>().enabled = false;
-
-        m_CameraObjects[currentCam].GetComponentInChildren<Camera>().enabled = true;
-        m_CameraObjects[currentCam].GetComponent<CameraMovement>().enabled = true;
-        m_CameraObjects[currentCam].GetComponentInChildren<IntelligenceAction>().enabled = true;
-        m_CameraObjects[currentCam].GetComponent<AudioListener>().enabled = true;
+        lastCam.GetComponentInChildren<Camera>().enabled = false;
+        lastCam.GetComponent<CameraMovement>().enabled = false;
+        lastCam.GetComponentInChildren<IntelligenceAction>().enabled = false;
+        lastCam.GetComponent<AudioListener>().enabled = false;
+        _CurrentCam = currentCam;
+        currentCam.GetComponentInChildren<Camera>().enabled = true;
+        currentCam.GetComponent<CameraMovement>().enabled = true;
+        currentCam.GetComponentInChildren<IntelligenceAction>().enabled = true;
+        currentCam.GetComponent<AudioListener>().enabled = true;
 
         m_LastCamera = currentCam;
     }
 
     [PunRPC]
-    void RPCActiveCamera(int currentCam, int lastCam)
+    void RPCActiveCamera(int currentCamIndex, string currentCamGroup, int lastCamIndex, string lastCamGroup)
     {
-        m_CameraObjects[lastCam].GetComponent<Renderer>().material.color = Color.white;
+        m_CameraGroups[lastCamGroup][lastCamIndex].GetComponent<Renderer>().material.color = Color.white;
 
-        m_CameraObjects[currentCam].GetComponent<Renderer>().material.color = Color.red;
+        m_CameraGroups[currentCamGroup][currentCamIndex].GetComponent<Renderer>().material.color = Color.red;
     }
 
-    public void AddToCameraList(GameObject cameraToAdd)
+    public void AddToCameraList(GameObject cameraToAdd, string cameraGroup)
     {
         if(m_IsIntelligence)
         {
+            if (!m_CameraGroups.ContainsKey(cameraGroup))
+            {
+                m_CameraGroups.Add(cameraGroup, new List<GameObject>());
+            }
+            m_CameraGroups[cameraGroup].Add(cameraToAdd);
             m_CameraObjects.Add(cameraToAdd);
             m_PhotonView.RPC("RPCAddCamera", PhotonTargets.Others, cameraToAdd.GetPhotonView().instantiationId);
 
-            m_CameraObjects[m_CameraObjects.Count - 1].GetComponent<PhotonView>().RequestOwnership();
+            cameraToAdd.GetComponent<PhotonView>().RequestOwnership();
 
-            TakeControl(cameraToAdd);
+            TakeControl(cameraToAdd, cameraGroup);
         }
     }
 
@@ -84,14 +100,29 @@ public class CamerasController : MonoBehaviour
         }
     }
 
-    public bool ContaintCamera(GameObject camera)
+    public bool ContaintCamera(GameObject camera, string cameraGroup)
     {
         return m_CameraObjects.Contains(camera);
     }
 
-    public void TakeControl(GameObject camera)
+    public void TakeControl(GameObject camera, string cameraGroup)
     {
-        SetActiveCamera(m_CameraObjects.IndexOf(camera), m_LastCamera);
+        SetActiveCamera(camera, m_LastCamera);
         _AudioSource.Play();
+    }
+
+    public List<string> GetCameraGroupList()
+    {
+        return new List<string>(m_CameraGroups.Keys);
+    }
+
+    public List<GameObject> GetGroupCameras(string group)
+    {
+        return m_CameraGroups[group];
+    }
+
+    public GameObject GetActiveCamera()
+    {
+        return _CurrentCam;
     }
 }
