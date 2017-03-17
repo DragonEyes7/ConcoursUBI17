@@ -22,7 +22,7 @@ public class HackableCamera : Interactive
         return m_CameraGroup;
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (!m_IsActivated && !m_IsSelected)
         {
