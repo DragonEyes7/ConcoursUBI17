@@ -87,6 +87,8 @@ public class NPCManager : MonoBehaviour {
                 npc = PhotonNetwork.Instantiate(NPC_Prefab.name, pos, new Quaternion(), 0);             
             }
 
+            npc.GetComponent<NPCWalkScript>().enabled = true;
+            npc.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
             npc.GetComponent<NPCWalkScript>().NPCID = i;
 
             NPCCharacteristics NPCC = npc.GetComponent<NPCCharacteristics>();

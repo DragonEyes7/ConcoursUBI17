@@ -312,10 +312,10 @@ GameObject:
   - component: {fileID: 54609681472278500}
   - component: {fileID: 114563762375389448}
   - component: {fileID: 114404923200456598}
-  - component: {fileID: 114075913150295424}
   - component: {fileID: 114705552164822562}
   - component: {fileID: 82264094560495488}
   - component: {fileID: 95803802412004904}
+  - component: {fileID: 114718145778335146}
   m_Layer: 8
   m_Name: UTarget
   m_TagString: Untagged
@@ -1723,18 +1723,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114075913150295424
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1333600672571158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SmoothingDelay: 5
 --- !u!114 &114113211488719608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1758,7 +1746,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333600672571158}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc6bb8e184a803b43a311297179c793c, type: 3}
   m_Name: 
@@ -1804,7 +1792,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114075913150295424}
+  - {fileID: 114718145778335146}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1819,6 +1807,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbc50814bb280494a8317d5279399a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114718145778335146
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1333600672571158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ab7e837e044814c90dbcd98c5f9498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135923037184079244
@@ -1915,7 +1914,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333600672571158}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.25
   m_Speed: 3.5
   m_Acceleration: 8

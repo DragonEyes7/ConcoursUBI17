@@ -17,7 +17,11 @@ public class CameraMenuUI : MonoBehaviour {
         _cameraController = FindObjectOfType<CamerasController>();
         _textAreas = GetComponentsInChildren<Text>();
         _currentCam = _cameraController.GetActiveCamera();
-        _currentCam.GetComponent<CameraMovement>().enabled = false;
+        if (_currentCam)
+        {
+            _currentCam.GetComponent<CameraMovement>().enabled = false;
+        }
+        
         foreach (Transform child in transform)
         {
             if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
@@ -35,7 +39,10 @@ public class CameraMenuUI : MonoBehaviour {
 
     private void OnDisable()
     {
-        _currentCam.GetComponent<CameraMovement>().enabled = true;
+        if(_currentCam)
+        {
+            _currentCam.GetComponent<CameraMovement>().enabled = true;
+        }        
     }
 
     private IEnumerator ReadInput()

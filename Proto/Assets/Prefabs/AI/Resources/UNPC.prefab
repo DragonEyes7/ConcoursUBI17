@@ -57,10 +57,10 @@ GameObject:
   - component: {fileID: 135359156343676866}
   - component: {fileID: 54564920294249406}
   - component: {fileID: 114111721896582462}
-  - component: {fileID: 114398302655360826}
   - component: {fileID: 114714002092133562}
   - component: {fileID: 82271178669773604}
   - component: {fileID: 95911068417183458}
+  - component: {fileID: 114713150599700416}
   m_Layer: 8
   m_Name: UNPC
   m_TagString: Untagged
@@ -1743,7 +1743,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 114398302655360826}
+  - {fileID: 114713150599700416}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1767,25 +1767,13 @@ MonoBehaviour:
   HatMaterial: {fileID: 0}
   AccessoryMaterial: {fileID: 0}
   FacialMaterial: {fileID: 0}
---- !u!114 &114398302655360826
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1070390693172202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SmoothingDelay: 5
 --- !u!114 &114654098568020268
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070390693172202}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 358193fb51d26804b83aae3df04bb21a, type: 3}
   m_Name: 
@@ -1793,6 +1781,17 @@ MonoBehaviour:
   Destination: {fileID: 0}
   Location: {fileID: 0}
   NPCID: 0
+--- !u!114 &114713150599700416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070390693172202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ab7e837e044814c90dbcd98c5f9498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114714002092133562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1915,7 +1914,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1070390693172202}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.25
   m_Speed: 2
   m_Acceleration: 8

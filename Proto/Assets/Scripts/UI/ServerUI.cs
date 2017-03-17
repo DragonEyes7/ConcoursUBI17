@@ -6,7 +6,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class ServerUI : MonoBehaviour
 {
-    [SerializeField]InputField m_LevelToLoad;
+    [SerializeField]Text m_LevelToLoad;
     [SerializeField]InputField m_ServerNameField;
     [SerializeField]RectTransform m_ServerList;
     List<GameObject> m_ServerButtons = new List<GameObject>();

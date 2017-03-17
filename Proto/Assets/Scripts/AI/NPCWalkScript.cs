@@ -28,20 +28,14 @@ public class NPCWalkScript : MonoBehaviour {
 
     void Update()
     {
-        if (!agent) return;
         if(agent.remainingDistance > 0)
         {
-            _Animator.SetFloat("Speed", 1);
             IdleBreakReset();
         }
-        else
+        else if(!_IdleBreak)
         {
-            _Animator.SetFloat("Speed", 0);
-            if (!_IdleBreak)
-            {
-                _IdleBreak = true;
-                Invoke("IdleBreak", Random.Range(2, 5));
-            }
+            _IdleBreak = true;
+            Invoke("IdleBreak", Random.Range(2, 5));
         }
     }
 
@@ -96,3 +90,37 @@ public class NPCWalkScript : MonoBehaviour {
     }
 }
 
+
+﻿using Assets;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class NPCWalkScript : MonoBehaviour {
+
+    public Transform Destination;
+    public Transform Location;
+    private ScheduleNPC NPCSchedule;
+    public int NPCID = 0;
+
+    Animator _Animator;
+    Rigidbody _Rigidbody;
+    bool _IdleBreak = false;
+
+    protected NavMeshAgent agent;
+    
+    public virtual void setSchedule(ScheduleNPC Schedule)
+    {
+        NPCSchedule = Schedule;
+    }
+
+    void OnEnable()
+    {
+        _Animator = GetComponent<Animator>();
+        _Rigidbody = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = true;
+    }
+
+        if (!agent) return;
+        _Animator.SetFloat("Speed", agent.velocity.magnitude);
+        if(agent.velocity.normalized.magnitude > 0)
