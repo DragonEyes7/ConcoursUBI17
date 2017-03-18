@@ -138,7 +138,6 @@ public class CameraFollow : MonoBehaviour
             #endregion
 
             #region Visible obstacle
-            //Set Object visible or not.
             RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, Vector3.Distance(m_PlayerFollow.transform.position, transform.position));
             Debug.DrawLine(transform.position, m_PlayerFollow.transform.position, Color.red);
             bool toDelete = true;
