@@ -39,12 +39,12 @@ public class CamerasController : MonoBehaviour
 
     public void SetActiveCamera(GameObject currentCam, GameObject lastCam)
     {
-        m_PhotonView.RPC("RPCActiveCamera", 
-            PhotonTargets.All, 
-            m_CameraGroups[currentCam.GetComponent<HackableCamera>().CameraGroup()].IndexOf(currentCam) ,
-            currentCam.GetComponent<HackableCamera>().CameraGroup(),
-            m_CameraGroups[lastCam.GetComponent<HackableCamera>().CameraGroup()].IndexOf(lastCam),
-            lastCam.GetComponent<HackableCamera>().CameraGroup());
+        m_PhotonView.RPC("RPCActiveCamera"
+            , PhotonTargets.All
+            , m_CameraGroups[currentCam.GetComponent<HackableCamera>().CameraGroup()].IndexOf(currentCam)
+            , currentCam.GetComponent<HackableCamera>().CameraGroup()
+            , m_CameraGroups[lastCam.GetComponent<HackableCamera>().CameraGroup()].IndexOf(lastCam)
+            , lastCam.GetComponent<HackableCamera>().CameraGroup());
 
         lastCam.GetComponentInChildren<Camera>().enabled = false;
         lastCam.GetComponent<CameraMovement>().enabled = false;
