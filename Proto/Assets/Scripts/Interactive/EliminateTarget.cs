@@ -30,8 +30,8 @@ public class EliminateTarget : Interactive
                     _AudioSource.clip = _PushClips[Random.Range(0, _PushClips.Length)];
                     _AudioSource.Play();
                 }
-                m_HUD.ShowActionPrompt("Intercept");
-                m_Action.SetInteract(true);
+                m_HUD.ShowIntercepPrompt("Intercept");
+                m_Action.SetIntercept(true);
                 m_Action.SetInteractionObject(this);
             }
         }
@@ -40,17 +40,14 @@ public class EliminateTarget : Interactive
     void OnTriggerExit(Collider other)
     {
         m_Action = other.GetComponent<AgentActions>();
-        if (m_Action)
+        if (m_Action && m_Action.enabled)
         {
-            if(m_Action.enabled)
-            {
-                m_HUD.HideActionPrompt();
-                m_Action.SetInteract(false);
-            }
+            m_HUD.HideInterceptPrompt();
+            m_Action.SetIntercept(false);
         }
     }
 
-    public override void Interact()
+    public override void Intercept()
     {
         m_GameManager.ValidateTarget(GetComponent<NPCWalkScript>().NPCID);
         string msg;
@@ -69,6 +66,11 @@ public class EliminateTarget : Interactive
             msg = "Wrong Target, penality +1";
             m_PhotonView.RPC("RPCWrongTargetMessage", PhotonTargets.All, msg, 5f);
         }
+    }
+
+    public override void Interact()
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void MoveObject()

@@ -14,6 +14,7 @@ public class ClockUI : MonoBehaviour
     private float _curTime, _prevTime;
     private PhotonView _photonView;
     private bool _isFirst = true;
+    private static float _minuteToRewind;
 
     private void OnEnable()
     {
@@ -37,7 +38,7 @@ public class ClockUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if(!_isFirst)_photonView.RPC("RPCStartTime", PhotonTargets.All);
+        if(!_isFirst && PhotonNetwork.connected)_photonView.RPC("RPCStartTime", PhotonTargets.All);
         _isFirst = false;
         InputMode.isInMenu = false;
     }
@@ -53,7 +54,7 @@ public class ClockUI : MonoBehaviour
         {
             _prevTime = _curTime;
             ExecuteTimeRewind();
-            gameObject.SetActive(false);
+            Toggle();
         }
         _curTime = TuneMinutes(-Input.GetAxisRaw("DPadY"), (int)_curTime/60) +
                    TuneSeconds(-Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), (int)_curTime % 60);
@@ -71,7 +72,10 @@ public class ClockUI : MonoBehaviour
 
     private static float TuneMinutes(float y, int currentMinutes)
     {
-        var minutes = (currentMinutes + y) * 60;
+        _minuteToRewind += y / 5;
+        if (!(-1f >= _minuteToRewind || _minuteToRewind >= 1f)) return currentMinutes * 60;
+        var minutes = (currentMinutes +(float)Math.Floor(_minuteToRewind)) * 60;
+        _minuteToRewind = 0;
         return minutes < 0 ? 0 : minutes;
     }
 
