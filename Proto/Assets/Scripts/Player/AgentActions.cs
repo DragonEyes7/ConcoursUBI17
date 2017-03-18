@@ -5,6 +5,7 @@ public class AgentActions : Action
     MainRecorder m_Recorder;
     MovementPlayer _MovementPlayer;
     PhotonView _PhotonView;
+    bool _FromIntecept = false;
 
     new void Start()
     {
@@ -18,15 +19,22 @@ public class AgentActions : Action
     {
         if (m_Interact && Input.GetButtonDown("Action") && m_Recorder.IsRecording)
         {
-            _MovementPlayer.CantMove();
-            transform.LookAt(new Vector3(m_Interactive.transform.position.x, transform.position.y, m_Interactive.transform.position.z));
-            _PhotonView.RPC("RPCInteract", PhotonTargets.All);
+            InteractStart();
+            _FromIntecept = false;
         }
+
         if (_intercept && Input.GetButtonDown("Uplink") && m_Recorder.IsRecording)
         {
-            m_Interactive.Intercept();
-            _intercept = false;
+            InteractStart();
+            _FromIntecept = true;
         }
+    }
+
+    void InteractStart()
+    {
+        _MovementPlayer.CantMove();
+        transform.LookAt(new Vector3(m_Interactive.transform.position.x, transform.position.y, m_Interactive.transform.position.z));
+        _PhotonView.RPC("RPCInteract", PhotonTargets.All);
     }
 
     [PunRPC]
@@ -38,7 +46,9 @@ public class AgentActions : Action
     public void Interact()
     {
         if (!m_Interactive) return;
-        m_Interactive.Interact();
+        if (_FromIntecept) m_Interactive.Intercept();
+        else m_Interactive.Interact();
         m_Interact = false;
+        _intercept = false;
     }
 }

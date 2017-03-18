@@ -27,8 +27,7 @@ public class EliminateTarget : Interactive
             {
                 if(Vector3.Distance(other.transform.position, transform.position) <= 0.5f)
                 {
-                    _AudioSource.clip = _PushClips[Random.Range(0, _PushClips.Length)];
-                    _AudioSource.Play();
+                    m_PhotonView.RPC("Push", PhotonTargets.All);
                 }
                 m_HUD.ShowIntercepPrompt("Intercept");
                 m_Action.SetIntercept(true);
@@ -53,9 +52,6 @@ public class EliminateTarget : Interactive
         string msg;
         if (m_GameManager.ObjectivesCompleted())
         {
-            _AudioSource.clip = _WinningClip;
-            _AudioSource.spatialBlend = 0;
-            _AudioSource.Play();
             msg = "Mission Successfull";
             m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
@@ -95,6 +91,10 @@ public class EliminateTarget : Interactive
     [PunRPC]
     void RPCInteract(string msg, float duration)
     {
+        _AudioSource.clip = _WinningClip;
+        _AudioSource.spatialBlend = 0;
+        _AudioSource.Play();
+
         m_HUD.ShowVictoryMessage(msg);
 
         if (m_GameManager.isMaster)
@@ -106,6 +106,13 @@ public class EliminateTarget : Interactive
         m_GameManager.SetGameCompleted(true);
 
         Invoke("Disconnect", duration + 1f);
+    }
+
+    [PunRPC]
+    void Push()
+    {
+        _AudioSource.clip = _PushClips[Random.Range(0, _PushClips.Length)];
+        _AudioSource.Play();
     }
 
     void Disconnect()
