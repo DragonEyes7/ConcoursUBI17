@@ -35,14 +35,18 @@ public class Leaderboard
             _scores.Add(newScore);
             return;
         }
+        var inserted = false;
         //This should keep the list ordered
         for (var i = 0; i < _scores.Count; i++)
         {
             var score = _scores[i];
             if (score.Time < newScore.Time) continue;
             _scores.Insert(i, newScore);
+            inserted = true;
             break;
         }
+        //If we don't yet have 10 scores and this one is the highest one, insert at the end
+        if(!inserted && _scores.Count < 10)_scores.Insert(_scores.Count, newScore);
     }
 
     public void Save()
