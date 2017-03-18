@@ -217,6 +217,7 @@ public class HUD : MonoBehaviour
     public void GameEndedSuccessfully()
     {
         m_TimeController.SaveTime();
+        m_TimeController.isPlaying = false;
     }
 
     public void WrongTargetIntercepted()
