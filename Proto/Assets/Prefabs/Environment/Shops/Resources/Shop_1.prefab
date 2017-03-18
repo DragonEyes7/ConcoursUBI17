@@ -40169,7 +40169,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -46307,7 +46307,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -49841,7 +49841,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -53995,7 +53995,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -55886,7 +55886,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -56971,7 +56971,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -61249,7 +61249,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -62613,7 +62613,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f0c2a40129198814386dbb76690a41ca, type: 2}
+  - {fileID: 2100000, guid: 2c0c91947c7b9304cab0fdb97b609954, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80531,15 +80531,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20578476772805964}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: 5
-  m_YMax: 60
-  m_XMin: -170
-  m_XMax: -10
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114112936116580802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80551,15 +80551,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114113022606942436
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80571,15 +80571,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114132574913893866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80833,15 +80833,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20146958966472020}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -15
-  m_YMax: 30
-  m_XMin: 90
-  m_XMax: 245
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114296330257629008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80981,15 +80981,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114452578598653216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81027,15 +81027,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114476410232466792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81272,15 +81272,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20635331972913450}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: 0
-  m_YMax: 60
-  m_XMin: -170
-  m_XMax: -10
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114711753741840804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81393,15 +81393,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20244644378382958}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: 0
-  m_YMax: 60
-  m_XMin: -170
-  m_XMax: -10
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114798276700776772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81413,15 +81413,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114852859119612460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81511,15 +81511,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20045909302671350}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: 0
-  m_YMax: 60
-  m_XMin: -170
-  m_XMax: -10
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114929941746636714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81557,15 +81557,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20432037494944704}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -15
-  m_YMax: 30
-  m_XMin: 90
-  m_XMax: 290
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114941338928709810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81577,15 +81577,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 0}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: -40
-  m_YMax: 90
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114942652396791014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81691,15 +81691,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20008359985920714}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: 0
-  m_YMax: 60
-  m_XMin: -170
-  m_XMax: -10
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!114 &114988269461696456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81711,15 +81711,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 20466009169323568}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.01
-  m_YMin: 0
-  m_YMax: 60
-  m_XMin: -170
-  m_XMax: -10
-  m_YLock: 1
-  m_XLock: 1
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 1
 --- !u!135 &135196074257610904
 SphereCollider:
   m_ObjectHideFlags: 1
