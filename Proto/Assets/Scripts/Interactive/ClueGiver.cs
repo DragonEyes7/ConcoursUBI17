@@ -116,6 +116,7 @@ public class ClueGiver : Interactive
             }
             m_HUD.BlinkUplink();
             _hasClue = true;
+            m_PhotonView.RPC("StopBlinking", PhotonTargets.All);
         }
         else if (PhotonNetwork.isMasterClient)
         {
@@ -135,6 +136,12 @@ public class ClueGiver : Interactive
     void RPCSetHasUSB(bool hasUSB)
     {
         _hasUSB = hasUSB;
+    }
+
+    [PunRPC]
+    void StopBlinking()
+    {
+        GetComponentInChildren<Blinker>().Interacted();
     }
 
     bool hasUSB()

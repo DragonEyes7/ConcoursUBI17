@@ -76,10 +76,16 @@ public class Terminal : Interactive
         {
             door.Unlock();
         }
-
+        GetComponent<PhotonView>().RPC("StopBlinking", PhotonTargets.All);
         m_IsActivated = true;
         _AudioSource.Play();
         if (m_Action)UnSelect(m_Action);
+    }
+
+    [PunRPC]
+    void StopBlinking()
+    {
+        GetComponentInChildren<Blinker>().Interacted();
     }
 
     public void SetDoors(Door[] doors)
