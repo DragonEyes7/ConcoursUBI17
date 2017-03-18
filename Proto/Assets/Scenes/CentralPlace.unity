@@ -458,6 +458,36 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114468344923280984, guid: d157dbd247285d84186abb83e7326f96,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114941338928709810, guid: d157dbd247285d84186abb83e7326f96,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436796863278300, guid: d157dbd247285d84186abb83e7326f96,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114113022606942436, guid: d157dbd247285d84186abb83e7326f96,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114112936116580802, guid: d157dbd247285d84186abb83e7326f96,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114798276700776772, guid: d157dbd247285d84186abb83e7326f96,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d157dbd247285d84186abb83e7326f96, type: 2}
   m_IsPrefabParent: 0
@@ -2060,15 +2090,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 1142971189}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.4
-  m_YMin: -50
-  m_YMax: 20
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 0
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 0
 --- !u!114 &141494836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2265,6 +2295,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -2810,15 +2845,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 1402953952}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.4
-  m_YMin: -50
-  m_YMax: 20
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 0
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 0
 --- !u!114 &181530581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3108,6 +3143,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -4089,15 +4129,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 86979697}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.4
-  m_YMin: -50
-  m_YMax: 20
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 0
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 0
 --- !u!114 &290490056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4783,6 +4823,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -5036,6 +5081,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -6436,15 +6486,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 543338136}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.4
-  m_YMin: -50
-  m_YMax: 20
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 0
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 0
 --- !u!114 &540729373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6870,6 +6920,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -7110,6 +7165,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -7343,6 +7403,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -7853,6 +7918,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -8340,6 +8410,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -8592,6 +8667,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -8897,6 +8977,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -11222,6 +11307,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -11410,6 +11500,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -11807,6 +11902,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -12310,6 +12410,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -12998,6 +13103,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -13528,6 +13638,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -14085,6 +14200,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -14649,6 +14769,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -15438,6 +15563,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -17225,6 +17355,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -18175,6 +18310,11 @@ Prefab:
       propertyPath: m_Size.z
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
   m_IsPrefabParent: 0
@@ -18580,15 +18720,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5e6232f69271e4483f529400f49c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Camera: {fileID: 27437375}
-  m_ZoomLimit: 4
-  m_ZoomSpeed: 0.4
-  m_YMin: -50
-  m_YMax: 20
-  m_XMin: -90
-  m_XMax: 2
-  m_YLock: 1
-  m_XLock: 0
+  _CameraSpeed: 50
+  _ZoomLimit: 30
+  _ZoomSpeed: 50
+  _YMin: -40
+  _YMax: 50
+  _XMin: 0
+  _XMax: 0
+  _YLock: 1
+  _XLock: 0
 --- !u!114 &2097513955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18991,6 +19131,11 @@ Prefab:
         type: 2}
       propertyPath: m_Size.z
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XLock
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
