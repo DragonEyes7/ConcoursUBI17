@@ -55,6 +55,7 @@ public abstract class Interactive : MonoBehaviour
     }
 
     public abstract void Interact();
+    public virtual void Intercept(){}
 
     public abstract void MoveObject();
     public abstract void ResetObject();
