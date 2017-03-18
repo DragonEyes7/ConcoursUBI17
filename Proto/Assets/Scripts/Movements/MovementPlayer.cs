@@ -14,6 +14,7 @@ public class MovementPlayer : Movement
 
     bool _IsPaused = true;
     bool _IdleBreak = false;
+    bool _CanMove = true;
 
     public bool isPaused
     {
@@ -31,7 +32,7 @@ public class MovementPlayer : Movement
 	
 	void FixedUpdate()
     {
-        if(m_Recorder.IsRecording)
+        if(m_Recorder.IsRecording && _CanMove)
         {
             m_Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (m_Input.magnitude > 0)
@@ -118,5 +119,17 @@ public class MovementPlayer : Movement
     {
         CancelInvoke("IdleBreak");
         _IdleBreak = false;
+    }
+
+    public void CantMove()
+    {
+        _CanMove = false;
+    }
+
+    public void CanMove()
+    {
+        if (!_Animator) return;
+        _Animator.SetBool("Interact", false);
+        _CanMove = true;
     }
 }

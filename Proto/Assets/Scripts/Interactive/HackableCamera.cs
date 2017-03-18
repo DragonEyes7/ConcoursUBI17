@@ -49,6 +49,26 @@ public class HackableCamera : Interactive
                 }
             }
         }
+        else if(m_IsSelected)
+        {
+
+            RaycastHit hit;
+
+            Vector3 direction = m_Action.GetCenterCam().position - transform.position;
+
+            if (Physics.Raycast(transform.position, direction, out hit, 50f, m_Layer))
+            {
+                Debug.DrawRay(transform.position, direction, Color.red, 5f);
+                if (hit.transform != m_Action.GetCenterCam().transform)
+                {
+                    UnSelect();
+                    m_HUD.HideActionPrompt();
+                    if (!m_Action) return;
+                    m_Action.SetInteract(false);
+                    m_Action.SetInteractionObject(null);
+                }
+            }
+        }
     }
 
     void OnTriggerExit(Collider other)

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class HUD : MonoBehaviour
 {
     [SerializeField]RectTransform m_ActionPrompt;
+    [SerializeField]RectTransform _interceptPrompt;
     [SerializeField]Text m_Messages;
     [SerializeField]Text _VictoryMessage;
     [SerializeField]Text m_Timer;
@@ -27,6 +28,7 @@ public class HUD : MonoBehaviour
     {
         m_Messages.gameObject.SetActive(false);
         m_ActionPrompt.gameObject.SetActive(false);
+        _interceptPrompt.gameObject.SetActive(false);
         _clockUI.gameObject.SetActive(false);
         _cameraSelectionUI.gameObject.SetActive(false);
         _CluesPrint.gameObject.SetActive(false);
@@ -161,11 +163,25 @@ public class HUD : MonoBehaviour
         m_ActionPrompt.gameObject.SetActive(true);
     }
 
+    public void ShowIntercepPrompt(string message)
+    {
+        _interceptPrompt.GetComponentInChildren<Text>().text = message;
+        _interceptPrompt.gameObject.SetActive(true);
+    }
+
     public void HideActionPrompt()
     {
         if (m_ActionPrompt.gameObject.activeSelf)
         {
             m_ActionPrompt.gameObject.SetActive(false);
+        }
+    }
+
+    public void HideInterceptPrompt()
+    {
+        if (_interceptPrompt.gameObject.activeSelf)
+        {
+            _interceptPrompt.gameObject.SetActive(false);
         }
     }
 
