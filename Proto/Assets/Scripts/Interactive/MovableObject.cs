@@ -88,7 +88,7 @@ public class MovableObject : Interactive
             {
                 if (_previousAction.enabled)
                 {
-                    m_HUD.ShowActionPrompt("Move Chair");
+                    m_HUD.ShowActionPrompt("Move Object");
                     _previousAction.SetInteract(true);
                     _previousAction.SetInteractionObject(this);
                     Select();

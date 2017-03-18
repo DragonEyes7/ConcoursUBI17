@@ -17,5 +17,10 @@ public class AgentActions : Action
             m_Interactive.Interact();
             m_Interact = false;
         }
+        if (_intercept && Input.GetButtonDown("Uplink") && m_Recorder.IsRecording)
+        {
+            m_Interactive.Intercept();
+            _intercept = false;
+        }
     }
 }
