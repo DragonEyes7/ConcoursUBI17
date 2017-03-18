@@ -8469,7 +8469,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1813034787013140, guid: 7154b075b35a1304691e2040c463154c, type: 2}
       propertyPath: m_Name
-      value: S3_!CamMaster2
+      value: S3_!Cam2
       objectReference: {fileID: 0}
     - target: {fileID: 1813034787013140, guid: 7154b075b35a1304691e2040c463154c, type: 2}
       propertyPath: m_IsActive
@@ -8512,7 +8512,7 @@ Prefab:
     - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
         type: 2}
       propertyPath: _XLock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
         type: 2}
@@ -8523,6 +8523,11 @@ Prefab:
         type: 2}
       propertyPath: _YMax
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XMax
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
@@ -11256,7 +11261,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1813034787013140, guid: 7154b075b35a1304691e2040c463154c, type: 2}
       propertyPath: m_Name
-      value: S3_!CamMaster1
+      value: S3_!Cam1
       objectReference: {fileID: 0}
     - target: {fileID: 1813034787013140, guid: 7154b075b35a1304691e2040c463154c, type: 2}
       propertyPath: m_IsActive
@@ -11299,7 +11304,7 @@ Prefab:
     - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
         type: 2}
       propertyPath: _XLock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
         type: 2}
@@ -11310,6 +11315,16 @@ Prefab:
         type: 2}
       propertyPath: _YMax
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XMin
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762342233956590, guid: 7154b075b35a1304691e2040c463154c,
+        type: 2}
+      propertyPath: _XMax
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7154b075b35a1304691e2040c463154c, type: 2}
