@@ -22,7 +22,6 @@ public class NetworkSyncCamera : Photon.MonoBehaviour
         {
             if (Vector3.Distance(transform.rotation.eulerAngles, m_RotationSync.eulerAngles) > 2f && !_IsMoving)
             {
-                Debug.Log(Vector3.Distance(transform.rotation.eulerAngles, m_RotationSync.eulerAngles));
                 AS_Move.Play();
                 AS_ServoStop.Stop();
                 _IsMoving = true;

@@ -91,14 +91,7 @@ public class HackableCamera : Interactive
 
     public override void Interact()
     {
-        if(!m_CamerasController.ContaintCamera(gameObject, m_CameraGroup))
-        {
-            m_CamerasController.AddToCameraList(gameObject, m_CameraGroup);
-        }
-        else
-        {
-            m_CamerasController.TakeControl(gameObject, m_CameraGroup);
-        }
+        m_CamerasController.TakeControl(gameObject, m_CameraGroup);
 
         UnSelect();
 

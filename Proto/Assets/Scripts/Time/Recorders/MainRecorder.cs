@@ -4,6 +4,7 @@ public class MainRecorder : MonoBehaviour
 {
     [SerializeField] private TimeController _timeController;
     [SerializeField] private GameObject _rewindPrompt;
+    [SerializeField] private float _rewindPromptTime = 30f;
     private int _time;
     private bool _isRecording = true;
     private PhotonView _photonView;
@@ -41,7 +42,7 @@ public class MainRecorder : MonoBehaviour
             OnTick.Execute(time);
         }
         _time = time;
-        if (PhotonNetwork.isMasterClient && _timeController.maxTime - time <= 10 && !_hasRewinded)
+        if (PhotonNetwork.isMasterClient && _timeController.maxTime - time <= _rewindPromptTime && !_hasRewinded)
         {
             ShowRewindPrompt();
         }
