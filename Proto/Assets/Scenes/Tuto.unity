@@ -5226,8 +5226,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -240.25, y: -112}
-  m_SizeDelta: {x: 480.5, y: 118}
+  m_AnchoredPosition: {x: -205, y: -118}
+  m_SizeDelta: {x: 409, y: 147}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &698997265
 MonoBehaviour:
@@ -5251,11 +5251,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: d958973a279964ff09f8edfffde39db1, type: 3}
-    m_FontSize: 14
+    m_FontSize: 70
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 100
+    m_BestFit: 0
+    m_MinSize: 50
+    m_MaxSize: 70
     m_Alignment: 2
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -10564,6 +10564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeController: {fileID: 535898803}
   _rewindPrompt: {fileID: 1919959001}
+  _rewindPromptTime: 30
 --- !u!4 &1383623512
 Transform:
   m_ObjectHideFlags: 0
@@ -16473,6 +16474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e4280ab05f754408509e28ca47bc82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _BGM: {fileID: 603230802}
   m_ActionPrompt: {fileID: 1455817488}
   _interceptPrompt: {fileID: 381884487}
   m_Messages: {fileID: 146101489}
