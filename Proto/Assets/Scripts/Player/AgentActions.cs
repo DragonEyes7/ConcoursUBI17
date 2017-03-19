@@ -45,6 +45,7 @@ public class AgentActions : Action
 
     public void Interact()
     {
+        GetComponent<AudioSource>().Play();
         if (!m_Interactive) return;
         if (_FromIntecept) m_Interactive.Intercept();
         else m_Interactive.Interact();
