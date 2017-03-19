@@ -19,9 +19,11 @@ public class EventObject : Interactive
     Quaternion _StartMovingRotation;
 
     InteractiveObjectRecorder _interactiveObjectRecorder;
+    AudioSource _AudioSource;
 
     new void Start()
     {
+        _AudioSource = GetComponent<AudioSource>();
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _MovePositions = new Vector3[m_PathToFollow.Length + 1];
         _MoveRotations = new Quaternion[m_PathToFollow.Length + 1];
@@ -86,6 +88,7 @@ public class EventObject : Interactive
     {
         StartMoving();
         m_IsActivated = true;
+        _AudioSource.Play();
     }
 
     void StartMoving()
