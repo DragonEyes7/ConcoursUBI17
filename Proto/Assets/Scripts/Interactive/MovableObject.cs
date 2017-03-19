@@ -2,25 +2,27 @@
 
 public class MovableObject : Interactive
 {
-    [SerializeField]Transform[] m_PathToFollow;
-    [SerializeField]bool _MoveMoreThanOnce;
-    [SerializeField]float _MovingSpeed = 0.003f;
+    [SerializeField]protected Transform[] m_PathToFollow;
+    [SerializeField]protected bool _MoveMoreThanOnce;
+    [SerializeField]protected float _MovingSpeed = 0.003f;
 
-    InteractiveObjectRecorder _interactiveObjectRecorder;
-    Action _previousAction;
-    AudioSource _AudioSource;
+    protected InteractiveObjectRecorder _interactiveObjectRecorder;
+    protected Action _previousAction;
+    protected AudioSource _AudioSource;
 
-    Vector3[] _MovePositions;
+    protected Vector3[] _MovePositions;
 
-    int m_CurrentPosition = 0;
+    protected int _NextPosition = 0;
 
-    float _StartMovingTime;
-    float _DistanceMovingLength;
-    Vector3 _StartMovingPosition;
+    protected float _StartMovingTime;
+    protected float _DistanceMovingLength;
+    protected Vector3 _StartMovingPosition;
+    protected PhotonView _PhotonView;
 
-    new void Start()
+    protected new void Start()
     {
         base.Start();
+        _PhotonView = GetComponent<PhotonView>();
         _AudioSource = GetComponent<AudioSource>();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
@@ -30,32 +32,30 @@ public class MovableObject : Interactive
         {
             _MovePositions[i] = m_PathToFollow[i - 1].position;
         }
+        ++_NextPosition;
     }
 
-    void Update()
+    protected void Update()
     {
-        if(m_IsActivated && m_CurrentPosition < _MovePositions.Length)
+        if (m_IsActivated && _NextPosition < _MovePositions.Length)
         {
             Move();
-        }
-        else if(!m_IsActivated && m_CurrentPosition != 0)
-        {
-            MoveBack();
         }
     }
 
     void Move()
     {
         float distCovered = (Time.time - _StartMovingTime) * _MovingSpeed;
-        float fracJourney = (_DistanceMovingLength != 0) ? distCovered / _DistanceMovingLength : 1;
-        transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[m_CurrentPosition], fracJourney);
+        float fracJourney = distCovered / _DistanceMovingLength;
+        transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[_NextPosition], fracJourney);
 
         if (fracJourney >= 0.99f)
         {
-            ++m_CurrentPosition;
-            if(m_CurrentPosition >= _MovePositions.Length)
+            ++_NextPosition;
+            StartMoving();
+            if (_NextPosition >= _MovePositions.Length)
             {
-                m_CurrentPosition = _MovePositions.Length - 1;
+                _NextPosition = _MoveMoreThanOnce ? _MovePositions.Length - 1 : _MovePositions.Length;
                 return;
             }
         }
@@ -64,24 +64,25 @@ public class MovableObject : Interactive
     void MoveBack()
     {
         float distCovered = (Time.time - _StartMovingTime) * _MovingSpeed;
-        float fracJourney = (_DistanceMovingLength != 0) ? distCovered / _DistanceMovingLength : 1;
-        transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[m_CurrentPosition], fracJourney);
+        float fracJourney = distCovered / _DistanceMovingLength;
+        transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[_NextPosition], fracJourney);
 
         if (fracJourney >= 0.99f)
         {
-            --m_CurrentPosition;
-            if (m_CurrentPosition < 0)
+            --_NextPosition;
+            StartMoving();
+            if (_NextPosition < 0)
             {
-                m_CurrentPosition = 0;
+                _NextPosition = 0;
                 m_IsActivated = false;
                 return;
             }
         }
     }
 
-    void OnTriggerStay(Collider other)
+    protected void OnTriggerStay(Collider other)
     {
-        if(!m_IsActivated || _MoveMoreThanOnce)
+        if (!m_IsActivated || _MoveMoreThanOnce)
         {
             _previousAction = other.GetComponent<AgentActions>();
             if (_previousAction)
@@ -95,9 +96,22 @@ public class MovableObject : Interactive
                 }
             }
         }
+        else if (m_IsActivated && !_MoveMoreThanOnce)
+        {
+            _previousAction = other.GetComponent<AgentActions>();
+            if (_previousAction)
+            {
+                if (_previousAction.enabled)
+                {
+                    m_HUD.HideActionPrompt();
+                    _previousAction.SetInteract(false);
+                    UnSelect();
+                }
+            }
+        }
     }
 
-    void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
         _previousAction = other.GetComponent<AgentActions>();
         if (_previousAction)
@@ -113,24 +127,34 @@ public class MovableObject : Interactive
 
     public override void Interact()
     {
-        if (_AudioSource.isPlaying)
-            return;
-        _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus(), _MoveMoreThanOnce);
+        _interactiveObjectRecorder.ObjectInteraction(true, _MoveMoreThanOnce);
     }
 
     public override void MoveObject()
     {
-        _StartMovingPosition = transform.position;
-        _DistanceMovingLength = Vector3.Distance(_MovePositions[m_CurrentPosition], _StartMovingPosition);
-        m_IsActivated = !m_IsActivated;
-        _StartMovingTime = Time.time;
+        //transform.position = _MovePositions[_MovePositions.Length - 1];
+        //m_CurrentPosition = _MovePositions.Length;  
+        //m_IsActivated = false;
+        if (_AudioSource.isPlaying)
+            return;
+
+        StartMoving();
         _AudioSource.Play();
+        m_IsActivated = true;
     }
 
     public override void ResetObject()
     {
         transform.position = _MovePositions[0];
         m_IsActivated = false;
-        m_CurrentPosition = 0;
+        _NextPosition = 1;
+    }
+
+    void StartMoving()
+    {
+        if (_NextPosition >= _MovePositions.Length) return;
+        _StartMovingPosition = transform.position;
+        _DistanceMovingLength = Vector3.Distance(_StartMovingPosition, _MovePositions[_NextPosition]);
+        _StartMovingTime = Time.time;
     }
 }
