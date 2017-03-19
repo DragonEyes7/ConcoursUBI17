@@ -79,8 +79,14 @@ public class Door : Interactive
         else
         {
             FindObjectOfType<HUD>().ShowMessages("Door is locked", 3f);
-            PlaySound(DoorSound.LOCK);
+            GetComponent<PhotonView>().RPC("RPCLock", PhotonTargets.All);            
         }
+    }
+
+    [PunRPC]
+    void RPCLock()
+    {
+        PlaySound(DoorSound.LOCK);
     }
 
     public override void MoveObject()
