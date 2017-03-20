@@ -14,6 +14,7 @@ public class CamerasController : MonoBehaviour
 
     bool m_IsIntelligence = false;
     int nbHack = 0;
+    float lastChange = 0;
 
     AudioSource _AudioSource;
 
@@ -22,6 +23,35 @@ public class CamerasController : MonoBehaviour
         _AudioSource = GetComponent<AudioSource>();
         m_PhotonView = GetComponent<PhotonView>();
         _cameraPrompt.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (!PhotonNetwork.isMasterClient && (Input.GetAxis("CameraSwap") != 0))
+        {
+            lastChange -= Time.deltaTime;
+            List<GameObject> cams = GetGroupCameras(_CurrentCam.GetComponent<HackableCamera>().CameraGroup());
+            if (cams.Count > 1 && lastChange <= 0)
+            {
+                Debug.Log(Input.GetAxis("CameraSwap"));
+                int currentIndex = cams.IndexOf(_CurrentCam);
+                GameObject nextCam = new GameObject();
+                if (Input.GetAxis("CameraSwap") < 0)
+                {
+                    //Previous Cam
+                    nextCam = (currentIndex > 0) ? cams[currentIndex - 1] : cams[cams.Count - 1];
+                }
+                else
+                {
+                    //Next Cam
+                    nextCam = (currentIndex < cams.Count - 1) ? cams[currentIndex + 1] : cams[0];
+                }
+
+                //Change camera
+                SetActiveCamera(nextCam, _CurrentCam);
+                lastChange = 0.1f;
+            }
+        }
     }
 
     public void SetIntelligence(bool value)

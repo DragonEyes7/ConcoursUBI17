@@ -8263,7 +8263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeController: {fileID: 535898803}
-  _rewindPrompt: {fileID: 1919959001}
+  _rewindPrompt: {fileID: 0}
   _rewindPromptTime: 30
 --- !u!4 &1383623512
 Transform:
@@ -8838,7 +8838,7 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
-  m_CameraGroup: Terminal
+  m_CameraGroup: Hall
 --- !u!135 &1449327660
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11912,11 +11912,6 @@ Transform:
   m_Father: {fileID: 1279331841}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1919959001 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1955890351027568, guid: 58f4b2f58033f6a4ebbfe7b0c103972b,
-    type: 2}
-  m_PrefabInternal: {fileID: 2110007152}
 --- !u!1001 &1933094982
 Prefab:
   m_ObjectHideFlags: 0
@@ -12900,6 +12895,16 @@ Prefab:
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114031894390404064, guid: 58f4b2f58033f6a4ebbfe7b0c103972b,
+        type: 2}
+      propertyPath: instantiationId
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272393275134676, guid: 58f4b2f58033f6a4ebbfe7b0c103972b,
+        type: 2}
+      propertyPath: viewIdField
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 114272393275134676, guid: 58f4b2f58033f6a4ebbfe7b0c103972b,
         type: 2}
       propertyPath: instantiationId
       value: 16
