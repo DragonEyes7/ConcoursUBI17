@@ -6,12 +6,14 @@ public class CamerasController : MonoBehaviour
     [SerializeField]Dictionary<string, List<GameObject>> m_CameraGroups = new Dictionary<string, List<GameObject>>();
     [SerializeField]Camera m_SceneCamera;
     PhotonView m_PhotonView;
+    [SerializeField]GameObject _cameraPrompt;
 
     public GameObject m_LastCamera;
 
     GameObject _CurrentCam;
 
     bool m_IsIntelligence = false;
+    int nbHack = 0;
 
     AudioSource _AudioSource;
 
@@ -19,6 +21,7 @@ public class CamerasController : MonoBehaviour
     {
         _AudioSource = GetComponent<AudioSource>();
         m_PhotonView = GetComponent<PhotonView>();
+        _cameraPrompt.SetActive(false);
     }
 
     public void SetIntelligence(bool value)
@@ -118,10 +121,35 @@ public class CamerasController : MonoBehaviour
         }
         SetActiveCamera(camera, m_LastCamera);
         _AudioSource.Play();
+
+        nbHack++;
+        if (!PhotonNetwork.isMasterClient && nbHack == 2)
+        {
+            ShowCameraPrompt();
+        }
+        /*
+        else
+        {
+            HideCameraPrompt();
+        }
+        */
+    }
+
+    private void ShowCameraPrompt()
+    {
+        if (_cameraPrompt)
+            _cameraPrompt.SetActive(true);
+    }
+
+    private void HideCameraPrompt()
+    {
+        if (_cameraPrompt)
+            _cameraPrompt.SetActive(false);
     }
 
     public List<string> GetCameraGroupList()
     {
+        HideCameraPrompt();
         return new List<string>(m_CameraGroups.Keys);
     }
 
