@@ -9,6 +9,7 @@ public class Blinker : MonoBehaviour
 	void Start ()
 	{
         _Light = GetComponent<Light>();
+        _Light.color = Color.red;
         InvokeRepeating("Blink", 0, _Speed);
 	}
 
@@ -28,7 +29,7 @@ public class Blinker : MonoBehaviour
 
     public void Interacted()
     {
-        _Light.color = Color.red;
+        _Light.color = Color.green;
         CancelInvoke("Blink");
     }
 }
