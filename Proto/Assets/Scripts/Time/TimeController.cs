@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimeController : MonoBehaviour
 {
     public MultipleDelegate Tick = new MultipleDelegate();
     public MultipleDelegate End = new MultipleDelegate();
-    [SerializeField] private string _filePath;
+    private string _filePath = "./";
     [SerializeField] private int _penalizePlayerOnWrongTarget = 20;
 
     int _Time, _maxTime = 30, _totalTime, _penalties = 0;
@@ -51,6 +52,7 @@ public class TimeController : MonoBehaviour
 
     public void SaveTime()
     {
+        _filePath += SceneManager.GetActiveScene().name + ".json";
         var leaderboard = new Leaderboard(_filePath);
         leaderboard.AddScore(new Score(PhotonNetwork.room.Name, _totalTime, _penalties));
         leaderboard.Save();
