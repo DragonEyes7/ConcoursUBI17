@@ -80,6 +80,7 @@ public class MovableEventObject : MovableObject
         transform.rotation = _MoveRotations[0];
         m_IsActivated = false;
         _NextPosition = 1;
+        _CurrentEvent = 0;
     }
 
     void StartMoving()

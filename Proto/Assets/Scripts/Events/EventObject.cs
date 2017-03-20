@@ -77,6 +77,7 @@ public class EventObject : Interactive
         transform.rotation = _MoveRotations[0];
         m_IsActivated = false;
         _NextPosition = 1;
+        _CurrentEvent = 0;
     }
 
     public override void Interact()
