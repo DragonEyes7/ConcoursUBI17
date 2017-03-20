@@ -33,7 +33,6 @@ public class CamerasController : MonoBehaviour
             List<GameObject> cams = GetGroupCameras(_CurrentCam.GetComponent<HackableCamera>().CameraGroup());
             if (cams.Count > 1 && lastChange <= 0)
             {
-                Debug.Log(Input.GetAxis("CameraSwap"));
                 int currentIndex = cams.IndexOf(_CurrentCam);
                 GameObject nextCam = new GameObject();
                 if (Input.GetAxis("CameraSwap") < 0)
