@@ -30,10 +30,12 @@ public class NPCWalkScript : MonoBehaviour {
     {
         if(agent.remainingDistance > 0)
         {
+            _Animator.SetFloat("Speed", 1);
             IdleBreakReset();
         }
         else if(!_IdleBreak)
         {
+            _Animator.SetFloat("Speed", 0);
             _IdleBreak = true;
             Invoke("IdleBreak", Random.Range(2, 5));
         }
@@ -58,7 +60,6 @@ public class NPCWalkScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider location)
     {
-        //Verify the NPC as reached the correct location
         if (location.transform == Destination)
         {
             Destination = location.GetComponentInParent<LocationInteraction>().GetLocation(NPCID);
@@ -89,39 +90,3 @@ public class NPCWalkScript : MonoBehaviour {
         _IdleBreak = false;
     }
 }
-
-/*
-as
-using UnityEngine;
-using UnityEngine.AI;
-
-public class NPCWalkScript : MonoBehaviour {
-
-    public Transform Destination;
-    public Transform Location;
-    private ScheduleNPC NPCSchedule;
-    public int NPCID = 0;
-
-    Animator _Animator;
-    Rigidbody _Rigidbody;
-    bool _IdleBreak = false;
-
-    protected NavMeshAgent agent;
-    
-    public virtual void setSchedule(ScheduleNPC Schedule)
-    {
-        NPCSchedule = Schedule;
-    }
-
-    void OnEnable()
-    {
-        _Animator = GetComponent<Animator>();
-        _Rigidbody = GetComponent<Rigidbody>();
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = true;
-    }
-
-        if (!agent) return;
-        _Animator.SetFloat("Speed", agent.velocity.magnitude);
-        if(agent.velocity.normalized.magnitude > 0)
-        */
