@@ -52,7 +52,7 @@ public class EliminateTarget : Interactive
         string msg;
         if (m_GameManager.ObjectivesCompleted())
         {
-            msg = "Mission Successfull";
+            msg = "Mission Successful";
             m_PhotonView.RPC("RPCInteract", PhotonTargets.All, msg, 5f);
             m_HUD.HideActionPrompt();
             UnSelect();
