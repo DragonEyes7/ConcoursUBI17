@@ -56,6 +56,22 @@ public class GameManager : MonoBehaviour
             }
 
             _HatList.Remove(m_TargetsCharacteristics["Hat"]);
+
+            GameObject[] FacialList = Resources.LoadAll<GameObject>("Facials");
+            foreach (GameObject fac in FacialList)
+            {
+                _FacialList.Add(fac.name);
+            }
+
+            _FacialList.Remove(m_TargetsCharacteristics["Facial"]);
+
+            GameObject[] AccList = Resources.LoadAll<GameObject>("Accessories");
+            foreach (GameObject acc in AccList)
+            {
+                _AccessoryList.Add(acc.name);
+            }
+
+            _AccessoryList.Remove(m_TargetsCharacteristics["Accessory"]);
         }
         else
         {
