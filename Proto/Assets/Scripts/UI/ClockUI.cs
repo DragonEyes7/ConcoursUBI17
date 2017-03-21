@@ -30,7 +30,6 @@ public class ClockUI : MonoBehaviour
         _arrow = clockTransform.FindChild("PivotArrow");
         _curTime = _prevTime = _timeController.Time;
         _totalTime = _timeController.MaxTime;
-        Debug.Log(_totalTime);
         UpdateClock(_curTime);
         StartCoroutine(ReadInput());
     }
