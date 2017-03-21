@@ -27,7 +27,7 @@ public class CamerasController : MonoBehaviour
 
     void Update()
     {
-        if (!PhotonNetwork.isMasterClient && (Input.GetAxis("CameraSwap") != 0))
+        if (!PhotonNetwork.isMasterClient && Input.GetAxis("DPadY") != 0)
         {
             lastChange -= Time.deltaTime;
             List<GameObject> cams = GetGroupCameras(_CurrentCam.GetComponent<HackableCamera>().CameraGroup());
@@ -35,20 +35,20 @@ public class CamerasController : MonoBehaviour
             {
                 int currentIndex = cams.IndexOf(_CurrentCam);
                 GameObject nextCam = new GameObject();
-                if (Input.GetAxis("CameraSwap") < 0)
+                if (Input.GetAxis("DPadY") < 0)
                 {
                     //Previous Cam
-                    nextCam = (currentIndex > 0) ? cams[currentIndex - 1] : cams[cams.Count - 1];
+                    nextCam = currentIndex > 0 ? cams[currentIndex - 1] : cams[cams.Count - 1];
                 }
                 else
                 {
                     //Next Cam
-                    nextCam = (currentIndex < cams.Count - 1) ? cams[currentIndex + 1] : cams[0];
+                    nextCam = currentIndex < cams.Count - 1 ? cams[currentIndex + 1] : cams[0];
                 }
 
                 //Change camera
                 SetActiveCamera(nextCam, _CurrentCam);
-                lastChange = 0.1f;
+                lastChange = 0.2f;
             }
         }
     }
@@ -190,5 +190,10 @@ public class CamerasController : MonoBehaviour
     public GameObject GetActiveCamera()
     {
         return _CurrentCam;
+    }
+
+    public void TogglePauseEffect()
+    {
+        GetActiveCamera().GetComponentInChildren<PauseEffectController>().TogglePauseEffect();
     }
 }

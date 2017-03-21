@@ -16,7 +16,7 @@ public class EventObject : Interactive
     float _StartMovingTime;
     float _DistanceMovingLength;
     Vector3 _StartMovingPosition;
-    Quaternion _StartMovingRotation;
+    private readonly Quaternion _startMovingRotation = new Quaternion(0,0,0,0);
 
     InteractiveObjectRecorder _interactiveObjectRecorder;
     AudioSource _AudioSource;
@@ -50,7 +50,7 @@ public class EventObject : Interactive
         float distCovered = (Time.time - _StartMovingTime) * _MovingSpeed;
         float fracJourney = distCovered / _DistanceMovingLength;
         transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[_NextPosition], fracJourney);
-        transform.rotation = Quaternion.Slerp(_StartMovingRotation, _MoveRotations[_NextPosition], fracJourney);
+        transform.rotation = Quaternion.Slerp(_startMovingRotation, _MoveRotations[_NextPosition], fracJourney);
 
         if (fracJourney >= 0.99f)
         {
