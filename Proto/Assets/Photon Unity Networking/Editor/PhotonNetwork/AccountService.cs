@@ -21,8 +21,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
-using Newtonsoft.Json;
-
 public class AccountService
 {
     private const string ServiceUrl = "https://service.exitgames.com/AccountExt/AccountServiceExt.aspx";
@@ -193,7 +191,7 @@ public class AccountService
             return;
         }
 
-        Dictionary<string, string> values = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+        Dictionary<string, string> values = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
         if (values == null)
         {
             this.Message = "Service temporarily unavailable. Please register through account website.";
