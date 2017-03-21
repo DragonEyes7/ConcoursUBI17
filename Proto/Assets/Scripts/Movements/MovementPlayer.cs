@@ -128,8 +128,7 @@ public class MovementPlayer : Movement
 
     public void CanMove()
     {
-        if (!_Animator) return;
-        _Animator.SetBool("Interact", false);
+        GetComponent<Animator>().SetBool("Interact", false);
         _CanMove = true;
     }
 }

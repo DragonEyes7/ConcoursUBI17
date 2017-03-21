@@ -24,13 +24,10 @@ public class ClockUI : MonoBehaviour
         _timeController = FindObjectOfType<TimeController>();
         _mainRecorder = FindObjectOfType<MainRecorder>();
         _textTimeRewind = GetComponentInChildren<Text>();
-        foreach (Transform child in transform)
-        {
-            if (_seconds != null && _minutes != null) break;
-            if (child.name.IndexOf("pivotSeconds", StringComparison.InvariantCultureIgnoreCase) > -1) _seconds = child;
-            else if (child.name.IndexOf("pivotMinutes", StringComparison.InvariantCultureIgnoreCase) > -1) _minutes = child;
-            else if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
-        }
+        var clockTransform = transform.FindChild("Clock").transform;
+        _seconds = clockTransform.FindChild("PivotSeconds");
+        _minutes = clockTransform.FindChild("PivotMinutes");
+        _arrow = clockTransform.FindChild("PivotArrow");
         _curTime = _prevTime = _timeController.time;
         UpdateClock(_curTime);
         StartCoroutine(ReadInput());

@@ -2,7 +2,7 @@
 
 public class Door : Interactive
 {
-    enum DoorSound
+    protected enum DoorSound
     {
         OPEN,
         CLOSE,
@@ -20,13 +20,13 @@ public class Door : Interactive
     AgentActions _action;
     AudioSource _AudioSource;
 
-    private new void Start()
+    protected new void Start()
     {
         base.Start();
         Setup();
     }
 
-    void Setup()
+    protected void Setup()
     {
         _AudioSource = GetComponent<AudioSource>();
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
@@ -39,19 +39,19 @@ public class Door : Interactive
         }
     }
 
-    void Open()
+    protected void Open()
     {
         transform.localEulerAngles = _OpenPosition;
         PlaySound(DoorSound.OPEN);
     }
 
-    void Close()
+    protected void Close()
     {
         transform.localEulerAngles = _ClosePosition;
         PlaySound(DoorSound.CLOSE);
     }
 
-    private void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
         _action = other.GetComponent<AgentActions>();
         if (!_action || !_action.enabled) return;
@@ -59,7 +59,7 @@ public class Door : Interactive
         _action.SetInteract(false);
     }
 
-    private void OnTriggerStay(Collider other)
+    protected void OnTriggerStay(Collider other)
     {
         _action = other.GetComponent<AgentActions>();
         if (_action && _action.enabled)
@@ -79,8 +79,14 @@ public class Door : Interactive
         else
         {
             FindObjectOfType<HUD>().ShowMessages("Door is locked", 3f);
-            PlaySound(DoorSound.LOCK);
+            GetComponent<PhotonView>().RPC("RPCLock", PhotonTargets.All);            
         }
+    }
+
+    [PunRPC]
+    void RPCLock()
+    {
+        PlaySound(DoorSound.LOCK);
     }
 
     public override void MoveObject()
@@ -99,13 +105,13 @@ public class Door : Interactive
     }
 
     [PunRPC]
-    void RPCUnlock()
+    protected void RPCUnlock()
     {
         _isLock = false;
         _DoorLock.GetComponent<Renderer>().material.color = Color.green;
     }
 
-    void PlaySound(DoorSound soundID)
+    protected void PlaySound(DoorSound soundID)
     {
         _AudioSource.clip = _AudioClip[(int)soundID];
         _AudioSource.Play();

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 
 public class CamerasController : MonoBehaviour
 {
-    [SerializeField]List<GameObject> m_CameraObjects = new List<GameObject>();
-    [SerializeField]
-    Dictionary<string, List<GameObject>> m_CameraGroups = new Dictionary<string, List<GameObject>>();
+    [SerializeField]Dictionary<string, List<GameObject>> m_CameraGroups = new Dictionary<string, List<GameObject>>();
     [SerializeField]Camera m_SceneCamera;
     PhotonView m_PhotonView;
+    [SerializeField]GameObject _cameraPrompt;
 
     public GameObject m_LastCamera;
 
     GameObject _CurrentCam;
 
     bool m_IsIntelligence = false;
+    int nbHack = 0;
+    float lastChange = 0;
 
     AudioSource _AudioSource;
 
@@ -21,6 +22,35 @@ public class CamerasController : MonoBehaviour
     {
         _AudioSource = GetComponent<AudioSource>();
         m_PhotonView = GetComponent<PhotonView>();
+        _cameraPrompt.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (!PhotonNetwork.isMasterClient && (Input.GetAxis("CameraSwap") != 0))
+        {
+            lastChange -= Time.deltaTime;
+            List<GameObject> cams = GetGroupCameras(_CurrentCam.GetComponent<HackableCamera>().CameraGroup());
+            if (cams.Count > 1 && lastChange <= 0)
+            {
+                int currentIndex = cams.IndexOf(_CurrentCam);
+                GameObject nextCam = new GameObject();
+                if (Input.GetAxis("CameraSwap") < 0)
+                {
+                    //Previous Cam
+                    nextCam = (currentIndex > 0) ? cams[currentIndex - 1] : cams[cams.Count - 1];
+                }
+                else
+                {
+                    //Next Cam
+                    nextCam = (currentIndex < cams.Count - 1) ? cams[currentIndex + 1] : cams[0];
+                }
+
+                //Change camera
+                SetActiveCamera(nextCam, _CurrentCam);
+                lastChange = 0.1f;
+            }
+        }
     }
 
     public void SetIntelligence(bool value)
@@ -76,8 +106,7 @@ public class CamerasController : MonoBehaviour
                 m_CameraGroups.Add(cameraGroup, new List<GameObject>());
             }
             m_CameraGroups[cameraGroup].Add(cameraToAdd);
-            m_CameraObjects.Add(cameraToAdd);
-            m_PhotonView.RPC("RPCAddCamera", PhotonTargets.Others, cameraToAdd.GetPhotonView().instantiationId);
+            m_PhotonView.RPC("RPCAddCamera", PhotonTargets.Others, cameraToAdd.GetPhotonView().instantiationId, cameraGroup);
 
             cameraToAdd.GetComponent<PhotonView>().RequestOwnership();
 
@@ -86,7 +115,7 @@ public class CamerasController : MonoBehaviour
     }
 
     [PunRPC]
-    void RPCAddCamera(int id)
+    void RPCAddCamera(int id, string cameraGroup)
     {
         HackableCamera[] HCs = FindObjectsOfType<HackableCamera>();
 
@@ -94,7 +123,11 @@ public class CamerasController : MonoBehaviour
         {
             if(hc.gameObject.GetPhotonView().instantiationId == id)
             {
-                m_CameraObjects.Add(hc.gameObject);
+                if (!m_CameraGroups.ContainsKey(cameraGroup))
+                {
+                    m_CameraGroups.Add(cameraGroup, new List<GameObject>());
+                }
+                m_CameraGroups[cameraGroup].Add(hc.gameObject);
                 return;
             }            
         }
@@ -102,17 +135,50 @@ public class CamerasController : MonoBehaviour
 
     public bool ContaintCamera(GameObject camera, string cameraGroup)
     {
-        return m_CameraObjects.Contains(camera);
+        return m_CameraGroups.ContainsKey(cameraGroup) ? false : m_CameraGroups[cameraGroup].Contains(camera);
     }
 
     public void TakeControl(GameObject camera, string cameraGroup)
     {
+        if(!m_CameraGroups.ContainsKey(cameraGroup))
+        {
+            AddToCameraList(camera, cameraGroup);
+        }
+        else if(!m_CameraGroups[cameraGroup].Contains(camera))
+        {
+            AddToCameraList(camera, cameraGroup);
+        }
         SetActiveCamera(camera, m_LastCamera);
         _AudioSource.Play();
+
+        nbHack++;
+        if (!PhotonNetwork.isMasterClient && nbHack == 2)
+        {
+            ShowCameraPrompt();
+        }
+        /*
+        else
+        {
+            HideCameraPrompt();
+        }
+        */
+    }
+
+    private void ShowCameraPrompt()
+    {
+        if (_cameraPrompt)
+            _cameraPrompt.SetActive(true);
+    }
+
+    private void HideCameraPrompt()
+    {
+        if (_cameraPrompt)
+            _cameraPrompt.SetActive(false);
     }
 
     public List<string> GetCameraGroupList()
     {
+        HideCameraPrompt();
         return new List<string>(m_CameraGroups.Keys);
     }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class HUD : MonoBehaviour
 {
+    [SerializeField]AudioSource _BGM;
     [SerializeField]RectTransform m_ActionPrompt;
     [SerializeField]RectTransform _interceptPrompt;
     [SerializeField]Text m_Messages;
@@ -23,6 +24,9 @@ public class HUD : MonoBehaviour
 
     GameManager _GameManager;
 
+    Color _TimerColor;
+    int _TimerFontSize;
+
     #region private
     void Start ()
     {
@@ -39,6 +43,8 @@ public class HUD : MonoBehaviour
 
         m_TimeController = FindObjectOfType<TimeController>();
         m_TimeController.Tick.Suscribe(ShowTimer);
+        _TimerColor = m_Timer.color;
+        _TimerFontSize = m_Timer.fontSize;
 
         _GameManager = FindObjectOfType<GameManager>();
     }
@@ -119,6 +125,25 @@ public class HUD : MonoBehaviour
         if (time < 0)
         {
             time = 0;
+        }
+
+        if (time <= 20 && m_Timer.color != Color.red)
+        {
+            m_Timer.color = Color.red;
+            _BGM.pitch = 1.2f;
+        }
+        else if (time > 20 && m_Timer.color == Color.red)
+        {
+            m_Timer.color = _TimerColor;
+            _BGM.pitch = 1;
+        }
+        else if(time < 10)
+        {
+            m_Timer.fontSize = _TimerFontSize +  (10 - time) * 5;
+        }
+        else if(time > 10 && m_Timer.fontSize != _TimerFontSize)
+        {
+            m_Timer.fontSize = _TimerFontSize;
         }
 
         string minSec = string.Format("{0}:{1:00}", time / 60, time % 60);
