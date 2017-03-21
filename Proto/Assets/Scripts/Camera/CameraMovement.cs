@@ -139,8 +139,8 @@ public class CameraMovement : MonoBehaviour
 
     public void ResetPosition()
     {
-        _CurrentX = transform.localEulerAngles.y < _XMin ? _XMin : transform.localEulerAngles.y;
-        _CurrentY = transform.localEulerAngles.x < _YMin ? _YMin : transform.localEulerAngles.x;
+        _CurrentX = transform.eulerAngles.y < _XMin ? _XMin : transform.eulerAngles.y;
+        _CurrentY = transform.eulerAngles.x < _YMin ? _YMin : transform.eulerAngles.x;
         UpdatePosition();
     }
 }

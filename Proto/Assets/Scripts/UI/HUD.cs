@@ -35,6 +35,7 @@ public class HUD : MonoBehaviour
         _interceptPrompt.gameObject.SetActive(false);
         _clockUI.gameObject.SetActive(false);
         _cameraSelectionUI.gameObject.SetActive(false);
+        _CluesPrint.GetComponent<PrintClues>().Setup();
         _CluesPrint.gameObject.SetActive(false);
         _VictoryMessage.gameObject.SetActive(false);
 
@@ -137,9 +138,9 @@ public class HUD : MonoBehaviour
             m_Timer.color = _TimerColor;
             _BGM.pitch = 1;
         }
-        else if(time < 10)
+        else if(time < 10 && time != 0)
         {
-            m_Timer.fontSize = _TimerFontSize +  (10 - time) * 5;
+            m_Timer.fontSize = _TimerFontSize +  (11 - time) * 5;
         }
         else if(time > 10 && m_Timer.fontSize != _TimerFontSize)
         {
