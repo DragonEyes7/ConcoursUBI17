@@ -17,18 +17,16 @@ public class CameraMenuUI : MonoBehaviour {
     private void OnEnable()
     {
         _cameraController = FindObjectOfType<CamerasController>();
-        _textAreas = GetComponentsInChildren<Text>();
+        var background = transform.FindChild("Menubg");
+        _textAreas = background.GetComponentsInChildren<Text>();
         _currentCam = _cameraController.GetActiveCamera();
         if (_currentCam)
         {
             _currentCam.GetComponent<CameraMovement>().enabled = false;
         }
-        
-        foreach (Transform child in transform)
-        {
-            if (child.name.IndexOf("pivotArrow", StringComparison.InvariantCultureIgnoreCase) > -1) _arrow = child;
-            
-        }
+
+        _arrow = background.FindChild("PivotArrow");
+
         _cameraGroups = _cameraController.GetCameraGroupList();
         for (int i = 0; i < _cameraGroups.Count; i++)
         {
