@@ -48,7 +48,7 @@ public class CamerasController : MonoBehaviour
 
                 //Change camera
                 SetActiveCamera(nextCam, _CurrentCam);
-                lastChange = 0.5f;
+                lastChange = 0.2f;
             }
         }
     }
