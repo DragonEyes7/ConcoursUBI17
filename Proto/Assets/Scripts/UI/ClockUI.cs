@@ -9,6 +9,7 @@ public class ClockUI : MonoBehaviour
     private Transform _arrow;
     private Text _textTimeRewind;
     private TimeController _timeController;
+    private CamerasController _cameraController;
     private MainRecorder _mainRecorder;
     private float _curTime, _prevTime;
     private PhotonView _photonView;
@@ -23,6 +24,7 @@ public class ClockUI : MonoBehaviour
         _photonView = GetComponent<PhotonView>();
         if(!_isFirst)_photonView.RPC("RPCStopTime", PhotonTargets.All);
         _timeController = FindObjectOfType<TimeController>();
+        _cameraController = FindObjectOfType<CamerasController>();
         _mainRecorder = FindObjectOfType<MainRecorder>();
         _textTimeRewind = GetComponentInChildren<Text>();
         var clockTransform = transform.FindChild("Clock").transform;
@@ -92,11 +94,13 @@ public class ClockUI : MonoBehaviour
     private void RPCStopTime()
     {
         TimeStopper.StopTime();
+        _cameraController.TogglePauseEffect();
     }
 
     [PunRPC]
     private void RPCStartTime()
     {
         TimeStopper.StartTime();
+        _cameraController.TogglePauseEffect();
     }
 }

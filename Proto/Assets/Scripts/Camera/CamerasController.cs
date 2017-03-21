@@ -191,4 +191,9 @@ public class CamerasController : MonoBehaviour
     {
         return _CurrentCam;
     }
+
+    public void TogglePauseEffect()
+    {
+        GetActiveCamera().GetComponentInChildren<PauseEffectController>().TogglePauseEffect();
+    }
 }
