@@ -42,7 +42,7 @@ public class MainRecorder : MonoBehaviour
             OnTick.Execute(time);
         }
         _time = time;
-        if (PhotonNetwork.isMasterClient && _timeController.maxTime - time <= _rewindPromptTime && !_hasRewinded)
+        if (PhotonNetwork.isMasterClient && _timeController.MaxTime - time <= _rewindPromptTime && !_hasRewinded)
         {
             ShowRewindPrompt();
         }
@@ -67,7 +67,7 @@ public class MainRecorder : MonoBehaviour
 
     private void SetTimeForward()
     {
-        _timeController.isPlaying = true;
+        _timeController.IsPlaying = true;
         _isRecording = true;
     }
 
@@ -75,7 +75,7 @@ public class MainRecorder : MonoBehaviour
     {
         _AudioSource.Play();
         _isRecording = false;
-        _timeController.isPlaying = false;
+        _timeController.IsPlaying = false;
         _time = newTime;
         _photonView.RPC("SetTime", PhotonTargets.All, _time);
         OnRewind.Execute(_time);
@@ -86,6 +86,6 @@ public class MainRecorder : MonoBehaviour
     [PunRPC]
     private void SetTime(int time)
     {
-        _timeController.time = time;
+        _timeController.Time = time;
     }
 }

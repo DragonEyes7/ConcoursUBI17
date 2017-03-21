@@ -20,7 +20,7 @@ public class SyncPlayersUI : MonoBehaviour
     {
         _BGMAudioSource.Play();
         var timeController = FindObjectOfType<TimeController>();
-        timeController.isPlaying = true;
+        timeController.IsPlaying = true;
         timeController.Tick.Execute(0);
         TimeStopper.StartTime();
         CancelInvoke("Timer");

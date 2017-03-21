@@ -8,44 +8,39 @@ public class TimeController : MonoBehaviour
     private string _filePath = "./";
     [SerializeField] private int _penalizePlayerOnWrongTarget = 20;
 
-    int _Time, _maxTime = 30, _totalTime, _penalties = 0;
-    float _Timer;
-    bool _IsPlaying = false;
+    private int _maxTime = 30, _totalTime, _penalties = 0;
+    private float _timer;
+    public bool _isPlaying;
 
-    public int time
-    {
-        get { return _Time; }
-        set { _Time = value; }
-    }
+    public int Time { get; set; }
 
-    public int maxTime
+    public int MaxTime
     {
         get { return _maxTime; }
     }
 
-    public bool isPlaying
+    public bool IsPlaying
     {
-        get { return _IsPlaying; }
-        set { _IsPlaying = value; }
+        set { _isPlaying = value; }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        _Timer += Time.deltaTime;
-        if (_Timer >= 1f && _IsPlaying) DoTick();
+        _timer += UnityEngine.Time.deltaTime;
+        if (_timer >= 1f && _isPlaying) DoTick();
     }
 
-    public void DoTick()
+    private void DoTick()
     {
-        _Timer = 0;
-        _Time++;
+        _timer = 0;
+        Time++;
         _totalTime++;
-        Tick.Execute(_Time);
-        if (_Time == _maxTime)
+        Tick.Execute(Time);
+        if (Time == _maxTime)
         {
             //Game has ended stop countdown and show the players they f*cked up
             FindObjectOfType<GameManager>().Defeat();
-            End.Execute(_Time);
+            End.Execute(Time);
             End.Empty();
         }
     }
