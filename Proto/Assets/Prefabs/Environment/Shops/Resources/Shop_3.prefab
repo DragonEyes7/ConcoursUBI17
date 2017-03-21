@@ -1180,9 +1180,9 @@ GameObject:
   - component: {fileID: 4730814048911140}
   - component: {fileID: 114128253873207022}
   - component: {fileID: 114517027981165264}
-  - component: {fileID: 135030398793882972}
   - component: {fileID: 114794045482417634}
   - component: {fileID: 82076730791948734}
+  - component: {fileID: 65077368809539768}
   m_Layer: 8
   m_Name: s2_triggertablette
   m_TagString: Untagged
@@ -1259,21 +1259,6 @@ GameObject:
   m_Layer: 0
   m_Name: InteractibleObject (3)
   m_TagString: InteractibleObject
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1880474016518776
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4071488899438728}
-  m_Layer: 0
-  m_Name: path0
-  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1429,19 +1414,6 @@ Transform:
   m_Father: {fileID: 4792937091751944}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!4 &4071488899438728
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1880474016518776}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.1, y: 0.15, z: 1.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4471051953927686}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4075271142718938
 Transform:
   m_ObjectHideFlags: 1
@@ -1855,7 +1827,6 @@ Transform:
   m_LocalPosition: {x: 1.07, y: 0, z: 1.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4071488899438728}
   - {fileID: 4547530090763312}
   m_Father: {fileID: 4681385595263254}
   m_RootOrder: 2
@@ -1965,7 +1936,7 @@ Transform:
   m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_Children: []
   m_Father: {fileID: 4471051953927686}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4551919192284422
 Transform:
@@ -1986,8 +1957,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1220119732313272}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -7.97, y: 0, z: -41.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4718882557692816}
@@ -3998,6 +3969,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65077368809539768
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781582686803682}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.21, y: 3.62, z: 3.37}
+  m_Center: {x: 0.08, y: -2.65, z: -0.97}
 --- !u!65 &65096075839007606
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4502,8 +4485,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4576f7a1c0a42a7468471f289ab1e9ad, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4902,7 +4885,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5062,7 +5045,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5508,10 +5491,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PathToFollow:
-  - {fileID: 4071488899438728}
   - {fileID: 4547530090763312}
   _MoveMoreThanOnce: 1
-  _MovingSpeed: 0.003
+  _MovingSpeed: 1
 --- !u!114 &114017689749441472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5895,18 +5877,6 @@ MonoBehaviour:
   m_Layer:
     serializedVersion: 2
     m_Bits: 1
---- !u!135 &135030398793882972
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1781582686803682}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.73
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135252582783050904
 SphereCollider:
   m_ObjectHideFlags: 1

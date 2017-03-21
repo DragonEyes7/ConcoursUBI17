@@ -1,22 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TriggerableMovement : Interactive {
-
-    [SerializeField]
-    Vector3 rotation;
-    [SerializeField]
-    bool moveMoreThanOnce;
-    [SerializeField]
-    GameObject tablette;
-    bool active = true;
+public class TriggerableMovement : Interactive
+{
+    [SerializeField]Vector3 rotation;
+    [SerializeField]bool moveMoreThanOnce;
+    [SerializeField]GameObject tablette;
 
     InteractiveObjectRecorder _interactiveObjectRecorder;
     Action _previousAction;
     AudioSource _AudioSource;
-    // Use this for initialization
-    new void Start () {
+
+    new void Start ()
+    {
         base.Start();
         _AudioSource = GetComponent<AudioSource>();
         m_SelectMat = Resources.Load<Material>("MAT_OutlineAgent");
@@ -25,35 +20,26 @@ public class TriggerableMovement : Interactive {
 
     public override void Interact()
     {
-        _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus(), moveMoreThanOnce);
+        _interactiveObjectRecorder.ObjectInteraction(!_interactiveObjectRecorder.GetStatus());
     }
 
-    void OnTriggerExit(Collider c)
+    void OnTriggerStay(Collider c)
     {
-        if(active)Interact();
+        if (!m_IsActivated && c.GetComponent<AgentActions>()) Interact();
     }
     
     public override void MoveObject()
     {
-        m_IsActivated = !m_IsActivated;
-        //_AudioSource.Play();
-        tablette.transform.Rotate(new Vector3(rotation.x, 0, 0), rotation.x);
-        tablette.transform.Rotate(new Vector3(0, rotation.y, 0), rotation.y);
-        tablette.transform.Rotate(new Vector3(0, 0, rotation.z), rotation.z);
-        active = false;
+        _AudioSource.Play();
+        Debug.Log("MoveObject");
+        tablette.transform.localEulerAngles = rotation;
         m_IsActivated = true;
-
     }
 
     public override void ResetObject()
     {
-        if (!active)
-        {
-            tablette.transform.Rotate(new Vector3(rotation.x, 0, 0), -rotation.x);
-            tablette.transform.Rotate(new Vector3(0, rotation.y, 0), -rotation.y);
-            tablette.transform.Rotate(new Vector3(0, 0, rotation.z), -rotation.z);
-        }
-        active = true;
+        Debug.Log("ResetObject");
+        tablette.transform.localEulerAngles = Vector3.zero;
         m_IsActivated = false;
     }
 }

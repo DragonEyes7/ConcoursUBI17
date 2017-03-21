@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviour
             {
                 if(parts[0] == "one" && parts[2] == "one")
                 {
-                    result += " something " + parts[1] + " and something " + parts[3];
+                    result += "something " + parts[1] + " and something " + parts[3] + ".";
                 }
                 else if(parts[0] == "two")
                 {
