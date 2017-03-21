@@ -56,8 +56,7 @@ public class ClockUI : MonoBehaviour
             ExecuteTimeRewind();
             Toggle();
         }
-        _curTime = TuneMinutes(-Input.GetAxisRaw("DPadY"), (int)_curTime/60) +
-                   TuneSeconds(-Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), (int)_curTime % 60);
+        _curTime = TuneSeconds(-Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), (int)_curTime);
         if (_curTime > _prevTime) _curTime = _prevTime;
         if (_curTime < 0) _curTime = 0;
         UpdateClock(_curTime);
@@ -70,20 +69,11 @@ public class ClockUI : MonoBehaviour
         _mainRecorder.DoRewind((int)_curTime);
     }
 
-    private static float TuneMinutes(float y, int currentMinutes)
+    private static float TuneSeconds(float x, float y, int currentTime)
     {
-        _minuteToRewind += y / 5;
-        if (!(-1f >= _minuteToRewind || _minuteToRewind >= 1f)) return currentMinutes * 60;
-        var minutes = (currentMinutes +(float)Math.Floor(_minuteToRewind)) * 60;
-        _minuteToRewind = 0;
-        return minutes < 0 ? 0 : minutes;
-    }
-
-    private static float TuneSeconds(float x, float y, int prevSeconds)
-    {
-        if (x == 0 && y == 0) return prevSeconds;
-        var time = Mathf.Atan2(x, y) * Mathf.Rad2Deg / 360 * 60;
-        return time < 0 ? 60 + time : time;
+        if (x == 0 && y == 0) return currentTime;
+        var time = Mathf.Atan2(x, y) * Mathf.Rad2Deg / 360 * _totalTime;
+        return time < 0 ? _totalTime + time : time;
     }
 
     private void UpdateClock(float time)
