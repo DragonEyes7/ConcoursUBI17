@@ -98,6 +98,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114246209386757998, guid: 9d2806a55d7c5c04982f7d35947a8e79,
+        type: 2}
+      propertyPath: _Clues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4767580303862692, guid: 9d2806a55d7c5c04982f7d35947a8e79, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -290,25 +295,15 @@ Prefab:
       propertyPath: instantiationId
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 1162744264017126, guid: 9d2806a55d7c5c04982f7d35947a8e79, type: 2}
-      propertyPath: m_Layer
-      value: 2
+    - target: {fileID: 114246209386757998, guid: 9d2806a55d7c5c04982f7d35947a8e79,
+        type: 2}
+      propertyPath: _Clues.Array.data[0]
+      value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 1806377821988236, guid: 9d2806a55d7c5c04982f7d35947a8e79, type: 2}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1877514547465716, guid: 9d2806a55d7c5c04982f7d35947a8e79, type: 2}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1533058514629468, guid: 9d2806a55d7c5c04982f7d35947a8e79, type: 2}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1373899542589818, guid: 9d2806a55d7c5c04982f7d35947a8e79, type: 2}
-      propertyPath: m_Layer
-      value: 2
+    - target: {fileID: 114246209386757998, guid: 9d2806a55d7c5c04982f7d35947a8e79,
+        type: 2}
+      propertyPath: _Clues.Array.data[1]
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9d2806a55d7c5c04982f7d35947a8e79, type: 2}
