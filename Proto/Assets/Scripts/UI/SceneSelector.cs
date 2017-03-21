@@ -20,7 +20,6 @@ public class SceneSelector : MonoBehaviour
 
     public void LeftArrowClick()
     {
-        Debug.Log("Left Click");
         _levelName.text = _levels[--pos];
         if (pos == 0) _leftArrow.gameObject.SetActive(false);
         if (_levels.Length > 1) _rightArrow.gameObject.SetActive(true);
@@ -29,7 +28,6 @@ public class SceneSelector : MonoBehaviour
 
     public void RightArrowClick()
     {
-        Debug.Log("Right click");
         _levelName.text = _levels[++pos];
         if (_levels.Length <= pos + 1)_rightArrow.gameObject.SetActive(false);
         _leftArrow.gameObject.SetActive(true);
