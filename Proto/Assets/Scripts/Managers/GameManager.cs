@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]int _levelTimer = 30;
+    [SerializeField]AudioClip[] _AudioClips;
+    [SerializeField]AudioSource _BGM;
 
     List<Clue> m_IntelligenceClues = new List<Clue>();
 
     Dictionary<string, string> m_TargetsCharacteristics;
     int m_InnocentTargetsIntercepted;
-
-    AudioSource _AudioSource;
 
     List<string> _HatList = new List<string>();
     List<string> _FacialList = new List<string>();
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     public void Setup(bool isMaster)
     {
         m_IsMaster = isMaster;
-        _AudioSource = GetComponent<AudioSource>();
 
         if (m_IsMaster)
         {
@@ -162,7 +161,7 @@ public class GameManager : MonoBehaviour
     public void ValidateTarget(int NPCID)
     {
         m_ObjectivesCompleted = NPCID == 0;
-        m_InnocentTargetsIntercepted = m_ObjectivesCompleted ? m_InnocentTargetsIntercepted : ++m_InnocentTargetsIntercepted;
+        if(!m_ObjectivesCompleted) ++m_InnocentTargetsIntercepted;
     }
 
     public bool ObjectivesCompleted()
@@ -368,7 +367,10 @@ public class GameManager : MonoBehaviour
 
     public void Defeat()
     {
-        _AudioSource.Play();
+        _BGM.clip = _AudioClips[1];
+        _BGM.pitch = 1f;
+        _BGM.Play();
+
         float duration = 3f;
         FindObjectOfType<HUD>().ShowVictoryMessage("Game Over");
         Invoke("Disconnect", duration);
@@ -388,5 +390,12 @@ public class GameManager : MonoBehaviour
     public bool GameCompleted()
     {
         return _GameCompleted;
+    }
+
+    public void PlayVictoryMusic()
+    {
+        _BGM.clip = _AudioClips[0];
+        _BGM.pitch = 1f;
+        _BGM.Play();
     }
 }

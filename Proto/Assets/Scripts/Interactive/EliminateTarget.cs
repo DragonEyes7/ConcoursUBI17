@@ -3,7 +3,6 @@
 public class EliminateTarget : Interactive
 {
     [SerializeField]AudioClip[] _PushClips;
-    [SerializeField]AudioClip _WinningClip;
     GameManager m_GameManager;
     PhotonView m_PhotonView;
     AgentActions m_Action;
@@ -91,10 +90,7 @@ public class EliminateTarget : Interactive
     [PunRPC]
     void RPCInteract(string msg, float duration)
     {
-        _AudioSource.clip = _WinningClip;
-        _AudioSource.spatialBlend = 0;
-        _AudioSource.Play();
-
+        m_GameManager.PlayVictoryMusic();
         m_HUD.ShowVictoryMessage(msg);
 
         if (m_GameManager.isMaster)
