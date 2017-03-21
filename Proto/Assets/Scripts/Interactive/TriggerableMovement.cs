@@ -31,14 +31,12 @@ public class TriggerableMovement : Interactive
     public override void MoveObject()
     {
         _AudioSource.Play();
-        Debug.Log("MoveObject");
         tablette.transform.localEulerAngles = rotation;
         m_IsActivated = true;
     }
 
     public override void ResetObject()
     {
-        Debug.Log("ResetObject");
         tablette.transform.localEulerAngles = Vector3.zero;
         m_IsActivated = false;
     }

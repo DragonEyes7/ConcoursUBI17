@@ -63,7 +63,6 @@ public class CameraMenuUI : MonoBehaviour {
 
     public void SwitchCamera(float selectionAngle)
     {
-        Debug.Log("Angle: " + selectionAngle);
         //1. Get the selected Group
         //Turn negatives into positive
         if (selectionAngle < 0) selectionAngle = 360 + selectionAngle;
