@@ -7,8 +7,8 @@ public class MovableEventObject : MovableObject
     [SerializeField]EventObject[] _EventObjects;
 
     Quaternion[] _MoveRotations;
-    int _CurrentEvent = 0;
-    Quaternion _StartMovingRotation;
+    int _CurrentEvent;
+    private readonly Quaternion _startMovingRotation = new Quaternion(0,0,0,0);
 
     new void Start ()
 	{
@@ -41,7 +41,7 @@ public class MovableEventObject : MovableObject
         float distCovered = (Time.time - _StartMovingTime) * _MovingSpeed;
         float fracJourney = distCovered / _DistanceMovingLength;
         transform.position = Vector3.Lerp(_StartMovingPosition, _MovePositions[_NextPosition], fracJourney);
-        transform.rotation = Quaternion.Slerp(_StartMovingRotation, _MoveRotations[_NextPosition], fracJourney);
+        transform.rotation = Quaternion.Slerp(_startMovingRotation, _MoveRotations[_NextPosition], fracJourney);
 
         if (fracJourney >= 0.99f)
         {
