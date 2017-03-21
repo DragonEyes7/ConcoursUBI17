@@ -11,7 +11,7 @@ public class PrintClues : MonoBehaviour
     float _Up;
     bool _isPrinting = false;
 
-    void Start()
+    public void Setup()
     {
         _PrintMessage = transform.GetChild(0).GetComponent<Text>();
         _Up = _PrintMessage.fontSize + 5;
@@ -65,6 +65,11 @@ public class PrintClues : MonoBehaviour
     {
         if (_Messages.Length > 0)
         {
+            if (_Messages[_CurrentMessage].Length > 43)
+            {
+                up += up;
+            }
+
             _PrintMessage.text += "-" + _Messages[_CurrentMessage] + "\n";
             ++_CurrentMessage;
         }

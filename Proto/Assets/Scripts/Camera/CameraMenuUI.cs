@@ -12,6 +12,8 @@ public class CameraMenuUI : MonoBehaviour {
     private List<string> _cameraGroups;
     private GameObject _currentCam;
 
+    bool _active;
+
     private void OnEnable()
     {
         _cameraController = FindObjectOfType<CamerasController>();
@@ -33,32 +35,32 @@ public class CameraMenuUI : MonoBehaviour {
             _textAreas[i].text = _cameraGroups[i];
         }
         
-
-        StartCoroutine(ReadInput());
+        _active = true;
     }
 
     private void OnDisable()
     {
         if(_currentCam)
         {
+            _active = false;
             _currentCam.GetComponent<CameraMovement>().enabled = true;
         }        
     }
 
-    private IEnumerator ReadInput()
+    private void Update()
     {
-        float pivotRotation = Mathf.Atan2(-Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg;
-
-        if (Input.GetButtonDown("Action"))
+        if(_active)
         {
-            SwitchCamera(-pivotRotation);
-            gameObject.SetActive(false);
-        }
-        
-        _arrow.rotation = Quaternion.Euler(0f, 0f, pivotRotation);
+            float pivotRotation = Mathf.Atan2(-Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * Mathf.Rad2Deg;
 
-        yield return new WaitForSecondsRealtime(0.01f);
-        StartCoroutine(ReadInput());
+            if (Input.GetButton("Action"))
+            {
+                SwitchCamera(-pivotRotation);
+                gameObject.SetActive(false);
+            }
+
+            _arrow.rotation = Quaternion.Euler(0f, 0f, pivotRotation);
+        }
     }
 
     public void SwitchCamera(float selectionAngle)
@@ -83,6 +85,4 @@ public class CameraMenuUI : MonoBehaviour {
     {
         gameObject.SetActive(!gameObject.activeSelf);
     }
-     
-    //OnDisable, ReadInput
 }

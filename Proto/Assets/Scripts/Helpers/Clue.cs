@@ -1,4 +1,6 @@
-﻿public class Clue
+﻿using System.Collections.Generic;
+
+public class Clue
 {
     public enum ClueStrengthType
     {
@@ -16,6 +18,7 @@
     int _ClueGiverID;
     ClueStrengthType _ClueStrength;
     string _Clue;
+    Dictionary<string, int> _Colors = new Dictionary<string, int>();
 
     public int ClueGiverID
     {
@@ -33,5 +36,11 @@
     {
         get { return _Clue; }
         set { _Clue = value; }
+    }
+
+    public Dictionary<string, int> ClueColors
+    {
+        get { return _Colors; }
+        set { _Colors = value; }
     }
 }
