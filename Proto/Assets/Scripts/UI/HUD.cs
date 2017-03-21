@@ -16,7 +16,6 @@ public class HUD : MonoBehaviour
     [SerializeField]RectTransform m_Uplink;
     [SerializeField]RectTransform m_UplinkIncoming;
     [SerializeField]RectTransform _CluesPrint;
-    GameObject m_Player;
 
     TimeController m_TimeController;
     int m_LevelTime;
@@ -160,7 +159,6 @@ public class HUD : MonoBehaviour
         if (player)
         {
             m_CenterCam.gameObject.SetActive(false);
-            m_Player = player;
         }
     }
 

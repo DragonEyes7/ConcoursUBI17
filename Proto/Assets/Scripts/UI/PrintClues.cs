@@ -9,7 +9,6 @@ public class PrintClues : MonoBehaviour
     Vector3 _StartingPos;
     int _CurrentMessage;
     float _Up;
-    bool _isPrinting = false;
 
     public void Setup()
     {
@@ -26,7 +25,6 @@ public class PrintClues : MonoBehaviour
 
     void StartPrinting()
     {
-        _isPrinting = true;
 
         if(_Messages.Length == 0)
         {
