@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -86,10 +85,7 @@ public class ClockUI : MonoBehaviour
 
     private static float GetSecondClockPosition(float time)
     {
-        Debug.Log("Total time : " + time);
         var seconds = time % _totalTime;
-        Debug.Log("Seconds : " + seconds);
-        Debug.Log("Result : " + -(360/_totalTime * seconds + 2));
         return -(360/_totalTime * seconds + 2);
     }
 
