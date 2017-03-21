@@ -49,6 +49,7 @@ public class InteractiveObjectRecorder : Recorder
     [PunRPC]
     public void RPCObjectInteraction(bool isOpen)
     {
+        if (_isMoved == isOpen) return;
         SetStatus(isOpen);
         if(!_isMoved)
         {

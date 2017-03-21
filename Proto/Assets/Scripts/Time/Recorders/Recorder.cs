@@ -32,10 +32,10 @@ public abstract class Recorder : MonoBehaviour
     internal virtual int FindClosestKey(int key, List<int> keys)
     {
         var val = 0;
-        for (var i = 0; i < keys.Count-1; ++i)
+        for (var i = 0; i < keys.Count; ++i)
         {
             val = keys[i];
-            if (val < key && keys[i + 1] > key) break;
+            if (val < key && i+1 < keys.Count && keys[i + 1] > key) break;
         }
         return val;
     }
