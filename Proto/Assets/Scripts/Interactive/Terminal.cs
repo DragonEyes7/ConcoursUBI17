@@ -85,7 +85,8 @@ public class Terminal : Interactive
     [PunRPC]
     void StopBlinking()
     {
-        GetComponentInChildren<Blinker>().Interacted();
+        var blinker = GetComponentInChildren<Blinker>();
+        if(blinker)blinker.Interacted();
     }
 
     public void SetDoors(Door[] doors)
