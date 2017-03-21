@@ -16,6 +16,8 @@ public class ClockUI : MonoBehaviour
     private bool _isFirst = true;
     private static float _minuteToRewind;
 
+    private static int _totalTime;
+
     private void OnEnable()
     {
         InputMode.isInMenu = true;
@@ -26,9 +28,10 @@ public class ClockUI : MonoBehaviour
         _textTimeRewind = GetComponentInChildren<Text>();
         var clockTransform = transform.FindChild("Clock").transform;
         _seconds = clockTransform.FindChild("PivotSeconds");
-        _minutes = clockTransform.FindChild("PivotMinutes");
         _arrow = clockTransform.FindChild("PivotArrow");
-        _curTime = _prevTime = _timeController.time;
+        _curTime = _prevTime = _timeController.Time;
+        _totalTime = _timeController.MaxTime;
+        Debug.Log(_totalTime);
         UpdateClock(_curTime);
         StartCoroutine(ReadInput());
     }
@@ -85,23 +88,19 @@ public class ClockUI : MonoBehaviour
 
     private void UpdateClock(float time)
     {
-        var timeRewindedTo = _timeController.maxTime - time;
+        var timeRewindedTo = _timeController.MaxTime - time;
         _textTimeRewind.text = string.Format("{0}:{1:00}", (int)timeRewindedTo / 60, (int)timeRewindedTo % 60);
         _arrow.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(timeRewindedTo));
         _seconds.rotation = Quaternion.Euler(0f, 0f, GetSecondClockPosition(timeRewindedTo));
-        _minutes.rotation = Quaternion.Euler(0f, 0f, GetMinuteClockPosition(timeRewindedTo));
     }
 
     private static float GetSecondClockPosition(float time)
     {
-        var seconds = time % 60;
-        return -(6 * seconds + 2);
-    }
-
-    private static float GetMinuteClockPosition(float time)
-    {
-        var seconds = time / 60;
-        return -(30 * seconds + 2);
+        Debug.Log("Total time : " + time);
+        var seconds = time % _totalTime;
+        Debug.Log("Seconds : " + seconds);
+        Debug.Log("Result : " + -(360/_totalTime * seconds + 2));
+        return -(360/_totalTime * seconds + 2);
     }
 
     [PunRPC]
