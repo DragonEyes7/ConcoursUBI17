@@ -27,7 +27,7 @@ public class CamerasController : MonoBehaviour
 
     void Update()
     {
-        if (!PhotonNetwork.isMasterClient && (Input.GetAxis("CameraSwap") != 0))
+        if (!PhotonNetwork.isMasterClient && Input.GetAxis("DPadY") != 0)
         {
             lastChange -= Time.deltaTime;
             List<GameObject> cams = GetGroupCameras(_CurrentCam.GetComponent<HackableCamera>().CameraGroup());
