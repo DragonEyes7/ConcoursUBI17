@@ -126,7 +126,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 4517628}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.4687009, z: 0, w: 0.883357}
   m_LocalPosition: {x: 8.29, y: 1.674, z: -2.47}
   m_LocalScale: {x: 0.19999999, y: 0.25, z: 0.6000001}
   m_Children:
@@ -134,7 +134,7 @@ Transform:
   - {fileID: 1534075422}
   m_Father: {fileID: 2070741218}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 55.9, z: 0}
 --- !u!114 &4517630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,8 +191,8 @@ MonoBehaviour:
   _CameraSpeed: 50
   _ZoomLimit: 30
   _ZoomSpeed: 50
-  _YMin: -40
-  _YMax: 50
+  _YMin: 320
+  _YMax: 360
   _XMin: 0
   _XMax: 180
   _YLock: 1
@@ -344,7 +344,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -424,7 +424,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -511,7 +511,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2828,6 +2828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _penalizePlayerOnWrongTarget: 20
+  _isPlaying: 0
 --- !u!4 &535898804
 Transform:
   m_ObjectHideFlags: 0
@@ -3654,7 +3655,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 660600525}
-  m_LocalRotation: {x: -0.10497384, y: -0.39200005, z: -0.045078617, w: 0.9128441}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.601, y: 1.847, z: 4.506}
   m_LocalScale: {x: 0.20000005, y: 0.24999994, z: 0.59999996}
   m_Children:
@@ -3662,7 +3663,7 @@ Transform:
   - {fileID: 1066881924}
   m_Father: {fileID: 1400849799}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: -13.12, y: -46.48, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!81 &660600527
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3737,7 +3738,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3817,7 +3818,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3897,7 +3898,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -3966,10 +3967,10 @@ MonoBehaviour:
   _CameraSpeed: 50
   _ZoomLimit: 30
   _ZoomSpeed: 50
-  _YMin: -40
-  _YMax: 0
-  _XMin: -90
-  _XMax: 0
+  _YMin: 320
+  _YMax: 360
+  _XMin: 270
+  _XMax: 360
   _YLock: 1
   _XLock: 1
 --- !u!114 &660600535
@@ -6129,7 +6130,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1053542556}
-  m_LocalRotation: {x: 0, y: 0.70772356, z: 0, w: 0.7064895}
+  m_LocalRotation: {x: 0, y: 0.96567696, z: 0, w: 0.2597462}
   m_LocalPosition: {x: -0.471, y: 1.895, z: -2.631}
   m_LocalScale: {x: 0.19999996, y: 0.25, z: 0.5999999}
   m_Children:
@@ -6137,7 +6138,7 @@ Transform:
   - {fileID: 1486905091}
   m_Father: {fileID: 1180377058}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 90.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 149.89, z: 0}
 --- !u!114 &1053542558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6194,8 +6195,8 @@ MonoBehaviour:
   _CameraSpeed: 50
   _ZoomLimit: 30
   _ZoomSpeed: 50
-  _YMin: -40
-  _YMax: 0
+  _YMin: 320
+  _YMax: 360
   _XMin: 90
   _XMax: 180
   _YLock: 1
@@ -6347,7 +6348,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -6427,7 +6428,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -6514,7 +6515,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -8163,7 +8164,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1360390989}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0.9711343, z: 0, w: 0.23853359}
   m_LocalPosition: {x: -2.22, y: 1.674, z: -9.573}
   m_LocalScale: {x: 0.19999997, y: 0.25, z: 0.59999985}
   m_Children:
@@ -8171,7 +8172,7 @@ Transform:
   - {fileID: 147754156}
   m_Father: {fileID: 2070741218}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 152.4, z: 0}
 --- !u!114 &1360390991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8228,8 +8229,8 @@ MonoBehaviour:
   _CameraSpeed: 50
   _ZoomLimit: 30
   _ZoomSpeed: 50
-  _YMin: -40
-  _YMax: 50
+  _YMin: 320
+  _YMax: 360
   _XMin: 90
   _XMax: 270
   _YLock: 1
@@ -8381,7 +8382,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -8461,7 +8462,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -8548,7 +8549,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -8982,15 +8983,15 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1449327653}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -9.676, y: 1.847, z: -2.51}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: -9.678, y: 1.847, z: -2.637}
   m_LocalScale: {x: 0.19999997, y: 0.24999997, z: 0.59999996}
   m_Children:
   - {fileID: 1170561634}
   - {fileID: 1003001836}
   m_Father: {fileID: 1400849799}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!81 &1449327655
 AudioListener:
   m_ObjectHideFlags: 0
@@ -9065,7 +9066,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -9145,7 +9146,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -9225,7 +9226,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -9294,8 +9295,8 @@ MonoBehaviour:
   _CameraSpeed: 50
   _ZoomLimit: 30
   _ZoomSpeed: 50
-  _YMin: -40
-  _YMax: 0
+  _YMin: 320
+  _YMax: 360
   _XMin: 180
   _XMax: 270
   _YLock: 1
@@ -11812,10 +11813,10 @@ MonoBehaviour:
   _CameraSpeed: 50
   _ZoomLimit: 30
   _ZoomSpeed: 50
-  _YMin: -40
-  _YMax: 0
-  _XMin: -90
-  _XMax: 0
+  _YMin: 320
+  _YMax: 360
+  _XMin: 270
+  _XMax: 360
   _YLock: 1
   _XLock: 1
 --- !u!114 &1868881072
@@ -11905,15 +11906,15 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1868881067}
-  m_LocalRotation: {x: -0.10247846, y: -0.57117933, z: -0.07215676, w: 0.8112002}
-  m_LocalPosition: {x: -4.5, y: 1.9415, z: 4.4}
+  m_LocalRotation: {x: -0.07720057, y: -0.56264234, z: -0.052881632, w: 0.8213874}
+  m_LocalPosition: {x: -4.47, y: 1.9415, z: 4.483}
   m_LocalScale: {x: 0.19999996, y: 0.25, z: 0.5999999}
   m_Children:
   - {fileID: 1882002326}
   - {fileID: 137309743}
   m_Father: {fileID: 1227650018}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: -14.4, y: -70.3, z: 0}
+  m_LocalEulerAnglesHint: {x: 345.6, y: 289.7, z: 0}
 --- !u!82 &1868881077
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11981,7 +11982,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -12061,7 +12062,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -12148,7 +12149,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
