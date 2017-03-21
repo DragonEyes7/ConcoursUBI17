@@ -6,19 +6,20 @@ public class LeaderboardUI : MonoBehaviour
 {
     [SerializeField] private RectTransform _scoresList;
     [SerializeField] private Text _sceneTitle;
-    [SerializeField] private string _defaultScene = "Tuto";
 
 
     private const string _path = "./";
     private string _filePath;
     private Leaderboard _leaderboard;
     private const string _leaderboardTitle = "Leaderboard - ";
+    private string _sceneName;
 
     private void Start ()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        LoadScene(_defaultScene);
+        _sceneName = FindObjectOfType<LevelToLoad>().GetLevelToLoad();
+        LoadScene(_sceneName);
     }
 
     public void LoadScene(string scene)
