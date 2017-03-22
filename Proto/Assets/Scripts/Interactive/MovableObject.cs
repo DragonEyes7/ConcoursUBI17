@@ -135,11 +135,10 @@ public class MovableObject : Interactive
         //transform.position = _MovePositions[_MovePositions.Length - 1];
         //m_CurrentPosition = _MovePositions.Length;  
         //m_IsActivated = false;
-        if (_AudioSource.isPlaying)
-            return;
+        if (!_AudioSource.isPlaying)
+            _AudioSource.Play();
 
         StartMoving();
-        _AudioSource.Play();
         m_IsActivated = true;
     }
 
