@@ -14,7 +14,7 @@ public class NetworkManager : MonoBehaviour
         {
             GameObject myPlayer = PhotonNetwork.Instantiate("Player", m_SpawnPoint[PhotonNetwork.playerList.Length - 1].position, m_SpawnPoint[PhotonNetwork.playerList.Length - 1].rotation, 0);
             myPlayer.name = "My Player";
-            myPlayer.GetComponent<Movement>().enabled = true;
+            myPlayer.GetComponent<MovementPlayer>().enabled = true;
             myPlayer.GetComponent<Action>().enabled = true;
             myPlayer.GetComponent<PlayerSetup>().enabled = true;
             myPlayer.GetComponent<PlayerSetup>().SetupCamera();

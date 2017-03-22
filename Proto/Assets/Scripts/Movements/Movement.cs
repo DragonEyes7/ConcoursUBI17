@@ -1,16 +1,12 @@
 ﻿using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Movement : MovementSounds
 {
     protected MainRecorder m_Recorder;
 	
-	protected void Start ()
+	new void Start ()
     {
+        base.Start();
         m_Recorder = FindObjectOfType<MainRecorder>();
-	}	
-	
-	void Update ()
-    {
-		
 	}
 }

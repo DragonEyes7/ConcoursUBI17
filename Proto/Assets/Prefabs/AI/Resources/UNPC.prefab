@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 82271178669773604}
   - component: {fileID: 95911068417183458}
   - component: {fileID: 114713150599700416}
+  - component: {fileID: 114626171544066404}
   m_Layer: 8
   m_Name: UNPC
   m_TagString: Untagged
@@ -290,7 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4708235936699690}
   m_Layer: 0
-  m_Name: Bone002(mirrored)
+  m_Name: LFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4145670167616232}
   m_Layer: 0
-  m_Name: Bone002
+  m_Name: RFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1646,7 +1647,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1693,7 +1694,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1767,6 +1768,19 @@ MonoBehaviour:
   HatMaterial: {fileID: 0}
   AccessoryMaterial: {fileID: 0}
   FacialMaterial: {fileID: 0}
+--- !u!114 &114626171544066404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070390693172202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e1085233dbc2740926d08fa5e59a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _FootStepsClips:
+  - {fileID: 8300000, guid: 8b09ab5c3a1c7b74683e0bc2581a29c4, type: 3}
 --- !u!114 &114654098568020268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1819,7 +1833,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a7f8c43a83ad7f4499bd9e0d5480d71, type: 3}
   - {fileID: 8300000, guid: 0de0c83af095cdd44ba0338b451437c6, type: 3}
   - {fileID: 8300000, guid: 58e341a3670e37646ba9ff9263a873c5, type: 3}
-  _WinningClip: {fileID: 8300000, guid: e3085bbbe0aab45489ad749dd099392d, type: 3}
 --- !u!135 &135359156343676866
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -2,6 +2,7 @@
 
 public class AgentActions : Action
 {
+    [SerializeField]AudioClip _AudioClip;
     MainRecorder m_Recorder;
     MovementPlayer _MovementPlayer;
     PhotonView _PhotonView;
@@ -45,7 +46,9 @@ public class AgentActions : Action
 
     public void Interact()
     {
-        GetComponent<AudioSource>().Play();
+        AudioSource AS = GetComponent<AudioSource>();
+        AS.clip = _AudioClip;
+        AS.Play();
         if (!m_Interactive) return;
         if (_FromIntecept) m_Interactive.Intercept();
         else m_Interactive.Interact();

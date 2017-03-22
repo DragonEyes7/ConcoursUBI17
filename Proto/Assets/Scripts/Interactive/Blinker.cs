@@ -32,4 +32,11 @@ public class Blinker : MonoBehaviour
         _Light.color = Color.green;
         CancelInvoke("Blink");
     }
+
+    public void Inside()
+    {
+        CancelInvoke("Blink");
+        _Light.color = Color.blue;
+        InvokeRepeating("Blink", 0, _Speed);
+    }
 }
