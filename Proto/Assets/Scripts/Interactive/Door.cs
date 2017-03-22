@@ -108,6 +108,7 @@ public class Door : Interactive
     protected void RPCUnlock()
     {
         _isLock = false;
+        Debug.Log("HERE IS A REMINDER FOR ME (FRED)");
         _DoorLock.GetComponent<Renderer>().material.color = Color.green;
     }
 
