@@ -59,6 +59,11 @@ public class CameraMenuUI : MonoBehaviour {
 
             _arrow.rotation = Quaternion.Euler(0f, 0f, pivotRotation);
         }
+
+        if(Time.timeScale == 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void SwitchCamera(float selectionAngle)
