@@ -10,7 +10,8 @@ public class Door : Interactive
     }
 
     [SerializeField] AudioClip[] _AudioClip;
-    [SerializeField] GameObject _DoorLock;
+    [SerializeField]GameObject[] _GreenLights;
+    [SerializeField]GameObject[] _RedLights;
     [SerializeField] Vector3 _OpenPosition = new Vector3(0,90,0);
     [SerializeField] Vector3 _ClosePosition = new Vector3(0,0,0);
     [SerializeField] bool _isOpen;
@@ -31,7 +32,8 @@ public class Door : Interactive
         _AudioSource = GetComponent<AudioSource>();
         _interactiveObjectRecorder = GetComponent<InteractiveObjectRecorder>();
         _interactiveObjectRecorder.SetStatus(_isOpen);
-        _DoorLock.GetComponent<Renderer>().material.color = _isLock ? Color.red : Color.green;
+
+        Lock();
 
         if(_isOpen && transform.localEulerAngles != _OpenPosition)
         {
@@ -108,13 +110,26 @@ public class Door : Interactive
     protected void RPCUnlock()
     {
         _isLock = false;
-        Debug.Log("HERE IS A REMINDER FOR ME (FRED)");
-        _DoorLock.GetComponent<Renderer>().material.color = Color.green;
+
+        Lock();
     }
 
     protected void PlaySound(DoorSound soundID)
     {
         _AudioSource.clip = _AudioClip[(int)soundID];
         _AudioSource.Play();
+    }
+
+    void Lock()
+    {
+        foreach (GameObject light in _GreenLights)
+        {
+            light.GetComponentInChildren<Light>().enabled = !_isLock;
+        }
+
+        foreach (GameObject light in _RedLights)
+        {
+            light.GetComponentInChildren<Light>().enabled = _isLock;
+        }
     }
 }
