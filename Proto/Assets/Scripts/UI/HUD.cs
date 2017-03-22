@@ -61,7 +61,7 @@ public class HUD : MonoBehaviour
             _clockUI.Toggle();
         }
 
-        if (!PhotonNetwork.isMasterClient && Input.GetButtonDown("TimeRewind"))
+        if (!PhotonNetwork.isMasterClient && Input.GetButtonDown("TimeRewind") && Time.timeScale != 0)
         {
             _cameraSelectionUI.Toggle();
         }
