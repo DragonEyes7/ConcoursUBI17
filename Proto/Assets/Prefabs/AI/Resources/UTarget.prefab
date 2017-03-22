@@ -316,6 +316,7 @@ GameObject:
   - component: {fileID: 82264094560495488}
   - component: {fileID: 95803802412004904}
   - component: {fileID: 114718145778335146}
+  - component: {fileID: 114475167820067072}
   m_Layer: 8
   m_Name: UTarget
   m_TagString: Untagged
@@ -635,7 +636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4209935109627100}
   m_Layer: 0
-  m_Name: Bone002
+  m_Name: RFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -695,7 +696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4870837222635592}
   m_Layer: 0
-  m_Name: Bone002(mirrored)
+  m_Name: LFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1646,7 +1647,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1693,7 +1694,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1753,6 +1754,19 @@ MonoBehaviour:
   Destination: {fileID: 0}
   Location: {fileID: 0}
   NPCID: 0
+--- !u!114 &114475167820067072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1333600672571158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e1085233dbc2740926d08fa5e59a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _FootStepsClips:
+  - {fileID: 8300000, guid: 8b09ab5c3a1c7b74683e0bc2581a29c4, type: 3}
 --- !u!114 &114563094258353406
 MonoBehaviour:
   m_ObjectHideFlags: 1

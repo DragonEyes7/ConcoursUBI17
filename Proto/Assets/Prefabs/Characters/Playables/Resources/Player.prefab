@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 81006081066481410}
   - component: {fileID: 95428074952664538}
   - component: {fileID: 82886182231551152}
+  - component: {fileID: 114373284858408630}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -884,7 +885,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4286205837881052}
   m_Layer: 0
-  m_Name: Circle003
+  m_Name: LFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2132,7 +2133,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2179,7 +2180,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2220,6 +2221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b513d2056a4c86459d565d84868383b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _AudioClip: {fileID: 8300000, guid: 699a44b033a2f8941b161a7d318c9643, type: 3}
 --- !u!114 &114128747624215978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2243,6 +2245,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CameraFollow: {fileID: 4305158608725680}
+--- !u!114 &114373284858408630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1255271490237656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e1085233dbc2740926d08fa5e59a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _LeftFoot: {fileID: 4053732753865492}
+  _RightFoot: {fileID: 4218857405296846}
+  _FootStepsClips:
+  - {fileID: 8300000, guid: 8b09ab5c3a1c7b74683e0bc2581a29c4, type: 3}
 --- !u!114 &114419821752312552
 MonoBehaviour:
   m_ObjectHideFlags: 1
