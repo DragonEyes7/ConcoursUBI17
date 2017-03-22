@@ -8,6 +8,7 @@ public class NPCManager : MonoBehaviour {
     public GameObject Target;
     public int NPCCount;
     public float MapLength;
+    public int ScheduleItemFrequence;
     public GameObject NPC_Prefab;
     public GameObject Target_Prefab;
 
@@ -116,7 +117,7 @@ public class NPCManager : MonoBehaviour {
             //NPCSchedule.AddItem(0, NPCs[i].transform);
             for (int j = ScheduleGap; j < MapLength; j += schedulerTickRate)
             {
-                if (Random.Range(0, 100) >= 90)
+                if (Random.Range(0, 100) >= (100 - ScheduleItemFrequence))
                 {
                     int PosIndex = Random.Range(0, InterestPoints.Count);
                     Transform SchedulePos = InterestPoints[PosIndex].transform;
@@ -140,7 +141,7 @@ public class NPCManager : MonoBehaviour {
         //Target.AddItem(0, StartingLocation);
         for (int j = 1; j < MapLength; j += schedulerTickRate)
         {
-            if (Random.Range(0, 100) >= 90)
+            if (Random.Range(0, 100) >= (100 - ScheduleItemFrequence))
             {
                 int PosIndex = Random.Range(0, InterestPoints.Count);
                 Transform SchedulePos = InterestPoints[PosIndex].transform;

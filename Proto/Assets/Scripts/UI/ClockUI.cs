@@ -25,7 +25,7 @@ public class ClockUI : MonoBehaviour
         if (!_isFirst)
         {
             _photonView.RPC("RPCStopTime", PhotonTargets.All);
-            _photonView.RPC("RPCTogglePauseEffect", PhotonTargets.Others);
+            _photonView.RPC("RPCActivatePauseEffect", PhotonTargets.Others);
         }
         _timeController = FindObjectOfType<TimeController>();
         _cameraController = FindObjectOfType<CamerasController>();
@@ -45,7 +45,7 @@ public class ClockUI : MonoBehaviour
         if (!_isFirst && PhotonNetwork.connected)
         {
             _photonView.RPC("RPCStartTime", PhotonTargets.All);
-            _photonView.RPC("RPCTogglePauseEffect", PhotonTargets.Others);
+            _photonView.RPC("RPCDeactivatePauseEffect", PhotonTargets.Others);
         }
         _isFirst = false;
         InputMode.isInMenu = false;
@@ -111,8 +111,14 @@ public class ClockUI : MonoBehaviour
     }
 
     [PunRPC]
-    private void RPCTogglePauseEffect()
+    private void RPCActivatePauseEffect()
     {
-        _cameraController.TogglePauseEffect();
+        _cameraController.ActivatePauseEffect();
+    }
+
+    [PunRPC]
+    private void RPCDeactivatePauseEffect()
+    {
+        _cameraController.DeactivatePauseEffect();
     }
 }
