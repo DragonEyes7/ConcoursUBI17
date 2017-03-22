@@ -18,6 +18,7 @@ public class AgentActions : Action
 
     void Update()
     {
+        if (InputMode.isInMenu) return;
         if (m_Interact && Input.GetButtonDown("Action") && m_Recorder.IsRecording)
         {
             InteractStart();

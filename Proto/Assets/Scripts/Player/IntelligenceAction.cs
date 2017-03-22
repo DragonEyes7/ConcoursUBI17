@@ -15,6 +15,7 @@ public class IntelligenceAction : Action
 
     void Update()
     {
+        if (InputMode.isInMenu) return;
         if (m_Interact && Input.GetButtonDown("Action"))
         {
             m_Interactive.Interact();
