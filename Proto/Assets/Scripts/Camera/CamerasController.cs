@@ -92,9 +92,9 @@ public class CamerasController : MonoBehaviour
     [PunRPC]
     void RPCActiveCamera(int currentCamIndex, string currentCamGroup, int lastCamIndex, string lastCamGroup)
     {
-        m_CameraGroups[lastCamGroup][lastCamIndex].GetComponent<Renderer>().material.color = Color.white;
+        m_CameraGroups[lastCamGroup][lastCamIndex].GetComponentInChildren<Blinker>().Interacted();
 
-        m_CameraGroups[currentCamGroup][currentCamIndex].GetComponent<Renderer>().material.color = Color.red;
+        m_CameraGroups[currentCamGroup][currentCamIndex].GetComponentInChildren<Blinker>().Inside();
     }
 
     public void AddToCameraList(GameObject cameraToAdd, string cameraGroup)

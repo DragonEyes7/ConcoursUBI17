@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 
-public class MovementPlayer : Movement
+public class MovementPlayer : MonoBehaviour
 {
+    [Header ("Movement Player")]
     [SerializeField]float m_TurnSpeed = 6f;
     [SerializeField]float m_SpeedWalking = 3f;
     Transform m_CameraTransform;
@@ -9,6 +10,8 @@ public class MovementPlayer : Movement
     Vector2 m_Input;
     Vector3 m_MoveVector;
     float m_SpeedCurrent;
+
+    MainRecorder m_Recorder;
 
     Animator _Animator;
 
@@ -22,9 +25,9 @@ public class MovementPlayer : Movement
         set { _IsPaused = value; }
     }
 
-    new void Start ()
+    void Start ()
     {
-        base.Start();
+        m_Recorder = FindObjectOfType<MainRecorder>();
         _Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_SpeedCurrent = m_SpeedWalking;
