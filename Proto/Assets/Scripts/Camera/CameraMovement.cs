@@ -48,6 +48,24 @@ public class CameraMovement : MonoBehaviour
     {
         _Input.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Move();
+        if (_IsMoving)
+        {
+            if (_Input.magnitude == 0)
+            {
+                AS_ServoStop.Play();
+                AS_Move.Stop();
+                _IsMoving = false;
+            }
+        }
+        else
+        {
+            if (_Input.magnitude != 0)
+            {
+                AS_Move.Play();
+                AS_ServoStop.Stop();
+                _IsMoving = true;
+            }
+        }
 
         if (InputMode.isKeyboardMode)
         {
@@ -66,25 +84,6 @@ public class CameraMovement : MonoBehaviour
 
     void Move()
     {
-        if (_IsMoving)
-        {
-            if (_Input.x == 0 && _Input.y == 0)
-            {
-                AS_ServoStop.Play();
-                AS_Move.Stop();
-                _IsMoving = false;
-            }
-        }
-        else
-        {
-            if (_Input.x != 0 || _Input.y != 0)
-            {
-                AS_Move.Play();
-                AS_ServoStop.Stop();
-                _IsMoving = true;
-            }
-        }
-
         _CurrentX += _Input.x * (_Camera.fieldOfView / _MaxZoomOut) * Time.deltaTime * _CameraSpeed;
         _CurrentY += _Input.y * (_Camera.fieldOfView / _MaxZoomOut) * Time.deltaTime * _CameraSpeed;
 
