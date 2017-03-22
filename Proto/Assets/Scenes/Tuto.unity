@@ -1161,7 +1161,8 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 208814106343117364, guid: 75f1868430b4aa94ba2afcd5d00cb828, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 75f1868430b4aa94ba2afcd5d00cb828, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &176359952
@@ -1507,7 +1508,6 @@ GameObject:
   - component: {fileID: 222355358}
   - component: {fileID: 222355357}
   - component: {fileID: 222355356}
-  - component: {fileID: 222355355}
   - component: {fileID: 222355354}
   m_Layer: 0
   m_Name: Door (2)
@@ -1612,22 +1612,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!208 &222355355
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 208782789973159832, guid: 591c4a03236ecc84599370350feeb8b4,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 222355352}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.625, y: 1, z: 0.1}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.6, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!114 &222355356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9437,7 +9421,6 @@ GameObject:
   - component: {fileID: 1703249676}
   - component: {fileID: 1703249675}
   - component: {fileID: 1703249674}
-  - component: {fileID: 1703249673}
   - component: {fileID: 1703249672}
   - component: {fileID: 1703249677}
   m_Layer: 0
@@ -9543,22 +9526,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!208 &1703249673
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 208782789973159832, guid: 591c4a03236ecc84599370350feeb8b4,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1703249670}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.625, y: 1, z: 0.1}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.6, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!114 &1703249674
 MonoBehaviour:
   m_ObjectHideFlags: 0
