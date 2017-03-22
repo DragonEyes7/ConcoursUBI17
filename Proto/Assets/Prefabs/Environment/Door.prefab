@@ -156,7 +156,6 @@ GameObject:
   - component: {fileID: 114872307008905334}
   - component: {fileID: 135458801647941884}
   - component: {fileID: 114298661442064724}
-  - component: {fileID: 208814106343117364}
   - component: {fileID: 82324420333979156}
   m_Layer: 0
   m_Name: Door
@@ -338,7 +337,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1494694040335476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.870568, y: 1.005, z: 0.016}
+  m_LocalPosition: {x: -2.747, y: 1.005, z: 0.016}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4809402832191058}
@@ -1038,20 +1037,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.78
-  m_Center: {x: 0.98, y: -0.59, z: 0}
---- !u!208 &208814106343117364
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1494694040335476}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.625, y: 1, z: 0.1}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0.6, y: 0, z: 0}
-  m_TimeToStationary: 0.5
+  m_Radius: 0.57
+  m_Center: {x: 0.5, y: -0.59, z: 0}
