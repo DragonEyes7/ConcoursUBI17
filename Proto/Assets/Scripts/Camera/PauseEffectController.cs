@@ -16,13 +16,21 @@ public class PauseEffectController : MonoBehaviour {
     [SerializeField]
     VignetteAndChromaticAberration VignetteEffect;
 
-    
-    public void TogglePauseEffect()
+    public void ActivatePauseEffect()
     {
-        NoiseAndScratchEffect.enabled = !NoiseAndScratchEffect.enabled;
-        NoiseAndGrainEffect.enabled = !NoiseAndGrainEffect.enabled;
-        VortexEffect1.enabled = !VortexEffect1.enabled;
-        VortexEffect2.enabled = !VortexEffect2.enabled;
-        VignetteEffect.enabled = !VignetteEffect.enabled;
+        NoiseAndScratchEffect.enabled = true;
+        NoiseAndGrainEffect.enabled = true;
+        VortexEffect1.enabled = true;
+        VortexEffect2.enabled = true;
+        VignetteEffect.enabled = true;
+    }
+    
+    public void DeactivatePauseEffect()
+    {
+        NoiseAndScratchEffect.enabled = false;
+        NoiseAndGrainEffect.enabled = false;
+        VortexEffect1.enabled = false;
+        VortexEffect2.enabled = false;
+        VignetteEffect.enabled = false;
     }
 }
