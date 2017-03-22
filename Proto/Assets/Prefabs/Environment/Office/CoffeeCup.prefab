@@ -9,74 +9,74 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1143320754221256}
+  m_RootGameObject: {fileID: 1895560615445554}
   m_IsPrefabParent: 1
---- !u!1 &1143320754221256
+--- !u!1 &1207094415429742
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4207333951501620}
+  - component: {fileID: 4682047796677578}
+  - component: {fileID: 33556955413033136}
+  - component: {fileID: 23089417341913476}
+  - component: {fileID: 65484388202683750}
   m_Layer: 0
-  m_Name: Desk
+  m_Name: coffeeCup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1824303539598624
+--- !u!1 &1895560615445554
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4922600280198218}
-  - component: {fileID: 33581810110726542}
-  - component: {fileID: 23593792449608788}
-  - component: {fileID: 65316768559192874}
+  - component: {fileID: 4450207707506536}
   m_Layer: 0
-  m_Name: desk
+  m_Name: CoffeeCup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4207333951501620
+--- !u!4 &4450207707506536
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1143320754221256}
+  m_GameObject: {fileID: 1895560615445554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4922600280198218}
+  - {fileID: 4682047796677578}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4922600280198218
+--- !u!4 &4682047796677578
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824303539598624}
+  m_GameObject: {fileID: 1207094415429742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
-  m_Father: {fileID: 4207333951501620}
+  m_Father: {fileID: 4450207707506536}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23593792449608788
+--- !u!23 &23089417341913476
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824303539598624}
+  m_GameObject: {fileID: 1207094415429742}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,9 +84,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: cabc0431803ea08488d70e624339f732, type: 2}
-  - {fileID: 2100000, guid: 4f37175ea1180fd4f88e9397f8189ede, type: 2}
-  - {fileID: 2100000, guid: f4fd92fdf0b80f14f97b7703bfeff22a, type: 2}
+  - {fileID: 2100000, guid: 8bac393c2cd7cfb43805a7ec464169c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,22 +102,22 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33581810110726542
+--- !u!33 &33556955413033136
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824303539598624}
-  m_Mesh: {fileID: 4300010, guid: 10196379cd35bca4a9dd001294c8e333, type: 3}
---- !u!65 &65316768559192874
+  m_GameObject: {fileID: 1207094415429742}
+  m_Mesh: {fileID: 4300064, guid: 10196379cd35bca4a9dd001294c8e333, type: 3}
+--- !u!65 &65484388202683750
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1824303539598624}
+  m_GameObject: {fileID: 1207094415429742}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 196.52832, y: 67.61467, z: 91.01159}
-  m_Center: {x: 0, y: -28.062666, z: 0}
+  m_Size: {x: 12.3, y: 11.587719, z: 12.7}
+  m_Center: {x: -0.2, y: 5.7938595, z: 0}
