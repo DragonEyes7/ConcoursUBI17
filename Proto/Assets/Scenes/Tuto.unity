@@ -1222,12 +1222,7 @@ Prefab:
       propertyPath: instantiationId
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 1494694040335476, guid: 75f1868430b4aa94ba2afcd5d00cb828, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 208814106343117364, guid: 75f1868430b4aa94ba2afcd5d00cb828, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75f1868430b4aa94ba2afcd5d00cb828, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &176359952
@@ -1700,8 +1695,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.78
-  m_Center: {x: 0.98, y: -0.59, z: 0}
+  m_Radius: 0.57
+  m_Center: {x: 0.5, y: -0.59, z: 0}
 --- !u!114 &222355358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2629,7 +2624,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4921395606468626, guid: 2a74233c794c6194f9f364c93cf12fa4, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 114582715384426548, guid: 2a74233c794c6194f9f364c93cf12fa4,
         type: 2}
@@ -5022,7 +5017,7 @@ RectTransform:
   - {fileID: 1619503890}
   - {fileID: 161373384}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5992,7 +5987,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4886608547363072, guid: ff3f5ff9892ea754782a3dadcb3dd67b, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4886608547363072, guid: ff3f5ff9892ea754782a3dadcb3dd67b, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -9737,8 +9732,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.78
-  m_Center: {x: 0.98, y: -0.59, z: 0}
+  m_Radius: 0.57
+  m_Center: {x: 0.5, y: -0.59, z: 0}
 --- !u!114 &1703249676
 MonoBehaviour:
   m_ObjectHideFlags: 0
