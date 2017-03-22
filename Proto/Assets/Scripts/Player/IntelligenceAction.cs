@@ -23,7 +23,6 @@ public class IntelligenceAction : Action
 
         if(Input.GetButtonDown("Uplink"))
         {
-            //Look at clues
             LookAtClues();
         }
     }
