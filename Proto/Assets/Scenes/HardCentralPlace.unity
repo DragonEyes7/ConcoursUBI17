@@ -4247,18 +4247,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e4280ab05f754408509e28ca47bc82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BGM: {fileID: 0}
-  m_ActionPrompt: {fileID: 0}
-  _interceptPrompt: {fileID: 0}
-  m_Messages: {fileID: 0}
-  _VictoryMessage: {fileID: 0}
-  m_Timer: {fileID: 0}
-  _clockUI: {fileID: 0}
-  _cameraSelectionUI: {fileID: 0}
-  m_CenterCam: {fileID: 0}
-  m_Uplink: {fileID: 0}
-  m_UplinkIncoming: {fileID: 0}
-  _CluesPrint: {fileID: 0}
+  _BGM: {fileID: 1621489607}
+  m_ActionPrompt: {fileID: 865964566}
+  _interceptPrompt: {fileID: 31996212}
+  m_Messages: {fileID: 1088841919}
+  _VictoryMessage: {fileID: 175726533}
+  m_Timer: {fileID: 902820692}
+  _clockUI: {fileID: 2037093002}
+  _cameraSelectionUI: {fileID: 1187287753}
+  m_CenterCam: {fileID: 454235342}
+  m_Uplink: {fileID: 36378451}
+  m_UplinkIncoming: {fileID: 164599628}
+  _CluesPrint: {fileID: 1849044642}
 --- !u!114 &580490667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5827,9 +5827,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 536a2b2f3e7f3044a840b8ab95149f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelTimer: 30
+  _levelTimer: 120
   _AudioClips: []
-  _BGM: {fileID: 0}
+  _BGM: {fileID: 1621489607}
 --- !u!4 &836972714
 Transform:
   m_ObjectHideFlags: 0
@@ -6900,7 +6900,7 @@ Prefab:
         type: 2}
       propertyPath: m_SpawnPoint.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 358555270}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f86d17128be2484f992584b5fbf85b2, type: 2}
   m_IsPrefabParent: 0
@@ -8547,6 +8547,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4320044367570782, guid: 7154b075b35a1304691e2040c463154c,
     type: 2}
   m_PrefabInternal: {fileID: 1163939891}
+--- !u!114 &1187287753 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114799805830723884, guid: 8e730aac2c87b4e519d68427c66cc1ff,
+    type: 2}
+  m_PrefabInternal: {fileID: 1727738466}
+  m_Script: {fileID: 11500000, guid: 34563d1efb1a8d644b1e5a0343063864, type: 3}
 --- !u!1 &1193175571
 GameObject:
   m_ObjectHideFlags: 0
@@ -8860,10 +8866,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52010d6cdb3df8c4696074ab27acdae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ReadyText: {fileID: 0}
-  m_TimerText: {fileID: 0}
+  m_ReadyText: {fileID: 776609541}
+  m_TimerText: {fileID: 100950383}
   m_WaitTime: 5
-  _BGMAudioSource: {fileID: 0}
+  _BGMAudioSource: {fileID: 1621489607}
 --- !u!114 &1251877626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11271,9 +11277,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 6fe9edb718d8bc340a82775243e30f42, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -13624,7 +13630,8 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 69
   instantiationId: 69
@@ -13641,8 +13648,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2a86ad1c05b63489ace9d664e80ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeController: {fileID: 0}
-  _rewindPrompt: {fileID: 0}
+  _timeController: {fileID: 1158675895}
+  _rewindPrompt: {fileID: 1401500165}
   _rewindPromptTime: 30
 --- !u!4 &1945896184
 Transform:
@@ -13805,6 +13812,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2037093002 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114851207834307288, guid: 46417e2d48b714536a6e94cd2175a7cd,
+    type: 2}
+  m_PrefabInternal: {fileID: 115980632}
+  m_Script: {fileID: 11500000, guid: 5f569cf65d05a794997027e60ebdc86c, type: 3}
 --- !u!1 &2038563935
 GameObject:
   m_ObjectHideFlags: 0
