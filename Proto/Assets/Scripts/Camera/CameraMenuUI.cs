@@ -14,6 +14,7 @@ public class CameraMenuUI : MonoBehaviour {
 
     private void OnEnable()
     {
+        InputMode.isInMenu = true;
         _cameraController = FindObjectOfType<CamerasController>();
         var background = transform.FindChild("Menubg");
         _textAreas = background.GetComponentsInChildren<Text>();
@@ -40,7 +41,8 @@ public class CameraMenuUI : MonoBehaviour {
         {
             _active = false;
             _currentCam.GetComponent<CameraMovement>().enabled = true;
-        }        
+        }
+        InputMode.isInMenu = false;
     }
 
     private void Update()
