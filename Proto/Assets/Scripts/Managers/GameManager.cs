@@ -370,10 +370,17 @@ public class GameManager : MonoBehaviour
         _BGM.clip = _AudioClips[1];
         _BGM.pitch = 1f;
         _BGM.Play();
-
-        float duration = 3f;
-        FindObjectOfType<HUD>().ShowVictoryMessage("Game Over");
-        Invoke("Disconnect", duration);
+        
+        if(!PhotonNetwork.isMasterClient)
+        {
+            FindObjectOfType<HUD>().ShowVictoryMessage("Game Over\nYou never existed.");
+            Time.timeScale = 0;
+        }
+        else
+        {
+            FindObjectOfType<HUD>().ShowVictoryMessage("Game Over\nThe future changed forever!");
+        }
+        Invoke("Disconnect", _AudioClips[1].length);
     }
 
     public void Disconnect()
