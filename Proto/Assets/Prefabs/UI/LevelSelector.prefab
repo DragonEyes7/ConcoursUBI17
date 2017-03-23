@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222039258316905682}
   - component: {fileID: 114472925021871218}
   - component: {fileID: 114700947713726740}
+  - component: {fileID: 114186517573867238}
   m_Layer: 5
   m_Name: Right Arrow
   m_TagString: Untagged
@@ -91,6 +92,7 @@ GameObject:
   - component: {fileID: 222697113533508822}
   - component: {fileID: 114452588876318680}
   - component: {fileID: 114325125488330040}
+  - component: {fileID: 114965952431045934}
   m_Layer: 5
   m_Name: Left Arrow
   m_TagString: Untagged
@@ -165,6 +167,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: <
+--- !u!114 &114186517573867238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1035295795228668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473473f2f8d194ce5b3a0ec8ba657ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftObject: {fileID: 114325125488330040}
+  _rightObject: {fileID: 114700947713726740}
+  _upObject: {fileID: 0}
+  _downObject: {fileID: 0}
 --- !u!114 &114325125488330040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -372,8 +389,8 @@ MonoBehaviour:
   _levelName: {fileID: 114624407773509910}
   _levels:
   - Tuto
-  - CentralPlace
-  - HardCentralPlace
+  - Easy
+  - Hard
   _leftArrow: {fileID: 114325125488330040}
   _rightArrow: {fileID: 114700947713726740}
 --- !u!114 &114837308038242384
@@ -436,6 +453,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '>'
+--- !u!114 &114965952431045934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1799792943483606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473473f2f8d194ce5b3a0ec8ba657ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftObject: {fileID: 114325125488330040}
+  _rightObject: {fileID: 114700947713726740}
+  _upObject: {fileID: 0}
+  _downObject: {fileID: 0}
 --- !u!222 &222039258316905682
 CanvasRenderer:
   m_ObjectHideFlags: 1
