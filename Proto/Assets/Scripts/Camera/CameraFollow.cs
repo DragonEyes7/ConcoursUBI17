@@ -155,12 +155,12 @@ public class CameraFollow : MonoBehaviour
                     if (rend && !m_Transparent.Contains(hits[i].transform))
                     {
                         m_Transparent.Add(hits[i].transform);
-                        MeshRenderer[] renders = hits[i].transform.GetComponentsInChildren<MeshRenderer>();
+                        /*MeshRenderer[] renders = hits[i].transform.GetComponentsInChildren<MeshRenderer>();
                         foreach (MeshRenderer render in renders)
                         {
                             render.material.shader = Shader.Find("Custom/ARC");
                         }
-                        m_Shaders.Add(rend.material.shader);
+                        m_Shaders.Add(rend.material.shader);*/
 
                         MeshRenderer[] renders = hits[i].transform.GetComponentsInChildren<MeshRenderer>();
                         List<Shader> shaders = new List<Shader>();
