@@ -850,7 +850,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scoresList: {fileID: 1759244543}
   _sceneTitle: {fileID: 1178605624}
-  _defaultScene: Tuto
 --- !u!4 &1419988255
 Transform:
   m_ObjectHideFlags: 0
@@ -1547,6 +1546,16 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873881054923578, guid: fe592edaee73a2240b328035c96a43e1,
+        type: 2}
+      propertyPath: _levels.Array.data[1]
+      value: Easy
+      objectReference: {fileID: 0}
+    - target: {fileID: 114873881054923578, guid: fe592edaee73a2240b328035c96a43e1,
+        type: 2}
+      propertyPath: _levels.Array.data[2]
+      value: Hard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe592edaee73a2240b328035c96a43e1, type: 2}
