@@ -3630,7 +3630,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 35d551010c5c9a04c9c12e13ea0d344f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.13
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -10168,6 +10168,11 @@ Prefab:
         type: 2}
       propertyPath: _Clues.Array.data[2]
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 82371359651024352, guid: d2043521887e43c43b06b390e601c271,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d2043521887e43c43b06b390e601c271, type: 2}
