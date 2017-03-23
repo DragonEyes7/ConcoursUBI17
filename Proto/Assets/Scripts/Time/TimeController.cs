@@ -56,7 +56,7 @@ public class TimeController : MonoBehaviour
     public void WrongTargetIntercepted()
     {
         ++_penalties;
-        _totalTime += _penalizePlayerOnWrongTarget;
+        _totalTime += _penalizePlayerOnWrongTarget * _penalties;
     }
 
     public void SetMaxTime(int maxTime)
