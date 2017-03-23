@@ -23,6 +23,8 @@ public class CameraFollow : MonoBehaviour
     List<Transform> m_Transparent = new List<Transform>();
     List<Shader> m_Shaders = new List<Shader>();
 
+    Dictionary<int, List<Shader>> _ChildrensShaders = new Dictionary<int, List<Shader>>();
+
     float m_CurrentYMin;
     float m_CurrentYMax;
 
@@ -39,6 +41,7 @@ public class CameraFollow : MonoBehaviour
 
     bool m_SmoothZoom;
     bool m_Control = true;
+    Shader _ARCShader;
 
     #region Debug
     Vector3 m_LastPosition;
@@ -60,6 +63,7 @@ public class CameraFollow : MonoBehaviour
         SetPlayerMaxDistancePref();
 
         m_LastPosition = transform.position;
+        _ARCShader = Shader.Find("Custom/ARC");
     }
 
     void Update()
@@ -152,7 +156,18 @@ public class CameraFollow : MonoBehaviour
                     {
                         m_Transparent.Add(hits[i].transform);
                         m_Shaders.Add(rend.material.shader);
-                        rend.material.shader = Shader.Find("Custom/ARC");
+
+                        MeshRenderer[] renders = hits[i].transform.GetComponentsInChildren<MeshRenderer>();
+                        List<Shader> shaders = new List<Shader>();
+                        foreach (MeshRenderer render in renders)
+                        {
+                            shaders.Add(render.material.shader);
+                            render.material.shader = _ARCShader;
+                        }
+
+                        _ChildrensShaders.Add(hits[i].transform.GetInstanceID(), shaders);
+
+                        rend.material.shader = _ARCShader;
                     }
                 }
                 else if (hits[i].transform.tag == "LevelLimit")
@@ -178,6 +193,17 @@ public class CameraFollow : MonoBehaviour
                     if (rend)
                     {
                         rend.material.shader = m_Shaders[i];
+                        if(_ChildrensShaders.ContainsKey(m_Transparent[i].GetInstanceID()))
+                        {
+                            MeshRenderer[] renders = m_Transparent[i].transform.GetComponentsInChildren<MeshRenderer>();
+
+                            List<Shader> shaders = _ChildrensShaders[m_Transparent[i].transform.GetInstanceID()];
+                            for (int j = 0; j < shaders.Count; ++j)
+                            {
+                                renders[j].material.shader = shaders[j];
+                            }
+                            _ChildrensShaders.Remove(m_Transparent[i].transform.GetInstanceID());
+                        }
 
                         m_Transparent.Remove(m_Transparent[i]);
                         m_Shaders.Remove(m_Shaders[i]);
