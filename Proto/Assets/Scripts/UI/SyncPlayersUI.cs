@@ -5,17 +5,17 @@ using System.Collections;
 public class SyncPlayersUI : MonoBehaviour
 {
     [SerializeField]Text m_ReadyText;
-    [SerializeField]Text m_TimerText;
-    [SerializeField]int m_WaitTime = 5;
+    [SerializeField]Image _ReadyButton;
     [SerializeField]AudioSource _BGMAudioSource;
     int m_Timer;
+    bool _Ready = false, _RainbowMode;
 
 	void Start ()
     {
-        m_Timer = m_WaitTime;
-        m_TimerText.gameObject.SetActive(false);
+        _ReadyButton.enabled = false;
 	}
 
+    [PunRPC]
     void StartGame()
     {
         _BGMAudioSource.Play();
@@ -23,28 +23,41 @@ public class SyncPlayersUI : MonoBehaviour
         timeController.IsPlaying = true;
         timeController.Tick.Execute(0);
         TimeStopper.StartTime();
-        CancelInvoke("Timer");
         Destroy(gameObject);
     }
 
     public void PlayerReady()
     {
-        m_TimerText.gameObject.SetActive(true);
+        _ReadyButton.enabled = true;
         m_ReadyText.gameObject.SetActive(false);
         FindObjectOfType<MainRecorder>().GetComponent<AudioSource>().Play();
-        StartCoroutine(Timer());
+        _Ready = true;
     }
 
-    IEnumerator Timer()
+    void Update()
     {
-        --m_Timer;
-        m_TimerText.text = m_Timer.ToString();
-        if (m_Timer <= 0)
+        if (Input.GetButton("Action") && _Ready)
         {
-            StartGame();
-            yield break;
+            GetComponent<PhotonView>().RPC("StartGame", PhotonTargets.All);
         }
-        yield return new WaitForSecondsRealtime(1f);
-        StartCoroutine(Timer());
+
+        if(Input.GetButton("Uplink") && _Ready && !_RainbowMode)
+        {
+            _RainbowMode = true;
+            GetComponent<PhotonView>().RPC("RPCRainbowMode", PhotonTargets.All);
+        }
+    }
+
+    [PunRPC]
+    void RPCRainbowMode()
+    {
+        StartCoroutine(RainbowMode());
+    }
+
+    IEnumerator RainbowMode()
+    {
+        _ReadyButton.color = Random.ColorHSV();
+        yield return new WaitForSecondsRealtime(0.1f);
+        StartCoroutine(RainbowMode());
     }
 }
