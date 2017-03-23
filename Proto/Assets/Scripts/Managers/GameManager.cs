@@ -221,7 +221,7 @@ public class GameManager : MonoBehaviour
         Clue clue = new Clue();
         clue.ClueGiverID = clueGiverID;
         clue.ClueStrength = clueType;
-        clue.ClueString = "The target doesn't wears a " + res + ".";
+        clue.ClueString = "The target doesn't wears a " + res.ToLower() + ".";
 
         foreach (Clue sclue in m_IntelligenceClues)
         {
@@ -293,26 +293,26 @@ public class GameManager : MonoBehaviour
 
             if(parts.Count == 2)
             {
-                result += parts[0] + " " + parts[1] + " items.";
+                result += parts[0].ToLower() + " " + parts[1].ToLower() + " items.";
             }
             else if(parts.Count == 4)
             {
                 if(parts[0] == "one" && parts[2] == "one")
                 {
-                    result += "something " + parts[1] + " and something " + parts[3] + ".";
+                    result += "something " + parts[1].ToLower() + " and something " + parts[3].ToLower() + ".";
                 }
                 else if(parts[0] == "two")
                 {
-                    result += parts[0] + " " + parts[1] + " items and " + parts[2] + " " + parts[3] + ".";
+                    result += parts[0].ToLower() + " " + parts[1].ToLower() + " items and " + parts[2].ToLower() + " " + parts[3].ToLower() + ".";
                 }
                 else if(parts[2] == "two")
                 {
-                    result += parts[2] + " " + parts[3] + " items and " + parts[0] + " " + parts[1] + ".";
+                    result += parts[2].ToLower() + " " + parts[3].ToLower() + " items and " + parts[0].ToLower() + " " + parts[1].ToLower() + ".";
                 }
             }
             else if(parts.Count == 6)
             {
-                result += "something " + parts[1] + ", something " + parts[3] + " and something " + parts[5] + ".";
+                result += "something " + parts[1].ToLower() + ", something " + parts[3].ToLower() + " and something " + parts[5].ToLower() + ".";
             }
 
             clue.ClueString = result;
@@ -342,7 +342,7 @@ public class GameManager : MonoBehaviour
         Clue clue = new Clue();
         clue.ClueGiverID = clueGiverID;
         clue.ClueStrength = clueType;
-        clue.ClueString = "The target wears " + m_TargetsCharacteristics[item];
+        clue.ClueString = "The target wears " + m_TargetsCharacteristics[item].ToLower();
 
         m_IntelligenceClues.Add(clue);
     }
