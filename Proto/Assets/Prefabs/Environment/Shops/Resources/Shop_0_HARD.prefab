@@ -2181,7 +2181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1328932940636890
 GameObject:
   m_ObjectHideFlags: 1
@@ -4544,6 +4544,7 @@ GameObject:
   - component: {fileID: 4719220477094636}
   - component: {fileID: 33326489926524940}
   - component: {fileID: 23077610136568214}
+  - component: {fileID: 65676321751576274}
   m_Layer: 0
   m_Name: benchboot0
   m_TagString: Untagged
@@ -5960,6 +5961,7 @@ GameObject:
   - component: {fileID: 4650701755658352}
   - component: {fileID: 33557401786294700}
   - component: {fileID: 23477335597895400}
+  - component: {fileID: 65585414889417588}
   m_Layer: 0
   m_Name: benchboot0
   m_TagString: Untagged
@@ -19749,6 +19751,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 50}
   m_Center: {x: 0, y: 0, z: 25.5}
+--- !u!65 &65585414889417588
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1987872823013492}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 127.507416, y: 129.31242, z: 106.92736}
+  m_Center: {x: 0.030944832, y: 64.656204, z: -0.013229374}
 --- !u!65 &65610103507849864
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -19809,6 +19823,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 32, y: 31.442783, z: 32}
   m_Center: {x: 0, y: 15.371292, z: 0}
+--- !u!65 &65676321751576274
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1707847043628608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 127.50745, y: 129.31242, z: 106.92739}
+  m_Center: {x: 0.03105165, y: 64.656204, z: -0.0131683415}
 --- !u!65 &65683969372882454
 BoxCollider:
   m_ObjectHideFlags: 1
