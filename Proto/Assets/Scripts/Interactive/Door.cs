@@ -86,7 +86,7 @@ public class Door : Interactive
     }
 
     [PunRPC]
-    void RPCLock()
+    protected void RPCLock()
     {
         PlaySound(DoorSound.LOCK);
     }
@@ -119,8 +119,8 @@ public class Door : Interactive
         _AudioSource.clip = _AudioClip[(int)soundID];
         _AudioSource.Play();
     }
-
-    void Lock()
+    
+    protected void Lock()
     {
         foreach (GameObject light in _GreenLights)
         {
