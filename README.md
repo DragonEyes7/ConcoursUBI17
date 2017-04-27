@@ -31,6 +31,7 @@ Note: Unzip the 7z file if you downloaded the build before. Plz.
 *This is a coop game, you better be comunicating.*
 
 The game itself is pretty simple, but require particular attention in the tutorial, because every action for both player are mentionned/used there. **COMMUNICATE**
+
 If you ever find yourself not knowing what the hell you should do, return in the tutorial and replay it until you know each mechanic by heart.
 
 Here, I'll help you with some the mechanics:
